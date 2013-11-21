@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<!-- Include DropKick.css -->
+	<link rel="stylesheet" href="./dropkick/dropkick.css">
+	
+	
+	<!-- Include DropKick.js -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="./dropkick/jquery.dropkick.js"></script>
+
+ 	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+  	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>	
+  	
+	<style>
+
+	</style>
+	
+	<title>Report Page</title>
+</head>
+
+<html>
+	<body onload="PrintInitialDetails(); return false">
+
+		<form >
+			<div id="reportWrap" >
+				<h1 class="largeHeaderDecoration center "> Report Crime </h1>									<!--main page header-->
+				
+          		<div id="crimeType" >																			<!--crime type section-->
+          			<div id="crimeTypeHeader">
+          				<p  class="headerDecoration">Type</p>
+          			</div>
+          			<div id="crimeTypeSelection"  >
+						<select class="selectionList">
+							<option value="robbery">Robbery</option>
+							<option value="violence">Violence</option>
+							<option value="hijacking">Hijacking</option>
+							<option value="murder">Murder</option>
+							<option value="corruption">Corruption</option>
+							<option value="other">Other</option>
+						</select>
+						<br/><br/>
+          			</div>
+          		
+          		</div>
+          		
+          		<div id="crimeDescription" >																	<!--crime description section-->
+          			<div id="crimeDescriptionHeader">
+          				<p  class="headerDecoration" >Description</p>
+          			</div>
+          			<div id="crimeDescriptionBox">
+          				<textarea id="autoResizeTextBox" name="description" spellcheck="true" placeholder="Description" style="width:100%"></textarea> 
+          			</div>
+          		</div>
+
+
+          		<div id="crimeLocation" onclick="OpenMap()">																		<!--crime location section-->
+          			<div id="crimeLocationHeader">
+          				<p  class="headerDecoration">Location</p>
+          			</div>
+          			
+          			<div id="crimeLocationData">
+          				<img src="./images/map-pin.png" class="icons" >
+          				<div id="cityCountry">
+          					
+          				</div>
+          			</div>
+          		</div>
+
+          		<div id="crimeDate">																			<!--crime date section-->
+          			<div id="crimeDateHeader">
+          				<p  class="headerDecoration">Date / Hour</p>
+          			</div>
+          			<div id="crimeDateData">
+          				<img src="./images/calendar.png" class="icons"> <br/>
+          			</div>
+          		</div>
+
+          		<div id="crimePhotos">																			<!--crime photos section-->
+          			<div id="crimePhotosHeader">
+          				<p  class="headerDecoration">Photos</p>
+          			</div>
+          			<div id="crimePhotoAddButtons">
+          				
+          			</div>
+          			<div id="photosSection">
+          				<img src="./images/camera.png" class="icons">
+          			</div>
+          		</div>
+
+                  <div id="submitReportButton">
+				  		<input type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime()" style="width:100%" />		<!--maybe return false is needed-->
+				  </div>
+			</div>
+
+		</form>
+
+
+	    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	    <script type="text/javascript" charset="utf-8">
+			//************* camera functions *********************/
+		    var pictureSource;   // picture source
+		    var destinationType; // sets the format of returned value
+		
+		    // Wait for device API libraries to load
+		    //
+		    document.addEventListener("deviceready",onDeviceReady,false);
+		
+			function SubmitCrime()
+			{
+				
+			}
+		    // device APIs are available
+		    //
+		    function onDeviceReady() 
+		    {
+		        pictureSource=navigator.camera.PictureSourceType;
+		        destinationType=navigator.camera.DestinationType;
+		    }
+		
+		    // Called when a photo is successfully retrieved
+		    //
+		    function onPhotoDataSuccess(imageData) 
+		    {
+		      // Uncomment to view the base64-encoded image data
+		      // console.log(imageData);
+		
+		      // Get image handle
+		      //
+		      var smallImage = document.getElementById('smallImage');
+		
+		      // Unhide image elements
+		      //
+		      smallImage.style.display = 'block';
+		
+		      // Show the captured photo
+		      // The inline CSS rules are used to resize the image
+		      //
+		      smallImage.src = "data:image/jpeg;base64," + imageData;
+		    }
+		
+		    // Called when a photo is successfully retrieved
+		    //
+		    function onPhotoURISuccess(imageURI) 
+		    {
+		      // Uncomment to view the image file URI
+		      // console.log(imageURI);
+		
+		      // Get image handle
+		      //
+		      var largeImage = document.getElementById('largeImage');
+		
+		      // Unhide image elements
+		      //
+		      largeImage.style.display = 'block';
+		
+		      // Show the captured photo
+		      // The inline CSS rules are used to resize the image
+		      //
+		      largeImage.src = imageURI;
+		    }
+		
+		    // A button will call this function
+		    //
+		    function capturePhoto() 
+		    {
+		      // Take picture using device camera and retrieve image as base64-encoded string
+		      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+		        destinationType: destinationType.DATA_URL });
+		    }
+		
+		    // A button will call this function
+		    //
+		    function capturePhotoEdit() 
+		    {
+		      // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+		      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
+		        destinationType: destinationType.DATA_URL });
+		    }
+		
+		    // A button will call this function
+		    //
+		    function getPhoto(source) 
+		    {
+		      // Retrieve image file location from specified source
+		      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+		        destinationType: destinationType.FILE_URI,
+		        sourceType: source });
+		    }
+		
+		    // Called if something bad happens.
+		    //
+		    function onFail(message) 
+		    {
+		      alert('Failed because: ' + message);
+		    }
+		    //************* end of camera functions *********************/
+		   
+		   	//select list decoration
+			$(document).ready(function(){
+				$('.selectionList').dropkick();
+			});
+			
+			
+			//************ auto adjusting text box
+			$("#autoResizeTextBox").keyup(function (e) 
+			{
+		    	adaptiveheight(this);
+			});
+			i=0;
+			j=0;
+			
+			function adaptiveheight(a) 
+			{
+			    $(a).height(0);
+			    var scrollval = $(a)[0].scrollHeight;
+			    $(a).height(scrollval);
+			    if (parseInt(a.style.height) > $(window).height()) {
+			        if(j==0){
+			            max=a.selectionEnd;
+			        }
+			        j++;
+			        var i =a.selectionEnd;
+			        console.log(i);
+			        if(i >=max){
+			            $(document).scrollTop(parseInt(a.style.height));
+			        }else{
+			            $(document).scrollTop(0);
+			        }
+			    }
+			}
+			//************ end of auto adjusting text box
+	
+			//************ beginning of finding city and country
+
+			function GetCityCountry(position)
+			{
+				var city = "";
+				var country = ""; 		
+				
+			   	lat = parseFloat(position.coords.latitude);
+			    lng = parseFloat(position.coords.longitude);
+			    var latlng = new google.maps.LatLng(lat, lng);
+				geocoder = new google.maps.Geocoder();
+				geocoder.geocode(	{'latLng': latlng}, 
+      					function(results, status) 
+      					{
+        					if (status == google.maps.GeocoderStatus.OK) 
+        					{
+		     		 			if (results[0]) 
+		      					{
+									var result = results[0];
+
+									for(var i=0, len=result.address_components.length; i<len; i++) 
+									{
+										var ac = result.address_components[i];
+										if(ac.types.indexOf("locality") >= 0) 
+										{
+											city = ac.long_name;
+										}
+										if(ac.types.indexOf("country") >= 0) 
+										{
+											country = ac.long_name;
+										}
+									}
+									if (city!="")
+									{
+										cityCountry=document.getElementById("cityCountry");
+										cityCountry.innerHTML=city;
+										if (country!="")
+										{
+											cityCountry.innerHTML+=", " + country;
+										}
+
+									}
+								}
+								else 
+								{
+									alert("Error in finding location");
+								}
+        					} 
+					        else 
+					        {
+					          alert("Error: " + status);
+					        }
+      					});
+
+
+
+			}
+			
+			function onError(error) 
+		    {
+		        alert(	'Sending location failed\n'	+
+		        		'code: '    + error.code    + '\n' +
+		              	'message: ' + error.message + '\n');
+		    }	
+
+			//************ end of finding city and country
+			function PrintInitialDetails()
+			{
+				
+				PrintCityCountry();
+			}
+			function PrintCityCountry()
+			{
+
+				navigator.geolocation.getCurrentPosition(GetCityCountry, onError);
+
+
+			}
+	        
+
+		</script>
+	</body>
+</html>

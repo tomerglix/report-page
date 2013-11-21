@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" charset="UTF-8" src="cordova.js"></script>
+	<title>SOS Button</title>
+</head>
+
+<html>
+	<body>
+		<form >
+			<div class="center" style="position: absolute; left: 0; top: 0; height: 100%; width: 100%;"> 
+                  <table style="border: 0px solid red; height: 100%; width: 100%;">
+                        <tr style="border: 0px solid yellow;" height="20%">
+                              <td style="border: 0px solid green;">&nbsp;</td>
+                        </tr>
+                        <tr style="border: 0px solid blue;" height="40%">
+                              <td style="border: 0px solid green;"><input id="roundRedButton" type="submit" value="Panic!" onclick="CallForHelp(); return false;" />
+                              	
+                              </td>
+                        </tr>
+                        <tr style="border: 1px solid blue;" height="40%">
+                              <td style="border: 0px solid green;" valign="top">
+                              		
+									<div id="contactsSection" >
+										<p>Contacts circle</p>
+													
+										<div id="contactsList">
+											
+										</div>
+										
+										<div id='addingContactField' style='display:none'>
+											
+											<input class="submitButtonStyle" type="submit" value="X" onclick="CancelAdding(); return false" />
+											Name:<input type="text" size="10" id="contactName"/>
+											Number:<input type="tel" size="10" id="contactNumber" />
+											<input class="submitButtonStyle" type="submit" value="Add" onclick="AddContact(); return false "  />
+											
+										</div>
+										
+										<div id="addbutton" style="display: block">
+											<input class="submitButtonStyle" type="submit" value="Add contact" onclick="ToggleDisplay('addingContactField'); ToggleDisplay('addbutton'); return false" />
+										</div>
+										
+									</div>
+                              </td>
+                        </tr>
+                  </table>
+			</div>
+		</form>
+
+		<script type="text/javascript" charset="UTF-8">
+					var i;
+			var maxContacts=3;
+			var contactsList=new Array(3);
+			var contactsCounter=0;
+			
+			for (i=0;i<contactsList.length;++i)
+			{
+				contactsList[i]=new Array(2);
+			}	
+			
+			function ToggleDisplay(id)
+			{
+				var toggledID = document.getElementById(id);
+				if (toggledID.style.display == 'none') 
+				{
+					toggledID.style.display = 'block';
+				} else 
+				{
+					toggledID.style.display = 'none';
+				}
+
+			}
+			
+			function AddContact()
+			{
+				number=document.getElementById('contactNumber').value;
+				if (isNumber(number))
+				{
+					name=document.getElementById('contactName').value;
+					contactsList[contactsCounter][0]=name;
+					contactsList[contactsCounter][1]=number;
+	
+	
+					DisplaySingleContact(contactsCounter);												 
+					contactsCounter++;
+					
+					ToggleDisplay('addingContactField'); 
+					if (contactsCounter<maxContacts)
+						ToggleDisplay('addbutton');
+				}
+				else
+				{
+					alert("Please enter a valid Number.");
+				}
+
+			}
+			
+			function isNumber(n) 
+			{
+  				return !isNaN(parseFloat(n)) && isFinite(n);
+			}
+			
+			function DisplaySingleContact(contactIndex)
+			{
+				/*
+				 * creating :
+				 * <input class='submitButtonStyle' type='submit' value='X' onclick='DeleteContact(#i); return false'> 'name' 'number' <br/>
+				 * 
+				 */
+				
+				document.getElementById('contactsList').innerHTML+= "<input class='submitButtonStyle' type='submit' value='X' onclick='DeleteContact(" +contactIndex +"); return false' />"
+																	+ contactsList[contactIndex][0] + " " + contactsList[contactIndex][1] + "<br/>";
+			}
+			
+			function DisplayContactList()
+			{
+				document.getElementById('contactsList').innerHTML="";
+				for (i=0;i<contactsCounter;++i)
+				{
+					DisplaySingleContact(i);
+				}
+			}
+			
+			function CancelAdding()
+			{
+				ToggleDisplay('addingContactField'); 
+				ToggleDisplay('addbutton');
+			}
+			
+			function DeleteContact(contactIndex)
+			{
+
+				for (i=contactIndex; i<contactsCounter-1; ++i)
+				{
+
+					contactsList[i][0]=contactsList[i+1][0];
+					contactsList[i][1]=contactsList[i+1][1];
+				}
+
+				if (contactsCounter==3)
+				{
+					ToggleDisplay('addbutton');
+				}
+				--contactsCounter;
+				DisplayContactList();
+			}
+		function CallForHelp()
+		{
+			button=document.getElementById("roundRedButton");
+			button.value="Location sent";
+			navigator.geolocation.getCurrentPosition(onSuccess, onError);
+			
+		}
+		function RestoreButtun()
+		{
+			button=document.getElementById("roundRedButton");
+			button.value="Panic!";
+		}
+		// Wait for device API libraries to load
+	    //
+	   // document.addEventListener("deviceready", onDeviceReady, false);
+	
+	    // onSuccess Geolocation
+	    //
+	    function onSuccess(position) 
+	    {
+	    	alert(	"Coordinates:\n" +
+	    			"Latitude: "	+ position.coords.latitude 	+ "\n" +
+	    			"Longitude: "		+ position.coords.longitude + "\n\n" +
+	    			"Your'e location has been sent to the local police.\n");
+	    	RestoreButtun();
+	    }
+	
+	    // onError Callback receives a PositionError object
+	    //
+	    function onError(error) 
+	    {
+	        alert(	'Sending location failed\n'	+
+	        		'code: '    + error.code    + '\n' +
+	              	'message: ' + error.message + '\n');
+	    }
+		</script>
+	</body>
+</html>
