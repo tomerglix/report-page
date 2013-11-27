@@ -25,15 +25,15 @@
 <html>
 	<body onload="PrintInitialDetails();" style="display: block" >
 		<div id="reportPageWrap" class="pageWrap">
-			<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" > Report Crime </h1>
+			
 			<form >
 				<input id='closeMapButton'  type='submit' onclick='ToggleMap(); return false; ' value='Close map' style="display: none; left:40%"  />        
 	                        
 				<div id="mapDisplay" style="display: none">
 	                                
 				</div>
-				<div id="reportData" style="display: block;">
-					                                                                        <!--main page header-->
+				<div id="reportData">
+					          <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" > Report Crime </h1>                                                              <!--main page header-->
 	                                
 	                          <div id="crimeType" >                                                                                                                                                        <!--crime type section-->
 	                                  <div id="crimeTypeHeader">
@@ -70,7 +70,7 @@
 	                                  
 	                                  <div id="crimeLocationData">
 											<img src="./images/map-pin.png" class="icons" >
-											<div id="addressBar" style="padding-left:3%;">        
+											<div id="addressBar">        
 												<br/>
 	    									</div>                
 	                                  </div>
@@ -82,7 +82,7 @@
 	                                  </div>
 	                                  <div id="crimeDateData">
 	                                          <img src="./images/calendar.png" class="icons"> 
-	                                          <div id="dateBar" style="padding-left: 3%;">
+	                                          <div id="dateBar">
 	                                          		<br/>
 	                                          </div>
 	                                          
@@ -97,14 +97,14 @@
 		                                 <img src="./images/camera.png" class="icons"  >         
 									</div>
 								  	<div id="addPhotoButtons" style="display:none">
-									    <button id="captureButton" onclick="capturePhoto(); return false" >Capture Photo</button> 
-									    <button id="fromLibButton" onclick="getPhoto(pictureSource.PHOTOLIBRARY); return false">Photo Library</button>
+									    <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); return false" >Capture Photo</button> 
+									    <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); return false">Photo Library</button>
 								    </div>
 								    <div id="photosSection" >
 									</div>
 								</div>
 	
-							<div id="submitReportButton" style="padding-top: 40px">
+							<div id="submitReportButton" style="display: block">
 								<input type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime();  " style="width:100%;" value="Submit Crime" />                <!--maybe return false is needed-->
 							</div>
 				</div>
@@ -303,7 +303,7 @@
                             if (mapID.style.display=="none")
                             {     
                                     ToggleDisplay('mapDisplay');
-                                    ToggleDisplay('reportWrap');
+                                    ToggleDisplay('reportData');
                                     ToggleDisplay('closeMapButton');
                                     lastCenter=map.getCenter(); 
                                     google.maps.event.trigger(map, 'resize');
@@ -312,7 +312,7 @@
                             else	
                             {
                                     ToggleDisplay('mapDisplay');
-                                    ToggleDisplay('reportWrap');
+                                    ToggleDisplay('reportData');
                                     ToggleDisplay('closeMapButton');
                                     
                                     //updates the city and country
