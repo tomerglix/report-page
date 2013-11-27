@@ -402,7 +402,7 @@
       // Listen to a reset event to the form on the <select>
       if ($select.attr('form') || $select.closest('form').length) {
         $form = $select.attr('form') ? $('#'+$select.attr('form').replace(' ',', #')) : $select.closest('form');
-        $form.on('reset',function(){ $select.dropkick('reset') });
+        $form.on('reset',function(){ $select.dropkick('reset'); });
       }
 
       // [Issue #126] Validation do not fires in <select> is not (':visible')

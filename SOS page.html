@@ -4,53 +4,51 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script type="text/javascript" charset="UTF-8" src="cordova.js"></script>
 	<title>SOS Button</title>
+	
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 </head>
+<style>
 
+</style>
 <html>
-	<body>
-		<form >
-			<div class="center" style="position: absolute; left: 0; top: 0; height: 100%; width: 100%;"> 
-                  <table style="border: 0px solid red; height: 100%; width: 100%;">
-                        <tr style="border: 0px solid yellow;" height="20%">
-                              <td style="border: 0px solid green;">&nbsp;</td>
-                        </tr>
-                        <tr style="border: 0px solid blue;" height="40%">
-                              <td style="border: 0px solid green;"><input id="roundRedButton" type="submit" value="Panic!" onclick="CallForHelp(); return false;" />
-                              	
-                              </td>
-                        </tr>
-                        <tr style="border: 1px solid blue;" height="40%">
-                              <td style="border: 0px solid green;" valign="top">
-                              		
-									<div id="contactsSection" >
-										<p>Contacts circle</p>
-													
-										<div id="contactsList">
-											
-										</div>
+	<body style="display: block;">
+		<div id="SOSWrap" class="pageWrap">
+			<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" >Send an SOS</h1>
+			<form >
+				<div>
+					<div id="blank" style="height: 20%">
+						
+					</div>
+					<div id="buttonSection" class="center">
+						<img id="SOSButton" src='./images/btn_sos_normal.png' onclick="CallForHelp(); return false;" />
+					</div>
+					<div id="contacts">
+						<div id="contactsSection" >
+							<p class="headerDecoration">Contacts Circle</p>
 										
-										<div id='addingContactField' style='display:none'>
-											
-											<input class="submitButtonStyle" type="submit" value="X" onclick="CancelAdding(); return false" />
-											Name:<input type="text" size="10" id="contactName"/>
-											Number:<input type="tel" size="10" id="contactNumber" />
-											<input class="submitButtonStyle" type="submit" value="Add" onclick="AddContact(); return false "  />
-											
-										</div>
-										
-										<div id="addbutton" style="display: block">
-											<input class="submitButtonStyle" type="submit" value="Add contact" onclick="ToggleDisplay('addingContactField'); ToggleDisplay('addbutton'); return false" />
-										</div>
-										
-									</div>
-                              </td>
-                        </tr>
-                  </table>
-			</div>
-		</form>
-
+							<div id="contactsList">
+								
+							</div>
+							
+							<div id='addingContactField' style='display:none; width=100%; font-size: 80%; '>
+								
+								<input class="submitButtonStyle" type="submit" value="X" onclick="CancelAdding(); return false" />
+								Name:<input type="text" size="7" id="contactName" class="input_box"/>
+								Number:<input type="tel" size="7" id="contactNumber"  class="input_box"/>
+								<input class="submitButtonStyle" type="submit" value="Add" onclick="AddContact(); return false "  />
+								
+							</div>
+							
+							<div id="addbutton" style="display: inline; " >
+								<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField'); ToggleDisplay('addbutton'); return false" />
+							</div>		
+						</div>
+	  				</div>
+	  			</div>
+			</form>
+		</div>
 		<script type="text/javascript" charset="UTF-8">
-					var i;
+			var i;
 			var maxContacts=3;
 			var contactsList=new Array(3);
 			var contactsCounter=0;
@@ -65,8 +63,9 @@
 				var toggledID = document.getElementById(id);
 				if (toggledID.style.display == 'none') 
 				{
-					toggledID.style.display = 'block';
-				} else 
+					toggledID.style.display = 'inline';
+				} 
+				else 
 				{
 					toggledID.style.display = 'none';
 				}
@@ -148,29 +147,20 @@
 			}
 		function CallForHelp()
 		{
-			button=document.getElementById("roundRedButton");
-			button.value="Location sent";
+			button=document.getElementById("SOSButton");
+			button.src='./images/btn_sos_pressed.png';
 			navigator.geolocation.getCurrentPosition(onSuccess, onError);
 			
 		}
-		function RestoreButtun()
-		{
-			button=document.getElementById("roundRedButton");
-			button.value="Panic!";
-		}
-		// Wait for device API libraries to load
-	    //
-	   // document.addEventListener("deviceready", onDeviceReady, false);
-	
-	    // onSuccess Geolocation
-	    //
+
 	    function onSuccess(position) 
 	    {
 	    	alert(	"Coordinates:\n" +
 	    			"Latitude: "	+ position.coords.latitude 	+ "\n" +
 	    			"Longitude: "		+ position.coords.longitude + "\n\n" +
 	    			"Your'e location has been sent to the local police.\n");
-	    	RestoreButtun();
+			button=document.getElementById("SOSButton");
+			button.src='./images/btn_sos_normal.png';
 	    }
 	
 	    // onError Callback receives a PositionError object
