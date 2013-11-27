@@ -27,7 +27,7 @@
 		/*border-bottom-color:#00CCFF;*/
 		color:#33b5e5;
 		font-family: 'roboto',helvetica,arial,sans;
-		font-size:100%;
+		font-size:120%;
 		border-bottom-style:solid;
 		border-bottom-width:2px;
 		border-bottom-color:#33b5e5;
@@ -37,8 +37,8 @@
 	
 	img.icons
 	{
-		width: 25px;
-		height: 25px;
+		width: 12%;
+		height: 12%;
 		float: left;
 	}
 	
@@ -163,4 +163,5 @@
   		box-shadow: none;
   		color:#000000;
   		font-family: 'roboto',helvetica,arial,sans;
+  		background: none;
   	}
