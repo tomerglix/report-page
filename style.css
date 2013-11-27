@@ -164,4 +164,6 @@
   		color:#000000;
   		font-family: 'roboto',helvetica,arial,sans;
   		background: none;
+  		-webkit-transition: none;
+  		transition: none;
   	}
