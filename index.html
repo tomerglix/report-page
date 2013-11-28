@@ -2,13 +2,15 @@
 
 <head>
         <link rel="stylesheet" type="text/css" href="style.css">
-        <!-- Include DropKick.css -->
-        <link rel="stylesheet" href="./dropkick/dropkick.css">
+        
+		<!--Requirement jQuery-->
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<!--Load Script and Stylesheet -->
+		<script type="text/javascript" src="jquery.simple-dtpicker.js"></script>
+		<link type="text/css" href="jquery.simple-dtpicker.css" rel="stylesheet" />
+		<!----> 
         
         
-        <!-- Include DropKick.js -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-        <script src="./dropkick/jquery.dropkick.js"></script>	   
 
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>                 
@@ -18,14 +20,12 @@
 
 		<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>   
         
-	    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">  </script> 
-	    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"> </script>
-	    <script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"> </script>
-	    <script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
 	    
     	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
     	<link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">     
         
+ 
+
  
         <title>Report Page</title>
         
@@ -44,6 +44,7 @@
 <html>
 	<body onload="PrintInitialDetails();" style="display: block" >
 		<div id="reportPageWrap" class="pageWrap">
+
 			
 			<form >
 				<input id='closeMapButton'  type='submit' onclick='ToggleMap(); return false; ' value='Close map' style="display: none; left:40%"  />        
@@ -52,7 +53,7 @@
 	                                
 				</div>
 				<div id="reportData">
-					          <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" > Report Crime </h1>                                                              <!--main page header-->
+					          <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" onclick="bla(); return false;"> Report Crime </h1>                                                              <!--main page header-->
 	                                
 	                          <div id="crimeType" class="section">                                                                                                                                                        <!--crime type section-->
 	                                  <div id="crimeTypeHeader">
@@ -97,15 +98,14 @@
 	                          </div>
 	
 	                          <div id="crimeDate" class="section" >                                                                                                                                                        <!--crime date section-->
-	                                  <div id="crimeDateHeader">
+	                                  <div id="crimeDateHeader" >
 	                                          <p  class="headerDecoration">Date / Hour</p>
 	                                  </div>
 	                                  <div id="crimeDateData">
 										    <div id="datetimepicker">
-												<span class="add-on">
-													<img src="./images/calendar.png" class="icons">
-											        <input id="picker" type="text" readonly />
-											    </span>
+										    	<img src="./images/calendar.png" class="icons">
+												<input type="text" name="date" value="">
+												
 										   	
 										    </div>
 	                                          
@@ -142,6 +142,14 @@
 				function SubmitCrime()
 				{
 
+				}
+				function bla()
+				{
+					try
+					{
+					alert(document.getElementById('picker').style.box-shadow);
+					}
+					catch (err) {alert(err);}
 				}
                     //************* camera functions *********************/
                 var pictureSource;   // picture source
@@ -209,12 +217,7 @@
                   alert('Failed because: ' + message);
                 }
                 //************* end of camera functions *********************/
-               
-                       //select list decoration
-                    $(document).ready(function(){
-                            $('.selectionList').dropkick();
-                    });
-                    
+
                     
                     //************ auto adjusting text box
                     $("#autoResizeTextBox").keyup(function (e) 
@@ -449,10 +452,10 @@
 				      );
 				    }
 
-				      $('#datetimepicker').datetimepicker({
-				        format: 'dd/MM/yyyy hh:mm',
-				        language: 'en-us'
-				      });
+					$(function(){
+						$('*[name=date]').appendDtpicker();
+					});	
+					
                 </script>
         </body>
 </html>
