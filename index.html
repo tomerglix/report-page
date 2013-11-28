@@ -4,12 +4,7 @@
         <link rel="stylesheet" type="text/css" href="style.css">
         <!-- Include DropKick.css -->
         <link rel="stylesheet" href="./dropkick/dropkick.css">
-        
-        
-        <!-- Include DropKick.js -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-        <script src="./dropkick/jquery.dropkick.js"></script>	   
-
+           
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>                 
                 
@@ -23,7 +18,7 @@
 	    <script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"> </script>
 	    <script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
 	    
-    	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    	<link href="bootstrap-combined.min.css" rel="stylesheet">
     	<link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">     
         
  
@@ -77,7 +72,7 @@
 	                                          <p  class="headerDecoration" >Description</p>
 	                                  </div>
 	                                  <div id="crimeDescriptionBox" class="robo">
-	                                          <textarea id="autoResizeTextBox" name="description" placeholder="Description"  style="width: 90%; display: block"></textarea> 
+	                                          <textarea id="autoResizeTextBox" name="description" placeholder="Description"  style="width: 99%; display: block"></textarea> 
 	                                  </div>
 	                          </div>
 	
@@ -142,14 +137,6 @@
 				function SubmitCrime()
 				{
 
-				}
-				function bla()
-				{
-					try
-					{
-					alert(document.getElementById('picker').style.box-shadow);
-					}
-					catch (err) {alert(err);}
 				}
                     //************* camera functions *********************/
                 var pictureSource;   // picture source
@@ -217,12 +204,7 @@
                   alert('Failed because: ' + message);
                 }
                 //************* end of camera functions *********************/
-               
-                       //select list decoration
-                    $(document).ready(function(){
-                            $('.selectionList').dropkick();
-                    });
-                    
+
                     
                     //************ auto adjusting text box
                     $("#autoResizeTextBox").keyup(function (e) 
