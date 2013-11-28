@@ -8,14 +8,16 @@
 	{
 		font-family: 'roboto';
 		margin: 8px;
+		padding: 0;
+
 	}
 
 	#autoResizeTextBox 
 	{
 	    
-	   /* padding: 2px;*/
-	    font-size: 14px;
-	   /* float: left;*/
+
+	    font-size: 100%;
+		width: 99%;
 	    min-height:50px;
 	    resize:none;
 	  	border-radius: 5px ;
@@ -164,8 +166,16 @@
   		box-shadow: none;
   		color:#000000;
   		font-size: 100%;
+  		width: 50%;
   		font-family: 'roboto',helvetica,arial,sans;
   		background: none;
   		-webkit-transition: none;
   		transition: none;
   	}
+  	
+	textarea 
+	{
+		padding: 0;
+		width:100%;
+		font-family: 'roboto',helvetica,arial,sans;
+	}
