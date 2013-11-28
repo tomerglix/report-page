@@ -8,9 +8,9 @@
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 </head>
 <style>
-	.bla 
+	td
 	{
-		display:table-cell; vertical-align:middle
+		overflow: hidden;
 	}
 </style>
 <html>
@@ -29,22 +29,19 @@
 						<div id="contactsSection" >
 							<p class="headerDecoration">Contacts Circle</p>
 										
-							<div id="contactsList">
-								
-							</div>
+							<table id="contactsList">
+
+							</table>
 							
-							<div id='addingContactField' style='display:none; width=100%; font-size: 80%;' >
-								<div id="xButton" class="bla">
-									<img src="./images/x.png" class="icons" onclick="CancelAdding(); return false" style="float: none">
-								</div>
-								<div id="contactInput"  class="bla">
-									<input type="text" size="7" id="contactName" class="inputBox" placeholder="Name" autocomplete="off"/>
-									<input type="tel" size="7" id="contactNumber"  class="inputBox" placeholder="Number" autocomplete="off"/>
-								</div>
-								<div id="plusButton"  class="bla">
-									<img src="./images/plus.png"  class="icons" onclick="AddContact(); return false "   style="float: none">
-								</div>
-							</div>
+							<table border="0" id='addingContactField' style='display:none; width=100%; font-size: 80%;' >
+								<tr>
+									<td style="width:10%"><img src="./images/x.png" class="icons" onclick="CancelAdding(); return false" style="float: none"></td>
+									<td style="width:40%"><input type="text" size="10" id="contactName" class="inputBox" placeholder="Name" />	</td>
+									<td style="width:40%"><input type="tel" size="10" id="contactNumber"  class="inputBox" placeholder="Number"/>	</td>
+									<td style="width:10%"><img src="./images/plus.png"  class="icons" onclick="AddContact(); return false "   style="float: none">	</td>
+								</tr>
+							</table>	
+														
 							
 							<div id="addbutton" style="display: inline; " >
 								<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField'); ToggleDisplay('addbutton'); return false" />
@@ -115,8 +112,8 @@
 				 * 
 				 */
 				
-				document.getElementById('contactsList').innerHTML+= "<img src='./images/x.png' onclick='DeleteContact(" +contactIndex +"); return false' >"
-																	+ contactsList[contactIndex][0] + " " + contactsList[contactIndex][1] + "<br/>";
+				document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:10%'> <img src='./images/x.png' class='icons'  onclick='DeleteContact(" +contactIndex +"); return false' ></td>  <td style='width:45%'>"
+																	+ contactsList[contactIndex][0] + "</td> <td  style='width:45%'> " + contactsList[contactIndex][1] + "</td> </tr>";
 			}
 			
 			function DisplayContactList()
