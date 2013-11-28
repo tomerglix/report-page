@@ -16,9 +16,9 @@
 <html>
 	<body style="display: block;">
 		<div id="SOSWrap" class="pageWrap">
-			<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" >Send an SOS</h1>
-			<form >
 
+			<form >
+					<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" >Send an SOS</h1>
 					<div id="buttonSection" class="center">
 						<img id="SOSButton" src='./images/btn_sos_normal.png' onclick="CallForHelp(); return false;" />
 					</div>
@@ -106,11 +106,7 @@
 			
 			function DisplaySingleContact(contactIndex)
 			{
-				/*
-				 * creating :
-				 * <input class='submitButtonStyle' type='submit' value='X' onclick='DeleteContact(#i); return false'> 'name' 'number' <br/>
-				 * 
-				 */
+	
 				
 				document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:10%'> <img src='./images/x.png' class='icons'  onclick='DeleteContact(" +contactIndex +"); return false' ></td>  <td style='width:45%'>"
 																	+ contactsList[contactIndex][0] + "</td> <td  style='width:45%'> " + contactsList[contactIndex][1] + "</td> </tr>";

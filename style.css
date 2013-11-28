@@ -99,12 +99,12 @@
 	}
 	#SOSButton
 	{
-		width:200px; /*same as the height*/
-		height:200px; /*same as the width*/
+		width:70%; /*same as the height*/
+		height:70%; /*same as the width*/
 
-		-webkit-border-radius: 100px;
-		-moz-border-radius: 100px;
-		border-radius: 100px;
+		-webkit-border-radius: 35%;
+		-moz-border-radius: 35%;
+		border-radius: 35%;
 
 
 	}
