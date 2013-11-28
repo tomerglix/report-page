@@ -18,7 +18,7 @@
 		<div id="SOSWrap" class="pageWrap">
 			<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" >Send an SOS</h1>
 			<form >
-
+				<div>
 					<div id="blank" style="height: 20%">
 						
 					</div>
@@ -33,7 +33,7 @@
 
 							</table>
 							
-							<table border="0" id='addingContactField' style='display:none; width=100%; font-size: 80%;' >
+							<table border="0" id='addingContactField' style='display:none; font-size: 80%;' >
 								<tr>
 									<td style="width:10%"><img src="./images/x.png" class="icons" onclick="CancelAdding(); return false" style="float: none"></td>
 									<td style="width:40%"><input type="text" size="10" id="contactName" class="inputBox" placeholder="Name" />	</td>
@@ -41,13 +41,12 @@
 									<td style="width:10%"><img src="./images/plus.png"  class="icons" onclick="AddContact(); return false "   style="float: none">	</td>
 								</tr>
 							</table>	
-														
-							
 							<div id="addbutton" style="display: inline; " >
 								<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField'); ToggleDisplay('addbutton'); return false" />
 							</div>		
 						</div>
 	  				</div>
+	  			</div>
 			</form>
 		</div>
 		<script type="text/javascript" charset="UTF-8">
@@ -84,13 +83,17 @@
 					contactsList[contactsCounter][0]=name;
 					contactsList[contactsCounter][1]=number;
 	
-	
+
 					DisplaySingleContact(contactsCounter);												 
 					contactsCounter++;
 					
 					ToggleDisplay('addingContactField'); 
 					if (contactsCounter<maxContacts)
+					{
 						ToggleDisplay('addbutton');
+					}
+					document.getElementById('contactNumber').value="";
+					document.getElementById('contactName').value="";
 				}
 				else
 				{
@@ -106,11 +109,7 @@
 			
 			function DisplaySingleContact(contactIndex)
 			{
-				/*
-				 * creating :
-				 * <input class='submitButtonStyle' type='submit' value='X' onclick='DeleteContact(#i); return false'> 'name' 'number' <br/>
-				 * 
-				 */
+	
 				
 				document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:10%'> <img src='./images/x.png' class='icons'  onclick='DeleteContact(" +contactIndex +"); return false' ></td>  <td style='width:45%'>"
 																	+ contactsList[contactIndex][0] + "</td> <td  style='width:45%'> " + contactsList[contactIndex][1] + "</td> </tr>";

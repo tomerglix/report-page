@@ -16,21 +16,24 @@
 <html>
 	<body style="display: block;">
 		<div id="SOSWrap" class="pageWrap">
-
+			<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" >Send an SOS</h1>
 			<form >
-					<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" >Send an SOS</h1>
+				<div>
+					<div id="blank" style="height: 20%">
+						
+					</div>
 					<div id="buttonSection" class="center">
 						<img id="SOSButton" src='./images/btn_sos_normal.png' onclick="CallForHelp(); return false;" />
 					</div>
-					<div id="contactsSection" style="width:100%; height: 60%" >
-						
+					<div id="contacts">
+						<div id="contactsSection" >
 							<p class="headerDecoration">Contacts Circle</p>
 										
 							<table id="contactsList">
 
 							</table>
 							
-							<table border="0" id='addingContactField' style='display:none; width=100%; font-size: 80%;' >
+							<table border="0" id='addingContactField' style='display:none; font-size: 80%;' >
 								<tr>
 									<td style="width:10%"><img src="./images/x.png" class="icons" onclick="CancelAdding(); return false" style="float: none"></td>
 									<td style="width:40%"><input type="text" size="10" id="contactName" class="inputBox" placeholder="Name" />	</td>
@@ -38,12 +41,12 @@
 									<td style="width:10%"><img src="./images/plus.png"  class="icons" onclick="AddContact(); return false "   style="float: none">	</td>
 								</tr>
 							</table>	
-														
-							
 							<div id="addbutton" style="display: inline; " >
 								<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField'); ToggleDisplay('addbutton'); return false" />
 							</div>		
+						</div>
 	  				</div>
+	  			</div>
 			</form>
 		</div>
 		<script type="text/javascript" charset="UTF-8">
