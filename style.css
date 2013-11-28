@@ -7,6 +7,7 @@
 	body
 	{
 		font-family: 'roboto';
+		margin: 8px;
 	}
 
 	#autoResizeTextBox 
@@ -162,6 +163,7 @@
   		border: none;
   		box-shadow: none;
   		color:#000000;
+  		font-size: 100%;
   		font-family: 'roboto',helvetica,arial,sans;
   		background: none;
   		-webkit-transition: none;
