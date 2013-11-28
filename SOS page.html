@@ -8,7 +8,10 @@
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 </head>
 <style>
-
+	.bla 
+	{
+		display:table-cell; vertical-align:middle
+	}
 </style>
 <html>
 	<body style="display: block;">
@@ -30,13 +33,17 @@
 								
 							</div>
 							
-							<div id='addingContactField' style='display:none; width=100%; font-size: 80%; '>
-								
-								<input class="submitButtonStyle" type="submit" value="X" onclick="CancelAdding(); return false" />
-								Name:<input type="text" size="7" id="contactName" class="input_box"/>
-								Number:<input type="tel" size="7" id="contactNumber"  class="input_box"/>
-								<input class="submitButtonStyle" type="submit" value="Add" onclick="AddContact(); return false "  />
-								
+							<div id='addingContactField' style='display:none; width=100%; font-size: 80%;' >
+								<div id="xButton" class="bla">
+									<img src="./images/x.png" class="icons" onclick="CancelAdding(); return false" style="float: none">
+								</div>
+								<div id="contactInput"  class="bla">
+									<input type="text" size="7" id="contactName" class="inputBox" placeholder="Name" autocomplete="off"/>
+									<input type="tel" size="7" id="contactNumber"  class="inputBox" placeholder="Number" autocomplete="off"/>
+								</div>
+								<div id="plusButton"  class="bla">
+									<img src="./images/plus.png"  class="icons" onclick="AddContact(); return false "   style="float: none">
+								</div>
 							</div>
 							
 							<div id="addbutton" style="display: inline; " >
@@ -108,7 +115,7 @@
 				 * 
 				 */
 				
-				document.getElementById('contactsList').innerHTML+= "<input class='submitButtonStyle' type='submit' value='X' onclick='DeleteContact(" +contactIndex +"); return false' />"
+				document.getElementById('contactsList').innerHTML+= "<img src='./images/x.png' onclick='DeleteContact(" +contactIndex +"); return false' >"
 																	+ contactsList[contactIndex][0] + " " + contactsList[contactIndex][1] + "<br/>";
 			}
 			

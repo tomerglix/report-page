@@ -1,4 +1,7 @@
-
+	input[readonly] 
+	{
+		cursor: pointer;
+	}
 	.center
 	{
 		text-align:center;
@@ -17,7 +20,7 @@
 	    
 
 	    font-size: 100%;
-		width: 99%;
+		width: 100%%;
 	    min-height:50px;
 	    resize:none;
 	  	border-radius: 5px ;
@@ -105,10 +108,10 @@
 
 
 	}
-	.input_box 
+	.inputBox 
 	{
     	font-family: 'roboto',helvetica,arial,sans;
-    	font-size: 8pt;
+    	font-size: 130%;
     	color: #000000;
     	background: transparent; 
     	border: none;

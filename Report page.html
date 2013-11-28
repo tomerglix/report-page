@@ -1,15 +1,8 @@
 <!DOCTYPE html>
 
 <head>
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <!-- Include DropKick.css -->
-        <link rel="stylesheet" href="./dropkick/dropkick.css">
         
-        
-        <!-- Include DropKick.js -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-        <script src="./dropkick/jquery.dropkick.js"></script>
-
+           
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>                 
                 
@@ -18,8 +11,23 @@
 
 		<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>   
         
+        <script type="text/javascript" src="jquery-1.10.2.js">  </script> 
+	   <!-- <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">  </script> -->
+	    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"> </script>
+	    <script type="text/javascript" src="bootstrap-datetimepicker.min.js"> </script>
+	    <script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
+	    
+    	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet" >
+    	<link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">     
         
+ 		<link rel="stylesheet" type="text/css" href="style.css">
+ 		
         <title>Report Page</title>
+        
+        <style>
+
+
+        </style>
 </head>
 
 <html>
@@ -33,14 +41,14 @@
 	                                
 				</div>
 				<div id="reportData">
-					          <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" > Report Crime </h1>                                                              <!--main page header-->
+					          <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" onclick="bla(); return false;"> Report Crime </h1>                                                              <!--main page header-->
 	                                
-	                          <div id="crimeType" >                                                                                                                                                        <!--crime type section-->
+	                          <div id="crimeType" class="section">                                                                                                                                                        <!--crime type section-->
 	                                  <div id="crimeTypeHeader">
 	                                          <p  class="headerDecoration">Type</p>
 	                                  </div>
-	                                  <div id="crimeTypeSelection"  >
-	                                        <select class="selectionList">
+	                                  <div id="crimeTypeSelection" >
+	                                        <select  style="width: 50%; margin-bottom:0;" class="robo">
 	                                                <option value="robbery">Robbery</option>
 	                                                <option value="violence">Violence</option>
 	                                                <option value="hijacking">Hijacking</option>
@@ -53,54 +61,59 @@
 	                          
 	                          </div>
 	                          
-	                          <div id="crimeDescription" >                                                                                                                                        <!--crime description section-->
+	                          <div id="crimeDescription" class="section">                                                                                                                                        <!--crime description section-->
 	                                  <div id="crimeDescriptionHeader">
 	                                          <p  class="headerDecoration" >Description</p>
 	                                  </div>
-	                                  <div id="crimeDescriptionBox" style="display: block; padding-right: 2%">
-	                                          <textarea id="autoResizeTextBox" name="description" spellcheck="true" placeholder="Description" style="width:100%; "></textarea> 
+	                                  <div id="crimeDescriptionBox" class="robo">
+	                                          <textarea id="autoResizeTextBox" name="description" placeholder="Description"  style=" display: block"></textarea> 
 	                                  </div>
 	                          </div>
 	
 	
-	                          <div id="crimeLocation" onclick="ViewLocationOnMap(); return false">                                                                                        <!--crime location section-->
+	                          <div id="crimeLocation" onclick="ViewLocationOnMap(); return false" class="section">                                                                                        <!--crime location section-->
 	                                  <div id="crimeLocationHeader">
 	                                          <p  class="headerDecoration">Location</p>
 	                                  </div>
 	                                  
 	                                  <div id="crimeLocationData">
 											<img src="./images/map-pin.png" class="icons" >
-											<div id="addressBar">        
-												<br/>
-	    									</div>                
+											<div id="addressBar" class="robo">        
+												<br/>   
+	    									</div>  
+	    									<br/>              
 	                                  </div>
 	                          </div>
 	
-	                          <div id="crimeDate">                                                                                                                                                        <!--crime date section-->
-	                                  <div id="crimeDateHeader">
+	                          <div id="crimeDate" class="section" >                                                                                                                                                        <!--crime date section-->
+	                                  <div id="crimeDateHeader" >
 	                                          <p  class="headerDecoration">Date / Hour</p>
 	                                  </div>
 	                                  <div id="crimeDateData">
-	                                          <img src="./images/calendar.png" class="icons"> 
-	                                          <div id="dateBar">
-	                                          		<br/>
-	                                          </div>
+										    <div id="datetimepicker">
+												<span class="add-on">
+													<img src="./images/calendar.png" class="icons">
+											        <input id="picker" type="text" readonly />
+											    </span>
+										   	
+										    </div>
 	                                          
 	                                  </div>
 	                          </div>
 	
-	                          	<div id="crimePhotos">                                                                                                                                                        <!--crime photos section-->
+	                          	<div id="crimePhotos" class="section">                                                                                       <!--crime photos section-->
 									<div id="crimePhotosHeader">
 		                                  <p  class="headerDecoration">Photos</p>
 									</div>
 		                   			<div id="crimePhotoAddButtons" onclick="ToggleDisplay('addPhotoButtons'); return false" style="display: inline;">
 		                                 <img src="./images/camera.png" class="icons"  >         
 									</div>
-								  	<div id="addPhotoButtons" style="display:none">
+								  	<div id="addPhotoButtons" style="display:none; position: absolute; margin-left: 5px;" >
 									    <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); return false" >Capture Photo</button> 
 									    <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); return false">Photo Library</button>
 								    </div>
 								    <div id="photosSection" >
+								    	<br/> <br/> 
 									</div>
 								</div>
 	
@@ -185,12 +198,7 @@
                   alert('Failed because: ' + message);
                 }
                 //************* end of camera functions *********************/
-               
-                       //select list decoration
-                    $(document).ready(function(){
-                            $('.selectionList').dropkick();
-                    });
-                    
+
                     
                     //************ auto adjusting text box
                     $("#autoResizeTextBox").keyup(function (e) 
@@ -405,7 +413,7 @@
 									}
 									else
 									{
-							        	cityCountry.innerHTML+="Unknown location <br/>";
+							        	addressBar.innerHTML+="Unknown location <br/>";
 							        }
 								}
 							  });
@@ -417,14 +425,29 @@
 				        new Date(),
 				        function (date) 
 				        {
-				        	addressBar=document.getElementById('dateBar');
-				        	addressBar.innerHTML=date.value;
+				        	picker=document.getElementById('picker');
+				        	picker.value=date.value;
 				        },
 				        function () {alert('Error getting dateString\n');},
 				        {formatLength:'short', selector:'date and time'}
 				      );
 				    }
 
-                </script>
+				      $('#datetimepicker').datetimepicker({
+				        format: 'dd/MM/yyyy hh:mm',
+				        language: 'en-us'
+				      });
+				      
+				      $.fn.datetimepicker.defaults = {
+						  maskInput: true,           // disables the text input mask
+						  pickDate: true,            // disables the date picker
+						  pickTime: true,            // disables de time picker
+						  pick12HourFormat: false,   // enables the 12-hour format time picker
+						  pickSeconds: false,         // disables seconds in the time picker
+						  startDate: -Infinity,      // set a minimum date
+						  endDate: Infinity          // set a maximum date
+						};
+						                
+			</script>
         </body>
 </html>
