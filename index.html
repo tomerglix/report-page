@@ -202,7 +202,10 @@
                 //
                 function onFail(message) 
                 {
-                  alert('Failed because: ' + message);
+                	if (message!='Camera cancelled.' && message!='Selection cancelled')
+                  	{
+                  		alert('Failed because: ' + message);
+                  	}
                 }
                 //************* end of camera functions *********************/
 
