@@ -113,12 +113,12 @@
 									<div id="crimePhotosHeader">
 		                                  <p  class="headerDecoration">Photos</p>
 									</div>
-		                   			<div id="crimePhotoAddButtons" onclick="ToggleDisplay('addPhotoButtons'); return false" style="display: inline;">
+		                   			<div id="crimePhotoAddButtons" onclick="TogglePhotoButtons(); return false" style="display: inline;">
 		                                 <img src="./images/camera.png" class="icons"  >         
 									</div>
 								  	<div id="addPhotoButtons" style="display:none; position: absolute; margin-left: 5px;" >
-									    <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); return false" >Capture Photo</button> 
-									    <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); return false">Photo Library</button>
+									    <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons'); return false" >Capture Photo</button> 
+									    <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons'); return false">Photo Library</button>
 								    </div>
 								    <div id="photosSection" >
 								    	<br/> <br/> 
@@ -139,6 +139,13 @@
 				function SubmitCrime()
 				{
 
+				}
+				function TogglePhotoButtons()
+				{
+					if (photoCounter<3)
+					{
+						ToggleDisplay('addPhotoButtons');
+					}
 				}
                     //************* camera functions *********************/
                 var pictureSource;   // picture source
