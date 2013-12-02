@@ -230,6 +230,7 @@
         clearTimeout(this.timeout)
         if (el.parentNode) el.parentNode.removeChild(el)
         this.el = undefined
+
       }
       return this
     },

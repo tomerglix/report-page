@@ -42,13 +42,14 @@
 		<div id="reportPageWrap" class="pageWrap">
 			
 			<form >
-				<input id='closeMapButton'  type='submit' onclick='ToggleMap(); return false; ' value='Close map' style="display: none; left:40%"  />        
-	                        
+				<div id="buttononmap" class="center">
+				<input id='closeMapButton'  type='submit' onclick='ToggleMap(); return false; ' value='Close map' style="display: none; "  />        
+	                        </div>
 				<div id="mapDisplay" style="display: none">
 	                                
 				</div>
 				<div id="reportData">
-					          <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" onclick="bla(); return false;"> Report Crime </h1>                                                              <!--main page header-->
+					          <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none"> Report Crime </h1>                                                              <!--main page header-->
 	                                
 	                          <div id="crimeType" class="section">                                                                                                                                                        <!--crime type section-->
 	                                  <div id="crimeTypeHeader">
@@ -278,8 +279,10 @@
                     
                     function ViewLocationOnMap()
                     {
-                            GetLocation(ShowMap);
-
+							var target = document.getElementById('reportPageWrap');
+							var spinner = new Spinner(opts).spin(target);  
+                            GetLocation(ShowMap);                           
+                            spinner.stop();
                     }
                     
                     var map;
@@ -288,8 +291,7 @@
                     var lastCenter="";
                     function ShowMap(position)
                     {
-							var target = document.getElementById('reportPageWrap');
-							var spinner = new Spinner(opts).spin(target);  
+
                     		if (lastCenter=="")
                     		{
                     			lastCenter=new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -307,7 +309,7 @@
 							ToggleMap();
 							AddMarkerByCoordinates(lastCenter);
 							
-							spinner.stop();
+							
               
                     }
                     
