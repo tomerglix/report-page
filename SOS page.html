@@ -33,16 +33,16 @@
 
 							</table>
 							
-							<table border="0" id='addingContactField' style='display:none; font-size: 80%;' >
+							<table border="0" id='addingContactField' style='display:none; font-size: 80%; width:100%' >
 								<tr>
-									<td style="width:10%"><img src="./images/x.png" class="icons" onclick="CancelAdding(); return false" style="float: none"></td>
-									<td style="width:40%"><input type="text" size="10" id="contactName" class="inputBox" placeholder="Name" />	</td>
-									<td style="width:40%"><input type="tel" size="10" id="contactNumber"  class="inputBox" placeholder="Number"/>	</td>
-									<td style="width:10%"><img src="./images/plus.png"  class="icons" onclick="AddContact(); return false "   style="float: none">	</td>
+									<td style="width:5%"><img src="./images/x.png" class="icons" onclick="CancelAdding(); return false" style="float: none"></td>
+									<td style="width:45%"><input type="text"  id="contactName" class="inputBox" placeholder="Name" style="max-width: 45%"/>	</td>
+									<td style="width:45%"><input type="tel" id="contactNumber"  class="inputBox" placeholder="Number" style="max-width: 45%"/>	</td>
+									<td style="width:5%"><img src="./images/plus.png"  class="icons" onclick="AddContact(); return false "   style="float: none">	</td>
 								</tr>
 							</table>	
 							<div id="addbutton" style="display: inline; " >
-								<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField'); ToggleDisplay('addbutton'); return false" />
+								<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField','table'); ToggleDisplay('addbutton','inline'); return false" />
 							</div>		
 						</div>
 	  				</div>
@@ -60,12 +60,12 @@
 				contactsList[i]=new Array(2);
 			}	
 			
-			function ToggleDisplay(id)
+			function ToggleDisplay(id,arg)
 			{
 				var toggledID = document.getElementById(id);
 				if (toggledID.style.display == 'none') 
 				{
-					toggledID.style.display = 'inline';
+					toggledID.style.display = arg;
 				} 
 				else 
 				{
@@ -87,10 +87,10 @@
 					DisplaySingleContact(contactsCounter);												 
 					contactsCounter++;
 					
-					ToggleDisplay('addingContactField'); 
+					ToggleDisplay('addingContactField','table'); 
 					if (contactsCounter<maxContacts)
 					{
-						ToggleDisplay('addbutton');
+						ToggleDisplay('addbutton','inline');
 					}
 					document.getElementById('contactNumber').value="";
 					document.getElementById('contactName').value="";
@@ -126,8 +126,8 @@
 			
 			function CancelAdding()
 			{
-				ToggleDisplay('addingContactField'); 
-				ToggleDisplay('addbutton');
+				ToggleDisplay('addingContactField','table'); 
+				ToggleDisplay('addbutton','inline');
 			}
 			
 			function DeleteContact(contactIndex)
@@ -142,7 +142,7 @@
 
 				if (contactsCounter==3)
 				{
-					ToggleDisplay('addbutton');
+					ToggleDisplay('addbutton','inline');
 				}
 				--contactsCounter;
 				DisplayContactList();

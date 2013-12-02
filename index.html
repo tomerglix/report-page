@@ -25,7 +25,7 @@
 					<div id="buttonSection" class="center" style="height: 60%">
 						<img id="SOSButton" src='./images/btn_sos_normal.png' onclick="CallForHelp(); return false;" />
 					</div>
-					<div id="contacts">
+					<div id="contacts" style="max-width: 100%">
 						<div id="contactsSection" >
 							<p class="headerDecoration">Contacts Circle</p>
 										
@@ -33,7 +33,7 @@
 
 							</table>
 							
-							<table border="0" id='addingContactField' style='display:none; font-size: 80%;' >
+							<table border="0" id='addingContactField' style='display:none; font-size: 100%;' >
 								<tr>
 									<td style="width:10%"><img src="./images/x.png" class="icons" onclick="CancelAdding(); return false" style="float: none"></td>
 									<td style="width:40%"><input type="text" size="10" id="contactName" class="inputBox" placeholder="Name" />	</td>
@@ -132,20 +132,23 @@
 			
 			function DeleteContact(contactIndex)
 			{
-
-				for (i=contactIndex; i<contactsCounter-1; ++i)
+				var comfirmDeletion=confirm("Are you sure you want to remove this contact?");
+				if (comfirmDeletion==true)
 				{
-
-					contactsList[i][0]=contactsList[i+1][0];
-					contactsList[i][1]=contactsList[i+1][1];
+					for (i=contactIndex; i<contactsCounter-1; ++i)
+					{
+	
+						contactsList[i][0]=contactsList[i+1][0];
+						contactsList[i][1]=contactsList[i+1][1];
+					}
+	
+					if (contactsCounter==3)
+					{
+						ToggleDisplay('addbutton');
+					}
+					--contactsCounter;
+					DisplayContactList();
 				}
-
-				if (contactsCounter==3)
-				{
-					ToggleDisplay('addbutton');
-				}
-				--contactsCounter;
-				DisplayContactList();
 			}
 		function CallForHelp()
 		{
