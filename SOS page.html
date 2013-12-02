@@ -29,15 +29,15 @@
 						<div id="contactsSection" >
 							<p class="headerDecoration">Contacts Circle</p>
 										
-							<table id="contactsList">
+							<table id="contactsList" style='font-size: 100%; width:100%'>
 
 							</table>
 							
-							<table border="0" id='addingContactField' style='display:none; font-size: 80%; width:100%' >
+							<table border="0" id='addingContactField' style='display:none; font-size: 100%; width:100%' >
 								<tr>
 									<td style="width:5%"><img src="./images/x.png" class="icons" onclick="CancelAdding(); return false" style="float: none"></td>
-									<td style="width:45%"><input type="text"  id="contactName" class="inputBox" placeholder="Name" style="max-width: 45%"/>	</td>
-									<td style="width:45%"><input type="tel" id="contactNumber"  class="inputBox" placeholder="Number" style="max-width: 45%"/>	</td>
+									<td style="width:45%"><input type="text"  id="contactName" class="inputBox" placeholder="Name" />	</td>
+									<td style="width:45%"><input type="tel" id="contactNumber"  class="inputBox" placeholder="Number" />	</td>
 									<td style="width:5%"><img src="./images/plus.png"  class="icons" onclick="AddContact(); return false "   style="float: none">	</td>
 								</tr>
 							</table>	
@@ -132,20 +132,23 @@
 			
 			function DeleteContact(contactIndex)
 			{
-
-				for (i=contactIndex; i<contactsCounter-1; ++i)
+				var comfirmDeletion=confirm("Are you sure you want to remove this contact?");
+				if (comfirmDeletion==true)
 				{
-
-					contactsList[i][0]=contactsList[i+1][0];
-					contactsList[i][1]=contactsList[i+1][1];
+					for (i=contactIndex; i<contactsCounter-1; ++i)
+					{
+	
+						contactsList[i][0]=contactsList[i+1][0];
+						contactsList[i][1]=contactsList[i+1][1];
+					}
+	
+					if (contactsCounter==3)
+					{
+						ToggleDisplay('addbutton','inline');
+					}
+					--contactsCounter;
+					DisplayContactList();
 				}
-
-				if (contactsCounter==3)
-				{
-					ToggleDisplay('addbutton','inline');
-				}
-				--contactsCounter;
-				DisplayContactList();
 			}
 		function CallForHelp()
 		{
