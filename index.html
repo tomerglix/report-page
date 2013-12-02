@@ -142,15 +142,20 @@
 				}
 				function TogglePhotoButtons()
 				{
-					if (photoCounter<3)
+					if (photoCounter<maxPhotos)
 					{
 						ToggleDisplay('addPhotoButtons');
+					}
+					else
+					{
+						alert("You can only add " + maxPhotos + "photos.");		
 					}
 				}
                     //************* camera functions *********************/
                 var pictureSource;   // picture source
                 var destinationType; // sets the format of returned value
 				var photoCounter=0;
+				var maxPhotos=3;
 				
                 // Wait for device API libraries to load
                 //
@@ -210,7 +215,7 @@
                 //
                 function onFail(message) 
                 {
-                	if (message!='Camera cancelled.' && message!='Selection cancelled')
+                	if (message!='Camera cancelled.' && message!='Selection cancelled.')
                   	{
                   		alert('Failed because: ' + message);
                   	}
