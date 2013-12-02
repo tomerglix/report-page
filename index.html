@@ -262,9 +262,11 @@
 
                     //************ end of finding city and country
                     function PrintInitialDetails()
-                    {                                
+                    {         
+                     
                             GetLocation(GetAddress);
                             PrintDate();
+
                     }
                     function GetLocation(functionWhenSuccess)
                     {
@@ -283,8 +285,8 @@
                     var lastCenter="";
                     function ShowMap(position)
                     {
-                    		var target = document.getElementById('mapDisplay');
-							var spinner = new Spinner(opts).spin(target);
+							var target = document.getElementById('reportPageWrap');
+							var spinner = new Spinner(opts).spin(target);  
                     		if (lastCenter=="")
                     		{
                     			lastCenter=new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -301,8 +303,8 @@
 								
 							ToggleMap();
 							AddMarkerByCoordinates(lastCenter);
-							spinner.stop();	
 							
+							spinner.stop();
               
                     }
                     
@@ -325,6 +327,7 @@
                                     lastCenter=map.getCenter(); 
                                     google.maps.event.trigger(map, 'resize');
                                     map.setCenter(lastCenter);
+
                             }
                             else	
                             {
