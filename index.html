@@ -283,8 +283,6 @@
 							var target = document.getElementById('reportPageWrap');
 							spinner = new Spinner(opts).spin(target);  
                             GetLocation(ShowMap);                           
-                            setTimeout(stopSpinner,500);
-
                     }
                     function stopSpinner()
                     {
@@ -314,6 +312,7 @@
 								
 							ToggleMap();
 							AddMarkerByCoordinates(lastCenter);
+							stopSpinner();
 							
 							
               
