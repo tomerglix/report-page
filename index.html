@@ -277,12 +277,18 @@
                             navigator.geolocation.getCurrentPosition(functionWhenSuccess, onError);
                     }
                     
+                    var spinner;
                     function ViewLocationOnMap()
                     {
 							var target = document.getElementById('reportPageWrap');
-							var spinner = new Spinner(opts).spin(target);  
+							spinner = new Spinner(opts).spin(target);  
                             GetLocation(ShowMap);                           
-                            spinner.stop();
+                            setTimeout(stopSpinner,500);
+
+                    }
+                    function stopSpinner()
+                    {
+                    	spinner.stop();
                     }
                     
                     var map;
