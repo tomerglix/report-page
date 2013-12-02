@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" charset="UTF-8" src="cordova.js"></script>
+	<title>SOS Button</title>
+	
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+</head>
+<style>
+	td
+	{
+		overflow: hidden;
+	}
+</style>
+<html>
+	<body style="display: block;">
+		<div id="SOSWrap" class="pageWrap">
+			<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" >Send an SOS</h1>
+			<form >
+				<div>
+					<div id="blank" style="height: 20%">
+						
+					</div>
+					<div id="buttonSection" class="center">
+						<img id="SOSButton" src='./images/btn_sos_normal.png' onclick="CallForHelp(); return false;" />
+					</div>
+					<div id="contacts">
+						<div id="contactsSection" >
+							<p class="headerDecoration">Contacts Circle</p>
+										
+							<table id="contactsList">
+
+							</table>
+							
+							<table border="0" id='addingContactField' style='display:none; font-size: 80%;' >
+								<tr>
+									<td style="width:10%"><img src="./images/x.png" class="icons" onclick="CancelAdding(); return false" style="float: none"></td>
+									<td style="width:40%"><input type="text" size="10" id="contactName" class="inputBox" placeholder="Name" />	</td>
+									<td style="width:40%"><input type="tel" size="10" id="contactNumber"  class="inputBox" placeholder="Number"/>	</td>
+									<td style="width:10%"><img src="./images/plus.png"  class="icons" onclick="AddContact(); return false "   style="float: none">	</td>
+								</tr>
+							</table>	
+							<div id="addbutton" style="display: inline; " >
+								<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField'); ToggleDisplay('addbutton'); return false" />
+							</div>		
+						</div>
+	  				</div>
+	  			</div>
+			</form>
+		</div>
+		<script type="text/javascript" charset="UTF-8">
+			var i;
+			var maxContacts=3;
+			var contactsList=new Array(3);
+			var contactsCounter=0;
+			
+			for (i=0;i<contactsList.length;++i)
+			{
+				contactsList[i]=new Array(2);
+			}	
+			
+			function ToggleDisplay(id)
+			{
+				var toggledID = document.getElementById(id);
+				if (toggledID.style.display == 'none') 
+				{
+					toggledID.style.display = 'inline';
+				} 
+				else 
+				{
+					toggledID.style.display = 'none';
+				}
+
+			}
+			
+			function AddContact()
+			{
+				number=document.getElementById('contactNumber').value;
+				if (isNumber(number))
+				{
+					name=document.getElementById('contactName').value;
+					contactsList[contactsCounter][0]=name;
+					contactsList[contactsCounter][1]=number;
+	
+
+					DisplaySingleContact(contactsCounter);												 
+					contactsCounter++;
+					
+					ToggleDisplay('addingContactField'); 
+					if (contactsCounter<maxContacts)
+					{
+						ToggleDisplay('addbutton');
+					}
+					document.getElementById('contactNumber').value="";
+					document.getElementById('contactName').value="";
+				}
+				else
+				{
+					alert("Please enter a valid Number.");
+				}
+
+			}
+			
+			function isNumber(n) 
+			{
+  				return !isNaN(parseFloat(n)) && isFinite(n);
+			}
+			
+			function DisplaySingleContact(contactIndex)
+			{
+	
+				
+				document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:10%'> <img src='./images/x.png' class='icons'  onclick='DeleteContact(" +contactIndex +"); return false' ></td>  <td style='width:45%'>"
+																	+ contactsList[contactIndex][0] + "</td> <td  style='width:45%'> " + contactsList[contactIndex][1] + "</td> </tr>";
+			}
+			
+			function DisplayContactList()
+			{
+				document.getElementById('contactsList').innerHTML="";
+				for (i=0;i<contactsCounter;++i)
+				{
+					DisplaySingleContact(i);
+				}
+			}
+			
+			function CancelAdding()
+			{
+				ToggleDisplay('addingContactField'); 
+				ToggleDisplay('addbutton');
+			}
+			
+			function DeleteContact(contactIndex)
+			{
+
+				for (i=contactIndex; i<contactsCounter-1; ++i)
+				{
+
+					contactsList[i][0]=contactsList[i+1][0];
+					contactsList[i][1]=contactsList[i+1][1];
+				}
+
+				if (contactsCounter==3)
+				{
+					ToggleDisplay('addbutton');
+				}
+				--contactsCounter;
+				DisplayContactList();
+			}
+		function CallForHelp()
+		{
+			button=document.getElementById("SOSButton");
+			button.src='./images/btn_sos_pressed.png';
+			navigator.geolocation.getCurrentPosition(onSuccess, onError);
+			
+		}
+
+	    function onSuccess(position) 
+	    {
+	    	alert(	"Coordinates:\n" +
+	    			"Latitude: "	+ position.coords.latitude 	+ "\n" +
+	    			"Longitude: "		+ position.coords.longitude + "\n\n" +
+	    			"Your'e location has been sent to the local police.\n");
+			button=document.getElementById("SOSButton");
+			button.src='./images/btn_sos_normal.png';
+	    }
+	
+	    // onError Callback receives a PositionError object
+	    //
+	    function onError(error) 
+	    {
+	        alert(	'Sending location failed\n'	+
+	        		'code: '    + error.code    + '\n' +
+	              	'message: ' + error.message + '\n');
+	    }
+		</script>
+	</body>
+</html>
