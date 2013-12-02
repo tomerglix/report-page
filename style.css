@@ -21,7 +21,7 @@
 
 	    font-size: 100%;
 		width: 100%%;
-	    min-height:50px;
+	    min-height:25px;
 	    resize:none;
 	  	border-radius: 5px ;
 	  	border-color:#C4C4C3;
@@ -99,12 +99,12 @@
 	}
 	#SOSButton
 	{
-		width:200px; /*same as the height*/
-		height:200px; /*same as the width*/
+		max-width:100%; /*same as the height*/
+		max-height:100%; /*same as the width*/
 
-		-webkit-border-radius: 100px;
+	/*	-webkit-border-radius: 100px;
 		-moz-border-radius: 100px;
-		border-radius: 100px;
+		border-radius: 100px;*/
 
 
 	}

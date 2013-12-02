@@ -42,13 +42,14 @@
 		<div id="reportPageWrap" class="pageWrap">
 			
 			<form >
-				<input id='closeMapButton'  type='submit' onclick='ToggleMap(); return false; ' value='Close map' style="display: none; left:40%"  />        
-	                        
+				<div id="buttononmap" class="center">
+				<input id='closeMapButton'  type='submit' onclick='ToggleMap(); return false; ' value='Close map' style="display: none; "  />        
+	                        </div>
 				<div id="mapDisplay" style="display: none">
 	                                
 				</div>
 				<div id="reportData">
-					          <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" onclick="bla(); return false;"> Report Crime </h1>                                                              <!--main page header-->
+					          <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none"> Report Crime </h1>                                                              <!--main page header-->
 	                                
 	                          <div id="crimeType" class="section">                                                                                                                                                        <!--crime type section-->
 	                                  <div id="crimeTypeHeader">
@@ -112,12 +113,12 @@
 									<div id="crimePhotosHeader">
 		                                  <p  class="headerDecoration">Photos</p>
 									</div>
-		                   			<div id="crimePhotoAddButtons" onclick="ToggleDisplay('addPhotoButtons'); return false" style="display: inline;">
+		                   			<div id="crimePhotoAddButtons" onclick="TogglePhotoButtons(); return false" style="display: inline;">
 		                                 <img src="./images/camera.png" class="icons"  >         
 									</div>
 								  	<div id="addPhotoButtons" style="display:none; position: absolute; margin-left: 5px;" >
-									    <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); return false" >Capture Photo</button> 
-									    <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); return false">Photo Library</button>
+									    <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons'); return false" >Capture Photo</button> 
+									    <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons'); return false">Photo Library</button>
 								    </div>
 								    <div id="photosSection" >
 								    	<br/> <br/> 
@@ -139,10 +140,22 @@
 				{
 
 				}
+				function TogglePhotoButtons()
+				{
+					if (photoCounter<maxPhotos)
+					{
+						ToggleDisplay('addPhotoButtons');
+					}
+					else
+					{
+						alert("You can only add " + maxPhotos + "photos.");		
+					}
+				}
                     //************* camera functions *********************/
                 var pictureSource;   // picture source
                 var destinationType; // sets the format of returned value
 				var photoCounter=0;
+				var maxPhotos=3;
 				
                 // Wait for device API libraries to load
                 //
@@ -202,7 +215,7 @@
                 //
                 function onFail(message) 
                 {
-                	if (message!='Camera cancelled.' && message!='Selection cancelled')
+                	if (message!='Camera cancelled.' && message!='Selection cancelled.')
                   	{
                   		alert('Failed because: ' + message);
                   	}
@@ -210,259 +223,264 @@
                 //************* end of camera functions *********************/
 
                     
-                    //************ auto adjusting text box
-                    $("#autoResizeTextBox").keyup(function (e) 
-                    {
-                        adaptiveheight(this);
-                    });
-                    i=0;
-                    j=0;
-                    
-                    function adaptiveheight(a) 
-                    {
-                        $(a).height(0);
-                        var scrollval = $(a)[0].scrollHeight;
-                        $(a).height(scrollval);
-                        if (parseInt(a.style.height) > $(window).height()) {
-                            if(j==0){
-                                max=a.selectionEnd;
-                            }
-                            j++;
-                            var i =a.selectionEnd;
-                            console.log(i);
-                            if(i >=max){
-                                $(document).scrollTop(parseInt(a.style.height));
-                            }else{
-                                $(document).scrollTop(0);
-                            }
+                //************ auto adjusting text box
+                $("#autoResizeTextBox").keyup(function (e) 
+                {
+                    adaptiveheight(this);
+                });
+                i=0;
+                j=0;
+                
+                function adaptiveheight(a) 
+                {
+                    $(a).height(0);
+                    var scrollval = $(a)[0].scrollHeight;
+                    $(a).height(scrollval);
+                    if (parseInt(a.style.height) > $(window).height()) {
+                        if(j==0){
+                            max=a.selectionEnd;
+                        }
+                        j++;
+                        var i =a.selectionEnd;
+                        console.log(i);
+                        if(i >=max){
+                            $(document).scrollTop(parseInt(a.style.height));
+                        }else{
+                            $(document).scrollTop(0);
                         }
                     }
-                    //************ end of auto adjusting text box
-    
-                    //************ beginning of finding city and country
+                }
+                //************ end of auto adjusting text box
 
-                    function GetAddress(position)
-                    {
-                            var city = "";
-                            var street = "";  
-                            var streetNum = "";               
-                            
-                            lat = parseFloat(position.coords.latitude);
-                        	lng = parseFloat(position.coords.longitude);
-                        	var Latlng = new google.maps.LatLng(lat, lng);
-                        	PrintAddressCoordinates(Latlng);
+                //************ beginning of finding city and country
+
+                function GetAddress(position)
+                {
+                        var city = "";
+                        var street = "";  
+                        var streetNum = "";               
+                        
+                        lat = parseFloat(position.coords.latitude);
+                    	lng = parseFloat(position.coords.longitude);
+                    	lastCenter = new google.maps.LatLng(lat, lng);
+                    	PrintAddressCoordinates(lastCenter);
+                    	littleSpinner.stop();
 
 
 
-                    }
-                    
-                    function onError(error) 
-                    {
-                        alert(        'Sending location failed\n'        +
-                                        'code: '    + error.code    + '\n' +
-                                      'message: ' + error.message + '\n');
-                    }        
+                }
+                
+                function onError(error) 
+                {
+                    alert(        'Sending location failed\n'        +
+                                    'code: '    + error.code    + '\n' +
+                                  'message: ' + error.message + '\n');
+                }        
 
-                    //************ end of finding city and country
-                    function PrintInitialDetails()
-                    {         
-                     
-                            GetLocation(GetAddress);
-                            PrintDate();
+                //************ end of finding city and country
+                function PrintInitialDetails()
+                {         
+                 	var littleSpinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
+                    GetLocation(GetAddress);
+                    //littleSpinner.stop();
+                    PrintDate();
 
-                    }
-                    function GetLocation(functionWhenSuccess)
-                    {
-                            navigator.geolocation.getCurrentPosition(functionWhenSuccess, onError);
-                    }
-                    
-                    function ViewLocationOnMap()
-                    {
-                            GetLocation(ShowMap);
+                }
+                function GetLocation(functionWhenSuccess)
+                {
+                        navigator.geolocation.getCurrentPosition(functionWhenSuccess, onError);
+                }
+                
+                
+                function ViewLocationOnMap()
+                {
+						spinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('reportPageWrap'));  
+                        GetLocation(ShowMap);                           
+                }
 
-                    }
-                    
-                    var map;
-                    var marker;
-                    var latlng;
-                    var lastCenter="";
-                    function ShowMap(position)
-                    {
-							var target = document.getElementById('reportPageWrap');
-							var spinner = new Spinner(opts).spin(target);  
-                    		if (lastCenter=="")
-                    		{
-                    			lastCenter=new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                    		}
+                var spinner;
+                var map;
+                var marker;
+                var latlng;
+                var lastCenter="";
+                function ShowMap(position)
+                {
 
-                            var mapOptions = 
-                            {
-                                	zoom: 15,
-                                    center: lastCenter,
-                                    mapTypeId:google.maps.MapTypeId.ROADMAP
-                            };
+                		if (lastCenter=="")
+                		{
+                			lastCenter=new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                		}
 
-                            map = new google.maps.Map(document.getElementById('mapDisplay'),mapOptions);
-								
-							ToggleMap();
-							AddMarkerByCoordinates(lastCenter);
+                        var mapOptions = 
+                        {
+                            	zoom: 15,
+                                center: lastCenter,
+                                mapTypeId:google.maps.MapTypeId.ROADMAP
+                        };
+
+                        map = new google.maps.Map(document.getElementById('mapDisplay'),mapOptions);
 							
-							spinner.stop();
-              
-                    }
+						ToggleMap();
+						AddMarkerByCoordinates(lastCenter);
+						spinner.stop();
+						
+						
+          
+                }
+                
+                function AddMarkerByCoordinates(latlng)
+                {
+                			marker = new google.maps.Marker({
+						    position: latlng,
+						    map: map,
+						    draggable:true
+						});
+                }
+                function ToggleMap()
+                {
+                        mapID=document.getElementById('mapDisplay');                                
+                        if (mapID.style.display=="none")
+                        {     
+                                ToggleDisplay('mapDisplay');
+                                ToggleDisplay('reportData');
+                                ToggleDisplay('closeMapButton');
+                                lastCenter=map.getCenter(); 
+                                google.maps.event.trigger(map, 'resize');
+                                map.setCenter(lastCenter);
+
+                        }
+                        else	
+                        {
+                                ToggleDisplay('mapDisplay');
+                                ToggleDisplay('reportData');
+                                ToggleDisplay('closeMapButton');
+                                
+                                //updates the city and country
+								var lat = marker.getPosition().lat();
+								var lng = marker.getPosition().lng();
+
+								lastCenter = new google.maps.LatLng(lat, lng);
+								PrintAddressCoordinates(lastCenter);
+                        }
+                        
+                }
+
                     
-                    function AddMarkerByCoordinates(latlng)
-                    {
-                    			marker = new google.maps.Marker({
-							    position: latlng,
-							    map: map,
-							    draggable:true
-							});
-                    }
-                    function ToggleMap()
-                    {
-                            mapID=document.getElementById('mapDisplay');                                
-                            if (mapID.style.display=="none")
-                            {     
-                                    ToggleDisplay('mapDisplay');
-                                    ToggleDisplay('reportData');
-                                    ToggleDisplay('closeMapButton');
-                                    lastCenter=map.getCenter(); 
-                                    google.maps.event.trigger(map, 'resize');
-                                    map.setCenter(lastCenter);
+                function ToggleDisplay(id)
+                {
+                        var toggledID = document.getElementById(id);
+                        if (toggledID.style.display == 'none') 
+                        {
+                                toggledID.style.display = 'inline';
+                        } 
+                        else 
+                        {
+                                toggledID.style.display = 'none';
+                        }
 
-                            }
-                            else	
-                            {
-                                    ToggleDisplay('mapDisplay');
-                                    ToggleDisplay('reportData');
-                                    ToggleDisplay('closeMapButton');
-                                    
-                                    //updates the city and country
-									var lat = marker.getPosition().lat();
-									var lng = marker.getPosition().lng();
-
-									lastCenter = new google.maps.LatLng(lat, lng);
-									PrintAddressCoordinates(lastCenter);
-                            }
-                            
-                    }
-
+                }
                     
-                    function ToggleDisplay(id)
-                    {
-                            var toggledID = document.getElementById(id);
-                            if (toggledID.style.display == 'none') 
-                            {
-                                    toggledID.style.display = 'inline';
-                            } 
-                            else 
-                            {
-                                    toggledID.style.display = 'none';
-                            }
-
-                    }
-                    
-                    function PrintAddressCoordinates(latlng)
-                    {
-                    	geocoder = new google.maps.Geocoder();
-                		geocoder.geocode( 
-                			{'latLng': latlng}, 
-							function(results, status) 
-							{
-							          
-								if (status == google.maps.GeocoderStatus.OK) 
-							    {
-									if (results[0]) 
-									{
-										var result = results[0];
-							
-											for(var i=0, len=result.address_components.length; i<len; i++) 
+                function PrintAddressCoordinates(latlng)
+                {
+                	geocoder = new google.maps.Geocoder();
+            		geocoder.geocode( 
+            			{'latLng': latlng}, 
+						function(results, status) 
+						{
+						          
+							if (status == google.maps.GeocoderStatus.OK) 
+						    {
+								if (results[0]) 
+								{
+									var result = results[0];
+						
+										for(var i=0, len=result.address_components.length; i<len; i++) 
+										{
+											var ac = result.address_components[i];
+											if(ac.types.indexOf("street_number") >= 0) 
 											{
-												var ac = result.address_components[i];
-												if(ac.types.indexOf("street_number") >= 0) 
-												{
-													streetNum = ac.long_name;
-												}
-												if(ac.types.indexOf("route") >= 0) 
-							                	{
-							                        street = ac.long_name;
-							                	}
-												if(ac.types.indexOf("locality") >= 0) 
-												{
-													city = ac.long_name;	        
-												}
+												streetNum = ac.long_name;
+											}
+											if(ac.types.indexOf("route") >= 0) 
+						                	{
+						                        street = ac.long_name;
+						                	}
+											if(ac.types.indexOf("locality") >= 0) 
+											{
+												city = ac.long_name;	        
+											}
 
-							        		}
-							
-									}
-									else 
-									{
-									        alert("Error in finding location");
-									}
-								} 
+						        		}
+						
+								}
 								else 
 								{
-									alert("Error: " + status);
+								        alert("Error in finding location");
 								}
-								addressBar=document.getElementById("addressBar");
-							
-								if (street!="")
+							} 
+							else 
+							{
+								alert("Error: " + status);
+							}
+							addressBar=document.getElementById("addressBar");
+						
+							if (street!="")
+							{
+								addressBar.innerHTML=street;
+								if (streetNum!="")
 								{
-									addressBar.innerHTML=street;
-									if (streetNum!="")
-									{
-								        addressBar.innerHTML+=" " + streetNum;
-									}
-									if (city!="")
-									{
-										addressBar.innerHTML+=", " + city;
-									}
-								
+							        addressBar.innerHTML+=" " + streetNum;
+								}
+								if (city!="")
+								{
+									addressBar.innerHTML+=", " + city;
+								}
+							
+							}
+							else
+							{
+								if (city!="")
+								{
+									addressBar.innerHTML=city;
 								}
 								else
 								{
-									if (city!="")
-									{
-										addressBar.innerHTML=city;
-									}
-									else
-									{
-							        	addressBar.innerHTML+="Unknown location <br/>";
-							        }
-								}
-							  });
-					}
+						        	addressBar.innerHTML+="Unknown location <br/>";
+						        }
+							}
+						  });
+				}
 					
-					function PrintDate() 
-				    {
-				      navigator.globalization.dateToString(
-				        new Date(),
-				        function (date) 
-				        {
-				        	picker=document.getElementById('picker');
-				        	picker.value=date.value;
-				        },
-				        function () {alert('Error getting dateString\n');},
-				        {formatLength:'short', selector:'date and time'}
-				      );
-				    }
+				function PrintDate() 
+			    {
+			      navigator.globalization.dateToString(
+			        new Date(),
+			        function (date) 
+			        {
+			        	picker=document.getElementById('picker');
+			        	picker.value=date.value;
+			        },
+			        function () {alert('Error getting dateString\n');},
+			        {formatLength:'short', selector:'date and time'}
+			      );
+			    }
 
-				      $('#datetimepicker').datetimepicker({
-				        format: 'dd/MM/yyyy hh:mm',
-				        language: 'en-us'
-				      });
+		      	$('#datetimepicker').datetimepicker({
+		        	format: 'dd/MM/yyyy hh:mm',
+		        	language: 'en-us'
+		      	});
 				      
-				      $.fn.datetimepicker.defaults = {
-						  maskInput: true,           // disables the text input mask
-						  pickDate: true,            // disables the date picker
-						  pickTime: true,            // disables de time picker
-						  pick12HourFormat: false,   // enables the 12-hour format time picker
-						  pickSeconds: false,         // disables seconds in the time picker
-						  startDate: -Infinity,      // set a minimum date
-						  endDate: Infinity          // set a maximum date
-						};
-				var opts = 
+				$.fn.datetimepicker.defaults = 
+				{
+					maskInput: true,           // disables the text input mask
+					pickDate: true,            // disables the date picker
+					pickTime: true,            // disables de time picker
+					pick12HourFormat: false,   // enables the 12-hour format time picker
+					pickSeconds: false,         // disables seconds in the time picker
+					startDate: -Infinity,      // set a minimum date
+					endDate: Infinity          // set a maximum date
+				};
+				var bigSpinnerOpts = 
 				{
 				  lines: 9, // The number of lines to draw
 				  length: 6, // The length of each line
@@ -474,6 +492,26 @@
 				  color: '#000', // #rgb or #rrggbb or array of colors
 				  speed: 1, // Rounds per second
 				  trail: 44, // Afterglow percentage
+				  shadow: false, // Whether to render a shadow
+				  hwaccel: false, // Whether to use hardware acceleration
+				  className: 'spinner', // The CSS class to assign to the spinner
+				  zIndex: 2e9, // The z-index (defaults to 2000000000)
+				  top: 'auto', // Top position relative to parent in px
+				  left: 'auto' // Left position relative to parent in px
+				};
+				
+				var smallSpinnerOpts = 
+				{
+				  lines: 9, // The number of lines to draw
+				  length: 3, // The length of each line
+				  width: 2, // The line thickness
+				  radius: 3, // The radius of the inner circle
+				  corners: 1, // Corner roundness (0..1)
+				  rotate: 0, // The rotation offset
+				  direction: 1, // 1: clockwise, -1: counterclockwise
+				  color: '#000', // #rgb or #rrggbb or array of colors
+				  speed: 1, // Rounds per second
+				  trail: 60, // Afterglow percentage
 				  shadow: false, // Whether to render a shadow
 				  hwaccel: false, // Whether to use hardware acceleration
 				  className: 'spinner', // The CSS class to assign to the spinner
