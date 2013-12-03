@@ -66,8 +66,8 @@
 
 		        $("#SOSButton").on("taphold", {duration: 3000}, SOSLongPress)
 		                  			.on("click",   SOSShortPress)
-		                  			.on("mousedown", ChangeButtonToPressed)
-									.on("mouseup", ChangeButtonToNormal);
+		                  			.on("touchstart", ChangeButtonToPressed)
+									.on("touchend", ChangeButtonToNormal);
 																
 		    });
 		    function ChangeButtonToPressed()
