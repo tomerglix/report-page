@@ -99,6 +99,7 @@
 	}
 	#SOSButton
 	{
+		/*background:url(./images/btn_sos_normal.png) no-repeat;*/
 		max-width:100%; /*same as the height*/
 		max-height:100%; /*same as the width*/
 
@@ -107,6 +108,10 @@
 		border-radius: 100px;*/
 
 
+	}
+	#SOSButton:active
+	{
+		background:url(./images/btn_sos_pressed.png) no-repeat;
 	}
 	.inputBox 
 	{

@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <!--progress spinner-->
+    <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="spinner.min.js"></script>
+    
+    <!--long tap-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="taphold.js" type="text/javascript"></script>
+	
 	<script type="text/javascript" charset="UTF-8" src="cordova.js"></script>
-	<title>SOS Button</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	
+
 	
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 </head>
@@ -23,7 +34,7 @@
 						
 					</div>
 					<div id="buttonSection" class="center" style="height: 60%">
-						<img id="SOSButton" src='./images/btn_sos_normal.png' onclick="CallForHelp(); return false;" />
+						<img id="SOSButton" src='./images/btn_sos_normal.png' />
 					</div>
 					<div id="contacts">
 						<div id="contactsSection" >
@@ -50,6 +61,26 @@
 			</form>
 		</div>
 		<script type="text/javascript" charset="UTF-8">
+			$(function()
+		    {
+
+		        $("#SOSButton").on("taphold", {duration: 3000}, SOSLongPress)
+		                  			.on("click",   SOSShortPress)
+		                  			.on("mousedown", ChangeButtonToPressed)
+									.on("mouseup", ChangeButtonToNormal);
+																
+		    });
+		    function ChangeButtonToPressed()
+		    {
+		    	button=document.getElementById("SOSButton");
+				button.src='./images/btn_sos_pressed.png';
+		    }
+		    function ChangeButtonToNormal()
+		    {
+				button=document.getElementById("SOSButton");
+				button.src='./images/btn_sos_normal.png';		    	
+		    }
+		    
 			var i;
 			var maxContacts=3;
 			var contactsList=new Array(3);
@@ -150,22 +181,32 @@
 					DisplayContactList();
 				}
 			}
-		function CallForHelp()
+		function SOSLongPress()
 		{
-			button=document.getElementById("SOSButton");
-			button.src='./images/btn_sos_pressed.png';
+			spinner = new Spinner(HugeSpinnerOpts).spin(document.getElementById('buttonSection'));  
 			navigator.geolocation.getCurrentPosition(onSuccess, onError);
 			
+			
+			ChangeButtonToNormal();
+			
 		}
+		
+		function SOSShortPress()
+		{
 
+			alert("press 3 seconds");
+			ChangeButtonToNormal();
+			
+		}
 	    function onSuccess(position) 
 	    {
+	    	spinner.stop();
 	    	alert(	"Coordinates:\n" +
 	    			"Latitude: "	+ position.coords.latitude 	+ "\n" +
 	    			"Longitude: "		+ position.coords.longitude + "\n\n" +
 	    			"Your'e location has been sent to the local police.\n");
-			button=document.getElementById("SOSButton");
-			button.src='./images/btn_sos_normal.png';
+	    	
+
 	    }
 	
 	    // onError Callback receives a PositionError object
@@ -176,6 +217,28 @@
 	        		'code: '    + error.code    + '\n' +
 	              	'message: ' + error.message + '\n');
 	    }
+	    
+	    
+		var HugeSpinnerOpts = {
+		  lines: 17, // The number of lines to draw
+		  length: 40, // The length of each line
+		  width: 14, // The line thickness
+		  radius: 60, // The radius of the inner circle
+		  corners: 1, // Corner roundness (0..1)
+		  rotate: 0, // The rotation offset
+		  direction: 1, // 1: clockwise, -1: counterclockwise
+		  color: '#000', // #rgb or #rrggbb or array of colors
+		  speed: 1, // Rounds per second
+		  trail: 60, // Afterglow percentage
+		  shadow: false, // Whether to render a shadow
+		  hwaccel: false, // Whether to use hardware acceleration
+		  className: 'spinner', // The CSS class to assign to the spinner
+		  zIndex: 2e9, // The z-index (defaults to 2000000000)
+		  top: 'auto', // Top position relative to parent in px
+		  left: 'auto' // Left position relative to parent in px
+		};
+        var spinner;
+        
 		</script>
 	</body>
 </html>
