@@ -100,8 +100,8 @@
 	#SOSButton
 	{
 		/*background:url(./images/btn_sos_normal.png) no-repeat;*/
-		max-width:100%; /*same as the height*/
-		max-height:100%; /*same as the width*/
+		max-width:80%; /*same as the height*/
+		max-height:80%; /*same as the width*/
 
 	/*	-webkit-border-radius: 100px;
 		-moz-border-radius: 100px;
@@ -116,7 +116,8 @@
 	.inputBox 
 	{
     	font-family: 'roboto',helvetica,arial,sans;
-    	font-size: 130%;
+    	font-size: 120%;
+    	width:100%;
     	color: #000000;
     	background: transparent; 
     	border: none;
