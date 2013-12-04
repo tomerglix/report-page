@@ -9,7 +9,7 @@
 	}
 	body
 	{
-		-webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
+		-webkit-tap-highlight-color: rgba(255, 255, 255, 0); /*disabling orange square*/
 		font-family: 'roboto';
 		margin: 8px;
 		padding: 0;
@@ -138,7 +138,7 @@
 		-webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
 		/*background:url(./images/btn_sos_normal.png) no-repeat;*/
 		max-width:80%; /*same as the height*/
-		/*max-height:80%; *//*same as the width*/
+		/*max-height:80%; *//*same as the width*/ /*comment fixed the shrinking problem of the button*/
 
 	/*	-webkit-border-radius: 100px;
 		-moz-border-radius: 100px;
@@ -219,6 +219,5 @@
 	textarea 
 	{
 		padding: 0;
-		width:100%;
 		font-family: 'roboto',helvetica,arial,sans;
 	}

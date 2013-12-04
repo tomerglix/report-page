@@ -118,8 +118,8 @@
                          						<img src="./images/camera.png" class="icons"  >         
                                  			</div>
                                             <div id="addPhotoButtons" style="display:none; position: absolute; margin-left: 5px;" >
-                                                    <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons'); return false" >Capture Photo</button> 
-                                                    <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons'); return false">Photo Library</button>
+                                                    <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons','inline'); return false" >Capture Photo</button> 
+                                                    <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons','inline'); return false">Photo Library</button>
                                             </div>
                                             <div id="photosSection" >
                                                     <br/> <br/> 
@@ -163,25 +163,25 @@
 
                 }
 
-				function ToggleDisplay(id)
-                {
-                    var toggledID = document.getElementById(id);
-                    if (toggledID.style.display == 'none') 
-                    {
-                            toggledID.style.display = 'inline';
-                    } 
-                    else 
-                    {
-                            toggledID.style.display = 'none';
-                    }
-
-                }
+				function ToggleDisplay(id,arg)
+				{
+					var toggledID = document.getElementById(id);
+					if (toggledID.style.display == 'none') 
+					{
+						toggledID.style.display = arg;
+					} 
+					else 
+					{
+						toggledID.style.display = 'none';
+					}
+	
+				}
                 
                 function TogglePhotoButtons()
                 {
                     if (photoCounter<maxPhotos)
                     {
-                            ToggleDisplay('addPhotoButtons');
+                            ToggleDisplay('addPhotoButtons','inline');
                     }
                     else
                     {
@@ -363,9 +363,9 @@
                     mapID=document.getElementById('mapDisplay');                                
                     if (mapID.style.display=="none")
                     {     
-                        ToggleDisplay('mapDisplay');
-                        ToggleDisplay('reportData');
-                        ToggleDisplay('closeMapButton');
+                        ToggleDisplay('mapDisplay','inline');
+                        ToggleDisplay('reportData','inline');
+                        ToggleDisplay('closeMapButton','inline');
                         lastCenter=map.getCenter(); 
                         google.maps.event.trigger(map, 'resize');
                         map.setCenter(lastCenter);
@@ -373,9 +373,9 @@
                     }
                     else        
                     {
-                        ToggleDisplay('mapDisplay');
-                        ToggleDisplay('reportData');
-                        ToggleDisplay('closeMapButton');
+                        ToggleDisplay('mapDisplay','inline');
+                        ToggleDisplay('reportData','inline');
+                        ToggleDisplay('closeMapButton','inline');
                         
                         //updates the city and country
                         var lat = marker.getPosition().lat();
