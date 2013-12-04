@@ -6,7 +6,8 @@
     <script type="text/javascript" charset="UTF-8" src="spinner.min.js"></script>
     
     <!--long tap-->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
     <script src="taphold.js" type="text/javascript"></script>
 	
@@ -19,37 +20,35 @@
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 </head>
 <style>
-	td
-	{
-		overflow: hidden;
-	}
-		input[type="text"] 
-	{
-	    -webkit-box-sizing: border-box;
-	    -moz-box-sizing: border-box;   
-	    box-sizing: border-box;       
-	}
+
+
+
+
 </style>
 <html>
 	<body style="display: block;">
 		<div id="SOSWrap" class="pageWrap">
-			<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" >Send an SOS</h1>
+			<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >Send an SOS</h1>
 			<form >
 				<div>
-					<div id="blank" style="height: 20%">
-						
+
+					<div id="pressLongMessage" class="center" align="center" style="width:100%; opacity: 0">
+						<p>Press 3 seconds to send SOS</p>
 					</div>
-					<div id="buttonSection" class="center" style="height: 60%">
+					
+					<div id="buttonSection" class="center" style="height: 60%;">
 						<img id="SOSButton" src='./images/btn_sos_normal.png' />
 					</div>
+					
 					<div id="contacts">
 						<div id="contactsSection" >
-							<p class="headerDecoration">Contacts Circle</p>
-										
-							<table id="contactsList" style='font-size: 100%; width:100%'>
+							<p class="headerDecoration" style="margin-bottom: 7px;">Contacts Circle</p>
+							
+							<div>		
+							<table id="contactsList" style='font-size: 100%; width:100% ;'>
 
 							</table>
-							
+							</div>	
 							<table border="0" id='addingContactField' style='display:none; font-size: 100%; width:100%' >
 								<tr>
 									<td style="width:5%"><img src="./images/x.png" class="icons" onclick="CancelAdding(); return false" style="float: none"></td>
@@ -75,15 +74,13 @@
 			</form>
 		</div>
 		<script type="text/javascript" charset="UTF-8">
-			$(function()
-		    {
+
 
 		        $("#SOSButton").on("taphold", {duration: 3000}, SOSLongPress)
 		                  			.on("click",   SOSShortPress)
 		                  			.on("touchstart", ChangeButtonToPressed)
 									.on("touchend", ChangeButtonToNormal);
 																
-		    });
 		    function ChangeButtonToPressed()
 		    {
 		    	button=document.getElementById("SOSButton");
@@ -153,10 +150,8 @@
 			}
 			
 			function DisplaySingleContact(contactIndex)
-			{
-	
-				
-				document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:5%'> <img src='./images/x.png' class='icons'  onclick='DeleteContact(" +contactIndex +"); return false' ></td>  <td style='width:47.5%'>"
+			{	
+				document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:5%'> <img src='./images/x.png' class='icons'  onclick='DeleteContact(" +contactIndex +"); return false' ></td>  <td style='width:47.5%;'>"
 																	+ contactsList[contactIndex][0] + "</td> <td  style='width:47.5%'> " + contactsList[contactIndex][1] + "</td> </tr>";
 			}
 			
@@ -207,10 +202,12 @@
 		
 		function SOSShortPress()
 		{
-
-			alert("press 3 seconds");
-			ChangeButtonToNormal();
+			//ToggleDisplay('blankSection');
+			$("#pressLongMessage").fadeTo(1000,1);
 			
+			ChangeButtonToNormal();
+			setTimeout(function (){$("#pressLongMessage").fadeTo(1000,0);},3000);
+
 		}
 	    function onSuccess(position) 
 	    {

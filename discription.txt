@@ -1,1 +1,1 @@
-date picker has an unwanted frame
+fadeout message done, contacts overflow fixed

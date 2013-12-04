@@ -14,7 +14,15 @@
 		padding: 0;
 
 	}
-
+	
+	td
+	{
+	    max-width: 100px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    word-wrap: break-word;
+	   	/*white-space: nowrap;*/ /* uncomment if don't want the text to break into another line*/
+	}
 	#autoResizeTextBox 
 	{
 	    
