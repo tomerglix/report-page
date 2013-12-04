@@ -472,8 +472,9 @@
                             new Date(),
                             function (date) 
                             { 
+                            	alert(date.value);
+                            	alert(date.value.year);
                         		dateString=date.day + '/' + date.month + '/' + date.year + " " + date.hour + ":" + date.minute + "tomer";
-                        		alert(date);
                                 picker=document.getElementById('picker');
                                 picker.value=dateString;
 
