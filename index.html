@@ -472,9 +472,17 @@
                             new Date(),
                             function (date) 
                             { 
+                            	try
+                            	{
 								date.format('dd/mm/yyyy HH:MM');
+								alert(date);
                                 picker=document.getElementById('picker');
                                 picker.value=date.value;
+                               }
+                               catch (err)
+                               {
+                               	alert(err);
+                               }
 
                             },
                             function () {alert('Error getting dateString\n');},
