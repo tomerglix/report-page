@@ -115,10 +115,7 @@
 
 
 	}
-	#SOSButton:active
-	{
-		background:url(./images/btn_sos_pressed.png) no-repeat;
-	}
+
 	.inputBox 
 	{
     	font-family: 'roboto',helvetica,arial,sans;

@@ -39,9 +39,10 @@
 
 <html>
         <body onload="PrintInitialDetails();" style="display: block" >
-                <div id="reportPageWrap" class="pageWrap">
-                        
+                <div id="reportPageWrap">
+                	
                         <form >
+                        	<div  class="pageWrap" style="margin-bottom: 10px">
                                 <div id="buttononmap" class="center">
                                 	<input id='closeMapButton'  type='submit' onclick='ToggleMap(); return false; ' value='Close map' style="display: none; "  />        
                                 </div>
@@ -95,7 +96,7 @@
         
 	                                  <div id="crimeDate" class="section" >                                                                                                                                                        <!--crime date section-->
 	                                          <div id="crimeDateHeader" >
-	                                                  <p  class="headerDecoration">Date / Hour</p>
+	                                                  <p  class="headerDecoration">Date &amp; Hour</p>
 	                                          </div>
 	                                          <div id="crimeDateData">
 													<div id="datetimepicker">
@@ -125,10 +126,12 @@
                                             </div>
 									</div>
     
-                                    <div id="submitReportButton" style="display: block;">
-                                            <input type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime();  " style="width:100%;" value="Submit Crime" />                <!--maybe return false is needed-->
-                                    </div>
                                 </div>
+							</div>
+							
+                            <div id="submitReportButton" style="display: block;">
+                                    <input type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime();  " style="width:100%;" value="Submit Crime" />                <!--maybe return false is needed-->
+                            </div>
         
                         </form>
                 </div>
