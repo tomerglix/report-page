@@ -145,9 +145,11 @@
                 var lastCenter="";
                 var city = "";
                 var street = "";  
-                var streetNum = "";    
+                var streetNum = "";   
+                 
             	//******** general functions ************/
             	var spinner;
+            	var littleSpinner;
             	
                 function SubmitCrime()
                 {
@@ -224,12 +226,14 @@
                 }  
                 function capturePhoto() 
                 {
+                	 littleSpinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addPhotoButtons'));
                       // Take picture using device camera and retrieve image as base64-encoded string
                       navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
                         destinationType: destinationType.DATA_URL });
                 }         
                 function AddPhotoToFromCaption(imageData) 
                 {
+                	littleSpinner.stop();
                     var photoSection=document.getElementById('photosSection');
     
                     photoSection.innerHTML+="<img style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
