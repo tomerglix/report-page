@@ -474,9 +474,12 @@
                             { 
                             	try
                             	{
+                            		var d=new Date();
+                            		alert(d.getFullYear());
+                            		alert(date);
                             		alert(date.getFullYear());
 									dateFormat(date,'dd/mm/yyyy HH:MM');
-									alert(date);
+									
 	                                picker=document.getElementById('picker');
 	                                picker.value=date.value;
 							   }
