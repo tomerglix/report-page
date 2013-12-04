@@ -155,11 +155,11 @@
                 }
                 
 				function PrintInitialDetails()
-                {         
+                { 
 	                var littleSpinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
 	                GetLocation(GetAddress);
-					PrintLocation();
 	                PrintDate();
+
 
                 }
 
@@ -471,15 +471,12 @@
                           navigator.globalization.dateToString(
                             new Date(),
                             function (date) 
-                            { try{
-                            		var dateString;
-                            		dateString=date.day + '/' + date.month + '/' + date.year + " " + date.hour + ":" + date.minute + "tomer";
-                            		alert(date);
-                                    picker=document.getElementById('picker');
-                                    picker.value=dateString;
-                                   }
-                                   catch (err)
-                                   {alert(err);}
+                            { 
+                        		dateString=date.day + '/' + date.month + '/' + date.year + " " + date.hour + ":" + date.minute + "tomer";
+                        		alert(date);
+                                picker=document.getElementById('picker');
+                                picker.value=dateString;
+
                             },
                             function () {alert('Error getting dateString\n');},
                             {formatLength:'short', selector:'date and time'}
