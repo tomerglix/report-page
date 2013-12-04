@@ -472,21 +472,8 @@
                             new Date(),
                             function (date) 
                             { 
-                            	try
-                            	{
-                            		var d=new Date();
-                            		alert(d.getFullYear());
-                            		alert(date);
-                            		alert(date.getFullYear());
-									dateFormat(date,'dd/mm/yyyy HH:MM');
-									
 	                                picker=document.getElementById('picker');
 	                                picker.value=date.value;
-							   }
-							   catch (err)
-							   {
-							   	alert(err);
-							   }
 
                             },
                             function () {alert('Error getting dateString\n');},
