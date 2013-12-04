@@ -7,27 +7,27 @@
         <!--google maps api--> 
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>                 
                 
-            <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-            <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">
 
-                <!--progress spinner-->
-                <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
-                <script type="text/javascript" charset="UTF-8" src="spinner.min.js"></script>
-                <!--roboto font-->
-                <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>   
+        <!--progress spinner-->
+        <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
+        <script type="text/javascript" charset="UTF-8" src="spinner.min.js"></script>
+        <!--roboto font-->
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>   
         
         <!--jquery-->
         <script type="text/javascript" src="jquery_1.10.2.js">  </script> 
 
-                <!--date picker-->
-            <script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"> </script>
-            <script type="text/javascript" src="bootstrap_datetimepicker.min.js"> </script>
-            <script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>            
-            <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet" >
-            <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">     
-        
-                 <!-- general style-->
-                 <link rel="stylesheet" type="text/css" href="style.css">
+            <!--date picker-->
+        <script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"> </script>
+        <script type="text/javascript" src="bootstrap_datetimepicker.min.js"> </script>
+        <script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>            
+        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet" >
+        <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">     
+    
+         <!-- general style-->
+         <link rel="stylesheet" type="text/css" href="style.css">
                  
         <title>Report Page</title>
         
@@ -139,6 +139,13 @@
 
            
             <script type="text/javascript" charset="utf-8">
+				var map;
+                var marker;
+                var latlng;
+                var lastCenter="";
+                var city = "";
+                var street = "";  
+                var streetNum = "";    
             	//******** general functions ************/
             	var spinner;
             	
@@ -151,7 +158,7 @@
                 {         
 	                var littleSpinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
 	                GetLocation(GetAddress);
-	                //littleSpinner.stop();
+					PrintLocation();
 	                PrintDate();
 
                 }
@@ -291,25 +298,15 @@
                 //************ end of auto adjusting text box
 
                 //************ beginning location functions
-                var map;
-                var marker;
-                var latlng;
-                var lastCenter="";
-                
+        
+                             
                 function GetAddress(position)
                 {
-                    var city = "";
-                    var street = "";  
-                    var streetNum = "";               
-                    
                     lat = parseFloat(position.coords.latitude);
-                        lng = parseFloat(position.coords.longitude);
-                        lastCenter = new google.maps.LatLng(lat, lng);
-                        PrintAddressCoordinates(lastCenter);
-                        littleSpinner.stop();
-
-
-
+                    lng = parseFloat(position.coords.longitude);
+                    lastCenter = new google.maps.LatLng(lat, lng);
+                    CoordinatesToStrings(lastCenter);
+                    littleSpinner.stop();
                 }
                 
                 function onError(error) 
@@ -385,13 +382,14 @@
                         var lng = marker.getPosition().lng();
 
                         lastCenter = new google.maps.LatLng(lat, lng);
-                        PrintAddressCoordinates(lastCenter);
+                        CoordinatesToStrings(lastCenter);
                     }
                         
                 }
-
-                function PrintAddressCoordinates(latlng)
+				
+                function CoordinatesToStrings(latlng)
                 {
+						
                         geocoder = new google.maps.Geocoder();
                         geocoder.geocode({'latLng': latlng}, 
                                         function(results, status) 
@@ -409,16 +407,46 @@
                                                             if(ac.types.indexOf("street_number") >= 0) 
                                                             {
                                                                 streetNum = ac.long_name;
+                                                                
                                                             }
                                                             if(ac.types.indexOf("route") >= 0) 
                                             				{
                                             					street = ac.long_name;
+                                            					
                                             				}
                                                             if(ac.types.indexOf("locality") >= 0) 
                                                             {
-                                                                city = ac.long_name;                
+                                                                city = ac.long_name;       
+                                                                    
                                                             }
                                                 		}
+                                                		
+                                                		addressBar=document.getElementById("addressBar");
+                                        
+											            if (street!="")
+											            {
+											                addressBar.innerHTML=street;
+											                if (streetNum!="")
+											                {
+											                	addressBar.innerHTML+=" " + streetNum;
+											                }
+											                if (city!="")
+											                {
+											                    addressBar.innerHTML+=", " + city;
+											                }
+											            
+											            }
+											            else
+											            {
+											                if (city!="")
+											                {
+											                    addressBar.innerHTML=city;
+											                }
+											                else
+											                {
+											                	addressBar.innerHTML+="Unknown location <br/>";
+											            	}
+											            }		
                                     
                                                     }
                                                     else 
@@ -430,48 +458,24 @@
                                                 {
                                                     alert("Error: " + status);
                                                 }
-                                                addressBar=document.getElementById("addressBar");
-                                        
-                                                if (street!="")
-                                                {
-                                                    addressBar.innerHTML=street;
-                                                    if (streetNum!="")
-                                                    {
-                                                    	addressBar.innerHTML+=" " + streetNum;
-                                                    }
-                                                    if (city!="")
-                                                    {
-                                                        addressBar.innerHTML+=", " + city;
-                                                    }
                                                 
-                                                }
-                                                else
-                                                {
-                                                    if (city!="")
-                                                    {
-                                                        addressBar.innerHTML=city;
-                                                    }
-                                                    else
-                                                    {
-                                                    	addressBar.innerHTML+="Unknown location <br/>";
-                                                	}
-                                                }
+                                                
                                           });
+                                                                                      				
+                                          
 				}
                                     
                 //************ end of location functions
-                
-               
-                
-                
 					function PrintDate() 
 					{
                           navigator.globalization.dateToString(
                             new Date(),
                             function (date) 
                             {
+                            		var dateString;
+                            		dateString=date.day + '/' + date.month + '/' + date.year + " " + date.hour + ":" date.min;
                                     picker=document.getElementById('picker');
-                                    picker.value=date.value;
+                                    picker.value=dateString;
                             },
                             function () {alert('Error getting dateString\n');},
                             {formatLength:'short', selector:'date and time'}

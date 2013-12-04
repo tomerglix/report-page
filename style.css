@@ -9,9 +9,11 @@
 	}
 	body
 	{
+
 		font-family: 'roboto';
 		margin: 8px;
 		padding: 0;
+		background-color: #f3f3f3;
 
 	}
 	td
@@ -124,6 +126,7 @@
 		
 		/* W3C Markup, IE10 Release Preview */ 
 		background-image: linear-gradient(to bottom right, #FF8800 0%, #FFBB33 100%);
+		
 	  	text-decoration: none;
 	  	border: solid #cc0000 1px;
 	  	text-shadow: 1px 1px 0px #000000;
@@ -139,10 +142,6 @@
 		border-radius: 100px;*/
 
 
-	}
-	#SOSButton:active
-	{
-		background:url(./images/btn_sos_pressed.png) no-repeat;
 	}
 	.inputBox 
 	{
@@ -165,6 +164,7 @@
 		border-radius: 4px;
 		padding: 5%;
 		padding-top: 0%;
+		background-color: white;
 	}
 	
 	.littleButtonStyle 
