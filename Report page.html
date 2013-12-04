@@ -38,14 +38,14 @@
 </head>
 
 <html>
-        <body onload="PrintInitialDetails();" style="display: block" >
+        <body onload="PrintInitialDetails();" >
                 <div id="reportPageWrap">
                 	
                         <form >
                         	<div  class="pageWrap" style="margin-bottom: 10px">
-                                <div id="buttononmap" class="center">
-                                	<input id='closeMapButton'  type='submit' onclick='ToggleMap(); return false; ' value='Close map' style="display: none; "  />        
-                                </div>
+
+                                <input id='closeMapButton' class="center" type='submit' onclick='ToggleMap(); return false; ' value='Close map' style="display: none; "  />        
+
                                 <div id="mapDisplay" style="display: none">
                                         
                                 </div>
@@ -155,11 +155,11 @@
                 }
                 
 				function PrintInitialDetails()
-                {         
+                { 
 	                var littleSpinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
 	                GetLocation(GetAddress);
-					PrintLocation();
 	                PrintDate();
+
 
                 }
 
@@ -471,11 +471,10 @@
                           navigator.globalization.dateToString(
                             new Date(),
                             function (date) 
-                            {
-                            		var dateString;
-                            		dateString=date.day + '/' + date.month + '/' + date.year + " " + date.hour + ":" date.min;
-                                    picker=document.getElementById('picker');
-                                    picker.value=dateString;
+                            { 
+	                                picker=document.getElementById('picker');
+	                                picker.value=date.value;
+
                             },
                             function () {alert('Error getting dateString\n');},
                             {formatLength:'short', selector:'date and time'}
