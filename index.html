@@ -476,12 +476,31 @@
                             new Date(),
                             function (date) 
                             { 
-	                                picker=document.getElementById('picker');
-	                                picker.value=date.value;
-	                                for (i=0;i<date.value.length;++i)
-	                                {
-	                                	alert(i + ":" + date.value[i]);
-	                                }
+                            	var temp;
+                            	var month;
+                            	var year;
+                            	var hour12;
+                            	var hour24;
+                            	var min;
+                            	
+                            	day=date.value[0]+date.value[1];
+                            	month=date.value[3]+date.value[4];
+								year=date.value[6]+date.value[7]+date.value[8]+date.value[9];
+								hour12=date.value[11]+date.value[12];
+								min=date.value[14]+date.value[15];
+								hour24=parseInt(hour12);
+								if (date.value[16]=='P')
+								{
+									hour24+=12;
+								}
+								var dateString=day + '/' + month + '/' + year + ' ' + hour24 + ':' + min;
+								alert(dateString);
+								
+								
+								
+                                picker=document.getElementById('picker');
+                                picker.value=dateString;
+
 
                             },
                             function () {alert('Error getting dateString\n');},
