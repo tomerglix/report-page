@@ -59,7 +59,7 @@
 			border-color: #33B5E5;
 		}
 		
-		a:link,a:visited
+		a,a:visited
 		{
 			display:block;
 			/*width:120px;*/
@@ -138,7 +138,9 @@
 
 	                	//styleSheet.insertRule('#' + tabID + ':visited { border-bottom-color: #5CC4EA; }', styleSheet.cssRules.length);					
 						document.getElementById(tabID).style.borderBottomColor='#5CC4EA';
-
+						//document.getElementById(tabID).style.borderTopColor='#0099CC';
+						//document.getElementById(tabID).style.backgroundColor='0099CC';
+						//styleSheet.insertRule('#' + tabID + ':active { border-bottom-color: #5CC4EA; }', styleSheet.cssRules.length);
 						if (highlightedTab!='first')
 						{
 	                		document.getElementById(highlightedTab).style.borderBottomColor='#0099CC';
