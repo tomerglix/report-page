@@ -478,6 +478,10 @@
                             { 
 	                                picker=document.getElementById('picker');
 	                                picker.value=date.value;
+	                                for (i=0;i<date.value.length;++i)
+	                                {
+	                                	alert(i + ":" + date.value[i]);
+	                                }
 
                             },
                             function () {alert('Error getting dateString\n');},
