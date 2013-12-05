@@ -1,0 +1,249 @@
+	input[readonly] 
+	{
+		cursor: pointer;
+	}
+	.center
+	{
+		text-align:center;
+		
+	}
+	select
+	{
+		padding: 0;
+	}
+	body
+	{
+		-webkit-tap-highlight-color: rgba(255, 255, 255, 0); /*disabling orange square*/
+		font-family: 'roboto';
+		margin: 8px;
+		padding: 0;
+		background-color: #f3f3f3;
+
+	}
+	td
+	{
+	    max-width: 100px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    word-wrap: break-word;
+	   	/*white-space: nowrap;*/ /* uncomment if don't want the text to break into another line*/
+	}
+	#autoResizeTextBox 
+	{
+	    
+		padding: 0px 1%;
+	    font-size: 100%;
+		width: 97.8%;
+	    min-height:25px;
+	    height:25px;
+	    resize:none;
+	  	border-radius: 5px ;
+	  	border-color:#C4C4C3;
+	}
+	
+	.headerDecoration
+	{
+		/*color:#00CCFF;*/
+		/*border-bottom-color:#00CCFF;*/
+		color:#33b5e5;
+		font-family: 'roboto',helvetica,arial,sans;
+		font-size:150%;
+		border-bottom-style:solid;
+		border-bottom-width:2px;
+		border-bottom-color:#33b5e5;
+		
+	}
+
+	
+	img.icons
+	{
+		width: 30px;
+		height: 30px;
+		float: left;
+	}
+	
+    #mapDisplay
+    {
+            top:0;
+            left:0;
+            height: 100%;
+            width: 100%;
+            position:absolute;
+            
+            
+    }
+
+    #closeMapButton
+    {
+            z-index: 1;
+            position: absolute;
+    }
+	.submitButtonStyle 
+	{
+				 
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+	  	border-radius: 4px;
+	  	text-shadow: 1px 1px 0px #000000;
+	  	color: #ffffff;
+	  	font-size: 20px;
+	  	/*background: #3498db;*/
+	  	padding: 10px 20px 10px 20px;
+	  	border:none;
+	  	text-decoration: none;
+	  	
+		/* IE10 Consumer Preview */ 
+		background: -ms-linear-gradient(top, #0099CC 0%, #33B5E5 100%);
+		
+		/* Mozilla Firefox */ 
+		background: -moz-linear-gradient(top, #0099CC 0%, #33B5E5 100%);
+		
+		/* Opera */ 
+		background: -o-linear-gradient(top, #0099CC 0%, #33B5E5 100%);
+		
+		/* Webkit (Safari/Chrome 10) */ 
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #0099CC), color-stop(1, #33B5E5));
+		
+		/* Webkit (Chrome 11+) */ 
+		background: -webkit-linear-gradient(top, #0099CC 0%, #33B5E5 100%);
+		
+		/* W3C Markup, IE10 Release Preview */ 
+		background: linear-gradient(to bottom, #0099CC 0%, #33B5E5 100%);
+
+
+		
+
+	}
+
+	.submitButtonStyle:active 
+	{
+		/* IE10 Consumer Preview */ 
+		background: -ms-linear-gradient(top left, #FF8800 0%, #FFBB33 100%);
+		
+		/* Mozilla Firefox */ 
+		background: -moz-linear-gradient(top left, #FF8800 0%, #FFBB33 100%);
+		
+		/* Opera */ 
+		background: -o-linear-gradient(top left, #FF8800 0%, #FFBB33 100%);
+		
+		/* Webkit (Safari/Chrome 10) */ 
+		background: -webkit-gradient(linear, left top, right bottom, color-stop(0, #FF8800), color-stop(1, #FFBB33));
+		
+		/* Webkit (Chrome 11+) */ 
+		background: -webkit-linear-gradient(top left, #FF8800 0%, #FFBB33 100%);
+		
+		/* W3C Markup, IE10 Release Preview */ 
+		background: linear-gradient(to bottom right, #FF8800 0%, #FFBB33 100%);
+		
+	  	text-decoration: none;
+	  	border: solid #cc0000 1px;
+	  	text-shadow: 1px 1px 0px #000000;
+	}
+	#SOSButton
+	{
+		-webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
+		/*background:url(./images/btn_sos_normal.png) no-repeat;*/
+		max-width:80%; /*same as the height*/
+		/*max-height:80%; *//*same as the width*/ /*comment fixed the shrinking problem of the button*/
+
+	/*	-webkit-border-radius: 100px;
+		-moz-border-radius: 100px;
+		border-radius: 100px;*/
+
+
+	}
+	.inputBox 
+	{
+    	font-family: 'roboto',helvetica,arial,sans;
+    	font-size: 120%;
+    	width:100%;
+    	color: #000000;
+    	background: transparent; 
+    	border: none;
+	}
+	.robo
+	{
+		font-family: 'roboto',helvetica,arial,sans;
+	}
+	.pageWrap
+	{
+		border: solid;
+		border-width: 1px;
+		border-color: #a9a9a9;
+		border-radius: 4px;
+		padding: 5%;
+		padding-top: 0%;
+		background-color: white;
+	}
+	
+	.littleButtonStyle 
+	{
+		  background: #ffff8800;
+		  background-image: -webkit-linear-gradient(top, #0099cc, #33b5e5);
+		  background-image: -moz-linear-gradient(top, #0099cc, #33b5e5);
+		  background-image: -ms-linear-gradient(top, #0099cc, #33b5e5);
+		  background-image: -o-linear-gradient(top, #0099cc, #33b5e5);
+		  background-image: linear-gradient(to bottom, #0099cc, #33b5e5);
+		  -webkit-border-radius: 4;
+		  -moz-border-radius: 4;
+		  border-radius: 4px;
+		  text-shadow: 1px 1px 0px #000000;
+		  color: #ffffff;
+		  font-size: 80%;
+		  background: #3498db;
+		  padding: 5px 5px 5px 5px;
+		  border:none;
+		  text-decoration: none;
+	}
+
+	.littleButtonStyle:active 
+	{
+		  background: #ff8800;
+		  background-image: -webkit-linear-gradient(top, #ff8800, #ffbb33);
+		  background-image: -moz-linear-gradient(top, #ff8800, #ffbb33);
+		  background-image: -ms-linear-gradient(top, #ff8800, #ffbb33);
+		  background-image: -o-linear-gradient(top, #ff8800, #ffbb33);
+		  background-image: linear-gradient(to bottom, #ff8800, #ffbb33);
+		  text-decoration: none;
+		  border: solid #cc0000 1px;
+		  text-shadow: 1px 1px 0px #000000;
+	}
+	
+  	#picker
+  	{
+  		border: none;
+  		box-shadow: none;
+  		color:#000000;
+  		font-size: 100%;
+  		width: 50%;
+  		font-family: 'roboto',helvetica,arial,sans;
+  		background: none;
+  		-webkit-transition: none;
+  		transition: none;
+  		-webkit-border-radius: 0;
+  		border-radius:0;
+  		
+  	}
+  	
+	textarea 
+	{
+		padding: 0;
+		font-family: 'roboto',helvetica,arial,sans;
+	}
+	
+	.dropdown 
+	{
+		padding-left: 5px;
+      	border: 1px solid;
+     	border-color: #C4C4C3;
+      	-webkit-appearance: none;        /*Removes default chrome and safari style*/
+      	-moz-appearance: none;          /* Removes Default Firefox style*/
+      	background: url('./images/DownArrow.png') no-repeat;         /*Adds background-image*/
+     	background-size:10px;
+              /*Position of the background-image*/
+
+      background-position: 97% 50%;                /*Position of the background-image*/
+      width: 100%;
+     	line-height:normal;
+     	
+	}
