@@ -35,6 +35,7 @@
 	    font-size: 100%;
 		width: 100%%;
 	    min-height:25px;
+	    height:25px;
 	    resize:none;
 	  	border-radius: 5px ;
 	  	border-color:#C4C4C3;
@@ -219,10 +220,28 @@
   		background: none;
   		-webkit-transition: none;
   		transition: none;
+  		-webkit-border-radius: 0;
+  		border-radius:0;
+  		
   	}
   	
 	textarea 
 	{
 		padding: 0;
 		font-family: 'roboto',helvetica,arial,sans;
+	}
+	
+	.dropdown 
+	{
+      	border: 1px solid;
+     	border-color: #CCC;
+      	-webkit-appearance: none;        /*Removes default chrome and safari style*/
+      	-moz-appearance: none;          /* Removes Default Firefox style*/
+      	background: url('./images/DownArrow.png') no-repeat;         /*Adds background-image*/
+     	background-size:10px;
+              /*Position of the background-image*/
+
+      background-position: 95% 50%;                /*Position of the background-image*/
+      width: 50%;
+     	line-height:normal;
 	}
