@@ -31,9 +31,9 @@
 	#autoResizeTextBox 
 	{
 	    
-
+		padding: 0px 1%;
 	    font-size: 100%;
-		width: 100%%;
+		width: 97.8%;
 	    min-height:25px;
 	    height:25px;
 	    resize:none;
@@ -233,11 +233,12 @@
 	
 	.dropdown 
 	{
+		padding-left: 5px;
       	border: 1px solid;
      	border-color: #CCC;
       	-webkit-appearance: none;        /*Removes default chrome and safari style*/
       	-moz-appearance: none;          /* Removes Default Firefox style*/
-      	background: url('./images/DownArrow.png') no-repeat;         /*Adds background-image*/
+      	background: url('./images/DownArrow1.png') no-repeat;         /*Adds background-image*/
      	background-size:10px;
               /*Position of the background-image*/
 
