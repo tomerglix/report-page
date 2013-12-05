@@ -104,9 +104,9 @@
 					</li>
 				</ul>
 			</div>
-			
-			<iframe id="pageFrame" style="width: 100%; height: 100%" src="SOSPage.html" name="currentPage"></iframe>
-
+			<div style="width:100%; height: 100% ">
+				<iframe id="pageFrame" style="width: 100%; height: 100%" src="SOSPage.html" name="currentPage" style="overflow:visible "></iframe>
+			</div>
            
             <script type="text/javascript" charset="utf-8">
 				var map;
@@ -147,6 +147,7 @@
 						if (highlightedTab!='first')
 	                	{
 	                		document.getElementById(highlightedTab).style.borderBottomColor='#0099CC';
+	                		document.getElementById(highlightedTab).style.backgroundColor='#0099CC';
 	                		styleSheet.insertRule('#' + highlightedTab + ':visited { border-bottom-color: #0099CC; }', styleSheet.cssRules.length);
 							
 						}					
@@ -158,24 +159,7 @@
                 	
                 }
                 
-                function ChangeTabToActive(tabID)
-                {
-                	
-                	if (tabID!=highlightedTab)
-                	{
-	                	document.styleSheets[0].insertRule('#' + tabID + ':visited { border-bottom-color: #5CC4EA; }', document.styleSheets[0].cssRules.length);
-						document.styleSheets[0].insertRule('#' + tabID + '{ border-bottom-color: #5CC4EA; }', document.styleSheets[0].cssRules.length);
-						
-						if (highlightedTab!='first')
-	                	{
-	                		document.styleSheets[0].insertRule('#' + highlightedTab + ':visited { border-bottom-color: #0099CC; }', document.styleSheets[0].cssRules.length);
-							document.styleSheets[0].insertRule('#' + highlightedTab + '{ border-bottom-color: #0099CC; }', document.styleSheets[0].cssRules.length);	
-						}					
-						
-						highlightedTab=tabID;						
-
-					}
-                }
+               
                 
 				function PrintInitialDetails()
                 { 
