@@ -1,1 +1,0 @@
-fadeout message done, contacts overflow fixed
