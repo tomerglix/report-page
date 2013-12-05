@@ -137,15 +137,15 @@
                 		document.getElementById('pageFrame').src=pageID;
 
 	                	//styleSheet.insertRule('#' + tabID + ':visited { border-bottom-color: #5CC4EA; }', styleSheet.cssRules.length);
-	                	styleSheet.insertRule('#' + tabID + ':link' + ',#' + tabID + ':visited { border-bottom-color: #5CC4EA; }', styleSheet.cssRules.length);					
-						
+	                	styleSheet.insertRule('#' + tabID + ':link' + ',#' + tabID + ':visited { border-bottom-color: #5CC4EA; background-color:#0099CC; border-top-color:#0099CC; }', styleSheet.cssRules.length);					
+						styleSheet.insertRule('#' + tabID + ':hover' + ',#' + tabID + ':active { border-bottom-color: #5CC4EA; background-color:#33B5E5; border-top-color:#33B5E5; }', styleSheet.cssRules.length);					
 						//document.getElementById(tabID).style.borderBottomColor='#5CC4EA';
 						//document.getElementById(tabID).style.borderTopColor='#0099CC';
 						//document.getElementById(tabID).style.backgroundColor='#0099CC';
 						//styleSheet.insertRule('#' + tabID + ':active' + ',#' + tabID + ':hover { border-bottom-color: #5CC4EA; border-top-color:#0099CC  }', styleSheet.cssRules.length);
 						if (highlightedTab!='first')
 						{
-							styleSheet.insertRule('#' + highlightedTab + ':link' + ',#' + highlightedTab + ':visited { border-bottom-color: #0099CC; }', styleSheet.cssRules.length);
+							styleSheet.insertRule('#' + highlightedTab + ':link' + ',#' + highlightedTab + ':visited { border-bottom-color: #0099CC; }   ', styleSheet.cssRules.length);
 	                		//document.getElementById(highlightedTab).style.borderBottomColor='#0099CC';
 	                		//document.getElementById(highlightedTab).style.backgroundColor='#0099CC';
 	                		//document.getElementById(highlightedTab).style.borderTopColor='#0099CC';
