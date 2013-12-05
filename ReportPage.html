@@ -29,82 +29,113 @@
          <!-- general style-->
          <link rel="stylesheet" type="text/css" href="style.css">
                  
-        <title>Tabs</title>
+        <title>Report Page</title>
         
         <style>
-        body
-        {
-        	margin: 0px;
-        }
-		ul
-		{
-			list-style-type:none;
-			margin:0;
-			padding:0;
-			overflow:hidden;
-		}
-		
-		li
-		{
-			font-size: 90%;
-			width: 33%;
-			float:left;
 
-		}
-		.middleTab
-		{
-			border-left: 1px solid;
-			border-right: 1px solid;
-			border-color: #33B5E5;
-		}
-		
-		a:link,a:visited
-		{
-			display:block;
-			/*width:120px;*/
-			font-weight:bold;
-			color:#FFFFFF;
-			background-color:#0099CC;
-			text-align:center;
-			padding:4px;
-			text-decoration:none;
-			text-transform:uppercase;
-			border-bottom: solid;
-			border-bottom-width: 8px; 
-			border-bottom-color: #0099CC;
-			border-top: solid;
-			border-top-width: 8px;
-			border-top-color: #0099CC;
-			
-		}
-		
-		a:hover,a:active
-		{
-			background-color:#33B5E5;
-			
-			border-top-color: #33B5E5;
-		}
 
         </style>
 </head>
 
 <html>
-        <body onload="PrintInitialDetails();" style="height: 100%; overflow: hidden" >
-			<div id="topMenu">
-				<ul>
-					<li onclick="ChangePage('SOSPage.html','SOSTab'); return false;" >
-						<a id="SOSTab" href="#"> SOS </a>
-					</li>
-					<li onclick="ChangePage('ReportPage.html','reportPageTab'); return false;" class="middleTab">
-						<a  id="reportPageTab" href="#"> Report </a>
-					</li>
-					<li onclick="ChangePage('MessagesPage.html','messagesTab'); return false;">
-						<a id="messagesTab" href="#" > Messages</a>
-					</li>
-				</ul>
-			</div>
-			
-			<iframe id="pageFrame" style="width: 100%; height: 100%" src="SOSPage.html" name="currentPage"></iframe>
+        <body onload="PrintInitialDetails();" >
+                <div id="reportPageWrap">
+                	
+                        <form >
+                        	<div  class="pageWrap" style="margin-bottom: 10px">
+
+                                <input id='closeMapButton' class="center" type='submit' onclick='ToggleMap(); return false; ' value='Close map' style="display: none; "  />        
+
+                                <div id="mapDisplay" style="display: none">
+                                        
+                                </div>
+                                <div id="reportData">
+                           			  <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none"> Report Crime </h1>                                                              <!--main page header-->
+	                                        
+	                                  <div id="crimeType" class="section">                                                                                                                                                        <!--crime type section-->
+	                                          <div id="crimeTypeHeader">
+	                                                  <p  class="headerDecoration">Type</p>
+	                                          </div>
+	                                          <div id="crimeTypeSelection" >
+	                                                <select  style=" margin-bottom:0; height: 25px" class="dropdown">
+                                                        <option value="robbery">Robbery</option>
+                                                        <option value="violence">Violence</option>
+                                                        <option value="hijacking">Hijacking</option>
+                                                        <option value="murder">Murder</option>
+                                                        <option value="corruption">Corruption</option>
+                                                        <option value="other">Other</option>
+	                                                </select>
+	                                                <br/><br/>
+	                                          </div>
+	                                  
+	                                  </div>
+	                                  
+	                                  <div id="crimeDescription" class="section">                                                                                                                                        <!--crime description section-->
+	                                          <div id="crimeDescriptionHeader">
+	                                                  <p  class="headerDecoration" >Description</p>
+	                                          </div>
+	                                          <div id="crimeDescriptionBox" class="robo">
+	                                                  <textarea id="autoResizeTextBox" name="description" placeholder="Description"  style=" display: block"></textarea> 
+	                                          </div>
+	                                  </div>
+        
+        
+	                                  <div id="crimeLocation" onclick="ViewLocationOnMap(); return false" class="section">                                                                                        <!--crime location section-->
+	                                          <div id="crimeLocationHeader">
+	                                                  <p  class="headerDecoration">Location</p>
+	                                          </div>
+	                                          
+	                                          <div id="crimeLocationData">
+													<img src="./images/map-pin.png" class="icons" >
+													<div id="addressBar" class="robo">        
+														<br/>   
+													</div>  
+													<br/>              
+	                                          </div>
+	                                  </div>
+        
+	                                  <div id="crimeDate" class="section" >                                                                                                                                                        <!--crime date section-->
+	                                          <div id="crimeDateHeader" >
+	                                                  <p  class="headerDecoration">Date &amp; Hour</p>
+	                                          </div>
+	                                          <div id="crimeDateData">
+													<div id="datetimepicker">
+															<span class="add-on">
+													        	<img src="./images/calendar.png" class="icons">
+													            <input id="picker" type="text" readonly />
+													        </span>
+													       
+													</div>
+													  
+	                                          </div>
+	                                  </div>
+        
+                                      <div id="crimePhotos" class="section">                                                                                       <!--crime photos section-->
+                                            <div id="crimePhotosHeader">
+                          						<p  class="headerDecoration">Photos</p>
+                                            </div>
+                                   			<div id="crimePhotoAddButtons" onclick="TogglePhotoButtons(); return false" style="display: inline;">
+                         						<img src="./images/camera.png" class="icons"  >         
+                                 			</div>
+                                            <div id="addPhotoButtons" style="display:none; position: absolute; margin-left: 5px;" >
+                                                    <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons','inline'); return false" >Capture Photo</button> 
+                                                    <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons','inline'); return false">Photo Library</button>
+                                            </div>
+                                            <div id="photosSection" >
+                                                    <br/> <br/> 
+                                            </div>
+									</div>
+    
+                                </div>
+							</div>
+							
+                            <div id="submitReportButton" style="display: block;">
+                                    <input type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime();  " style="width:100%;" value="Submit Crime" />                <!--maybe return false is needed-->
+                            </div>
+        
+                        </form>
+                </div>
+
 
            
             <script type="text/javascript" charset="utf-8">
@@ -120,62 +151,18 @@
             	var spinner;
             	var littleSpinner;
             	
-            	var highlightedTab='first';
-            	var currentPage='SOSPage.html';
-            		        
-					
                 function SubmitCrime()
                 {
 
-                }
-                
-                function ChangePage(pageID,tabID)
-                {
-                	if (pageID!=currentPage)
-                	{
-                		document.getElementById('pageFrame').src=pageID;
-                		
-	                	document.styleSheets[0].insertRule('#' + tabID + ':visited { border-bottom-color: #5CC4EA; }', document.styleSheets[0].cssRules.length);
-						document.styleSheets[0].insertRule('#' + tabID + '{ border-bottom-color: #5CC4EA; }', document.styleSheets[0].cssRules.length);
-						
-						if (highlightedTab!='first')
-	                	{
-	                		document.styleSheets[0].insertRule('#' + highlightedTab + ':visited { border-bottom-color: #0099CC; }', document.styleSheets[0].cssRules.length);
-							document.styleSheets[0].insertRule('#' + highlightedTab + '{ border-bottom-color: #0099CC; }', document.styleSheets[0].cssRules.length);	
-						}					
-						
-						highlightedTab=tabID;
-						                		
-                		currentPage=pageID;
-                	}
-                	
-                }
-                
-                function ChangeTabToActive(tabID)
-                {
-                	
-                	if (tabID!=highlightedTab)
-                	{
-	                	document.styleSheets[0].insertRule('#' + tabID + ':visited { border-bottom-color: #5CC4EA; }', document.styleSheets[0].cssRules.length);
-						document.styleSheets[0].insertRule('#' + tabID + '{ border-bottom-color: #5CC4EA; }', document.styleSheets[0].cssRules.length);
-						
-						if (highlightedTab!='first')
-	                	{
-	                		document.styleSheets[0].insertRule('#' + highlightedTab + ':visited { border-bottom-color: #0099CC; }', document.styleSheets[0].cssRules.length);
-							document.styleSheets[0].insertRule('#' + highlightedTab + '{ border-bottom-color: #0099CC; }', document.styleSheets[0].cssRules.length);	
-						}					
-						
-						highlightedTab=tabID;						
-
-					}
                 }
                 
 				function PrintInitialDetails()
                 { 
 	                var littleSpinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
 	                GetLocation(GetAddress);
-	                ChangeTabToActive('SOSTab');
 	                PrintDate();
+
+
                 }
 
 				function ToggleDisplay(id,arg)

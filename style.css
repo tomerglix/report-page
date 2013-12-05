@@ -235,14 +235,15 @@
 	{
 		padding-left: 5px;
       	border: 1px solid;
-     	border-color: #CCC;
+     	border-color: #C4C4C3;
       	-webkit-appearance: none;        /*Removes default chrome and safari style*/
       	-moz-appearance: none;          /* Removes Default Firefox style*/
-      	background: url('./images/DownArrow1.png') no-repeat;         /*Adds background-image*/
+      	background: url('./images/DownArrow.png') no-repeat;         /*Adds background-image*/
      	background-size:10px;
               /*Position of the background-image*/
 
-      background-position: 95% 50%;                /*Position of the background-image*/
-      width: 50%;
+      background-position: 97% 50%;                /*Position of the background-image*/
+      width: 100%;
      	line-height:normal;
+     	
 	}
