@@ -160,7 +160,7 @@
 
 
 	}
-	.inputBox 
+	input.inputBox 
 	{
     	font-family: 'roboto',helvetica,arial,sans;
     	font-size: 120%;
@@ -168,6 +168,15 @@
     	color: #000000;
     	background: transparent; 
     	border: none;
+    	-webkit-box-shadow: none;
+    	-moz-box-shadow: none;
+    	box-shadow:none;
+    	-webkit-transition: none;
+    	transition:none;
+    	line-height: normal;
+    	padding: 0;
+    	margin-bottom: 0px;
+    	height: inherit;
 	}
 	.robo
 	{
@@ -234,7 +243,7 @@
   		
   	}
   	
-	textarea 
+	textarea
 	{
 		padding: 0;
 		font-family: 'roboto',helvetica,arial,sans;
