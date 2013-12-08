@@ -330,7 +330,7 @@
                 
                 function ViewLocationOnMap()
                 {
-                    spinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('reportPageWrap'));  
+                    spinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('reportPage'));  
                     GetLocation(ShowMap,onError);                           
                 }
 
