@@ -153,7 +153,7 @@
 				
 				function DeleteContact(contactIndex)
 				{
-					var comfirmDeletion=confirm("Are you sure you want to remove this contact?");
+					var comfirmDeletion=confirm("Contact will be deleted.");
 					if (comfirmDeletion==true)
 					{
 						for (i=contactIndex; i<contactsCounter-1; ++i)
