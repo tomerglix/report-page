@@ -66,6 +66,7 @@
 		width: 30px;
 		height: 30px;
 		float: left;
+		max-width:none;
 	}
 	
     #mapDisplay
