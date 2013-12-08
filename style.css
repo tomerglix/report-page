@@ -14,9 +14,15 @@
 	body
 	{
 		-webkit-tap-highlight-color: rgba(255, 255, 255, 0); /*disabling orange square*/
+		margin:0px;
+		padding:0px;
+	}
+	.pageWrap
+	{
+		
+		
 		font-family: 'roboto';
-		margin: 8px;
-		padding: 0;
+		padding-top: 44px;
 		background-color: #f3f3f3;
 
 	}
@@ -167,14 +173,15 @@
 	{
 		font-family: 'roboto',helvetica,arial,sans;
 	}
-	.pageWrap
+	.sectionWrap
 	{
 		border: solid;
 		border-width: 1px;
 		border-color: #a9a9a9;
 		border-radius: 4px;
-		padding: 5%;
-		padding-top: 0%;
+		margin: 10px;
+		padding: 3%;
+		padding-top:0;
 		background-color: white;
 	}
 	
@@ -249,3 +256,70 @@
      	line-height:normal;
      	
 	}
+	
+	       
+		ul
+		{
+			list-style-type:none;
+			margin:0;
+			padding:0;
+			overflow:hidden;
+		}
+		li
+		{
+			width:33%;
+			float:left;
+		}
+/*		.tab
+		{
+			background-color:#0099CC;
+			border-bottom: solid;
+			border-bottom-width: 8px; 
+			border-bottom-color: #0099CC;
+			border-top: solid;
+			border-top-width: 8px;
+			border-top-color: #0099CC;			
+		}*/
+		.tab:link, .tab:visited, .tab:hover
+		{
+			display:block;
+
+			color:#FFFFFF;
+			background-color:#0099CC;
+			text-align:center;
+			padding:4px;
+			text-decoration:none;
+			text-transform:uppercase;
+			border-bottom: solid;
+			border-bottom-width: 8px; 
+			border-bottom-color: #0099CC;
+			border-top: solid;
+			border-top-width: 8px;
+			border-top-color: #0099CC;
+			font-family: 'roboto',helvetica,arial,sans;
+			
+		}
+		
+		.tab:active
+		{
+			background-color:#33B5E5;
+			
+			border-top-color: #33B5E5;
+
+		}
+		       
+		.middleTab
+		{
+			border-left: 1px solid;
+			border-right: 1px solid;
+			border-left-color: #33B5E5;
+			border-right-color: #33B5E5;
+			-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+			-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+			box-sizing: border-box;         /* Opera/IE 8+ */
+		}       
+       
+		iframe
+		{
+			border: none;
+		}

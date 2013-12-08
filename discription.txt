@@ -1,1 +1,1 @@
-fadeout message done, contacts overflow fixed
+try to make the tabs fixed
