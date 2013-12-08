@@ -6,7 +6,9 @@
                 var street = "";  
                 var streetNum = "";
         		var spinner;
-            	var littleSpinner;   
+            	var littleSpinner;
+            	var camSpinner;   
+            	var hugeSpinner;
 				var i;
 				
 				var maxContacts=3;
@@ -174,7 +176,7 @@
 				
 				function SOSLongPress()
 				{
-					spinner = new Spinner(HugeSpinnerOpts).spin(document.getElementById('buttonSection'));  
+					hugeSpinner = new Spinner(HugeSpinnerOpts).spin(document.getElementById('buttonSection'));  
 					GetLocation(SendLocationToPoliceAndContacts, onError);
 					
 					
@@ -184,7 +186,7 @@
 				
 			    function SendLocationToPoliceAndContacts(position) 
 			    {
-			    	spinner.stop();
+			    	hugeSpinner.stop();
 			    	alert(	"Coordinates:\n" +
 			    			"Latitude: "	+ position.coords.latitude 	+ "\n" +
 			    			"Longitude: "		+ position.coords.longitude + "\n\n" +
@@ -234,14 +236,14 @@
                 }  
                 function capturePhoto() 
                 {
-                	 littleSpinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addPhotoButtons'));
+                	 camSpinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addPhotoButtons'));
                       // Take picture using device camera and retrieve image as base64-encoded string
                       navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
                         destinationType: destinationType.DATA_URL });
                 }         
                 function AddPhotoToFromCaption(imageData) 
                 {
-                	littleSpinner.stop();
+                	camSpinner.stop();
                     var photoSection=document.getElementById('photosSection');
     
                     photoSection.innerHTML+="<img style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
@@ -310,7 +312,7 @@
                     lng = parseFloat(position.coords.longitude);
                     lastCenter = new google.maps.LatLng(lat, lng);
                     CoordinatesToStrings(lastCenter);
-                    littleSpinner.stop();
+                   	littleSpinner.stop();
                 }
                 
                 function onError(error) 

@@ -16,15 +16,15 @@
 	    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
 	    <script src="taphold.js" type="text/javascript"></script>
     
-        <!--progress spinner-->
-        <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="spinner.min.js"></script>
+
         <!--roboto font-->
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>   
 
             
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
-
+        <!--progress spinner-->
+        <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
+        <script type="text/javascript" charset="UTF-8" src="spinner.min.js"></script>
         <!--date picker-->
         <script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"> </script>
         <script type="text/javascript" src="bootstrap_datetimepicker.min.js"> </script>
@@ -113,7 +113,7 @@
                     <form >
                     	<div  class="sectionWrap" style="margin-bottom: 10px">
 
-                            <input id='closeMapButton' class="center" type='submit' onclick='ToggleMap(); return false; ' value='Close map' style="display: none; "  />        
+                            <input id='closeMapButton' class="center" type='submit' onclick='ToggleMap(); return false; ' value='Close map' style="display: none; position: absolute; z-index: 100; top:0; "  />        
 
                             <div id="mapDisplay" style="display: none">
                                     
