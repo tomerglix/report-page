@@ -109,8 +109,8 @@
 <html>
         <body onload=" FirstLoad();" style="height: 100%; overflow: hidden" >
 
-			<div id="topMenu" style="width: 100%; ">
-				<ul style="width: 100%">
+			<div id="topMenu" style="width: 100%;">
+				<ul style="width: 100%;  position: fixed;">
 					<li onclick="ChangePage('SOSPage.html','SOSTab'); return false;" >
 						 <a id="SOSTab" class="tab" href="#"> SOS </a> 
 					</li>
@@ -122,8 +122,8 @@
 					</li>
 				</ul>
 			</div>
-			<div style="width:100%; height: 100% ">
-				<iframe id="pageFrame" style="width: 100%; height: 100%" name="currentPage" style="overflow:visible " src="SOSPage.html"></iframe>
+			<div style="width:100%; height: 100%; ">
+				<iframe id="pageFrame" style="width: 100%; padding-top: 3.5%; height: 100%" name="currentPage" style="overflow:visible " src="SOSPage.html"></iframe>
 			</div>
 
             <script type="text/javascript" charset="utf-8">
@@ -395,7 +395,6 @@
                         ToggleDisplay('mapDisplay','inline');
                         ToggleDisplay('reportData','inline');
                         ToggleDisplay('closeMapButton','inline');
-                        
                         //updates the city and country
                         var lat = marker.getPosition().lat();
                         var lng = marker.getPosition().lng();
