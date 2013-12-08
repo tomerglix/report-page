@@ -29,6 +29,9 @@
                 function FirstLoad()
                 {
                 	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
+	                littleSpinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
+	                GetLocation(GetAddress);
+	                PrintDate();
                 	
                 }
                 function ChangePage(pageID,tabID)
@@ -67,12 +70,7 @@
 
                 }
                 
-				function PrintInitialDetails()
-                { 
-	                var littleSpinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
-	                GetLocation(GetAddress);
-	                PrintDate();
-                }
+
 
 				function ToggleDisplay(id,arg)
 				{
@@ -508,22 +506,7 @@
                       );
 				}
 
-				$('#datetimepicker').datetimepicker({
-                	format: 'dd/MM/yyyy hh:mm',
-                	language: 'en-us'
-             	});
-                                  
-                $.fn.datetimepicker.defaults = 
-                {
-                        maskInput: true,           // disables the text input mask
-                        pickDate: true,            // disables the date picker
-                        pickTime: true,            // disables de time picker
-                        pick12HourFormat: false,   // enables the 12-hour format time picker
-                        pickSeconds: false,         // disables seconds in the time picker
-                        startDate: -Infinity,      // set a minimum date
-                        endDate: Infinity          // set a maximum date
-                };
-                
+
                 //****************** spinner options *****************/
                 
                 var bigSpinnerOpts = 
