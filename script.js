@@ -6,9 +6,6 @@
                 var street = "";  
                 var streetNum = "";
         		var spinner;
-            	var littleSpinner;
-            	var camSpinner;   
-            	var hugeSpinner;
 				var i;
 				
 				var maxContacts=3;
@@ -28,14 +25,7 @@
 					contactsList[i]=new Array(2);
 				}	
 			                 
-                function FirstLoad()
-                {
-                	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
-	                littleSpinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
-	                GetLocation(GetAddress);
-	                PrintDate();
-                	
-                }
+
                 function ChangePage(pageID,tabID)
                 {
                 	
@@ -176,7 +166,7 @@
 				
 				function SOSLongPress()
 				{
-					hugeSpinner = new Spinner(HugeSpinnerOpts).spin(document.getElementById('buttonSection'));  
+					spinner = new Spinner(HugeSpinnerOpts).spin(document.getElementById('buttonSection'));  
 					GetLocation(SendLocationToPoliceAndContacts, onError);
 					
 					
@@ -186,7 +176,7 @@
 				
 			    function SendLocationToPoliceAndContacts(position) 
 			    {
-			    	hugeSpinner.stop();
+			    	spinner.stop();
 			    	alert(	"Coordinates:\n" +
 			    			"Latitude: "	+ position.coords.latitude 	+ "\n" +
 			    			"Longitude: "		+ position.coords.longitude + "\n\n" +
@@ -236,14 +226,14 @@
                 }  
                 function capturePhoto() 
                 {
-                	 camSpinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addPhotoButtons'));
+                	 spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addPhotoButtons'));
                       // Take picture using device camera and retrieve image as base64-encoded string
                       navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
                         destinationType: destinationType.DATA_URL });
                 }         
                 function AddPhotoToFromCaption(imageData) 
                 {
-                	camSpinner.stop();
+                	spinner.stop();
                     var photoSection=document.getElementById('photosSection');
     
                     photoSection.innerHTML+="<img style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
@@ -312,7 +302,7 @@
                     lng = parseFloat(position.coords.longitude);
                     lastCenter = new google.maps.LatLng(lat, lng);
                     CoordinatesToStrings(lastCenter);
-                   	littleSpinner.stop();
+                   	spinner.stop();
                 }
                 
                 function onError(error) 

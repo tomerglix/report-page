@@ -227,7 +227,15 @@
                 		format: 'dd/MM/yyyy hh:mm',
                 		language: 'en-us'
          			});
-                                  
+         			
+	                function FirstLoad()
+	                {
+	                	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
+		                spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
+		                GetLocation(GetAddress);
+		                PrintDate();
+	                	
+	                }                              
                 
 		                			
 						
