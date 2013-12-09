@@ -368,10 +368,10 @@
                 {
                     mapID=document.getElementById('mapDisplay');                                
                     if (mapID.style.display=="none")
-                    {     
-                        ToggleDisplay('mapDisplay','inline');
+                    {
+                    	ToggleDisplay('closeMapButton','inline');     
                         ToggleDisplay('reportData','inline');
-                        ToggleDisplay('closeMapButton','inline');
+                        ToggleDisplay('mapDisplay','inline');
                         
                         lastCenter=map.getCenter(); 
                         google.maps.event.trigger(map, 'resize');
