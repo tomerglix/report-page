@@ -187,10 +187,8 @@
 				
 				function SOSShortPress()
 				{
-					//ToggleDisplay('blankSection');
-					$("#pressLongMessage").fadeTo(2000,1);
-					
 					ChangeButtonToNormal();
+					$("#pressLongMessage").fadeTo(2000,1);
 					setTimeout(function (){$("#pressLongMessage").fadeTo(1000,0);},3000);
 		
 				}                
