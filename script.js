@@ -302,7 +302,7 @@
                     lng = parseFloat(position.coords.longitude);
                     lastCenter = new google.maps.LatLng(lat, lng);
                     CoordinatesToStrings(lastCenter);
-                   	spinner.stop();
+                   	//spinner.stop();
                 }
                 
                 function onError(error) 

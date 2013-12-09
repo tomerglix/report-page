@@ -37,7 +37,28 @@
         <title>Tabs</title>
         
         <style>
-
+			.descriptionBox
+			{
+				height: 20px;
+				margin:0 5px;
+				border:none;
+				max-width: 94%;
+				width: 94%;
+				background: none;
+				-webkit-box-shadow:none;
+				box-shadow:none;
+				-webkit-transition:none;
+				
+			}
+			.textEditUnderLine
+			{
+				margin: 0 3px;
+				margin-bottom: 10px;
+				height:3px;
+				border: solid 1px #33b5e5;
+				border-top:none;
+				
+			}
 
 		
         </style>
@@ -142,7 +163,9 @@
                                                   <p  class="headerDecoration" >Description</p>
                                           </div>
                                           <div id="crimeDescriptionBox" class="robo">
-                                                  <textarea id="autoResizeTextBox" name="description" placeholder="Description"  style=" display: block"></textarea> 
+                                                  <textarea id="autoResizeTextBox" name="description" placeholder="Description"  style=" display: block" class="descriptionBox"></textarea> 
+                                          </div>
+                                          <div class="textEditUnderLine">
                                           </div>
                                   </div>
     
@@ -231,7 +254,7 @@
 	                function FirstLoad()
 	                {
 	                	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
-		                spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
+		                //spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
 		                GetLocation(GetAddress);
 		                PrintDate();
 	                	
