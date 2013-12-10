@@ -39,20 +39,12 @@
         <title>Tabs</title>
         
         <style>
-			.descriptionBox
-			{
-				height: 20px;
-				margin:0 5px;
-				border:none;
-				max-width: 94%;
-				width: 94%;
-				background: none;
-				-webkit-box-shadow:none;
-				box-shadow:none;
-				-webkit-transition:none;
-				-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-				
-			}
+ .screenFiller {
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    border: 15px solid orange
+}
+
 			.descriptionBox:focus
 			{
 				box-shadow:none;
@@ -179,7 +171,7 @@
                                                   <p  class="headerDecoration" >Description</p>
                                           </div>
                                           <div id="crimeDescriptionBox" class="robo">
-                                                  <textarea id="autoResizeTextBox" name="description" placeholder="Description"  style=" display: block" class="descriptionBox"></textarea> 
+                                                  <textarea id="autoResizeTextBox" name="description"  style=" display: block" class="descriptionBox"></textarea> 
                                           </div>
                                           <div class="textEditUnderLine">
                                           </div>
@@ -243,8 +235,8 @@
 <!----------------------------------------- end of report section -------------------------------------->    
        
 <!----------------------------------------- messages section -------------------------------------->                  
-			<div id="messagesPage"  class="pageWrap" style="display: none">
-				<div id="messagesWrap" class="sectionWrap">
+			<div id="messagesPage"  class="pageWrap" style="display: none;">
+				<div id="messagesWrap" class="sectionWrap" style=" height:500px;">
 					<h1>Under Construction</h1>
 				</div>
 			</div>

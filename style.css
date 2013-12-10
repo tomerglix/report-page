@@ -19,7 +19,8 @@
 	}
 	.pageWrap
 	{
-		
+		height: 100%;
+		width: 100%;
 		
 		font-family: 'roboto';
 		padding-top: 44px;

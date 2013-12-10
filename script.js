@@ -59,6 +59,8 @@
             	
                 function SubmitCrime()
                 {
+					/*alert(document.getElementById('picker').value + "\n" + 
+					document.getElementById('autoResizeTextBox').value);*/
 
                 }
                 
