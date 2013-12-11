@@ -1,2 +1,1 @@
-taphold fixed, timepicker fixed (need to check the textbox shadow), spinner when waiting for address to be printed is out of position,
-submit button fixed
+contact list is stored

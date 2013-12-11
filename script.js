@@ -97,24 +97,36 @@
 					if (isNumber(number))
 					{
 						name=document.getElementById('contactName').value;
-						contactsList[contactsCounter][0]=name;
-						contactsList[contactsCounter][1]=number;
-		
-	
-						DisplaySingleContact(contactsCounter);												 
-						contactsCounter++;
-						
-						ToggleDisplay('addingContactField','table'); 
-						if (contactsCounter<maxContacts)
+						if (name.indexOf('/') == -1)
 						{
-							ToggleDisplay('addbutton','inline');
+							contactsList[contactsCounter][0]=name;
+							contactsList[contactsCounter][1]=number;
+							localStorage.setItem(contactsCounter, name + '/' + number );
+							
+							alert(localStorage.getItem(contactsCounter));
+							
+							DisplaySingleContact(contactsCounter);												 
+							contactsCounter++;
+							localStorage.setItem(maxContacts+1,contactsCounter);
+							alert(localStorage.getItem(maxContacts+1));
+							
+							ToggleDisplay('addingContactField','table'); 
+							if (contactsCounter<maxContacts)
+							{
+								ToggleDisplay('addbutton','inline');
+							}
+							document.getElementById('contactNumber').value="";
+							document.getElementById('contactName').value="";
 						}
-						document.getElementById('contactNumber').value="";
-						document.getElementById('contactName').value="";
+						else
+						{
+							alert("'/' is not alowed.");
+						}
+						
 					}
 					else
 					{
-						alert("Please enter a valid Number.");
+						alert("Please enter a valid number.");
 					}
 	
 				}
@@ -126,8 +138,8 @@
 				
 				function DisplaySingleContact(contactIndex)
 				{	
-					document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:5%'> <img src='./images/x.png' class='icons'  onclick='DeleteContact(" +contactIndex +"); return false' ></td>  <td style='width:47.5%;'>"
-																		+ contactsList[contactIndex][0] + "</td> <td  style='width:47.5%'> " + contactsList[contactIndex][1] + "</td> </tr>";
+					document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:5%' class='center'> <img src='./images/x.png' class='icons'  onclick='DeleteContact(" +contactIndex +"); return false' ></td>  <td style='width:45%;'>"
+																		+ contactsList[contactIndex][0] + "</td> <td  style='width:50%'> " + contactsList[contactIndex][1] + "</td> </tr>";
 				}
 				
 				function DisplayContactList()
@@ -152,16 +164,18 @@
 					{
 						for (i=contactIndex; i<contactsCounter-1; ++i)
 						{
-		
+							
+							localStorage.setItem(i,localStorage.getItem(i+1));
 							contactsList[i][0]=contactsList[i+1][0];
 							contactsList[i][1]=contactsList[i+1][1];
 						}
-		
+						localStorage.removeItem(i);
 						if (contactsCounter==3)
 						{
 							ToggleDisplay('addbutton','inline');
 						}
 						--contactsCounter;
+						localStorage.setItem(maxContacts+1,contactsCounter);
 						DisplayContactList();
 					}
 				}
@@ -362,6 +376,7 @@
                     	ToggleDisplay('closeMapButton','inline');     
                         ToggleDisplay('reportData','inline');
                         ToggleDisplay('mapDisplay','inline');
+                        ToggleDisplay('topMenu','inline');
                         
                         lastCenter=map.getCenter(); 
                         google.maps.event.trigger(map, 'resize');
@@ -373,6 +388,7 @@
                         ToggleDisplay('mapDisplay','inline');
                         ToggleDisplay('reportData','inline');
                         ToggleDisplay('closeMapButton','inline');
+                        ToggleDisplay('topMenu','inline');
                         
                         //updates the city and country
                         var lat = marker.getPosition().lat();
@@ -560,3 +576,30 @@
 				  top: 'auto', // Top position relative to parent in px
 				  left: 'auto' // Left position relative to parent in px
 				};                 
+				
+
+				function LoadContactsFromStorage()
+				{
+					var contact;
+					var n;
+					var len;
+					if (!localStorage.getItem(maxContacts+1))
+					{
+						contactsCounter=0;
+					}
+					else
+					{
+						contactsCounter=localStorage.getItem(maxContacts+1);
+						for (i=0;i<contactsCounter;++i)
+						{
+							contact=localStorage.getItem(i);
+							n=contact.indexOf('/');
+							len=contact.length;
+							contactsList[i][0]=contact.substring(0,n);
+							alert(contactsList[i][0]);
+							contactsList[i][1]=contact.substring(n+1,len);
+							alert(contactsList[i][1]);
+						}
+					}
+
+				}

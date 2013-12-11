@@ -39,55 +39,19 @@
         <title>Tabs</title>
         
         <style>
- .screenFiller {
-    position: fixed;
-    top: 0; right: 0; bottom: 0; left: 0;
-    border: 15px solid orange
-}
 
-			.descriptionBox
-			{
-				height: 20px;
-				margin:0 5px;
-				border:none;
-				max-width: 94%;
-				width: 94%;
-				background: none;
-				-webkit-box-shadow:none;
-				box-shadow:none;
-				-webkit-transition:none;
-				-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-				
-			}
-			.descriptionBox:focus
-			{
-				box-shadow:none;
-				-webkit-box-shadow:none;
-				border-color:none;
-			}
-			.textEditUnderLine
-			{
-				margin: 0 3px;
-				margin-bottom: 10px;
-				height:3px;
-				border: solid 1px #33b5e5;
-				border-top:none;
-				
-			}
-			input.middle:focus 
-			{
-			    outline-width: 0;
-			}
-			input:focus, select:focus, textarea:focus, button:focus 
-			{
-			    outline: none;
-			}	
+
 			
         </style>
 </head>
 
 <html >
         <body onload=" FirstLoad();" style="height: 100%; background-color:#f3f3f3" >
+        	
+            <div id="mapDisplay" style="display: none">
+                                    
+            </div>
+            
 			<div id="topMenu" style="width: 100%; position: fixed; border-bottom: solid #f3f3f3 8px">
 				<ul style="width: 100%; " class="navBar">
 					<li onclick="ChangePage('SOSPage','SOSTab'); return false;" class="navTab" >
@@ -156,9 +120,6 @@
 
                            <button id='closeMapButton' class="center" onclick='ToggleMap(); return false; '  style="display: none; position: absolute; z-index: 100; top:0;">Close map</button>
 						
-                            <div id="mapDisplay" style="display: none">
-                                    
-                            </div>
                             <div id="reportData">
                        			  <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none"> Report Crime </h1>                                                              <!--main page header-->
                                         
@@ -298,8 +259,14 @@
 	                	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
 		                //spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
 		                GetLocation(GetAddress);
-		                PrintDate();
-	                	
+		                
+						LoadContactsFromStorage();
+						DisplayContactList();
+						if (contactsCounter==3)
+						{
+							ToggleDisplay('addbutton','inline');
+						}
+	                	PrintDate();
 	                } 
 	                                             
       
