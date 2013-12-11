@@ -179,12 +179,12 @@
 				
 				function SOSLongPress()
 				{
+			
 					spinner = new Spinner(HugeSpinnerOpts).spin(document.getElementById('buttonSection'));  
 					GetLocation(SendLocationToPoliceAndContacts, onError);
-					
-					
+				
 					ChangeButtonToNormal();
-					
+
 				}
 				
 			    function SendLocationToPoliceAndContacts(position) 
@@ -327,7 +327,17 @@
                   
                 function GetLocation(functionWhenSuccess)
                 {
-                    navigator.geolocation.getCurrentPosition(functionWhenSuccess, onError);
+        			try
+					{
+						
+					
+                    	navigator.geolocation.getCurrentPosition(functionWhenSuccess, onError);
+                    }
+                    					}
+					catch (err)
+					{
+						alert("err");
+					}
                 }
                 
                 
