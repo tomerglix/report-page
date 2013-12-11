@@ -11,8 +11,8 @@
 			duration: 1000, // within this period
 			minX: 50, // swipe L/R if touch position moved more than this horizontally
 			minY: 20, // swipe U/D if touch position moved more than this vertically
-			//swipeUp: undefined,   // callback function invoked when swipe up
-			//swipeDown: undefined, // or swipe down,
+			swipeUp: undefined,   // callback function invoked when swipe up
+			swipeDown: undefined, // or swipe down,
 			swipeLeft: undefined, // or swipe left,
 			swipeRight: undefined // or swipe right
 		};
@@ -74,14 +74,14 @@
 							config.swipeRight();
 						}
 						
-					}/* else if (Math.abs(diffY) > config.minY) {
+					} else if (Math.abs(diffY) > config.minY) {
 						
 						if (diffY > 0 && config.swipeUp) {
 							config.swipeUp();
 						} else if (config.swipeDown) {
 							config.swipeDown();
 						}
-					}*/
+					}
 				}
 				
 				start = stop = undefined;
