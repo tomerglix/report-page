@@ -330,10 +330,10 @@
         			try
 					{
 						
-					
+						alert("get");
                     	navigator.geolocation.getCurrentPosition(functionWhenSuccess, onError);
                     }
-                    					}
+                    				
 					catch (err)
 					{
 						alert("err");
