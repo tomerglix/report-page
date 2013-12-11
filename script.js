@@ -102,13 +102,11 @@
 							contactsList[contactsCounter][0]=name;
 							contactsList[contactsCounter][1]=number;
 							localStorage.setItem(contactsCounter, name + '/' + number );
-							
-							alert(localStorage.getItem(contactsCounter));
+						
 							
 							DisplaySingleContact(contactsCounter);												 
 							contactsCounter++;
 							localStorage.setItem(maxContacts+1,contactsCounter);
-							alert(localStorage.getItem(maxContacts+1));
 							
 							ToggleDisplay('addingContactField','table'); 
 							if (contactsCounter<maxContacts)
@@ -596,9 +594,7 @@
 							n=contact.indexOf('/');
 							len=contact.length;
 							contactsList[i][0]=contact.substring(0,n);
-							alert(contactsList[i][0]);
 							contactsList[i][1]=contact.substring(n+1,len);
-							alert(contactsList[i][1]);
 						}
 					}
 
