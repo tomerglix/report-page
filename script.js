@@ -312,13 +312,10 @@
                 function GetAddress(position)
                 {
                 	
-                	alert("getAddress");
                     lat = parseFloat(position.coords.latitude);
                     lng = parseFloat(position.coords.longitude);
                     lastCenter = new google.maps.LatLng(lat, lng);
-                    alert("getAddress1");
                     CoordinatesToStrings(lastCenter);
-                    alert("getAddress2");
                    	//spinner.stop();
                 }
                 
@@ -333,9 +330,7 @@
                 function GetLocation(functionWhenSuccess)
                 {
 						
-						alert("get");
                     	navigator.geolocation.getCurrentPosition(functionWhenSuccess, onError);
-                    	alert("got");
       
                 }
                 
