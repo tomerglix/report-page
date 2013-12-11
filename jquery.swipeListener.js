@@ -39,7 +39,7 @@
 					y: e.pageY,
 					time: (new Date()).getTime()
 				};
-				//event.stopPropagation();
+				event.stopPropagation();
 				
 				$this.bind(touchMoveEvent, touchMove).one(touchEndEvent, touchEnd);
 			};
