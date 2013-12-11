@@ -324,6 +324,7 @@
                 
                 function onError(error) 
                 {
+                	alert("1");
                     alert(        'Sending location failed\n'        +
                                     'code: '    + error.code    + '\n' +
                                   'message: ' + error.message + '\n');
