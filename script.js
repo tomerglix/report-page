@@ -102,8 +102,7 @@
 							contactsList[contactsCounter][0]=name;
 							contactsList[contactsCounter][1]=number;
 							localStorage.setItem(contactsCounter, name + '/' + number );
-						
-							
+		
 							DisplaySingleContact(contactsCounter);												 
 							contactsCounter++;
 							localStorage.setItem(maxContacts+1,contactsCounter);
@@ -502,7 +501,7 @@
 							}
 							var dateString=day + '/' + month + '/' + year + ' ' + hour24 + ':' + min;			
 														
-                            picker=document.getElementById('picker');
+                            picker=document.getElementById('scroller');
                             picker.value=dateString;
 
 
@@ -599,3 +598,17 @@
 					}
 
 				}
+				
+				function HighLightUL(ULID)
+				{
+					document.getElementById(ULID).style.borderColor="#33b5e5";
+
+				}
+				
+				function DeHighLightUL(ULID)
+				{
+					document.getElementById(ULID).style.borderColor="#a9a9a9";
+
+				}
+
+//onfocus="document.getElementById('crimeLocation').readOnly=true" onblur="document.getElementById('crimeLocation').readOnly=false"

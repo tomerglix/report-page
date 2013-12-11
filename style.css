@@ -58,7 +58,7 @@
 		border-bottom-style:solid;
 		border-bottom-width:2px;
 		border-bottom-color:#33b5e5;
-		
+		margin: 15px 0px;
 	}
 
 	
@@ -179,6 +179,7 @@
     	padding: 0;
     	margin-bottom: 0px;
     	height: inherit;
+    	
 	}
 	.robo
 	{
@@ -258,6 +259,7 @@
 		padding-left: 5px;
       	border: 1px solid;
      	border-color: #C4C4C3;
+     	border-radius: 4px;
       	-webkit-appearance: none;        /*Removes default chrome and safari style*/
       	-moz-appearance: none;          /* Removes Default Firefox style*/
       	background: url('./images/DownArrow.png') no-repeat;         /*Adds background-image*/
@@ -342,6 +344,8 @@
 		box-shadow:none;
 		-webkit-transition:none;
 		-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+		-webkit-appearance: none;
+		
 		
 	}
 	.descriptionBox:focus
@@ -355,9 +359,8 @@
 		margin: 0 3px;
 		margin-bottom: 10px;
 		height:3px;
-		border: solid 1px #33b5e5;
-		border-top:none;
-		
+		border: solid 1px #a9a9a9;
+		border-top:none;		
 	}
 	input.middle:focus 
 	{
