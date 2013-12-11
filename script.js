@@ -278,6 +278,7 @@
                       {
                               alert('Failed because: ' + message);
                       }
+                      spinner.stop();
                 }
                 //************* end of camera functions *********************/
 
