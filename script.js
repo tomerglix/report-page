@@ -241,6 +241,7 @@
                       // Take picture using device camera and retrieve image as base64-encoded string
                       navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
                         destinationType: destinationType.DATA_URL });
+                    spinner.stop();
                 }         
                 function AddPhotoToFromCaption(imageData) 
                 {
