@@ -49,7 +49,7 @@
 					return;
 				}
 				
-				//event.preventDefault();
+				event.preventDefault();
 				
 				var e = isTouchDevice ? event.originalEvent.touches[0] : event;
 				stop = {
