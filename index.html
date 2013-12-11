@@ -54,7 +54,7 @@
 	    <!--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>-->
 	    <script src="taphold.js" type="text/javascript"></script>
 	    
-	    <!--<script type="text/javascript" src="jquery.swipeListener.js"></script>-->
+	    <script type="text/javascript" src="jquery.swipeListener.js"></script>
 	    
         <!--progress spinner-->
         <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
@@ -246,6 +246,17 @@
 <!----------------------------------------- end of messages section -------------------------------------->         
      
 			<script type="text/javascript" charset="UTF-8" >
+ 
+
+					        
+
+						
+					$("#autoResizeTextBox").keyup(function (e) 
+	                {
+	                    adaptiveheight(this);
+	                });	
+	                
+
 					$(document).ready(function(){
 						
 						$("#SOSPage").swipeListener({
@@ -263,19 +274,7 @@
 							swipeRight: function(){ChangePage('reportPage','reportPageTab'); }
 						});
 						
-					});  
-
-					        
-			        $("#SOSButton").on("taphold", {duration: 1500}, SOSLongPress)
-	          			.on("click",   SOSShortPress)
-	          			.on("touchstart", ChangeButtonToPressed)
-						.on("touchend", ChangeButtonToNormal);
-						
-					$("#autoResizeTextBox").keyup(function (e) 
-	                {
-	                    adaptiveheight(this);
-	                });	
-	                
+					}); 	                
             		$(function(){
 					    // create a datetimepicker with default settings
 					    $("#scroller").mobiscroll().datetime({
@@ -290,6 +289,8 @@
 						    timeWheels: 'HHii'
 						}); // Shorthand for: $("#scroller").mobiscroll({ preset: 'datetime' });
 					});
+					
+					
 	                function FirstLoad()
 	                {
 	                	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
@@ -304,7 +305,11 @@
 						}
 	                	PrintDate();
 	                } 
-
+			        $("#SOSButton").on("taphold", {duration: 1500}, SOSLongPress)
+	          			.on("click",   SOSShortPress)
+	          			.on("touchstart", ChangeButtonToPressed)
+						.on("touchend", ChangeButtonToNormal);
+						
 			</script>
 			
         </body>
