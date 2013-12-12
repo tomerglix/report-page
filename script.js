@@ -616,5 +616,67 @@
 					document.getElementById(ULID).style.borderColor="#a9a9a9";
 
 				}
+				
+				var phoneNumber="";
+				var email="";
+				var birthDate="";
+				function ValidatePhone(num) 
+				{
 
+				    var error = "";
+				    var stripped = num.replace(/[\(\)\.\-\ ]/g, '');     
+				
+				   if (num == "") {
+				        error = "You didn't enter a phone number.";
+				       
+				    } else if (isNaN(parseInt(stripped))) {
+				        error = "The phone number contains illegal characters.";
+				       
+				    } else if (!(stripped.length == 10)) {
+				        error = "The phone number is the wrong length. Make sure you included an area code.";
+				       
+				    } 
+				    if (error!='')
+				    {
+				    	document.getElementById('numberAttention').style.display='inline';
+				    	phoneNumber="";
+
+				    }
+				    else
+				    {
+				    	document.getElementById('numberAttention').style.display='none';
+				    	phoneNumber=fld;
+				    }
+				    
+				}
+				
+				function EmailValidation(mail)
+				{
+					var error="";
+					var atpos=mail.indexOf("@");
+					var dotpos=mail.lastIndexOf(".");
+					if (atpos<1 || dotpos<atpos+2 || dotpos+2>=mail.length || mail=="")
+				  	{
+					  	error="Not a valid e-mail address.";
+					  	document.getElementById('emailAttention').style.display='inline';
+					  	email="";
+					  	
+				  	}
+				  	else
+				  	{
+				  		document.getElementById('emailAttention').style.display='none';
+				  		email=mail;
+				  		
+				  	}
+				  	
+				}
+				
+				function OnRegLoad()
+				{
+					d=new Date();
+					today=
+					document.getElementById('picker').value= d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
+					
+				}
+				
 //onfocus="document.getElementById('crimeLocation').readOnly=true" onblur="document.getElementById('crimeLocation').readOnly=false"
