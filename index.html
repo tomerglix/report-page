@@ -65,11 +65,14 @@
         <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
         <script type="text/javascript" charset="UTF-8" src="spinner.min.js"></script>
 
+ 		<script type="text/javascript" charset="UTF-8" src="script.js" ></script>  
+ 		
+		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
      	<!-- general style-->
      	
      	<link rel="stylesheet" type="text/css" href="style.css">
-        <script type="text/javascript" charset="UTF-8" src="script.js" ></script>  
-   <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>	             
+       
+   			             
         <title>Tabs</title>
         
         <style>
@@ -222,8 +225,8 @@
                      						<img src="./images/camera.png" class="icons"  >         
                              			</div>
                                         <div id="addPhotoButtons" style="display:none; position: absolute; margin-left: 5px;" >
-                                                <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons','inline'); return false" >Capture Photo</button> 
-                                                <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons','inline'); return false">Photo Library</button>
+                                                <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons','inline'); return false" data-role="none" >Capture Photo</button> 
+                                                <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons','inline'); return false" data-role="none">Photo Library</button>
                                         </div>
                                         <div id="photosSection" >
                                                 <br/> <br/> 
@@ -322,7 +325,7 @@
 	          			.on("touchstart", ChangeButtonToPressed)
 						.on("touchend", ChangeButtonToNormal);
 						
-
+					$.mobile.loadingMessage = false;
 			</script>
 			
         </body>
