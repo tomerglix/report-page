@@ -1,2 +1,0 @@
-problems with scroll and swipe
-trying to add some jquery mobile swiping event listneres to solve this
