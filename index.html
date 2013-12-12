@@ -59,15 +59,15 @@
 	    <!--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>-->
 	    <!--<script src="taphold.js" type="text/javascript"></script>-->
 	    
-	    <script type="text/javascript" src="jquery.swipeListener.js"></script>
+	   <!-- <script type="text/javascript" src="jquery.swipeListener.js"></script>-->
 	    
         <!--progress spinner-->
         <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
         <script type="text/javascript" charset="UTF-8" src="spinner.min.js"></script>
 
  		<script type="text/javascript" charset="UTF-8" src="script.js" ></script>  
- 		
-		<script src="jquerymobile.js"></script>
+	
+		<script src="jquery.mobile-events.js"></script>
      	<!-- general style-->
      	
      	<link rel="stylesheet" type="text/css" href="style.css">
@@ -82,8 +82,8 @@
         </style>
 </head>
 
-<html  data-role="none">
-        <body onload=" FirstLoad();" style="height: 100%; background-color:#f3f3f3" data-role="none" >
+<html >
+        <body onload=" FirstLoad();" style="height: 100%; background-color:#f3f3f3" >
         	
             <div id="mapDisplay" style="display: none">
                                     
@@ -139,7 +139,7 @@
 										</tr>
 									</table>	
 									<div id="addbutton" style="display: inline; " >
-										<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField','table'); ToggleDisplay('addbutton','inline'); return false"   data-role="none"/>
+										<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField','table'); ToggleDisplay('addbutton','inline'); return false"  />
 									</div>		
 								</div>
 			  				</div>
@@ -155,7 +155,7 @@
                     <form >
                     	<div  class="sectionWrap" style="margin-bottom: 10px">
 
-                           <button id='closeMapButton' class="center" onclick='ToggleMap(); return false; '  style="display: none; position: absolute; z-index: 100; top:0;" data-role="none">Close map</button>
+                           <button id='closeMapButton' class="center" onclick='ToggleMap(); return false; '  style="display: none; position: absolute; z-index: 100; top:0;" >Close map</button>
 						
                             <div id="reportData">
                        			  <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none"> Report Crime </h1>                                                              <!--main page header-->
@@ -165,7 +165,7 @@
                                                   <p  class="headerDecoration">Type</p>
                                           </div>
                                           <div id="crimeTypeSelection" >
-                                                <select  style=" margin-bottom:0; height: 25px; position:inherit" class="dropdown" data-role="none">
+                                                <select  style=" margin-bottom:0; height: 25px; position:inherit" class="dropdown" >
                                                     <option value="robbery">Robbery</option>
                                                     <option value="violence">Violence</option>
                                                     <option value="hijacking">Hijacking</option>
@@ -225,8 +225,8 @@
                      						<img src="./images/camera.png" class="icons"  >         
                              			</div>
                                         <div id="addPhotoButtons" style="display:none; position: absolute; margin-left: 5px;" >
-                                                <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons','inline'); return false" data-role="none" >Capture Photo</button> 
-                                                <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons','inline'); return false" data-role="none">Photo Library</button>
+                                                <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons','inline'); return false"  >Capture Photo</button> 
+                                                <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons','inline'); return false" >Photo Library</button>
                                         </div>
                                         <div id="photosSection" >
                                                 <br/> <br/> 
@@ -238,7 +238,7 @@
 						</div>
 						
                         <div id="submitReportButton" style="display: block; max-width:100%; margin:10px" >
-                            <input  data-role="none" style="width:100%" type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime();  " value="Submit Crime" />                <!--maybe return false is needed-->
+                            <input   style="width:100%" type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime();  " value="Submit Crime" />                <!--maybe return false is needed-->
                     	</div>						    
                     </form>
             </div>
@@ -254,40 +254,13 @@
 <!----------------------------------------- end of messages section -------------------------------------->         
      
 			<script type="text/javascript" charset="UTF-8" >
- 
 
-					        
-
-						
 					$("#autoResizeTextBox").keyup(function (e) 
 	                {
 	                    adaptiveheight(this);
 	                });	
 	                
 
-					 	 
-				  	$("#SOSPage").on("swipeleft",function(){
-						ChangePage('reportPage','reportPageTab');
-			  		})
- 	 				.on("swiperight",function(){
-						ChangePage('messagesPage','messagesTab'); 
-			 	 	});
-			 	 	
-					$("#reportPage").on("swipeleft",function(){
-						ChangePage('messagesPage','messagesTab');
-			  		})
- 	 				.on("swiperight",function(){
-						ChangePage('SOSPage','SOSTab'); 
-			 	 	});
-			 	 	
-				  	$("#messagesPage").on("swipeleft",function(){
-						ChangePage('SOSPage','SOSTab');
-			  		})
- 	 				.on("swiperight",function(){
-						ChangePage('reportPage','reportPageTab');
-			 	 	});
-				 	      
-					 	      
 					 	               
             		$(function(){
 					    // create a datetimepicker with default settings
@@ -325,7 +298,16 @@
 	          			.on("touchstart", ChangeButtonToPressed)
 						.on("touchend", ChangeButtonToNormal);
 						
-					//$.mobile.loadingMessage = false;
+						
+					$('#SOSPage').on('swipeleft', function(e){ChangePage('reportPage','reportPageTab');})
+					.on('swiperight', function(e){ChangePage('messagesPage','messagesTab');});
+					
+					$('#reportPage').on('swipeleft', function(e){ChangePage('messagesPage','messagesTab');})
+					.on('swiperight', function(e){ChangePage('SOSPage','SOSTab');});		
+
+					$('#messagesPage').on('swipeleft', function(e){ChangePage('SOSPage','SOSTab');})
+					.on('swiperight', function(e){ChangePage('reportPage','reportPageTab');});		
+
 			</script>
 			
         </body>
