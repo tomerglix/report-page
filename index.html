@@ -2,307 +2,452 @@
 
 <head>
         
-        <!--cordova (phonegap api)-->   
+           
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-        
-        
-        <!--google maps api--> 
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>                 
                 
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-        <meta charset="utf-8">
+    	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    	<meta charset="utf-8">
 
-        <!--roboto font-->
-        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'> 
-                 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
-
-        <!--date picker-->
+		<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>   
         
-	    <script src="js/mobiscroll.core.js"></script>
-	    <script src="js/mobiscroll.scroller.js" type="text/javascript"></script>
-	
-	    <script src="js/mobiscroll.datetime.js" type="text/javascript"></script>
-	    <script src="js/mobiscroll.select.js" type="text/javascript"></script>
-	
-	    <script src="js/mobiscroll.scroller.jqm.js" type="text/javascript"></script>
-	    <script src="js/mobiscroll.scroller.ios.js" type="text/javascript"></script>
-	    <script src="js/mobiscroll.scroller.android.js" type="text/javascript"></script>
-	    <script src="js/mobiscroll.scroller.android-ics.js" type="text/javascript"></script>
-	    <script src="js/mobiscroll.scroller.wp.js" type="text/javascript"></script>
-	
-	    <script src="js/i18n/mobiscroll.i18n.de.js" type="text/javascript"></script>
-	    <script src="js/i18n/mobiscroll.i18n.es.js" type="text/javascript"></script>
-	    <script src="js/i18n/mobiscroll.i18n.fr.js" type="text/javascript"></script>
-	    <script src="js/i18n/mobiscroll.i18n.hu.js" type="text/javascript"></script>
-	    <script src="js/i18n/mobiscroll.i18n.it.js" type="text/javascript"></script>
-	    <script src="js/i18n/mobiscroll.i18n.no.js" type="text/javascript"></script>
-	    <script src="js/i18n/mobiscroll.i18n.pt-BR.js" type="text/javascript"></script>
-	    <script src="js/i18n/mobiscroll.i18n.zh.js" type="text/javascript"></script>
-	
-	    <link href="css/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
-	    <link href="css/mobiscroll.scroller.jqm.css" rel="stylesheet" type="text/css" />
-	    <link href="css/mobiscroll.scroller.android.css" rel="stylesheet" type="text/css" />
-	    <link href="css/mobiscroll.scroller.android-ics.css" rel="stylesheet" type="text/css" />
-	    <link href="css/mobiscroll.scroller.ios.css" rel="stylesheet" type="text/css" />
-	    <link href="css/mobiscroll.scroller.sense-ui.css" rel="stylesheet" type="text/css" />
-	    <link href="css/mobiscroll.scroller.wp.css" rel="stylesheet" type="text/css" />
-	
-	    <link href="css/mobiscroll.animation.css" rel="stylesheet" type="text/css" /> 		
+        <script type="text/javascript" src="jquery-1.10.2.js">  </script> 
+	   <!-- <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">  </script> -->
+	    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"> </script>
+	    <script type="text/javascript" src="bootstrap-datetimepicker.min.js"> </script>
+	    <script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
 	    
-	    <!--long tap-->	    
-		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>-->
-	    <!--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>-->
-	    <script src="taphold.js" type="text/javascript"></script>
-	    
-	   <!-- <script type="text/javascript" src="jquery.swipeListener.js"></script>-->
-	    
-        <!--progress spinner-->
-        <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="spinner.min.js"></script>
-
- 		<script type="text/javascript" charset="UTF-8" src="script.js" ></script>  
-	
-		<script src="jquery.mobile-events.js"></script>
-     	<!-- general style-->
-     	
-     	<link rel="stylesheet" type="text/css" href="style.css">
-       
-   			             
-        <title>Tabs</title>
+    	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet" >
+    	<link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">     
+        
+ 		<link rel="stylesheet" type="text/css" href="style.css">
+ 		
+        <title>Report Page</title>
         
         <style>
 
 
-			
         </style>
 </head>
 
-<html >
-        <body onload=" FirstLoad();" style="height: 100%; background-color:#f3f3f3" >
-        	
-            <div id="mapDisplay" style="display: none;">
-                                    
-            </div>
-            
-			<div id="topMenu" style="width: 100%; position: fixed; border-bottom: solid #f3f3f3 8px">
-				<ul style="width: 100%; " class="navBar">
-					<li onclick="ChangePage('SOSPage','SOSTab'); return false;" class="navTab" >
-						 <a id="SOSTab" class="tab" href="#"> SOS </a> 
-					</li>
-					<li style="width: 34%;"  class="middleTab navTab" onclick="ChangePage('reportPage','reportPageTab'); return false;" >
-						  <a id="reportPageTab"  class="tab " href="#" > Report </a>  
-					</li>
-					<li onclick="ChangePage('messagesPage','messagesTab'); return false;" class="navTab">
-						  <a id="messagesTab"   class="tab" href="#"> Messages </a> 
-					</li>
-				</ul>
-			</div>
-<!---------------------------------  sos section ---------------------------------->
-			<div id="SOSPage"  class="pageWrap" >
-				<div id="SOSWrap" class="sectionWrap">
-					<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >Send SOS</h1>
-					<form action="" method="post" onsubmit="return BeforeSumbit() ">
-						<div>	
-							<div id="buttonSection" class="center" style="height: 60%; width:100%; margin-top: 10px">
-								<img id="SOSButton" src='./images/btn_sos_normal.png' />
-							</div>
-									
-							<div id="pressLongMessage" class="center" align="center" style="opacity: 0; margin-top: 7px">
-								<span style="display: inline-block; "><p style="padding: 3px;background: black; color: white; border-radius: 4px;">Hold button to send SOS</p> </span>
-							</div>
-							<div id="contacts">
-								<div id="contactsSection" >
-									<p class="headerDecoration" style="margin-bottom: 7px;">Contacts Circle</p>
-									
+<html>
+	<body onload="PrintInitialDetails();" style="display: block" >
+		<div id="reportPageWrap" class="pageWrap">
 			
-									<table id="contactsList" style='font-size: 120%; width:100% ;'>
-		
-									</table>
-		
-									<table border="0" id='addingContactField' style='display:none; font-size: 100%; width:100%' >
-										<tr>
-											<td style="width:5%" class="center"><img src="./images/x.png" class="icons" onclick="CancelAdding(); return false" style="float: none; padding-top:7px;"></td>
-											<td style="width:45%">
-													<input type="text" id="contactName" class="inputBox" placeholder="Name" />	
-											</td>
-											<td style="width:45%">
-													<input type="tel" id="contactNumber"  class="inputBox" placeholder="Number" />	
-											</td>
-											<td style="width:5%" class="center"><img src="./images/plus.png"  class="icons" onclick="AddContact(); return false "   style="float: none; padding-top:7px;">	</td>
-										</tr>
-									</table>	
-									<div id="addbutton" style="display: inline; " >
-										<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField','table'); ToggleDisplay('addbutton','inline'); return false"  />
-									</div>		
-								</div>
-			  				</div>
-			  			</div>
-					</form>
+			<form >
+				<input id='closeMapButton'  type='submit' onclick='ToggleMap(); return false; ' value='Close map' style="display: none; left:40%"  />        
+	                        
+				<div id="mapDisplay" style="display: none">
+	                                
 				</div>
-			</div>
-<!---------------------------------  end of sos section ---------------------------------->
-
-<!---------------------------------  report section ---------------------------------->
-            <div id="reportPage" class="pageWrap" style="display: none">
-            	
-                   	<!--<form >-->
-                    	<div  class="sectionWrap" style="margin-bottom: 10px">
-
-                           <button id='closeMapButton' class="center" onclick='ToggleMap(); return false; '  style="display: none; position: absolute; z-index: 100; top:0;" >Close map</button>
-						
-                            <div id="reportData">
-                       			  <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none"> Report Crime </h1>                                                              <!--main page header-->
-                                        
-                                  <div id="crimeType" class="section">                                                                                                                                                        <!--crime type section-->
-                                          <div id="crimeTypeHeader">
-                                                  <p  class="headerDecoration">Type</p>
-                                          </div>
-                                          <div id="crimeTypeSelection" >
-                                                <select  style=" margin-bottom:0; height: 25px; position:inherit" class="dropdown" >
-                                                    <option value="robbery">Robbery</option>
-                                                    <option value="violence">Violence</option>
-                                                    <option value="hijacking">Hijacking</option>
-                                                    <option value="murder">Murder</option>
-                                                    <option value="corruption">Corruption</option>
-                                                    <option value="other">Other</option>
-                                                </select>
-                                          </div>
-                                  
-                                  </div>
-                                  
-                                  <div id="crimeDescription" class="section">                                                                                                                                        <!--crime description section-->
-                                          <div id="crimeDescriptionHeader">
-                                                  <p  class="headerDecoration" >Description</p>
-                                          </div>
-                                          <div id="crimeDescriptionBox" class="robo">
-                                                  <textarea  id="autoResizeTextBox" name="description"  style=" display: block" class="descriptionBox" onfocus="HighLightUL('crimeDescriptionUL')" onblur="DeHighLightUL('crimeDescriptionUL')"></textarea> 
-                                          </div>
-                                          <div id="crimeDescriptionUL" class="textEditUnderLine">
-                                          </div>
-                                  </div>
-    
-    
-                                  <div id="crimeLocation" class="section">                                                                                        <!--crime location section-->
-                                          <div id="crimeLocationHeader">
-                                                  <p  class="headerDecoration">Location</p>
-                                          </div>
-                                          
-                                          <div id="crimeLocationData"  onclick="ViewLocationOnMap(); return false" >
-												<img src="./images/map-pin.png" class="icons" >
-												<div id="addressBar" class="robo">        
-													<br/>						 
-												</div>  
-												        
-                                          </div>
-                                  </div>
-    
-                                  <div id="crimeDate" class="section" >                                                                                                                                                        <!--crime date section-->
-                                          <div id="crimeDateHeader" >
-                                                  <p  class="headerDecoration">Date &amp; Hour</p>
-                                          </div>
-                                          <div id="crimeDateData">
-												<div id="datetimepicker" >
+				<div id="reportData">
+					          <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none" onclick="bla(); return false;"> Report Crime </h1>                                                              <!--main page header-->
+	                                
+	                          <div id="crimeType" class="section">                                                                                                                                                        <!--crime type section-->
+	                                  <div id="crimeTypeHeader">
+	                                          <p  class="headerDecoration">Type</p>
+	                                  </div>
+	                                  <div id="crimeTypeSelection" >
+	                                        <select  style="width: 50%; margin-bottom:0;" class="robo">
+	                                                <option value="robbery">Robbery</option>
+	                                                <option value="violence">Violence</option>
+	                                                <option value="hijacking">Hijacking</option>
+	                                                <option value="murder">Murder</option>
+	                                                <option value="corruption">Corruption</option>
+	                                                <option value="other">Other</option>
+	                                        </select>
+	                                        <br/><br/>
+	                                  </div>
+	                          
+	                          </div>
+	                          
+	                          <div id="crimeDescription" class="section">                                                                                                                                        <!--crime description section-->
+	                                  <div id="crimeDescriptionHeader">
+	                                          <p  class="headerDecoration" >Description</p>
+	                                  </div>
+	                                  <div id="crimeDescriptionBox" class="robo">
+	                                          <textarea id="autoResizeTextBox" name="description" placeholder="Description"  style=" display: block"></textarea> 
+	                                  </div>
+	                          </div>
+	
+	
+	                          <div id="crimeLocation" onclick="ViewLocationOnMap(); return false" class="section">                                                                                        <!--crime location section-->
+	                                  <div id="crimeLocationHeader">
+	                                          <p  class="headerDecoration">Location</p>
+	                                  </div>
+	                                  
+	                                  <div id="crimeLocationData">
+											<img src="./images/map-pin.png" class="icons" >
+											<div id="addressBar" class="robo">        
+												<br/>   
+	    									</div>  
+	    									<br/>              
+	                                  </div>
+	                          </div>
+	
+	                          <div id="crimeDate" class="section" >                                                                                                                                                        <!--crime date section-->
+	                                  <div id="crimeDateHeader" >
+	                                          <p  class="headerDecoration">Date / Hour</p>
+	                                  </div>
+	                                  <div id="crimeDateData">
+										    <div id="datetimepicker">
+												<span class="add-on">
 													<img src="./images/calendar.png" class="icons">
-													<input id="scroller" name="scroller" class="roboto" style=" border:none; font-size: 100%"  />
-										            									       
-												</div>
-												  
-                                          </div>
-                                  </div>
-    
-                                  <div id="crimePhotos" class="section">                                                                                       <!--crime photos section-->
-                                        <div id="crimePhotosHeader">
-                      						<p  class="headerDecoration">Photos</p>
-                                        </div>
-                               			<div id="crimePhotoAddButtons" onclick="TogglePhotoButtons(); return false" style="display: inline;">
-                     						<img src="./images/camera.png" class="icons"  >         
-                             			</div>
-                                        <div id="addPhotoButtons" style="display:none; position: absolute; margin-left: 5px;" >
-                                                <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons','inline'); return false"  >Capture Photo</button> 
-                                                <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons','inline'); return false" >Photo Library</button>
-                                        </div>
-                                        <div id="photosSection" >
-                                                <br/> <br/> 
-                                        </div>
+											        <input id="picker" type="text" readonly />
+											    </span>
+										   	
+										    </div>
+	                                          
+	                                  </div>
+	                          </div>
+	
+	                          	<div id="crimePhotos" class="section">                                                                                       <!--crime photos section-->
+									<div id="crimePhotosHeader">
+		                                  <p  class="headerDecoration">Photos</p>
+									</div>
+		                   			<div id="crimePhotoAddButtons" onclick="ToggleDisplay('addPhotoButtons'); return false" style="display: inline;">
+		                                 <img src="./images/camera.png" class="icons"  >         
+									</div>
+								  	<div id="addPhotoButtons" style="display:none; position: absolute; margin-left: 5px;" >
+									    <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); return false" >Capture Photo</button> 
+									    <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); return false">Photo Library</button>
+								    </div>
+								    <div id="photosSection" >
+								    	<br/> <br/> 
+									</div>
 								</div>
-
-                            </div>
-
-						</div>
-						
-                        <div id="submitReportButton" style="display: block; max-width:100%; margin:10px" >
-                            <input   style="width:100%" type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime();  " value="Submit Crime" />                <!--maybe return false is needed-->
-                    	</div>						    
-                    <!--</form>-->
-            </div>
-<!----------------------------------------- end of report section -------------------------------------->    
-       
-<!----------------------------------------- messages section -------------------------------------->                  
-			<div id="messagesPage"  class="pageWrap" style="display: none;">
-				<div id="messagesWrap" class="sectionWrap" style=" height:500px;">
-					<h1>Under Construction</h1>
+	
+							<div id="submitReportButton" style="display: block;">
+								<input type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime();  " style="width:100%;" value="Submit Crime" />                <!--maybe return false is needed-->
+							</div>
 				</div>
-			</div>
+	
+			</form>
+		</div>
 
-<!----------------------------------------- end of messages section -------------------------------------->         
-     
-			<script type="text/javascript" charset="UTF-8" >
 
-					$("#autoResizeTextBox").keyup(function (e) 
-	                {
-	                    adaptiveheight(this);
-	                });	
-	                
+           
+            <script type="text/javascript" charset="utf-8">
+				function SubmitCrime()
+				{
 
-					 	               
-            		$(function(){
-					    // create a datetimepicker with default settings
-					    $("#scroller").mobiscroll().datetime({
-						  //  minDate: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-						  theme: 'android-ics light',
-						    display: 'modal',
-						    animate: 'pop',
-						    mode: 'mixed',
-						    // 2013-03-15 11:26:17
-						    dateFormat: 'dd/mm/yy',
-						    timeFormat: 'HH:ii',
-						    timeWheels: 'HHii'
-						}); // Shorthand for: $("#scroller").mobiscroll({ preset: 'datetime' });
-					});
-					
-					
-	                function FirstLoad()
-	                {
-	                	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
-		                //spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
-		                GetLocation(GetAddress);
-		                
-						LoadContactsFromStorage();
-						DisplayContactList();
-						if (contactsCounter==3)
-						{
-							ToggleDisplay('addbutton','inline');
-						}
-	                	PrintDate();
-	                }
-	                 
-			        $("#SOSButton").on("taphold", {duration: 1500}, SOSLongPress)
-	          			.on("click",   SOSShortPress)
-	          			.on("touchstart", ChangeButtonToPressed)
-						.on("touchend", ChangeButtonToNormal);
-						
-						
-					$('#SOSPage').on('swipeleft', function(e){ChangePage('reportPage','reportPageTab');})
-					.on('swiperight', function(e){ChangePage('messagesPage','messagesTab');});
-					
-					$('#reportPage').on('swipeleft', function(e){ChangePage('messagesPage','messagesTab');})
-					.on('swiperight', function(e){ChangePage('SOSPage','SOSTab');});		
+				}
+                    //************* camera functions *********************/
+                var pictureSource;   // picture source
+                var destinationType; // sets the format of returned value
+				var photoCounter=0;
+				
+                // Wait for device API libraries to load
+                //
+                document.addEventListener("deviceready",onDeviceReady,false);
+            
 
-					$('#messagesPage').on('swipeleft', function(e){ChangePage('SOSPage','SOSTab');})
-					.on('swiperight', function(e){ChangePage('reportPage','reportPageTab');});		
-
-			</script>
+                // device APIs are available
+                //
+                function onDeviceReady() 
+                {
+                    pictureSource=navigator.camera.PictureSourceType;
+                    destinationType=navigator.camera.DestinationType;
+                }
+            
+                // Called when a photo is successfully retrieved
+                //
+ 				function getPhoto(source) 
+				{
+				      // Retrieve image file location from specified source
+				      navigator.camera.getPicture(AddPhotoToFromLibrary, onFail, { quality: 50, 
+				        destinationType: destinationType.FILE_URI,
+				        sourceType: source });
+				}  
+				function capturePhoto() 
+				{
+				      // Take picture using device camera and retrieve image as base64-encoded string
+				      navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
+				        destinationType: destinationType.DATA_URL });
+				}         
+				function AddPhotoToFromCaption(imageData) 
+				{
+					var photoSection=document.getElementById('photosSection');
 			
+					photoSection.innerHTML+="<img style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
+			
+					var smallImage = document.getElementById('img'+ photoCounter);
+			
+					smallImage.src = "data:image/jpeg;base64," + imageData;
+					++photoCounter;
+			
+			    }
+				function AddPhotoToFromLibrary(imageURI) 
+				{
+					var photoSection=document.getElementById('photosSection');
+			
+					photoSection.innerHTML+="<img style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
+			
+					var smallImage = document.getElementById('img'+ photoCounter);
+			
+					smallImage.src = imageURI;
+					++photoCounter;
+			
+			    }
+
+            
+                // Called if something bad happens.
+                //
+                function onFail(message) 
+                {
+                  alert('Failed because: ' + message);
+                }
+                //************* end of camera functions *********************/
+
+                    
+                    //************ auto adjusting text box
+                    $("#autoResizeTextBox").keyup(function (e) 
+                    {
+                        adaptiveheight(this);
+                    });
+                    i=0;
+                    j=0;
+                    
+                    function adaptiveheight(a) 
+                    {
+                        $(a).height(0);
+                        var scrollval = $(a)[0].scrollHeight;
+                        $(a).height(scrollval);
+                        if (parseInt(a.style.height) > $(window).height()) {
+                            if(j==0){
+                                max=a.selectionEnd;
+                            }
+                            j++;
+                            var i =a.selectionEnd;
+                            console.log(i);
+                            if(i >=max){
+                                $(document).scrollTop(parseInt(a.style.height));
+                            }else{
+                                $(document).scrollTop(0);
+                            }
+                        }
+                    }
+                    //************ end of auto adjusting text box
+    
+                    //************ beginning of finding city and country
+
+                    function GetAddress(position)
+                    {
+                            var city = "";
+                            var street = "";  
+                            var streetNum = "";               
+                            
+                            lat = parseFloat(position.coords.latitude);
+                        	lng = parseFloat(position.coords.longitude);
+                        	var Latlng = new google.maps.LatLng(lat, lng);
+                        	PrintAddressCoordinates(Latlng);
+
+
+
+                    }
+                    
+                    function onError(error) 
+                    {
+                        alert(        'Sending location failed\n'        +
+                                        'code: '    + error.code    + '\n' +
+                                      'message: ' + error.message + '\n');
+                    }        
+
+                    //************ end of finding city and country
+                    function PrintInitialDetails()
+                    {                                
+                            GetLocation(GetAddress);
+                            PrintDate();
+                    }
+                    function GetLocation(functionWhenSuccess)
+                    {
+                            navigator.geolocation.getCurrentPosition(functionWhenSuccess, onError);
+                    }
+                    
+                    function ViewLocationOnMap()
+                    {
+                            GetLocation(ShowMap);
+
+                    }
+                    
+                    var map;
+                    var marker;
+                    var latlng;
+                    var lastCenter="";
+                    function ShowMap(position)
+                    {
+
+                    		if (lastCenter=="")
+                    		{
+                    			lastCenter=new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    		}
+
+                            var mapOptions = 
+                            {
+                                	zoom: 15,
+                                    center: lastCenter,
+                                    mapTypeId:google.maps.MapTypeId.ROADMAP
+                            };
+
+                            map = new google.maps.Map(document.getElementById('mapDisplay'),mapOptions);
+								
+							ToggleMap();
+							AddMarkerByCoordinates(lastCenter);
+							
+              
+                    }
+                    
+                    function AddMarkerByCoordinates(latlng)
+                    {
+                    			marker = new google.maps.Marker({
+							    position: latlng,
+							    map: map,
+							    draggable:true
+							});
+                    }
+                    function ToggleMap()
+                    {
+                            mapID=document.getElementById('mapDisplay');                                
+                            if (mapID.style.display=="none")
+                            {     
+                                    ToggleDisplay('mapDisplay');
+                                    ToggleDisplay('reportData');
+                                    ToggleDisplay('closeMapButton');
+                                    lastCenter=map.getCenter(); 
+                                    google.maps.event.trigger(map, 'resize');
+                                    map.setCenter(lastCenter);
+                            }
+                            else	
+                            {
+                                    ToggleDisplay('mapDisplay');
+                                    ToggleDisplay('reportData');
+                                    ToggleDisplay('closeMapButton');
+                                    
+                                    //updates the city and country
+									var lat = marker.getPosition().lat();
+									var lng = marker.getPosition().lng();
+
+									lastCenter = new google.maps.LatLng(lat, lng);
+									PrintAddressCoordinates(lastCenter);
+                            }
+                            
+                    }
+
+                    
+                    function ToggleDisplay(id)
+                    {
+                            var toggledID = document.getElementById(id);
+                            if (toggledID.style.display == 'none') 
+                            {
+                                    toggledID.style.display = 'inline';
+                            } 
+                            else 
+                            {
+                                    toggledID.style.display = 'none';
+                            }
+
+                    }
+                    
+                    function PrintAddressCoordinates(latlng)
+                    {
+                    	geocoder = new google.maps.Geocoder();
+                		geocoder.geocode( 
+                			{'latLng': latlng}, 
+							function(results, status) 
+							{
+							          
+								if (status == google.maps.GeocoderStatus.OK) 
+							    {
+									if (results[0]) 
+									{
+										var result = results[0];
+							
+											for(var i=0, len=result.address_components.length; i<len; i++) 
+											{
+												var ac = result.address_components[i];
+												if(ac.types.indexOf("street_number") >= 0) 
+												{
+													streetNum = ac.long_name;
+												}
+												if(ac.types.indexOf("route") >= 0) 
+							                	{
+							                        street = ac.long_name;
+							                	}
+												if(ac.types.indexOf("locality") >= 0) 
+												{
+													city = ac.long_name;	        
+												}
+
+							        		}
+							
+									}
+									else 
+									{
+									        alert("Error in finding location");
+									}
+								} 
+								else 
+								{
+									alert("Error: " + status);
+								}
+								addressBar=document.getElementById("addressBar");
+							
+								if (street!="")
+								{
+									addressBar.innerHTML=street;
+									if (streetNum!="")
+									{
+								        addressBar.innerHTML+=" " + streetNum;
+									}
+									if (city!="")
+									{
+										addressBar.innerHTML+=", " + city;
+									}
+								
+								}
+								else
+								{
+									if (city!="")
+									{
+										addressBar.innerHTML=city;
+									}
+									else
+									{
+							        	addressBar.innerHTML+="Unknown location <br/>";
+							        }
+								}
+							  });
+					}
+					
+					function PrintDate() 
+				    {
+				      navigator.globalization.dateToString(
+				        new Date(),
+				        function (date) 
+				        {
+				        	picker=document.getElementById('picker');
+				        	picker.value=date.value;
+				        },
+				        function () {alert('Error getting dateString\n');},
+				        {formatLength:'short', selector:'date and time'}
+				      );
+				    }
+
+				      $('#datetimepicker').datetimepicker({
+				        format: 'dd/MM/yyyy hh:mm',
+				        language: 'en-us'
+				      });
+				      
+				      $.fn.datetimepicker.defaults = {
+						  maskInput: true,           // disables the text input mask
+						  pickDate: true,            // disables the date picker
+						  pickTime: true,            // disables de time picker
+						  pick12HourFormat: false,   // enables the 12-hour format time picker
+						  pickSeconds: false,         // disables seconds in the time picker
+						  startDate: -Infinity,      // set a minimum date
+						  endDate: Infinity          // set a maximum date
+						};
+						                
+			</script>
         </body>
 </html>
