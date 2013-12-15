@@ -744,10 +744,12 @@
 						$('#' + id).slideDown();
 					}
 				}
+				
 				function ToggleCheck()
 				{
 					document.getElementById('termsCheck').checked=!document.getElementById('termsCheck').checked;
 				}
+				
 				function Register()
 				{
 					var check=true;
@@ -793,10 +795,14 @@
 						}
 						
 						
-						alert("Tel: " + phoneNumber + "\n" +
+						alert(	"Tel: " + phoneNumber + "\n" +
 								"Email: " + mail + "\n" +
 								"Birth date: " + birthDate +"\n" +
 								"Sex: " + sex + "\n");
+					}
+					else
+					{
+						alert('Please fill all the fields with a valid data');
 					}
 				}
 				

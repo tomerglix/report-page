@@ -89,17 +89,18 @@
 	.submitButtonStyle 
 	{
 				 
-		-webkit-border-radius: 4px;
-		-moz-border-radius: 4px;
+		
 	  	border-radius: 4px;
 	  	text-shadow: 1px 1px 0px #000000;
+		
 	  	color: #ffffff;
 	  	font-size: 20px;
 	  	/*background: #3498db;*/
 	  	padding: 10px 20px 10px 20px;
 	  	border:none;
 	  	text-decoration: none;
-	  	
+	  	-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
 		/* IE10 Consumer Preview 
 		background: -ms-linear-gradient(top, #0099CC 0%, #33B5E5 100%);
 		
