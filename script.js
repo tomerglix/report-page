@@ -315,8 +315,8 @@
                     lat = parseFloat(position.coords.latitude);
                     lng = parseFloat(position.coords.longitude);
                     lastCenter = new google.maps.LatLng(lat, lng);
-                    CoordinatesToStrings(lastCenter);
-                   	//spinner.stop();
+                    spinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('addressBar'));  /*here*/
+                    CoordinatesToStrings(lastCenter);      	
                 }
                 
                 function onError(error) 
@@ -402,7 +402,7 @@
 
                         lastCenter = new google.maps.LatLng(lat, lng);
                         
-						spinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('addressBar'));  /*here*/
+						
                         CoordinatesToStrings(lastCenter);
                     }
                         
@@ -482,44 +482,19 @@
                                                 
                                                 
                                           });
-                                                                                      				
+                        spinner.stop();                                        				
                                           
 				}
                                     
                 //************ end of location functions
 				function PrintDate() 
 				{
-                      navigator.globalization.dateToString(
-                        new Date(),
-                        function (date) 
-                        { 
-                        	var temp;
-                        	var month;
-                        	var year;
-                        	var hour12;
-                        	var hour24;
-                        	var min;
-                        	
-                        	day=date.value[0]+date.value[1];
-                        	month=date.value[3]+date.value[4];
-							year=date.value[6]+date.value[7]+date.value[8]+date.value[9];
-							hour12=date.value[11]+date.value[12];
-							min=date.value[14]+date.value[15];
-							hour24=parseInt(hour12);
-							if (date.value[16]=='P')
-							{
-								hour24+=12;
-							}
-							var dateString=day + '/' + month + '/' + year + ' ' + hour24 + ':' + min;			
-														
-                            picker=document.getElementById('scroller');
-                            picker.value=dateString;
+                        var now=new Date();
 
-
-                        },
-                        function () {alert('Error getting dateString\n');},
-                        {formatLength:'short', selector:'date and time'}
-                      );
+						var dateString=now.getDate() + '/' + now.getMonth() + '/' + now.getFullYear() + ' ' + now.getHours() + ':' + now.getMinutes();			
+													
+                        picker=document.getElementById('scroller');
+                        picker.value=dateString;
 				}
 
 
