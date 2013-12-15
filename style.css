@@ -91,7 +91,7 @@
 				 
 		
 	  	border-radius: 4px;
-	  	text-shadow: 1px 1px 0px #000000;
+	  	text-shadow: 1px 1px 0px #000000 !important;
 		
 	  	color: #ffffff;
 	  	font-size: 20px;
