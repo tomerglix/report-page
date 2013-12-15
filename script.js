@@ -135,7 +135,7 @@
 				
 				function DisplaySingleContact(contactIndex)
 				{	
-					document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:5%' class='center'> <img src='./images/x.png' class='icons'  onclick='DeleteContact(" +contactIndex +"); return false' ></td>  <td style='width:45%;'>"
+					document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:5%' class='center'> <img src='./images/x.png' class='icons'  onclick='DeleteContact(" +contactIndex +"); return false' style='float: none; padding-top:7px;'></td>  <td style='width:45%;'>"
 																		+ contactsList[contactIndex][0] + "</td> <td  style='width:50%'> " + contactsList[contactIndex][1] + "</td> </tr>";
 				}
 				
