@@ -321,10 +321,12 @@
                 
                 function onError(error) 
                 {
-                	alert("1");
                     alert(        'Sending location failed\n'        +
                                     'code: '    + error.code    + '\n' +
                                   'message: ' + error.message + '\n');
+                                  
+                   	spinner.stop();  
+                                   
                 }      
                   
                 function GetLocation(functionWhenSuccess)
@@ -338,7 +340,8 @@
                 function ViewLocationOnMap()
                 {
                     spinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('reportPage'));  
-                    GetLocation(ShowMap,onError);                           
+                    GetLocation(ShowMap,onError);  
+                                          
                 }
 
                 function ShowMap(position)
@@ -398,6 +401,8 @@
                         var lng = marker.getPosition().lng();
 
                         lastCenter = new google.maps.LatLng(lat, lng);
+                        
+						spinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('addressBar'));  /*here*/
                         CoordinatesToStrings(lastCenter);
                     }
                         
