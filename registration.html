@@ -64,7 +64,7 @@
 			{
 		    	font-family: 'roboto',helvetica,arial,sans;
 		    	font-size: 120%;
-		    	width:90%%;
+		    	width:90%;
 		    	color: #000000;
 		    	border: none;
 		    	-webkit-box-shadow: none;
@@ -81,12 +81,55 @@
 			.attentionIcon
 			{
 				display: none;
+				position: absolute;
+				right:45px;
 				height: 20px;
 				width:20px;
 				float: right;
 				margin-right: 10px;
 			}
-
+			
+			.bubble 
+			{
+				color: red;
+				position: relative;
+				padding: 3px;
+				background: #FFFFFF;
+				-webkit-border-radius: 4px;
+				-moz-border-radius: 4px;
+				border-radius: 4px;
+				border: #FF0000 solid 1px;
+			}
+			
+			.bubble:after 
+			{
+				content: '';
+				position: absolute;
+				border-style: solid;
+				border-width: 0 10px 14px;
+				border-color: #FFFFFF transparent;
+				display: block;
+				width: 0;
+				z-index: 1;
+				top: -14px;
+				/*left: 85%;*/
+				right:13px;
+			}
+			
+			.bubble:before 
+			{
+				content: '';
+				position: absolute;
+				border-style: solid;
+				border-width: 0 10px 14px;
+				border-color: #FF0000 transparent;
+				display: block;
+				width: 0;
+				z-index: 0;
+				top: -15px;
+				right:13px;
+				/*left: 85%;*/
+			}
 			
         </style>
 </head>
@@ -99,43 +142,57 @@
 					
 					<div id="phoneNumberSection">
 						<p  class="headerDecoration">Phone Number</p>
-						<input type="tel" id="phoneNumber"  maxlength="12" class="regInputBox" placeholder="Number"  onfocus="HighLightUL('phoneNumberUL')" onblur="DeHighLightUL('phoneNumberUL'); ValidatePhone(this.value)"  />
-						<img id="numberAttention" src="./images/attention.png" class="attentionIcon" >
+						<img id="numberAttention" src="./images/attention.png" class="attentionIcon" onclick="ShowBubble('numberBubble',phoneNumberError); return false">
+						<input type="tel" id="phoneNumber"  maxlength="15" class="regInputBox" placeholder="Number"  onfocus="HighLightUL('phoneNumberUL'); HideElement('numberAttention');" onblur="DeHighLightUL('phoneNumberUL'); ValidatePhone()"  />
+						
 						<div id="phoneNumberUL" class="textEditUnderLine">
+							
+						</div>
+						<div id="numberBubble" class="bubble" style="float:right; display: none" >
 							
 						</div>
 					</div>
 					
 					<div id="emailSection">
 						<p  class="headerDecoration">Email</p>
-						<input type="tel" id="email"  class="regInputBox" placeholder="" onfocus="HighLightUL('emailUL')" onblur="DeHighLightUL('emailUL'); EmailValidation(this.value)"  />
-						<img id="emailAttention" src="./images/attention.png" class="attentionIcon" >
+						<img id="emailAttention" src="./images/attention.png" class="attentionIcon" onclick="ShowBubble('emailBubble',emailError); return false" >
+						<input type="email" id="email"  class="regInputBox" placeholder="" onfocus="HighLightUL('emailUL');  HideElement('emailAttention');" onblur="DeHighLightUL('emailUL'); EmailValidation()"  />
+						
 						<div id="emailUL" class="textEditUnderLine">
+							
+						</div>
+						<div id="emailBubble" class="bubble" style="float:right; display: none">
 							
 						</div>
 					</div>
 					
 					<div id="dateSection">
 						<p  class="headerDecoration">Birth Date</p>
-						<input id="picker" name="picker" class="roboto regInputBox" style=" border:none; font-size: 100%"  onblur="CheckDate(this.value)" />
+						<img id="dateAttention" src="./images/attention.png" class="attentionIcon" onclick="ShowBubble('dateBubble',birthDateError); return false"  >
+						<input id="picker" name="picker" class="roboto regInputBox" style=" border:none; font-size: 120%" onchange="CheckDate()"  />
 
-						<img id="dateAttention" src="./images/attention.png" class="attentionIcon" >
 						<div id="dateUL" class="textEditUnderLine">
+							
+						</div>
+						<div id="dateBubble" class="bubble" style="float:right; display: none">
 							
 						</div>
 					</div>
 					
 					<div id="sexSection">
 						<p  class="headerDecoration">Sex</p>
-						<input type="radio" name="sex" value="male" checked>Male
-						<input type="radio" name="sex" value="female">Female
+						<input type="radio" name="sex" value="Male" checked>Male
+						<input type="radio" name="sex" value="Female">Female
+
 					</div>
-					
+
 					<div id="termsSection">
 						<p  class="headerDecoration">Terms and Conditions</p>
 						<p>
 							term and contitions
 						</p>
+						<input id="termsCheck" type="checkbox" name="agree" value="agree" style="margin-bottom: 10px;" onclick="ShowRegButton();"><span id="checkBoxText" onclick="ToggleCheck(); ShowRegButton(); return false"> I agree to the terms and conditions</span>
+						<input id="regButton" class="submitButtonStyle" type="submit" value="Register" style="width: 100%; display: none"  onclick="Register(); return false" />
 					</div>
 					
 				</div>
@@ -143,18 +200,48 @@
 				
         </body>
         <script>
-            		$(function(){
-					    // create a datetimepicker with default settings
-					    $("#picker").mobiscroll().date({
-						  theme: 'android-ics light',
-						    display: 'modal',
-						    animate: 'pop',
-						    mode: 'mixed',
-						    // 2013-03-15 11:26:17
-						    dateFormat: 'dd/mm/yy',
+				
+				var dateChecker=false;
+        		$(function(){
+        			d=new Date('1990','0','1');
+				    // create a datetimepicker with default settings
+				    $("#picker").mobiscroll().date({
+					  theme: 'android-ics light',
+					    display: 'modal',
+					    animate: 'pop',
+					    mode: 'mixed',
+					    // 2013-03-15 11:26:17
+					    dateFormat: 'dd/mm/yy',
+						defaultValue: d,
+						onShow: function(html,inst){document.getElementById('dateAttention').style.display='none';},
+						onClose: function(html,inst) {dateChecker=true;},
+						onCancel: function(html,inst) {CheckDate();}
+		
+					}); // Shorthand for: $("#scroller").mobiscroll({ preset: 'datetime' });
 
-						}); // Shorthand for: $("#scroller").mobiscroll({ preset: 'datetime' });
-					});
-					
+			
+				});
+				$(document).mouseup(function (e)
+				{
+				    var container = $(".bubble");
+				
+				    if (!container.is(e.target) // if the target of the click isn't the container...
+				        && container.has(e.target).length === 0) // ... nor a descendant of the container
+				    {
+				        $('.bubble').slideUp();
+				    }
+				    
+					if (dateChecker==true)
+					{
+					    container=$("#dateSection");
+    				    if (!container.is(e.target) // if the target of the click isn't the container...
+					        && container.has(e.target).length === 0) // ... nor a descendant of the container
+					    {
+					        CheckDate();
+					        dateChecker=false;
+					    }
+				   	}
+				});
+				
         </script>
 </html>

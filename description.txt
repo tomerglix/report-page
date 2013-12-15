@@ -1,2 +1,1 @@
-problems with scroll and swipe
-trying  jquery mobile
+working on regpage

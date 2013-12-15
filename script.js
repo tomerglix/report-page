@@ -620,63 +620,193 @@
 				var phoneNumber="";
 				var email="";
 				var birthDate="";
-				function ValidatePhone(num) 
+				var emailError;
+				var phoneNumberError;
+				var birthDateError;
+				
+				function ValidatePhone() 
 				{
-
-				    var error = "";
-				    var stripped = num.replace(/[\(\)\.\-\ ]/g, '');     
+					num=document.getElementById('phoneNumber').value;
+				    phoneNumberError = "";
+				    //var stripped = num.replace(/[\(\)\.\-\ ]/g, '');     
 				
 				   if (num == "") {
-				        error = "You didn't enter a phone number.";
+				        phoneNumberError = "Required field";
 				       
-				    } else if (isNaN(parseInt(stripped))) {
-				        error = "The phone number contains illegal characters.";
+				    } else if (isNumber(num)==false) {
+				        phoneNumberError = "The phone number contains illegal characters";
 				       
-				    } else if (!(stripped.length == 10)) {
-				        error = "The phone number is the wrong length. Make sure you included an area code.";
+				    } else if (num.length > 15 || num.length<9) {
+				        phoneNumberError = "The phone number is the wrong length";
 				       
 				    } 
-				    if (error!='')
+				    if (phoneNumberError!='')
 				    {
 				    	document.getElementById('numberAttention').style.display='inline';
 				    	phoneNumber="";
+				    	return false;
 
 				    }
 				    else
 				    {
 				    	document.getElementById('numberAttention').style.display='none';
-				    	phoneNumber=fld;
+				    	phoneNumber=num;
+				    	return true;
 				    }
 				    
 				}
 				
-				function EmailValidation(mail)
+				function EmailValidation()
 				{
-					var error="";
+					mail=document.getElementById('email').value;
+					emailError="";
 					var atpos=mail.indexOf("@");
+					var atsecpos=mail.lastIndexOf("@");
 					var dotpos=mail.lastIndexOf(".");
-					if (atpos<1 || dotpos<atpos+2 || dotpos+2>=mail.length || mail=="")
+					if (mail=="")
+					{
+						emailError="Required field";
+					} else
+					if (atpos<1 || dotpos<atpos+2 || dotpos+2>=mail.length || atpos!=atsecpos)
 				  	{
-					  	error="Not a valid e-mail address.";
+					  	emailError="Not a valid e-mail address";
+				  	}
+				  	if (emailError!='')
+				  	{
 					  	document.getElementById('emailAttention').style.display='inline';
 					  	email="";
-					  	
+					  	return false;				  		
 				  	}
 				  	else
 				  	{
 				  		document.getElementById('emailAttention').style.display='none';
 				  		email=mail;
-				  		
+				  		return true;
 				  	}
 				  	
 				}
-				
+              	var today=new Date();
 				function OnRegLoad()
 				{
-					d=new Date();
-					today=
-					document.getElementById('picker').value= d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
+
 					
 				}
+
 				
+				function ShowRegButton()
+				{
+					if (document.getElementById('termsCheck').checked == true)
+					{
+						$('#regButton').slideDown();
+						
+					}
+					else
+					{
+						$('#regButton').slideUp(100);
+					}
+
+				}
+              	
+
+				function CheckDate()
+				{
+					
+					birthDateError="";
+					d=document.getElementById('picker').value;
+					if (d=='')
+					{
+						birthDateError='Required field';
+					}
+					if (birthDateError=='')
+					{
+						document.getElementById('dateAttention').style.display='none';
+						birthDate=d;
+						return true;
+					}
+					else
+					{
+						document.getElementById('dateAttention').style.display='inline';
+						birthDate='';
+						return false;
+					}
+					
+				}
+				function HideElement(id)
+				{
+					document.getElementById(id).style.display='none';
+				}
+				
+				function ShowBubble(id,errorMsg)
+				{
+					if(document.getElementById(id).style.display=='none')
+					{
+						document.getElementById(id).innerHTML=errorMsg;
+						$('#' + id).slideDown();
+					}
+				}
+				function ToggleCheck()
+				{
+					document.getElementById('termsCheck').checked=!document.getElementById('termsCheck').checked;
+				}
+				function Register()
+				{
+					var check=true;
+					if (ValidatePhone()==false)
+					{		
+						check=false;
+					   	$('html, body').animate({
+					        scrollTop: $("#phoneNumberSection").offset().top
+					    }, 500);
+					}
+					if (EmailValidation()==false)
+					{
+						if (check==true)
+						{
+							check=false;
+						   	$('html, body').animate({
+						        scrollTop: $("#emailSection").offset().top
+						    }, 500);
+					    }
+					}
+					
+					if (CheckDate()==false)
+					{
+						if (check==true)
+						{
+							check=false;
+						   	$('html, body').animate({
+						        scrollTop: $("#dateSection").offset().top
+						    }, 500);
+					    }
+					}
+					if (check==true)
+					{
+						var sex;
+						if (document.getElementsByName('sex')[0].checked==true)
+						{
+							sex=document.getElementsByName('sex')[0].value;
+						
+						}
+						else
+						{
+							sex=document.getElementsByName('sex')[1].value;
+						}
+						
+						
+						alert("Tel: " + phoneNumber + "\n" +
+								"Email: " + mail + "\n" +
+								"Birth date: " + birthDate +"\n" +
+								"Sex: " + sex + "\n");
+					}
+				}
+				
+				function BeforeSumbit()
+				{
+					if (true)	//if all inputs are valid
+					{
+						return true;
+					}
+					return false;
+				}
+
 //onfocus="document.getElementById('crimeLocation').readOnly=true" onblur="document.getElementById('crimeLocation').readOnly=false"
