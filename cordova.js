@@ -22,7 +22,6 @@
 
 var channel = require('cordova/channel');
 var platform = require('cordova/platform');
-
 /**
  * Intercept calls to addEventListener + removeEventListener and handle deviceready,
  * resume, and pause events.

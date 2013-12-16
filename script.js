@@ -315,7 +315,7 @@
                     lat = parseFloat(position.coords.latitude);
                     lng = parseFloat(position.coords.longitude);
                     lastCenter = new google.maps.LatLng(lat, lng);
-                    spinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('addressBar'));  /*here*/
+                    littlespinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('addressBar'));  /*here*/
                     CoordinatesToStrings(lastCenter);      	
                 }
                 
@@ -482,7 +482,7 @@
                                                 
                                                 
                                           });
-                        spinner.stop();                                        				
+                        //spinner.stop();                                        				
                                           
 				}
                                     
