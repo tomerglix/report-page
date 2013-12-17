@@ -178,8 +178,8 @@
 				            } else if (iframeId.document) {
 				                content = iframeId.document.body.innerHTML;
 				            }
-				 
-				            document.getElementById(div_id).innerHTML = content;
+				 			alert(content[0]);
+							alert(content.toString()[0]);
 				 
 				            // Del the iframe...
 				            setTimeout('iframeId.parentNode.removeChild(iframeId)', 250);
