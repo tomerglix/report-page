@@ -8,6 +8,8 @@
         		var spinner;
 				var i;
 				var serverNum=7;
+				var userId=localStorage.getItem(maxContacts+1);
+				var SOSform;
 				
 				var maxContacts=3;
 				var contactsList=new Array(3);
@@ -57,11 +59,42 @@
 					button.src='./images/btn_sos_normal.png';		    	
 			    }
 
-            	
-                function SubmitCrime()
+            	var url;
+            	function GenerateSOSUrl(position)
+            	{
+			    	spinner.stop();		    			
+					var mifgaNum=GenerateMifgaNum();
+					document.getElementById('mifgaNumSOS').value=mifgaNum;
+					var now=new Date();
+					document.getElementById('timeSOS').value=now.getTime();
+					document.getElementById('ipSOS').value=userId;
+					var locationStr=position.coords.latitude.toString() + '|' + position.coords.longitude.toString();
+					document.getElementById('useCaseIdSOS').value=mifgaNum;
+					document.getElementById('gpsTimeSOS').value=now.getTime();
+					document.getElementById('phoneNumSOS').value=userId;
+					document.getElementById('pinSOS').value=userId;
+					
+					url="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do?";
+					
+					url=AddParmameterToURL(url,'mifgaNum',mifgaNum);
+					url=AddParmameterToURL(url,'time',now.getTime());
+					url=AddParmameterToURL(url,'ip',userId);
+					url=AddParmameterToURL(url,'loc',locationStr);
+					url=AddParmameterToURL(url,'numSat','1');
+					url=AddParmameterToURL(url,'useCase','1');
+					url=AddParmameterToURL(url,'useCaseId',mifgaNum);
+					url=AddParmameterToURL(url,'gpsTime',now.getTime());
+					url=AddParmameterToURL(url,'refId','1_');
+					url=AddParmameterToURL(url,'acc','1');
+					url=AddParmameterToURL(url,'viewNum','1');
+					url=AddParmameterToURL(url,'phoneNum',userId);
+					url=AddParmameterToURL(url,'pin',userId);
+					url = url.substring(0, url.length - 1); //remove last ampersand
+					
+            	}
+                function GenerateReportUrl()
                 {
 					var crimeTime=$('#scroller').mobiscroll('getDate').getTime();
-					var userId=localStorage.getItem(maxContacts+1);
 					var mifgaNum=GenerateMifgaNum();
 					document.getElementById('mifgaNum').value=mifgaNum;
 					var now=new Date();
@@ -73,7 +106,7 @@
 					document.getElementById('gf2').value=address;
 					var utf8Str=document.getElementById('autoResizeTextBox').value;					
 					var unicodeStr=UnicodeString(utf8Str);
-					document.getElementById('useCaseId').value=crimeTime;
+					document.getElementById('useCaseId').value=mifgaNum;
 					document.getElementById('autoResizeTextBox').value=unicodeStr;
 					var crimeTimeMilisec=crimeTime;
 					document.getElementById('scroller').value=crimeTimeMilisec;
@@ -81,7 +114,7 @@
 					document.getElementById('phoneNum').value=userId;
 					document.getElementById('pin').value=userId;
 					
-					var url="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do?";
+					url="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do?";
 					
 					url=AddParmameterToURL(url,'mifgaNum',mifgaNum);
 					url=AddParmameterToURL(url,'subjectId',document.getElementById('subjectId').value);
@@ -101,22 +134,69 @@
 					url=AddParmameterToURL(url,'pin',userId);
 					url=AddParmameterToURL(url,'gf2',address);
 					url = url.substring(0, url.length - 1); //remove last ampersand
-					
-					try
-					{
-					$.ajax({url:url,
-							type:'POST',
-							success: function(data){alert(data);}	
-							});
-					
-					}
-					catch (err) {alert(err);}
-					
+							
 					//document.getElementById('reportPageForm').action="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do";
 					
 
                 }
-                
+
+				function fileUpload(form, action_url, div_id) {
+				    // Create the iframe...
+				    var iframe = document.createElement("iframe");
+				    iframe.setAttribute("id", "upload_iframe");
+				    iframe.setAttribute("name", "upload_iframe");
+				    iframe.setAttribute("width", "0");
+				    iframe.setAttribute("height", "0");
+				    iframe.setAttribute("border", "0");
+				    iframe.setAttribute("style", "width: 0; height: 0; border: none;");
+				 
+				    // Add to document...
+				    form.parentNode.appendChild(iframe);
+				    window.frames['upload_iframe'].name = "upload_iframe";
+				 
+				    iframeId = document.getElementById("upload_iframe");
+				 
+				    // Add event...
+				    var eventHandler = function () {
+				 
+				            if (iframeId.detachEvent) 
+				            	iframeId.detachEvent("onload", eventHandler);
+				            else 
+				            	iframeId.removeEventListener("load", eventHandler, false);
+				 
+				            // Message from server...
+				            if (iframeId.contentDocument) {
+				                content = iframeId.contentDocument.body.innerHTML;
+				                alert(content);
+				            } else if (iframeId.contentWindow) {
+				                content = iframeId.contentWindow.document.body.innerHTML;
+				                alert(content);
+				            } else if (iframeId.document) {
+				                content = iframeId.document.body.innerHTML;
+				                alert(content);
+				            }
+				 
+				            document.getElementById(div_id).innerHTML = content;
+				 
+				            // Del the iframe...
+				            setTimeout('iframeId.parentNode.removeChild(iframeId)', 250);
+				        };
+				 
+				    if (iframeId.addEventListener) iframeId.addEventListener("load", eventHandler, true);
+				    if (iframeId.attachEvent) iframeId.attachEvent("onload", eventHandler);
+				 
+				    // Set properties of form...
+				    form.setAttribute("target", "upload_iframe");
+				    form.setAttribute("action", action_url);
+				    form.setAttribute("method", "post");
+				 
+				    // Submit the form...
+				    form.submit();
+				 
+				 	
+				    //document.getElementById(div_id).innerHTML = "Uploading...";
+				}
+               
                 function AddParmameterToURL(url,param,value)
                 {
                 	url+=param + '=' + value + '&';
@@ -300,22 +380,19 @@
 				{
 			
 					spinner = new Spinner(HugeSpinnerOpts).spin(document.getElementById('buttonSection'));  
-					GetLocation(SendLocationToPoliceAndContacts, onError);
+					GetLocation(SendLocationToPolice, onError);
 				
 					ChangeButtonToNormal();
 
 				}
 				
-			    function SendLocationToPoliceAndContacts(position) 
-			    {
-			    	spinner.stop();
-			    	alert(	"Coordinates:\n" +
-			    			"Latitude: "	+ position.coords.latitude 	+ "\n" +
-			    			"Longitude: "		+ position.coords.longitude + "\n\n" +
-			    			"Your'e location has been sent to the local police.\n");
-			    	
-		
-			    }
+				function SendLocationToPolice(position)
+				{
+					
+					GenerateSOSUrl(position);
+					fileUpload(SOSform,url,'result');
+					spinner.stop();
+				}
 				
 				function SOSShortPress()
 				{
@@ -925,24 +1002,69 @@
 					
 				}
 				
-				function BeforeSumbit()
-				{
-					if (true)	//if all inputs are valid
-					{
-						return true;
-					}
-					return false;
-				}
+				
+           /*    function SubmitCrime()
+                {
 
+					var crimeTime=$('#scroller').mobiscroll('getDate').getTime();
+					var userId=localStorage.getItem(maxContacts+1);
+					var mifgaNum=GenerateMifgaNum();
+					document.getElementById('mifgaNum').value=mifgaNum;
+					var now=new Date();
+					document.getElementById('time').value=now.getTime();
+					document.getElementById('ip').value=userId;
+					var locationStr=lastCenter.lat().toString() + '|' + lastCenter.lng().toString();
+					document.getElementById('loc').value=locationStr;
+					var address=document.getElementById('addressBar').innerHTML;
+					document.getElementById('gf2').value=address;
+					var utf8Str=document.getElementById('autoResizeTextBox').value;					
+					var unicodeStr=UnicodeString(utf8Str);
+					document.getElementById('useCaseId').value=crimeTime;
+					document.getElementById('autoResizeTextBox').value=unicodeStr;
+					var crimeTimeMilisec=crimeTime;
+					document.getElementById('scroller').value=crimeTimeMilisec;
+					document.getElementById('gpsTime').value=crimeTimeMilisec;
+					document.getElementById('phoneNum').value=userId;
+					document.getElementById('pin').value=userId;					
+					document.getElementById('reportPageForm').action="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do";
+					
+
+                }*/
+          /*      function SubmitSOS()
+                {
+					spinner = new Spinner(HugeSpinnerOpts).spin(document.getElementById('buttonSection'));  
+					GetLocation(SendSOS, onError);
+				
+					ChangeButtonToNormal();                	
+                }
+                
+                function SendSOS(position)
+                {
+                
+			    	//spinner.stop();		    			
+					var mifgaNum=GenerateMifgaNum();
+					document.getElementById('mifgaNumSOS').value=mifgaNum;
+					var now=new Date();
+					document.getElementById('timeSOS').value=now.getTime();
+					document.getElementById('ipSOS').value=userId;
+					var locationStr=position.coords.latitude.toString() + '|' + position.coords.longitude.toString();
+					document.getElementById('useCaseIdSOS').value=mifgaNum;
+					document.getElementById('gpsTimeSOS').value=now.getTime();
+					document.getElementById('phoneNumSOS').value=userId;
+					document.getElementById('pinSOS').value=userId;
+					
+					document.getElementById('SOSform').action="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do";
+				}*/
 /******************** storage format *****************************
 /*
- i | holds
 --------------
- 0 | contact0
+ i | holds	  |
 --------------
- 1 | contact1
+ 0 | contact0 |
 --------------
- 2 | contact2
+ 1 | contact1 |
+--------------
+ 2 | contact2 |
 --------------
  3 | contactscounter
 --------------

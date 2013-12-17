@@ -53,9 +53,9 @@
 	    <!--long tap-->	    
 		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>-->
 	    <!--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>-->
-	    <script src="taphold.js" type="text/javascript"></script>
+	    <!--<script src="taphold.js" type="text/javascript"></script>-->
 	    
-	   <!-- <script type="text/javascript" src="jquery.swipeListener.js"></script>-->
+	   	<!-- <script type="text/javascript" src="jquery.swipeListener.js"></script>-->
 	    
         <!--progress spinner-->
         <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
@@ -102,8 +102,22 @@
 			<div id="SOSPage"  class="pageWrap" >
 				<div id="SOSWrap" class="sectionWrap">
 					<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >Send SOS</h1>
-					<form > <!--action="" method="post" onsubmit="return BeforeSumbit() ">-->
-						<div>	
+					<form id="SOSform"> 
+		        		  <input type="hidden" name="mifgaNum" id="mifgaNumSOS" />
+		        		  <input type="hidden" name="time" id="timeSOS" />
+		        		  <input type="hidden" name="ip" id="ipSOS" />
+		        		  <input type="hidden" name="loc" id="locSOS" />
+		        		  <input type="hidden" name="numSat" id="numSatSOS" value="1"/>
+		        		  <input type="hidden" name="useCase" id="useCaseSOS" value="1"/>
+		        		  <input type="hidden" name="useCaseId" id="useCaseIdSOS" />
+		        		  <input type="hidden" name="gpsTime" id="gpsTimeSOS" />
+		        		  <input type="hidden" name="refId" id="refIdSOS" value="1_"/>
+		        		  <input type="hidden" name="acc" id="accSOS" value="1"/>
+		        		  <input type="hidden" name="viewNum" id="viewNumSOS" value="1"/>
+		        		  <input type="hidden" name="phoneNum" id="phoneNumSOS" />
+		        		  <input type="hidden" name="pin" id="pinSOS" />
+		        		  <input type="hidden" name="gf2" id="gf2SOS" />
+
 							<div id="buttonSection" class="center" style="height: 60%; width:100%; margin-top: 10px">
 								<img id="SOSButton" src='./images/btn_sos_normal.png' />
 							</div>
@@ -137,7 +151,7 @@
 									</div>		
 								</div>
 			  				</div>
-			  			</div>
+	
 					</form>
 				</div>
 			</div>
@@ -266,7 +280,10 @@
 						</div>
 						
                         <div id="submitReportButton" style="display: block; max-width:100%; margin:10px" >
-                            <input   style="width:100%" type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime(); return false " value="Submit Crime" /> 
+                            <input   style="width:100%" type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="GenerateReportUrl(); fileUpload(this.form,url,'result'); return false;" value="Submit Crime" /> 
+                    	</div>
+                    	<div id='result'>
+                    		
                     	</div>
 					    
                     </form>
@@ -321,17 +338,12 @@
 						}
 	                	PrintDate();
 	                	
-	                	
-	                	
-	                	
-	                	
-	                	
-	                	
 	                	/*delete this*/
 	                	localStorage.setItem(maxContacts+1,572297679);
+	                	SOSform=document.getElementById('SOSform');
 	                }
 	                 
-			        $("#SOSButton").on("taphold", {duration: 1500}, SOSLongPress)
+			        $("#SOSButton").on("taphold", {duration: 1500},function (e) { SOSLongPress(); return false;} )
 	          			.on("click",   SOSShortPress)
 	          			.on("touchstart", ChangeButtonToPressed)
 						.on("touchend", ChangeButtonToNormal);
