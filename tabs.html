@@ -102,7 +102,7 @@
 			<div id="SOSPage"  class="pageWrap" >
 				<div id="SOSWrap" class="sectionWrap">
 					<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >Send SOS</h1>
-					<form action="" method="post" onsubmit="return BeforeSumbit() ">
+					<form > <!--action="" method="post" onsubmit="return BeforeSumbit() ">-->
 						<div>	
 							<div id="buttonSection" class="center" style="height: 60%; width:100%; margin-top: 10px">
 								<img id="SOSButton" src='./images/btn_sos_normal.png' />
@@ -146,72 +146,106 @@
 <!---------------------------------  report section ---------------------------------->
             <div id="reportPage" class="pageWrap" style="display: none">
             	
-                   	<form >
+                   	<form id="reportPageForm">
+                   		
                     	<div  class="sectionWrap" style="margin-bottom: 10px">
 
                            <button id='closeMapButton' class="center" onclick='ToggleMap(); return false; '  style="display: none; position: absolute; z-index: 100; top:0;" >Close map</button>
 						
                             <div id="reportData">
-                       			  <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none"> Report Crime </h1>                                                              <!--main page header-->
-                                        
-                                  <div id="crimeType" class="section">                                                                                                                                                        <!--crime type section-->
+                        		  <input type="hidden" name="mifgaNum" id="mifgaNum" />
+                        		  <input type="hidden" name="time" id="time" />
+                        		  <input type="hidden" name="ip" id="ip" />
+                        		  <input type="hidden" name="loc" id="loc" />
+                        		  <input type="hidden" name="numSat" id="numSat" value="2"/>
+                        		  <input type="hidden" name="useCase" id="useCase" value="2"/>
+                        		  <input type="hidden" name="useCaseId" id="useCaseId" />
+                        		  <input type="hidden" name="gpsTime" id="gpsTime" />
+                        		  <input type="hidden" name="refId" id="refId" value="2_"/>
+                        		  <input type="hidden" name="acc" id="acc" value="2"/>
+                        		  <input type="hidden" name="viewNum" id="viewNum" value="2"/>
+                        		  <input type="hidden" name="phoneNum" id="phoneNum" />
+                        		  <input type="hidden" name="pin" id="pin" />
+                        		  <input type="hidden" name="gf2" id="gf2" />
+                        		  
+                        		  <!--main page header-->
+                       			  <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none"> Report Crime </h1>                                                              
+                                   
+                                   
+                                   <!--crime type section-->      
+                                  <div id="crimeType" class="section">                                                                                                                                                       
                                           <div id="crimeTypeHeader">
                                                   <p  class="headerDecoration">Type</p>
                                           </div>
                                           <div id="crimeTypeSelection" >
-                                                <select  style=" margin-bottom:0; height: 25px; position:inherit" class="dropdown" >
-                                                    <option value="robbery">Robbery</option>
-                                                    <option value="violence">Violence</option>
-                                                    <option value="hijacking">Hijacking</option>
-                                                    <option value="murder">Murder</option>
-                                                    <option value="corruption">Corruption</option>
-                                                    <option value="other">Other</option>
+                                                <select  name="subjectId" id="subjectId" style=" margin-bottom:0; height: 25px; position:inherit" class="dropdown" >
+                                                    <option value="1">Venta Ilegal de Pirotecnicos</option>
+                                                    <option value="2">Riesgo en Defensa Civil en Locales Comerciales</option>
+                                                    <option value="3">Venta de Juguetes Toxicos</option>
+                                                    <option value="4">Narcotráfico</option>
+                                                    <option value="5">Terrorismo</option>
+                                                    <option value="6">Secuestro</option>
+                                                    <option value="7">Homicidio</option>
+                                                    <option value="8">Pandillaje</option>
+                                                    <option value="9">Violencia familiar</option>
+                                                    <option value="10">Estafa</option>
+                                                    <option value="11">Robo de Vehículos</option>
+                                                    <option value="12">Corrupción</option>
+                                                    <option value="13">Violación</option>
+                                                    <option value="14">Robo de Casas</option>
+                                                    <option value="15">Marcas – Robo a mano armada</option>
+                                                    <option value="16">Ordenamiento vial</option>
+                                                    <option value="17">Envía Placa</option>
+                                                    <option value="18">Otros</option>
                                                 </select>
                                           </div>
                                   
                                   </div>
-                                  
-                                  <div id="crimeDescription" class="section">                                                                                                                                        <!--crime description section-->
+
+                        		 <!--crime description section-->                                   
+                                  <div id="crimeDescription" class="section">
                                           <div id="crimeDescriptionHeader">
                                                   <p  class="headerDecoration" >Description</p>
                                           </div>
                                           <div id="crimeDescriptionBox" class="robo">
-                                                  <textarea  id="autoResizeTextBox" name="description"  style=" display: block" class="descriptionBox" onfocus="HighLightUL('crimeDescriptionUL')" onblur="DeHighLightUL('crimeDescriptionUL')"></textarea> 
+                                                  <textarea  id="autoResizeTextBox" name="comment"  style=" display: block" class="descriptionBox" onfocus="HighLightUL('crimeDescriptionUL')" onblur="DeHighLightUL('crimeDescriptionUL')"></textarea> 
                                           </div>
                                           <div id="crimeDescriptionUL" class="textEditUnderLine">
                                           </div>
                                   </div>
     
-    
-                                  <div id="crimeLocation" class="section">                                                                                        <!--crime location section-->
+    								<!--crime location section-->
+                                  <div id="crimeLocation" class="section">                                                                                        
                                           <div id="crimeLocationHeader">
                                                   <p  class="headerDecoration">Location</p>
                                           </div>
                                           
                                           <div id="crimeLocationData"  onclick="ViewLocationOnMap(); return false" >
 												<img src="./images/map-pin.png" class="icons" >
-												<div id="addressBar" class="robo">        
+												<div id="addressBar" class="robo">
 													<br/>						 
 												</div>  
 												        
                                           </div>
                                   </div>
     
-                                  <div id="crimeDate" class="section" >                                                                                                                                                        <!--crime date section-->
+    								 <!--crime date section-->
+                                  <div id="crimeDate" class="section" >                                                                                                                                                       
                                           <div id="crimeDateHeader" >
                                                   <p  class="headerDecoration">Date &amp; Hour</p>
                                           </div>
                                           <div id="crimeDateData">
 												<div id="datetimepicker" >
 													<img src="./images/calendar.png" class="icons">
-													<input id="scroller" name="scroller" class="robo" style=" border:none; font-size: 100%; font-family: roboto;" />
+													<input id="scroller" name="ex221" class="roboto" style=" border:none; font-size: 100%"  />
 										            									       
 												</div>
 												  
                                           </div>
                                   </div>
-    
-                                  <div id="crimePhotos" class="section">                                                                                       <!--crime photos section-->
+                                  
+                                  <!--crime photos section-->    
+                                  <div id="crimePhotos" class="section">                                                                                       
                                         <div id="crimePhotosHeader">
                       						<p  class="headerDecoration">Photos</p>
                                         </div>
@@ -232,7 +266,7 @@
 						</div>
 						
                         <div id="submitReportButton" style="display: block; max-width:100%; margin:10px" >
-                            <input   style="width:100%" type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime();  " value="Submit Crime" />                <!--maybe return false is needed-->
+                            <input   style="width:100%" type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime(); " value="Submit Crime" /> 
                     	</div>						    
                     </form>
             </div>
@@ -275,7 +309,7 @@
 	                function FirstLoad()
 	                {
 	                	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
-		               
+		                //spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
 		                GetLocation(GetAddress);
 		                
 						LoadContactsFromStorage();
@@ -285,6 +319,15 @@
 							ToggleDisplay('addbutton','inline');
 						}
 	                	PrintDate();
+	                	
+	                	
+	                	
+	                	
+	                	
+	                	
+	                	
+	                	/*delete this*/
+	                	localStorage.setItem(maxContacts+1,572297679);
 	                }
 	                 
 			        $("#SOSButton").on("taphold", {duration: 1500}, SOSLongPress)

@@ -7,6 +7,7 @@
                 var streetNum = "";
         		var spinner;
 				var i;
+				var serverNum=7;
 				
 				var maxContacts=3;
 				var contactsList=new Array(3);
@@ -59,12 +60,130 @@
             	
                 function SubmitCrime()
                 {
-					/*alert(document.getElementById('picker').value + "\n" + 
-					document.getElementById('autoResizeTextBox').value);*/
+					var crimeTime=$('#scroller').mobiscroll('getDate').getTime();
+					var userId=localStorage.getItem(maxContacts+1);
+					var mifgaNum=GenerateMifgaNum();
+					document.getElementById('mifgaNum').value=mifgaNum;
+					var now=new Date();
+					document.getElementById('time').value=now.getTime();
+					document.getElementById('ip').value=userId;
+					var locationStr=lastCenter.lat().toString() + '|' + lastCenter.lng().toString();
+					document.getElementById('loc').value=locationStr;
+					var address=document.getElementById('addressBar').innerHTML;
+					document.getElementById('gf2').value=address;
+					var utf8Str=document.getElementById('autoResizeTextBox').value;					
+					var unicodeStr=UnicodeString(utf8Str);
+					document.getElementById('useCaseId').value=crimeTime;
+					document.getElementById('autoResizeTextBox').value=unicodeStr;
+					var crimeTimeMilisec=crimeTime;
+					document.getElementById('scroller').value=crimeTimeMilisec;
+					document.getElementById('gpsTime').value=crimeTimeMilisec;
+					document.getElementById('phoneNum').value=userId;
+					document.getElementById('pin').value=userId;
+					
+					var url="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do?";
+					
+					url=AddParmameterToURL(url,'mifgaNum',mifgaNum);
+					url=AddParmameterToURL(url,'subjectId',document.getElementById('subjectId').value);
+					url=AddParmameterToURL(url,'time',now.getTime());
+					url=AddParmameterToURL(url,'ip',userId);
+					url=AddParmameterToURL(url,'loc',locationStr);
+					url=AddParmameterToURL(url,'comment',unicodeStr);
+					url=AddParmameterToURL(url,'ex221',crimeTimeMilisec);
+					url=AddParmameterToURL(url,'numSat','2');
+					url=AddParmameterToURL(url,'useCase','2');
+					url=AddParmameterToURL(url,'useCaseId',mifgaNum);
+					url=AddParmameterToURL(url,'gpsTime',crimeTimeMilisec);
+					url=AddParmameterToURL(url,'refId','2_');
+					url=AddParmameterToURL(url,'acc','2');
+					url=AddParmameterToURL(url,'viewNum','2');
+					url=AddParmameterToURL(url,'phoneNum',userId);
+					url=AddParmameterToURL(url,'pin',userId);
+					url=AddParmameterToURL(url,'gf2',address);
+					url = url.substring(0, url.length - 1); //remove last ampersand
+					
+					try
+					{
+					$.ajax({url:url,
+							type:'POST',
+							success: function(data){alert(data);}	
+							});
+					
+					}
+					catch (err) {alert(err);}
+					
+					//document.getElementById('reportPageForm').action="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do";
+					
 
                 }
                 
-
+                function AddParmameterToURL(url,param,value)
+                {
+                	url+=param + '=' + value + '&';
+                	return url;
+                }
+                
+                function UnicodeString(str)
+                {
+                	var i;
+                	var temp="";
+                	for (i=0;i<str.length;++i)
+                	{
+                		temp+=str.charCodeAt(i);
+                		temp+=';';
+                	}
+                	
+                	return temp;
+                }
+                
+                function GenerateMifgaNum()
+                {
+					var now=new Date();
+					var mifgaNum=new String();
+					
+					var day=now.getDate();
+					mifgaNum=AddPreZero(day,mifgaNum,2);
+					mifgaNum+=day.toString();
+					
+					var month=now.getMonth()+1;
+					mifgaNum=AddPreZero(month,mifgaNum,2);
+					mifgaNum+=month.toString()+now.getFullYear().toString();
+					
+					var hour=now.getHours();
+					mifgaNum=AddPreZero(hour,mifgaNum,2);
+					mifgaNum+=hour.toString();
+					
+					var min=now.getMinutes();
+					mifgaNum=AddPreZero(min,mifgaNum,2);
+					mifgaNum+=min.toString();
+					
+					var milisec= now.getMilliseconds();
+					mifgaNum=AddPreZero(milisec,mifgaNum,3);
+					mifgaNum+=milisec.toString()+'0';
+					
+					return mifgaNum;
+					              	
+                }
+				
+				function AddPreZero(num,str,digits)	//adding pre zeroes to the string if necessary
+				{
+					var i;
+					
+					dec=1;
+					for (i=1;i<digits;++i)
+					{
+						dec*=10;
+						
+					}
+					while (num<dec && dec>=10)
+					{
+						str+='0';
+						dec/=10;
+							
+					}
+					return str;
+				}			
+				
 
 				function ToggleDisplay(id,arg)
 				{
@@ -105,7 +224,7 @@
 		
 							DisplaySingleContact(contactsCounter);												 
 							contactsCounter++;
-							localStorage.setItem(maxContacts+1,contactsCounter);
+							localStorage.setItem(maxContacts,contactsCounter);
 							
 							ToggleDisplay('addingContactField','table'); 
 							if (contactsCounter<maxContacts)
@@ -172,7 +291,7 @@
 							ToggleDisplay('addbutton','inline');
 						}
 						--contactsCounter;
-						localStorage.setItem(maxContacts+1,contactsCounter);
+						localStorage.setItem(maxContacts,contactsCounter);
 						DisplayContactList();
 					}
 				}
@@ -490,8 +609,24 @@
 				function PrintDate() 
 				{
                         var now=new Date();
+						var dateString=new String();
+						
+						var day=now.getDate();
+						dateString=AddPreZero(day,dateString,2);
+						dateString+=day.toString()+'/';
+						
+						var month=now.getMonth()+1;
+						dateString=AddPreZero(month,dateString,2);
+						dateString+=month.toString()+ '/' + now.getFullYear().toString()  + ' ';
+						
+						var hour=now.getHours();
+						dateString=AddPreZero(hour,dateString,2);
+						dateString+=hour.toString() + ':';
+						
+						var min=now.getMinutes();
+						dateString=AddPreZero(min,dateString,2);
+						dateString+=min.toString();
 
-						var dateString=now.getDate() + '/' + now.getMonth() + '/' + now.getFullYear() + ' ' + now.getHours() + ':' + now.getMinutes();			
 													
                         picker=document.getElementById('scroller');
                         picker.value=dateString;
@@ -566,13 +701,13 @@
 					var contact;
 					var n;
 					var len;
-					if (!localStorage.getItem(maxContacts+1))
+					if (!localStorage.getItem(maxContacts))
 					{
 						contactsCounter=0;
 					}
 					else
 					{
-						contactsCounter=localStorage.getItem(maxContacts+1);
+						contactsCounter=localStorage.getItem(maxContacts);
 						for (i=0;i<contactsCounter;++i)
 						{
 							contact=localStorage.getItem(i);
@@ -779,11 +914,15 @@
 								"Email: " + mail + "\n" +
 								"Birth date: " + birthDate +"\n" +
 								"Sex: " + sex + "\n");
+			
+						localStorage.setItem(maxContacts,0);	
+						localStorage.setItem(maxContacts+1,572297679);		
 					}
 					else
 					{
 						alert('Please fill all the fields with a valid data');
 					}
+					
 				}
 				
 				function BeforeSumbit()
@@ -795,4 +934,18 @@
 					return false;
 				}
 
-//onfocus="document.getElementById('crimeLocation').readOnly=true" onblur="document.getElementById('crimeLocation').readOnly=false"
+/******************** storage format *****************************
+/*
+ i | holds
+--------------
+ 0 | contact0
+--------------
+ 1 | contact1
+--------------
+ 2 | contact2
+--------------
+ 3 | contactscounter
+--------------
+ 4 | ID
+--------------
+*/
