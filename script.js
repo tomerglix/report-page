@@ -178,12 +178,10 @@
 				            } else if (iframeId.document) {
 				                content = iframeId.document.body.innerHTML;
 				            }
-				            content=content.toString();
-				            alert(content);
-				            content=content.replace(" ","");
-				            alert(content);
-				 			alert(content[0]);
-							alert(content.toString()[0]);
+				            var pos=content.indexOf(':');
+				            alert(pos);
+				            alert(content.charAt(pos));
+				            alert(content.charAt(pos-1));
 				 
 				            // Del the iframe...
 				            setTimeout('iframeId.parentNode.removeChild(iframeId)', 250);
