@@ -178,6 +178,9 @@
 				            } else if (iframeId.document) {
 				                content = iframeId.document.body.innerHTML;
 				            }
+				            alert(content);
+				            content=content.replace(" ","");
+				            alert(content);
 				 			alert(content[0]);
 							alert(content.toString()[0]);
 				 
