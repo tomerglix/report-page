@@ -8,8 +8,9 @@
         		var spinner;
 				var i;
 				var serverNum=7;
-				var userId=localStorage.getItem(maxContacts+1);
+				var userId;
 				var SOSform;
+				var url;
 				
 				var maxContacts=3;
 				var contactsList=new Array(3);
@@ -59,7 +60,7 @@
 					button.src='./images/btn_sos_normal.png';		    	
 			    }
 
-            	var url;
+            	
             	function GenerateSOSUrl(position)
             	{
 			    	spinner.stop();		    			
@@ -92,6 +93,10 @@
 					url = url.substring(0, url.length - 1); //remove last ampersand
 					
             	}
+            	
+            	
+
+					
                 function GenerateReportUrl()
                 {
 					var crimeTime=$('#scroller').mobiscroll('getDate').getTime();
@@ -142,6 +147,7 @@
 
 				function fileUpload(form, action_url, div_id) {
 				    // Create the iframe...
+
 				    var iframe = document.createElement("iframe");
 				    iframe.setAttribute("id", "upload_iframe");
 				    iframe.setAttribute("name", "upload_iframe");
@@ -390,6 +396,7 @@
 				{
 					
 					GenerateSOSUrl(position);
+					
 					fileUpload(SOSform,url,'result');
 					spinner.stop();
 				}

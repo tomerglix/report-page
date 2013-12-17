@@ -280,7 +280,7 @@
 						</div>
 						
                         <div id="submitReportButton" style="display: block; max-width:100%; margin:10px" >
-                            <input   style="width:100%" type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="GenerateReportUrl(); fileUpload(this.form,url,'result'); return false;" value="Submit Crime" /> 
+                            <input   style="width:100%" type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="GenerateReportUrl(); alert(url); fileUpload(this.form,url,'result'); return false;" value="Submit Crime" /> 
                     	</div>
                     	<div id='result'>
                     		
@@ -340,10 +340,12 @@
 	                	
 	                	/*delete this*/
 	                	localStorage.setItem(maxContacts+1,572297679);
+	                	
 	                	SOSform=document.getElementById('SOSform');
+	                	userId=localStorage.getItem(maxContacts+1);
 	                }
 	                 
-			        $("#SOSButton").on("taphold", {duration: 1500},function (e) { SOSLongPress(); return false;} )
+			        $("#SOSButton").on("taphold", {duration: 1500},function (e) { SOSLongPress();  return false;} )
 	          			.on("click",   SOSShortPress)
 	          			.on("touchstart", ChangeButtonToPressed)
 						.on("touchend", ChangeButtonToNormal);
