@@ -179,9 +179,14 @@
 				                content = iframeId.document.body.innerHTML;
 				            }
 				            var pos=content.indexOf(':');
-				            alert(pos);
-				            alert(content.charAt(pos));
-				            alert(content.charAt(pos-1));
+				            if (content.charAt(pos-1)==5)
+				            {
+				            	alert('Your location has sent to the local police and to your contact circle');
+				            }
+				            else
+				            {
+				            	alert('Failed to send location');
+				            }
 				 
 				            // Del the iframe...
 				            setTimeout('iframeId.parentNode.removeChild(iframeId)', 250);
