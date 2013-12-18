@@ -1092,7 +1092,8 @@
 				            	return false;
 				            }	
 
-			            }				            	
+			            }		
+		            }		            	
 				}
 				
 				function SubmitCrime()
