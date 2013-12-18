@@ -9,11 +9,12 @@
      	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
-<html style='background-color: red;'>
-        <body onload=" CheckActivation(); GenerateCheckActivationUrl();" style="height: 100%; background-color: green;" >
-			<div class="pageWrap">
+<html>
+        <body onload=" GenerateCheckActivationUrl(); CheckActivation();" style="height: 100%; background-color:#f3f3f3" >
+			<div class="pageWrap" style="padding-top: 0;">
 				<div class="sectionWrap">
 					<form id='activationWaitForm'>
+						<p  class="headerDecoration">ACTIVACION DE CUENTA</p>
 						<p class='robo' style="color: #444444; padding: 10px">
 							Gracias por registrarse. El proceso está casi completo. <br/><br/> Para activar su cuenta por favor siga las instrucciones del e-mail que se le ha enviado a su casilla de correo electrónico.<br/>Si no encuentra el correo en su bandeja de entrada consulte la carpeta de Spam.
 						</p>
@@ -28,14 +29,14 @@
 				{
 					fileUpload(document.getElementById('activationWaitForm'),url);
 					var res=false;
-					res=CheckActionResult(actionResult,1,checkActivationSuccessStr,checkActivationFailStr);
+					res=CheckActionResult(actionResult,1,checkActivationSuccessStr,checkActivationFailStr,1);
 					if (res==true)
 					{
 						localStorage.setItem('userStatus',3);
 						alert('user status changed to 3');
 						window.location.replace('MainPage.html');
 					}	
-					
+					window.location.replace('MainPage.html');
 				}
 				function GenerateCheckActivationUrl()
 				{

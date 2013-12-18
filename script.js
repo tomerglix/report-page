@@ -172,7 +172,7 @@
 
 				function fileUpload(form, action_url) {
 				    // Create the iframe...
-
+					alert(url);
 				    var iframe = document.createElement("iframe");
 				    iframe.setAttribute("id", "upload_iframe");
 				    iframe.setAttribute("name", "upload_iframe");
@@ -1021,7 +1021,7 @@
 						GenerateRegUrl();
 						fileUpload(document.getElementById('regPageForm'), url);
 						var res=false;
-						res=CheckActionResult(actionResult,1,registerSuccessStr,registerFailStr);
+						res=CheckActionResult(actionResult,1,registerSuccessStr,registerFailStr,1);
 						if (res==true)
 						{
 							localStorage.setItem('phoneNum',phoneNumber);
@@ -1053,19 +1053,46 @@
 				var SOSSuccessStr='Your location has sent to the local police and to your contact circle';
 				var SOSFailStr='Failed to send SOS';
 				
-				function CheckActionResult(resStr,successValue,msgWhenSuccess,msgWhenFail)
+				function CheckActionResult(resStr,successValue,msgWhenSuccess,msgWhenFail,offset)
 				{
+					offset=0;
 		            var pos=resStr.indexOf(':');
-		            if (resStr.charAt(pos-1)==successValue)
-		            {
-		            	alert(msgWhenSuccess);
-		            	return true;
+		            
+					if (offset==='undefined')
+					{
+			            if (resStr.charAt(pos-1)==successValue)
+			            {
+			            	alert(msgWhenSuccess);
+			            	return true;
+			            }
+			            else
+			            {
+			            	alert(msgWhenFail);
+			            	return false;
+			            }		
+			            
 		            }
 		            else
 		            {
-		            	alert(msgWhenFail);
-		            	return false;
-		            }				
+			            if (resStr.charAt(pos-1-offset)=='-1')
+			            {
+			            	alert(msgWhenFail);
+			            	return false;
+			            }
+			            else
+			            {
+				            if (resStr.charAt(pos-1)==successValue)
+				            {
+				            	alert(msgWhenSuccess);
+				            	return true;
+				            }
+				            else
+				            {
+				            	alert(msgWhenFail);
+				            	return false;
+				            }	
+
+			            }				            	
 				}
 				
 				function SubmitCrime()
