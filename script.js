@@ -205,7 +205,7 @@
 				                actionResult = iframeId.document.body.innerHTML;
 				            }
 							
-							alert(actionResult);
+							alert('fileUpload' + actionResult);
 				            // Del the iframe...
 				            setTimeout('iframeId.parentNode.removeChild(iframeId)', 250);
 				        };
@@ -1022,7 +1022,7 @@
 						GenerateRegUrl();
 						fileUpload(document.getElementById('regPageForm'), url);
 						var res=false;
-						res=CheckActionResult(actionResult,1,registerSuccessStr,registerFailStr,1);
+						res=CheckActionResult(actionResult,'1',registerSuccessStr,registerFailStr,1);
 						if (res==true)
 						{
 							localStorage.setItem('phoneNum',phoneNumber);
@@ -1056,6 +1056,8 @@
 				
 				function CheckActionResult(resStr,successValue,msgWhenSuccess,msgWhenFail,offset)
 				{
+					alert('CheckActionResult' + resStr);
+					
 					offset=0;
 		            var pos=resStr.indexOf(':');
 		            
@@ -1075,7 +1077,8 @@
 		            }
 		            else
 		            {
-			            if (resStr.charAt(pos-1-offset)=='-1')
+		            	alert('pos-1-offser' + resStr.charAt(pos-1-offset));
+			            if (resStr.charAt(pos-1-offset)=='-')
 			            {
 			            	alert(msgWhenFail);
 			            	return false;
