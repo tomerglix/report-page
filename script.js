@@ -1077,7 +1077,7 @@
 		            }
 		            else
 		            {
-		            	alert('pos-1-offser' + resStr.charAt(pos-1-offset));
+		            	alert('pos-1-offset ' + resStr.charAt(pos-1-offset));
 			            if (resStr.charAt(pos-1-offset)=='-')
 			            {
 			            	alert(msgWhenFail);

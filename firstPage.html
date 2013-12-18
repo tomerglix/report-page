@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 
 <head>
-        
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">        
 
  		<script type="text/javascript" charset="UTF-8" src="script.js" ></script>  
      	
@@ -23,22 +24,27 @@
 					
 					switch (localStorage.getItem('userStatus'))
 					{
-						case 1:
+						case '1':
 						{
 							window.location.replace('RegistrationPage.html');
 							break;
 						}
-						case 2:
+						case '2':
 						{
 							window.location.replace('WaitForActivation.html');
 							break;
 						}
-						case 3:
+						case '3':
 						{
 							window.location.replace('MainPage.html');
 							break;
 						}
-						default: break;
+						default:
+						{
+							localStorage.setItem('userStatus',1);
+							window.location.replace('RegistrationPage.html');
+							break;
+						} 
 
 					}
 
