@@ -608,13 +608,13 @@
                     mapID=document.getElementById('mapDisplay');                                
                     if (mapID.style.display=="none")
                     {
-                    	ToggleDisplay('closeMapButton','inline');     
-                        ToggleDisplay('reportData','inline');
-                        ToggleDisplay('mapDisplay','inline');
+                    	ToggleDisplay('mapDisplay','inline'); 
+                        ToggleDisplay('reportData','inline');                        
                         ToggleDisplay('topMenu','inline');
+                        ToggleDisplay('closeMapButton','inline');    
                         
                         lastCenter=map.getCenter(); 
-                        google.maps.event.trigger(map, 'resize');
+                        //google.maps.event.trigger(map, 'resize');
                         map.setCenter(lastCenter);
 
                     }
