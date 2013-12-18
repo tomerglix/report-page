@@ -203,7 +203,8 @@
 				            } else if (iframeId.document) {
 				                actionResult = iframeId.document.body.innerHTML;
 				            }
-
+							
+							alert(actionResult);
 				            // Del the iframe...
 				            setTimeout('iframeId.parentNode.removeChild(iframeId)', 250);
 				        };
@@ -1029,6 +1030,8 @@
 							
 							
 							localStorage.setItem('userStatus',2);
+							
+							alert('next page');
 							window.location.replace('WaitForActivation.html');
 						}
 
