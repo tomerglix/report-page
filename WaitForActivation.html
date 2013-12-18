@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<head>
+     	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">       
+
+ 		<script type="text/javascript" charset="UTF-8" src="script.js" ></script>  
+     	
+     	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<html style='background-color: red;'>
+        <body onload=" CheckActivation(); GenerateCheckActivationUrl();" style="height: 100%; background-color: green;" >
+			<div class="pageWrap">
+				<div class="sectionWrap">
+					<form id='activationWaitForm'>
+						<p class='robo' style="color: #444444; padding: 10px">
+							Gracias por registrarse. El proceso está casi completo. <br/><br/> Para activar su cuenta por favor siga las instrucciones del e-mail que se le ha enviado a su casilla de correo electrónico.<br/>Si no encuentra el correo en su bandeja de entrada consulte la carpeta de Spam.
+						</p>
+					
+						<input  style="width:100%" type="submit" id="OKButton" class="submitButtonStyle" onclick="CheckActivation(); return false;" value="OK" /> 
+					</form>
+				</div>
+			</div>
+     
+			<script type="text/javascript" charset="UTF-8" >
+				function CheckActivation()
+				{
+					fileUpload(document.getElementById('activationWaitForm'),url);
+					var res=false;
+					res=CheckActionResult(actionResult,1,checkActivationSuccessStr,checkActivationFailStr);
+					if (res==true)
+					{
+						localStorage.setItem('userStatus',3);
+						alert('user status changed to 3');
+						window.location.replace('MainPage.html');
+					}	
+					
+				}
+				function GenerateCheckActivationUrl()
+				{
+					url="http://62.0.66." + serverNum +":8080/checkAgentActivation.do?";
+					url+='agentId='+localStorage('userId');
+				}
+			</script>
+			
+        </body>
+</html>

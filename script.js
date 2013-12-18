@@ -11,6 +11,8 @@
 				var userId;
 				var SOSform;
 				var url;
+				var actionResult;
+				
 				
 				var maxContacts=3;
 				var contactsList=new Array(3);
@@ -22,7 +24,10 @@
 				var maxPhotos=3;				
 
             	var highlightedTab='SOSTab';
-            	var currentPage='SOSPage';     
+            	var currentPage='SOSPage';
+            	
+            	
+            	var userStatus; //1-needs to register. 2-waiting for activation. 3-active user
             					
 				for (i=0;i<contactsList.length;++i)
 				{
@@ -60,6 +65,27 @@
 					button.src='./images/btn_sos_normal.png';		    	
 			    }
 
+            	function GenerateRegUrl()
+            	{
+					url="http://62.0.66." + serverNum +":8080/addCivilianAgent.do?";
+					
+					var dob=$('#picker').mobiscroll('getDate').getTime();
+					var gender;
+					if (document.getElementsByName('sex')[0].checked==true)
+					{
+						gender='M';
+					}
+					else
+					{
+						gender='F';
+					}
+					url=AddParmameterToURL(url,'projectId',116);
+					url=AddParmameterToURL(url,'mail',email);
+					url=AddParmameterToURL(url,'tel',phoneNumber);
+					url=AddParmameterToURL(url,'dob',dob);
+					url=AddParmameterToURL(url,'gender',gender);
+					url = url.substring(0, url.length - 1); //remove last ampersand
+            	}
             	
             	function GenerateSOSUrl(position)
             	{
@@ -99,7 +125,7 @@
 					
                 function GenerateReportUrl()
                 {
-					var crimeTime=$('#scroller').mobiscroll('getDate').getTime();
+					var crimeTimeMilisec=$('#scroller').mobiscroll('getDate').getTime();
 					var mifgaNum=GenerateMifgaNum();
 					document.getElementById('mifgaNum').value=mifgaNum;
 					var now=new Date();
@@ -113,7 +139,6 @@
 					var unicodeStr=UnicodeString(utf8Str);
 					document.getElementById('useCaseId').value=mifgaNum;
 					document.getElementById('autoResizeTextBox').value=unicodeStr;
-					var crimeTimeMilisec=crimeTime;
 					document.getElementById('scroller').value=crimeTimeMilisec;
 					document.getElementById('gpsTime').value=crimeTimeMilisec;
 					document.getElementById('phoneNum').value=userId;
@@ -145,7 +170,7 @@
 
                 }
 
-				function fileUpload(form, action_url, div_id) {
+				function fileUpload(form, action_url) {
 				    // Create the iframe...
 
 				    var iframe = document.createElement("iframe");
@@ -172,22 +197,13 @@
 				 
 				            // Message from server...
 				            if (iframeId.contentDocument) {
-				                content = iframeId.contentDocument.body.innerHTML;
+				                actionResult = iframeId.contentDocument.body.innerHTML;
 				            } else if (iframeId.contentWindow) {
-				                content = iframeId.contentWindow.document.body.innerHTML;
+				                actionResult = iframeId.contentWindow.document.body.innerHTML;
 				            } else if (iframeId.document) {
-				                content = iframeId.document.body.innerHTML;
+				                actionResult = iframeId.document.body.innerHTML;
 				            }
-				            var pos=content.indexOf(':');
-				            if (content.charAt(pos-1)==5)
-				            {
-				            	alert('Your location has sent to the local police and to your contact circle');
-				            }
-				            else
-				            {
-				            	alert('Failed to send location');
-				            }
-				 
+
 				            // Del the iframe...
 				            setTimeout('iframeId.parentNode.removeChild(iframeId)', 250);
 				        };
@@ -314,7 +330,7 @@
 		
 							DisplaySingleContact(contactsCounter);												 
 							contactsCounter++;
-							localStorage.setItem(maxContacts,contactsCounter);
+							localStorage.setItem('contactsCounter',contactsCounter);
 							
 							ToggleDisplay('addingContactField','table'); 
 							if (contactsCounter<maxContacts)
@@ -344,8 +360,8 @@
 				
 				function DisplaySingleContact(contactIndex)
 				{	
-					document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:5%' class='center'> <img src='./images/x.png' class='icons'  onclick='DeleteContact(" +contactIndex +"); return false' style='float: none; padding-top:7px;'></td>  <td style='width:45%;'>"
-																		+ contactsList[contactIndex][0] + "</td> <td  style='width:50%'> " + contactsList[contactIndex][1] + "</td> </tr>";
+					document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:5%' class='center'> <img src='./images/x.png' class='icons'  onclick='DeleteContact(" +contactIndex +"); return false' style='float: none; padding-top:7px;'></td>  <td class='robo' style='width:45%;'>"
+																		+ contactsList[contactIndex][0] + "</td> <td  style='width:50%' class='robo'> " + contactsList[contactIndex][1] + "</td> </tr>";
 				}
 				
 				function DisplayContactList()
@@ -381,7 +397,7 @@
 							ToggleDisplay('addbutton','inline');
 						}
 						--contactsCounter;
-						localStorage.setItem(maxContacts,contactsCounter);
+						localStorage.setItem('contactsCounter',contactsCounter);
 						DisplayContactList();
 					}
 				}
@@ -400,8 +416,12 @@
 				{
 					
 					GenerateSOSUrl(position);
+
+					fileUpload(SOSform,url);
+					//var res=false;
+					//res=
+					CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
 					
-					fileUpload(SOSform,url,'result');
 					spinner.stop();
 				}
 				
@@ -789,13 +809,13 @@
 					var contact;
 					var n;
 					var len;
-					if (!localStorage.getItem(maxContacts))
+					if (!localStorage.getItem('contactsCounter'))
 					{
 						contactsCounter=0;
 					}
 					else
 					{
-						contactsCounter=localStorage.getItem(maxContacts);
+						contactsCounter=localStorage.getItem('contactsCounter');
 						for (i=0;i<contactsCounter;++i)
 						{
 							contact=localStorage.getItem(i);
@@ -861,7 +881,7 @@
 				
 				function EmailValidation()
 				{
-					mail=document.getElementById('email').value;
+					var mail=document.getElementById('email').value;
 					emailError="";
 					var atpos=mail.indexOf("@");
 					var atsecpos=mail.lastIndexOf("@");
@@ -997,14 +1017,22 @@
 							sex=document.getElementsByName('sex')[1].value;
 						}
 						
-						
-						alert(	"Tel: " + phoneNumber + "\n" +
-								"Email: " + mail + "\n" +
-								"Birth date: " + birthDate +"\n" +
-								"Sex: " + sex + "\n");
-			
-						localStorage.setItem(maxContacts,0);	
-						localStorage.setItem(maxContacts+1,572297679);		
+						GenerateRegUrl();
+						fileUpload(document.getElementById('regPageForm'), url);
+						var res=false;
+						res=CheckActionResult(actionResult,1,registerSuccessStr,registerFailStr);
+						if (res==true)
+						{
+							localStorage.setItem('phoneNum',phoneNumber);
+							localStorage.setItem('contactsCounter',0);	
+							localStorage.setItem('userId',572297679);
+							
+							
+							localStorage.setItem('userStatus',2);
+							window.location.replace('WaitForActivation.html');
+						}
+
+								
 					}
 					else
 					{
@@ -1013,19 +1041,55 @@
 					
 				}
 				
+				var checkActivationSuccessStr="Email confirmed, your acount has been activated";
+				var checkActivationFailStr="You haven't confirmed your email yet";
+				var registerSuccessStr="Your details has been received. Check your email for activation";
+				var registerFailStr="An error occured";
+				var reportSuccessStr='Report sent successfuly';
+				var reportFailStr='Failed to send report';
+				var SOSSuccessStr='Your location has sent to the local police and to your contact circle';
+				var SOSFailStr='Failed to send SOS';
+				
+				function CheckActionResult(resStr,successValue,msgWhenSuccess,msgWhenFail)
+				{
+		            var pos=resStr.indexOf(':');
+		            if (resStr.charAt(pos-1)==successValue)
+		            {
+		            	alert(msgWhenSuccess);
+		            	return true;
+		            }
+		            else
+		            {
+		            	alert(msgWhenFail);
+		            	return false;
+		            }				
+				}
+				
+				function SubmitCrime()
+				{
+					GenerateReportUrl();
+					fileUpload(document.getElementById('reportPageForm'),url);
+					CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
+				}
+				
+				
+				
 /******************** storage format *****************************
 /*
---------------
- i | holds	  |
---------------
- 0 | contact0 |
---------------
- 1 | contact1 |
---------------
- 2 | contact2 |
---------------
- 3 | contactscounter
---------------
- 4 | ID
---------------
+--------------------------------
+ KEY				| VALUE	   |
+--------------------------------
+ 0 					| contact0 |
+--------------------------------
+ 1 					| contact1 |
+--------------------------------
+ 2 					| contact2 |
+--------------------------------
+ 'contactscounter'	| contactscounter
+--------------------------------
+ 'userId			| ID
+--------------------------------
+ 'userStatus' 		| userStatus
+--------------------------------
+ 'phoneNum'			| phone number
 */
