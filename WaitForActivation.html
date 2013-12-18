@@ -41,7 +41,7 @@
 				function GenerateCheckActivationUrl()
 				{
 					url="http://62.0.66." + serverNum +":8080/checkAgentActivation.do?";
-					url+='agentId='+localStorage('userId');
+					url+='agentId='+localStorage.getItem('userId');
 				}
 			</script>
 			

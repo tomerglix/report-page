@@ -19,34 +19,28 @@
 				{
 					if (localStorage.getItem('userStatus')==null || localStorage.getItem('userStatus')==undefined)
 					{
-						alert('changing to 1');
 						localStorage.setItem('userStatus',1);
 					}
 					
-					alert('user status: ' + localStorage.getItem('userStatus'));
 					switch (localStorage.getItem('userStatus'))
 					{
 						case '1':
 						{
-							alert('case1');
 							window.location.replace('RegistrationPage.html');
 							break;
 						}
 						case '2':
 						{
-							alert('case2');
 							window.location.replace('WaitForActivation.html');
 							break;
 						}
 						case '3':
 						{
-							alert('case3');
 							window.location.replace('MainPage.html');
 							break;
 						}
 						default:
 						{
-							alert('default');
 							localStorage.setItem('userStatus',1);
 							window.location.replace('RegistrationPage.html');
 							break;

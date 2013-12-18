@@ -69,7 +69,7 @@
             	{
 					url="http://62.0.66." + serverNum +":8080/addCivilianAgent.do?";
 					
-					var dob=$('#picker').mobiscroll('getDate').getTime();
+					var dob=document.getElementById('picker').value;
 					var gender;
 					if (document.getElementsByName('sex')[0].checked==true)
 					{
@@ -170,7 +170,8 @@
 
                 }
 
-				function fileUpload(form, action_url) {
+				function fileUpload(form, action_url) 
+				{
 				    // Create the iframe...
 					alert(url);
 				    var iframe = document.createElement("iframe");
