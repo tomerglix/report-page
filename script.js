@@ -116,7 +116,6 @@
 					url=AddParmameterToURL(url,'type','1');
 					
 					url = url.substring(0, url.length - 1); //remove last ampersand
-					alert(url);
 					
             	}
             	
@@ -409,8 +408,6 @@
 					GenerateSOSUrl(position);
 
 					fileUpload(SOSform,url);
-					//var res=false;
-					//res=
 					CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
 					
 					spinner.stop();
@@ -1080,16 +1077,25 @@
 				var reportFailStr='Failed to send report';
 				var SOSSuccessStr='Your location has sent to the local police and to your contact circle';
 				var SOSFailStr='Failed to send SOS';
-				
+				//var times=0;
 				function CheckActionResult(resStr,successValue,msgWhenSuccess,msgWhenFail,offset)
 				{
 					if (resStr===undefined)
 					{
+						/*if (times==5)
+						{
+							times=0;
+							return false;
+						}
+						alert('ud');
+						
+						++times;
+						window.setTimeout(CheckActionResult(resStr,successValue,msgWhenSuccess,msgWhenFail,offset),500);*/
 						return false;
 					}
 					else
 					{
-						offset=0;
+						times=0;
 			            var pos=resStr.indexOf(':');
 			            
 						if (offset==='undefined')
