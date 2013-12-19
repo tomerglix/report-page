@@ -457,38 +457,28 @@
                 //
                 function getPhoto(source) 
                 {
-
-        
                       // Retrieve image file location from specified source
                       navigator.camera.getPicture(AddPhotoToFromLibrary, onFail, { quality: 50, 
                         destinationType: destinationType.FILE_URI,
                         sourceType: source });
                 }  
                 function capturePhoto() 
-                {                           var photoSection=document.getElementById('photosSection');
-    
-                    photoSection.innerHTML+="<img style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
-                        var smallImage = document.getElementById('img'+ photoCounter);
-    
-                    smallImage.src = "./images/attention.png";
-                    smallImage.onclick=EnlargeImage('img'+ photoCounter);
-
-                    ++photoCounter;         	
+                {                	
                       // Take picture using device camera and retrieve image as base64-encoded string
-                     // navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
-                     //   destinationType: destinationType.DATA_URL });
+                      navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
+                        destinationType: destinationType.DATA_URL });
                 }         
                 function AddPhotoToFromCaption(imageData) 
                 {
                 	
                     var photoSection=document.getElementById('photosSection');
+    				var imageId='img' + photoCounter;
+                    photoSection.innerHTML+="<img class='photo' style='display:inline;width:60px;height:60px;padding:4px;' id=imageId />";
     
-                    photoSection.innerHTML+="<img style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
-    
-                    var smallImage = document.getElementById('img'+ photoCounter);
+                    var smallImage = document.getElementById(imageId);
     
                     smallImage.src = "data:image/jpeg;base64," + imageData;
-                    //smallImage.onclick=EnlargeImage('img'+ photoCounter);
+                    smallImage.onclick=EnlargeImage(imageId);
 
                     ++photoCounter;
         
@@ -496,13 +486,14 @@
                 function AddPhotoToFromLibrary(imageURI) 
                 {
                     var photoSection=document.getElementById('photosSection');
+    				var imageId='img' + photoCounter;
+    				
+                    photoSection.innerHTML+="<img class='photo' style='display:inline;width:60px;height:60px;padding:4px;' id=imageId />";
     
-                    photoSection.innerHTML+="<img style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
-    
-                    var smallImage = document.getElementById('img'+ photoCounter);
+                    var smallImage = document.getElementById(imageId);
     
                     smallImage.src = imageURI;
-                    //smallImage.onclick=EnlargeImage('img'+ photoCounter);
+                    smallImage.onclick=EnlargeImage(imageId);
                     
                     ++photoCounter;
         
