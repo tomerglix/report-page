@@ -93,8 +93,8 @@
 					var mifgaNum=GenerateMifgaNum();
 					var now=new Date();
 					var locationStr=position.coords.latitude.toString() + '|' + position.coords.longitude.toString();
-
-					
+					var address=document.getElementById('addressBar').innerHTML;
+					var phoneNum=localStorage.getItem('phoneNum');
 					url="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do?";
 					
 					url=AddParmameterToURL(url,'mifgaNum',mifgaNum);
@@ -110,6 +110,10 @@
 					url=AddParmameterToURL(url,'viewNum','1');
 					url=AddParmameterToURL(url,'phoneNum',userId);
 					url=AddParmameterToURL(url,'pin',userId);
+					url=AddParmameterToURL(url,'gf2',address);
+					url=AddParmameterToURL(url,'gf1',phoneNum);
+					url=AddParmameterToURL(url,'type','1');
+					
 					url = url.substring(0, url.length - 1); //remove last ampersand
 					
             	}

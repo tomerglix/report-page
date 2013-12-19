@@ -312,7 +312,7 @@
 	                	userId=localStorage.getItem('userId');
 	                }
 	                 
-			        $("#SOSButton").on("taphold", {duration: 1500},function (e) { SOSLongPress();  return false;} )
+			        $("#SOSButton").on("taphold", {duration: 1500},function (e) { SOSLongPress();} )
 	          			.on("click",   SOSShortPress)
 	          			.on("touchstart", ChangeButtonToPressed)
 						.on("touchend", ChangeButtonToNormal);
