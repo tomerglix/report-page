@@ -492,6 +492,8 @@
                     var smallImage = document.getElementById('img'+ photoCounter);
     
                     smallImage.src = imageURI;
+                    smallImage.onclick=EnlargeImage('img'+ photoCounter);
+                    
                     ++photoCounter;
         
             	}
