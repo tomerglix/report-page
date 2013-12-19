@@ -13,8 +13,7 @@
 				var url;
 				var actionResult;
 				var enlarged;
-				
-				
+					
 				var maxContacts=3;
 				var contactsList=new Array(3);
 				var contactsCounter=0;
@@ -197,7 +196,6 @@
 				            // Del the iframe...
 				            setTimeout('iframeId.parentNode.removeChild(iframeId)', 250);
 				        };
-				 
 				    if (iframeId.addEventListener) iframeId.addEventListener("load", eventHandler, true);
 				    if (iframeId.attachEvent) iframeId.attachEvent("onload", eventHandler);
 				 
@@ -406,10 +404,25 @@
 				{
 					
 					GenerateSOSUrl(position);
-
+					actionResult="";
 					fileUpload(SOSform,url);
-					CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
 					
+					var timeout=false;
+					window.setTimeout(function(){timeout=true;} , 5000);
+					while (actionResult=='' && timeout==false)
+					{
+						
+					}
+					
+					if (timeout==true)
+					{
+						alert('Request timeout');
+						
+					}
+					else
+					{
+						CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
+					}
 					hugeSpinner.stop();
 				}
 				
@@ -1077,21 +1090,14 @@
 				var reportFailStr='Failed to send report';
 				var SOSSuccessStr='Your location has sent to the local police and to your contact circle';
 				var SOSFailStr='Failed to send SOS';
-				var times=0;
+				//var times=0;
 				function CheckActionResult(resStr,successValue,msgWhenSuccess,msgWhenFail,offset)
 				{
-					if (resStr===undefined)
+					if (resStr===undefined || resStr=='')
 					{
-						if (times==5)
-						{
-							times=0;
-							alert('Request timeout');
+
 							return false;
-						}
-						alert('ud');
-						
-						++times;
-						return window.setTimeout(CheckActionResult(resStr,successValue,msgWhenSuccess,msgWhenFail,offset),1000);
+
 					}
 					else
 					{
