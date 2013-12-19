@@ -190,6 +190,7 @@
 				function GetActionResult()
 				{
 					actionResult=document.getElementById('uploadIframe').innerHTML;
+					alert('GetActionResult ' + actionResult)
 				}
 				
 				function fileUpload(form, action_url) 
