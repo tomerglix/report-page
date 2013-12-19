@@ -395,7 +395,7 @@
 				function SOSLongPress()
 				{
 			
-					spinner = new Spinner(HugeSpinnerOpts).spin(document.getElementById('buttonSection'));  
+					hugeSpinner = new Spinner(HugeSpinnerOpts).spin(document.getElementById('buttonSection'));  
 					GetLocation(SendLocationToPolice, onError);
 				
 					ChangeButtonToNormal();
@@ -410,7 +410,7 @@
 					fileUpload(SOSform,url);
 					CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
 					
-					spinner.stop();
+					hugeSpinner.stop();
 				}
 				
 				function SOSShortPress()
@@ -1077,22 +1077,21 @@
 				var reportFailStr='Failed to send report';
 				var SOSSuccessStr='Your location has sent to the local police and to your contact circle';
 				var SOSFailStr='Failed to send SOS';
-				//var times=0;
+				var times=0;
 				function CheckActionResult(resStr,successValue,msgWhenSuccess,msgWhenFail,offset)
 				{
 					if (resStr===undefined)
 					{
-						/*if (times==5)
+						if (times==5)
 						{
 							times=0;
+							alert('Request timeout');
 							return false;
 						}
 						alert('ud');
 						
 						++times;
-						window.setTimeout(CheckActionResult(resStr,successValue,msgWhenSuccess,msgWhenFail,offset),500);*/
-						alert('ud');
-						return false;
+						return window.setTimeout(CheckActionResult(resStr,successValue,msgWhenSuccess,msgWhenFail,offset),1000);
 					}
 					else
 					{
