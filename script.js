@@ -472,13 +472,14 @@
                 {
                 	
                     var photoSection=document.getElementById('photosSection');
-    				var imageId='img' + photoCounter;
-                    photoSection.innerHTML+="<img class='photo' style='display:inline;width:60px;height:60px;padding:4px;' id=imageId />";
     
-                    var smallImage = document.getElementById(imageId);
+                    photoSection.innerHTML+="<img class='photo' style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
+    
+                    var smallImage = document.getElementById('img'+ photoCounter);
     
                     smallImage.src = "data:image/jpeg;base64," + imageData;
-                    smallImage.onclick=EnlargeImage(imageId);
+                 	var id='img'+ photoCounter;
+                    smallImage.onclick=function(){EnlargeImage(id);};
 
                     ++photoCounter;
         
@@ -486,14 +487,14 @@
                 function AddPhotoToFromLibrary(imageURI) 
                 {
                     var photoSection=document.getElementById('photosSection');
-    				var imageId='img' + photoCounter;
-    				
-                    photoSection.innerHTML+="<img class='photo' style='display:inline;width:60px;height:60px;padding:4px;' id=imageId />";
     
-                    var smallImage = document.getElementById(imageId);
+                    photoSection.innerHTML+="<img class='photo' style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
+    
+                    var smallImage = document.getElementById('img'+ photoCounter);
     
                     smallImage.src = imageURI;
-                    smallImage.onclick=EnlargeImage(imageId);
+                    var id='img'+ photoCounter;
+                    smallImage.onclick=function(){EnlargeImage(id);};
                     
                     ++photoCounter;
         
