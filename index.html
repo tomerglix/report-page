@@ -77,14 +77,14 @@
         </style>
 </head>
 
-<html style='background-color: red'>
-        <body onload=" FirstLoad();" style="height: 100%; background-color: green" >
+<html >
+        <body onload=" FirstLoad();" style="height: 100%;" >
         	
             <div id="mapDisplay" style="display: none;">
                                     
             </div>
             
-			<div id="topMenu" style="width: 100%; position: fixed; border-bottom: solid #f3f3f3 8px">
+			<div id="topMenu" style="width: 100%; position: fixed; border-bottom: solid #f3f3f3 8px; background-color: #0099CC">
 				<ul style="width: 100%; " class="navBar">
 					<li onclick="ChangePage('SOSPage','SOSTab'); return false;" class="navTab" >
 						 <a id="SOSTab" class="tab" href="#"> SOS </a> 
@@ -157,11 +157,11 @@
 <!---------------------------------  end of sos section ---------------------------------->
 
 <!---------------------------------  report section ---------------------------------->
-            <div id="reportPage" class="pageWrap" style="display: none; background-color: red;">
+            <div id="reportPage" class="pageWrap" style="display: none;">
             	
                    	<form id="reportPageForm">
                    		
-                    	<div  class="sectionWrap" style="margin-bottom: 10px; background-color: blue">
+                    	<div  class="sectionWrap" style="margin-bottom: 10px; ">
 
                            <button id='closeMapButton' class="center" onclick='ToggleMap(); return false; '  style="display: none; position: absolute; z-index: 100; top:0;" >Close map</button>
 						
