@@ -78,7 +78,7 @@
 </head>
 
 <html >
-        <body onload=" FirstLoad();" style="height: 100%;" >
+        <body onload=" FirstLoad();" style="height: 100%; background-color:#f3f3f3" >
         	
             <div id="mapDisplay" style="display: none;">
                                     
@@ -304,8 +304,7 @@
 	                
 
 					 	               
-            		$(function()
-            		{
+            		$(function(){
 					    // create a datetimepicker with default settings
 					    $("#scroller").mobiscroll().datetime({
 						  //  minDate: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
@@ -356,7 +355,24 @@
 					.on('swiperight', function(e){ChangePage('SOSPage','SOSTab');});		
 
 					$('#messagesPage').on('swipeleft', function(e){ChangePage('SOSPage','SOSTab');})
-					.on('swiperight', function(e){ChangePage('reportPage','reportPageTab');});		
+					.on('swiperight', function(e){ChangePage('reportPage','reportPageTab');});	
+					
+					$(document).click(function (e)
+					{
+						if (enlarged!='')
+						{
+						 	var container = $('.photo');
+		 				    if (!container.is(e.target) && container.has(e.target).length === 0) 
+						    {
+								$('#' + enlarged).animate({
+			
+							   	 height:'60px',
+								    width:'60px'
+								 });
+								 enlarged='';								 
+						    }						    
+						}
+					});	
 
 			</script>
 			
