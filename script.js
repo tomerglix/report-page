@@ -9,10 +9,11 @@
 				var i;
 				var serverNum=7;
 				var userId;
-				var SOSform;
 				var url;
 				var actionResult;
 				var enlarged;
+				var SOSForm;
+				var reportForm;
 					
 				var maxContacts=3;
 				var contactsList=new Array(3);
@@ -28,7 +29,29 @@
             	
             	
             	var userStatus; //1-needs to register. 2-waiting for activation. 3-active user
-            					
+
+                function FirstLoad()
+                {
+                	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
+	                //spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
+	                GetLocation(GetAddress);
+	                
+					LoadContactsFromStorage();
+					DisplayContactList();
+					if (contactsCounter==3)
+					{
+						ToggleDisplay('addbutton','inline');
+					}
+                	PrintDate();
+                	
+                	SOSForm=document.getElementById('SOSform');
+                	reportForm=document.getElementById('reportPageForm');
+                	/*delete this*/
+                	localStorage.setItem('userId',572297679);
+                	
+                	userId=localStorage.getItem('userId');
+                }
+	                            					
 				for (i=0;i<contactsList.length;++i)
 				{
 					contactsList[i]=new Array(2);
@@ -159,6 +182,16 @@
 
                 }
 
+				function SendUrl(form)
+				{
+					form.setAttribute("action", url);
+					form.submit();
+				}
+				function GetActionResult()
+				{
+					actionResult=document.getElementById('uploadIframe').innerHTML;
+				}
+				
 				function fileUpload(form, action_url) 
 				{
 				    // Create the iframe...
@@ -404,25 +437,11 @@
 				{
 					
 					GenerateSOSUrl(position);
-					actionResult="";
-					fileUpload(SOSform,url);
-					
-					var timeout=false;
-					window.setTimeout(function(){timeout=true;} , 5000);
-					while (actionResult=='' && timeout==false)
-					{
-						
-					}
-					
-					if (timeout==true)
-					{
-						alert('Request timeout');
-						
-					}
-					else
-					{
-						CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
-					}
+					SendUrl(SOSForm);
+					//fileUpload(SOSform,url);
+					alert(actionResult);
+					CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
+
 					hugeSpinner.stop();
 				}
 				
@@ -1147,7 +1166,9 @@
 				function SubmitCrime()
 				{
 					GenerateReportUrl();
-					fileUpload(document.getElementById('reportPageForm'),url);
+					SendUrl(reportForm);
+					alert(actionResult);
+					//fileUpload(document.getElementById('reportPageForm'),url);
 					CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
 				}
 				

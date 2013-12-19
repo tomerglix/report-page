@@ -101,8 +101,8 @@
 			<div id="SOSPage"  class="pageWrap" >
 				<div id="SOSWrap" class="sectionWrap">
 					<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >Send SOS</h1>
-					<form id="SOSform"> 
-
+					<form id="SOSform" target='uploadIframe' method="post" > 
+							<iframe id='uploadIframe' style="display: none" onload="GetActionResult();"> </iframe>
 							<div id="buttonSection" class="center" style="height: 60%; width:100%; margin-top: 10px">
 								<img id="SOSButton" src='./images/btn_sos_normal.png' />
 							</div>
@@ -145,7 +145,7 @@
 <!---------------------------------  report section ---------------------------------->
             <div id="reportPage" class="pageWrap" style="display: none;">
             	
-                   	<form id="reportPageForm">
+                   	<form id="reportPageForm" target='uploadIframe' method="post">
                    		
                     	<div  class="sectionWrap" style="margin-bottom: 10px; ">
 
@@ -291,26 +291,7 @@
 					});
 					
 					
-	                function FirstLoad()
-	                {
-	                	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
-		                //spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
-		                GetLocation(GetAddress);
-		                
-						LoadContactsFromStorage();
-						DisplayContactList();
-						if (contactsCounter==3)
-						{
-							ToggleDisplay('addbutton','inline');
-						}
-	                	PrintDate();
-	                	
-	                	/*delete this*/
-	                	localStorage.setItem('userId',572297679);
-	                	
-	                	SOSform=document.getElementById('SOSform');
-	                	userId=localStorage.getItem('userId');
-	                }
+
 	                 
 			        $("#SOSButton").on("taphold", {duration: 1500},function (e) { SOSLongPress();} )
 	          			.on("click",   SOSShortPress)
