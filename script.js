@@ -443,20 +443,9 @@
                 {
                       // Retrieve image file location from specified source
                       
-                  	var photoSection=document.getElementById('photosSection');
-    
-                    photoSection.innerHTML+="<img class='photo' style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
-    
-                    var smallImage = document.getElementById('img'+ photoCounter);
-    
-                    smallImage.src = "./images/attention.png";
-                 	//var id='img'+ photoCounter;
-                    //smallImage.onclick=function(){EnlargeImage(id);};
-                    ++photoCounter;
-                    /*
                       navigator.camera.getPicture(AddPhotoToFromLibrary, onFail, { quality: 50, 
                         destinationType: destinationType.FILE_URI,
-                        sourceType: source });*/
+                        sourceType: source });
                 } 
                 function foo(id) 
                 {
