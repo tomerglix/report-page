@@ -91,15 +91,9 @@
             	function GenerateSOSUrl(position)
             	{  			
 					var mifgaNum=GenerateMifgaNum();
-					document.getElementById('mifgaNumSOS').value=mifgaNum;
 					var now=new Date();
-					document.getElementById('timeSOS').value=now.getTime();
-					document.getElementById('ipSOS').value=userId;
 					var locationStr=position.coords.latitude.toString() + '|' + position.coords.longitude.toString();
-					document.getElementById('useCaseIdSOS').value=mifgaNum;
-					document.getElementById('gpsTimeSOS').value=now.getTime();
-					document.getElementById('phoneNumSOS').value=userId;
-					document.getElementById('pinSOS').value=userId;
+
 					
 					url="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do?";
 					
@@ -127,22 +121,12 @@
                 {
 					var crimeTimeMilisec=$('#scroller').mobiscroll('getDate').getTime();
 					var mifgaNum=GenerateMifgaNum();
-					document.getElementById('mifgaNum').value=mifgaNum;
 					var now=new Date();
-					document.getElementById('time').value=now.getTime();
-					document.getElementById('ip').value=userId;
 					var locationStr=lastCenter.lat().toString() + '|' + lastCenter.lng().toString();
-					document.getElementById('loc').value=locationStr;
 					var address=document.getElementById('addressBar').innerHTML;
-					document.getElementById('gf2').value=address;
 					var utf8Str=document.getElementById('autoResizeTextBox').value;					
 					var unicodeStr=UnicodeString(utf8Str);
-					document.getElementById('useCaseId').value=mifgaNum;
-					document.getElementById('autoResizeTextBox').value=unicodeStr;
-					document.getElementById('scroller').value=crimeTimeMilisec;
-					document.getElementById('gpsTime').value=crimeTimeMilisec;
-					document.getElementById('phoneNum').value=userId;
-					document.getElementById('pin').value=userId;
+
 					
 					url="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do?";
 					
@@ -458,44 +442,85 @@
                 function getPhoto(source) 
                 {
                       // Retrieve image file location from specified source
+                      
+                  	var photoSection=document.getElementById('photosSection');
+    
+                    photoSection.innerHTML+="<img class='photo' style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
+    
+                    var smallImage = document.getElementById('img'+ photoCounter);
+    
+                    smallImage.src = "./images/attention.png";
+                 	//var id='img'+ photoCounter;
+                    //smallImage.onclick=function(){EnlargeImage(id);};
+                    ++photoCounter;
+                    /*
                       navigator.camera.getPicture(AddPhotoToFromLibrary, onFail, { quality: 50, 
                         destinationType: destinationType.FILE_URI,
-                        sourceType: source });
-                }  
+                        sourceType: source });*/
+                } 
+                function foo(id) 
+                {
+                  
+						if (enlarged!='')
+						{
+							$('#' + enlarged).animate({
+		
+						   	 height:'60px',
+							    width:'60px'
+							 });
+							 enlarged='';
+						}
+						if (document.getElementById(id).style.height=='60px')
+						{
+							$('#' + id).animate({
+		
+						   	 height:'200px',
+							    width:'200px'
+							 });
+						  	enlarged=id;
+						}
+						else
+						{
+							$('#' + id).animate({
+		
+						   	 height:'60px',
+							    width:'60px'
+							 });
+							 enlarged='';
+						} 
+				}
+				
                 function capturePhoto() 
-                {                	
+                {              
+
                       // Take picture using device camera and retrieve image as base64-encoded string
                       navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
                         destinationType: destinationType.DATA_URL });
                 }         
                 function AddPhotoToFromCaption(imageData) 
                 {
-                	
-                    var photoSection=document.getElementById('photosSection');
-    
-                    photoSection.innerHTML+="<img class='photo' style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
-    
-                    var smallImage = document.getElementById('img'+ photoCounter);
-    
-                    smallImage.src = "data:image/jpeg;base64," + imageData;
-                 	var id='img'+ photoCounter;
-                    smallImage.onclick=function(){EnlargeImage(id);};
-
+					var photoSection=document.getElementById('photosSection');
+					var smallImage=document.createElement('img');
+					smallImage.className='photo';
+					smallImage.id='img' + photoCounter;
+					smallImage.src = "data:image/jpeg;base64," + imageData;
+					smallImage.onclick=function (){foo(smallImage.id);};
+                    photoSection.appendChild(smallImage);
+    	
                     ++photoCounter;
+                                    	
         
             	}
                 function AddPhotoToFromLibrary(imageURI) 
                 {
-                    var photoSection=document.getElementById('photosSection');
-    
-                    photoSection.innerHTML+="<img class='photo' style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
-    
-                    var smallImage = document.getElementById('img'+ photoCounter);
-    
-                    smallImage.src = imageURI;
-                    var id='img'+ photoCounter;
-                    smallImage.onclick=function(){EnlargeImage(id);};
-                    
+					var photoSection=document.getElementById('photosSection');
+					var smallImage=document.createElement('img');
+					smallImage.className='photo';
+					smallImage.id='img' + photoCounter;
+					smallImage.src = imageURI;
+					smallImage.onclick=function (){foo(smallImage.id);};
+                    photoSection.appendChild(smallImage);
+    	
                     ++photoCounter;
         
             	}
@@ -1119,37 +1144,7 @@
 				}
 				
 			
-				function EnlargeImage(id)
-				{
-					if (enlarged!='')
-					{
-						$('#' + enlarged).animate({
-	
-					   	 height:'60px',
-						    width:'60px'
-						 });
-						 enlarged='';
-					}
-					if (document.getElementById(id).style.height=='60px')
-					{
-						$('#' + id).animate({
-	
-					   	 height:'50%',
-						    width:'50%'
-						 });
-					  	enlarged=id;
-					}
-					else
-					{
-						$('#' + id).animate({
-	
-					   	 height:'60px',
-						    width:'60px'
-						 });
-						 enlarged='';
-					}
-					 
-				}				
+		
 				
 /******************** storage format *****************************
 /*

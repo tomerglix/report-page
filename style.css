@@ -370,4 +370,10 @@
 	{
 	    outline: none;
 	}	
-   
+   .photo
+   {
+   	 	display:inline;
+   	 	width:60px;
+   	 	height:60px;
+   	 	padding:4px;
+   }
