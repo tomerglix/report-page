@@ -102,20 +102,6 @@
 				<div id="SOSWrap" class="sectionWrap">
 					<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >Send SOS</h1>
 					<form id="SOSform"> 
-		        		  <input type="hidden" name="mifgaNum" id="mifgaNumSOS" />
-		        		  <input type="hidden" name="time" id="timeSOS" />
-		        		  <input type="hidden" name="ip" id="ipSOS" />
-		        		  <input type="hidden" name="loc" id="locSOS" />
-		        		  <input type="hidden" name="numSat" id="numSatSOS" value="1"/>
-		        		  <input type="hidden" name="useCase" id="useCaseSOS" value="1"/>
-		        		  <input type="hidden" name="useCaseId" id="useCaseIdSOS" />
-		        		  <input type="hidden" name="gpsTime" id="gpsTimeSOS" />
-		        		  <input type="hidden" name="refId" id="refIdSOS" value="1_"/>
-		        		  <input type="hidden" name="acc" id="accSOS" value="1"/>
-		        		  <input type="hidden" name="viewNum" id="viewNumSOS" value="1"/>
-		        		  <input type="hidden" name="phoneNum" id="phoneNumSOS" />
-		        		  <input type="hidden" name="pin" id="pinSOS" />
-		        		  <input type="hidden" name="gf2" id="gf2SOS" />
 
 							<div id="buttonSection" class="center" style="height: 60%; width:100%; margin-top: 10px">
 								<img id="SOSButton" src='./images/btn_sos_normal.png' />
@@ -165,22 +151,7 @@
 
                            <button id='closeMapButton' class="center" onclick='ToggleMap(); return false; '  style="display: none; position: absolute; z-index: 100; top:0;" >Close map</button>
 						
-                            <div id="reportData">
-                        		  <input type="hidden" name="mifgaNum" id="mifgaNum" />
-                        		  <input type="hidden" name="time" id="time" />
-                        		  <input type="hidden" name="ip" id="ip" />
-                        		  <input type="hidden" name="loc" id="loc" />
-                        		  <input type="hidden" name="numSat" id="numSat" value="2"/>
-                        		  <input type="hidden" name="useCase" id="useCase" value="2"/>
-                        		  <input type="hidden" name="useCaseId" id="useCaseId" />
-                        		  <input type="hidden" name="gpsTime" id="gpsTime" />
-                        		  <input type="hidden" name="refId" id="refId" value="2_"/>
-                        		  <input type="hidden" name="acc" id="acc" value="2"/>
-                        		  <input type="hidden" name="viewNum" id="viewNum" value="2"/>
-                        		  <input type="hidden" name="phoneNum" id="phoneNum" />
-                        		  <input type="hidden" name="pin" id="pin" />
-                        		  <input type="hidden" name="gf2" id="gf2" />
-                        		  
+                            <div id="reportData">                        		  
                         		  <!--main page header-->
                        			  <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none"> Report Crime </h1>                                                              
                                    
@@ -341,7 +312,7 @@
 	                	userId=localStorage.getItem('userId');
 	                }
 	                 
-			        $("#SOSButton").on("taphold", {duration: 1500},function (e) { SOSLongPress();  return false;} )
+			        $("#SOSButton").on("taphold", {duration: 1500},function (e) { SOSLongPress();} )
 	          			.on("click",   SOSShortPress)
 	          			.on("touchstart", ChangeButtonToPressed)
 						.on("touchend", ChangeButtonToNormal);

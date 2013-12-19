@@ -95,6 +95,7 @@
 					var locationStr=position.coords.latitude.toString() + '|' + position.coords.longitude.toString();
 					var address=document.getElementById('addressBar').innerHTML;
 					var phoneNum=localStorage.getItem('phoneNum');
+					var addressUnicode= UnicodeString(address);
 					url="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do?";
 					
 					url=AddParmameterToURL(url,'mifgaNum',mifgaNum);
@@ -110,7 +111,7 @@
 					url=AddParmameterToURL(url,'viewNum','1');
 					url=AddParmameterToURL(url,'phoneNum',userId);
 					url=AddParmameterToURL(url,'pin',userId);
-					url=AddParmameterToURL(url,'gf2',address);
+					url=AddParmameterToURL(url,'gf2',addressUnicode);
 					url=AddParmameterToURL(url,'gf1',phoneNum);
 					url=AddParmameterToURL(url,'type','1');
 					
@@ -129,9 +130,10 @@
 					var now=new Date();
 					var locationStr=lastCenter.lat().toString() + '|' + lastCenter.lng().toString();
 					var address=document.getElementById('addressBar').innerHTML;
+					var addressUnicode= UnicodeString(address);
 					var utf8Str=document.getElementById('autoResizeTextBox').value;					
 					var unicodeStr=UnicodeString(utf8Str);
-
+				
 					
 					url="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do?";
 					
@@ -151,7 +153,7 @@
 					url=AddParmameterToURL(url,'viewNum','2');
 					url=AddParmameterToURL(url,'phoneNum',userId);
 					url=AddParmameterToURL(url,'pin',userId);
-					url=AddParmameterToURL(url,'gf2',address);
+					url=AddParmameterToURL(url,'gf2',addressUnicode);
 					url = url.substring(0, url.length - 1); //remove last ampersand
 							
 					//document.getElementById('reportPageForm').action="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do";
