@@ -12,6 +12,7 @@
 				var SOSform;
 				var url;
 				var actionResult;
+				var enlarged;
 				
 				
 				var maxContacts=3;
@@ -88,8 +89,7 @@
             	}
             	
             	function GenerateSOSUrl(position)
-            	{
-			    	spinner.stop();		    			
+            	{  			
 					var mifgaNum=GenerateMifgaNum();
 					document.getElementById('mifgaNumSOS').value=mifgaNum;
 					var now=new Date();
@@ -173,7 +173,6 @@
 				function fileUpload(form, action_url) 
 				{
 				    // Create the iframe...
-					alert(url);
 				    var iframe = document.createElement("iframe");
 				    iframe.setAttribute("id", "upload_iframe");
 				    iframe.setAttribute("name", "upload_iframe");
@@ -205,7 +204,6 @@
 				                actionResult = iframeId.document.body.innerHTML;
 				            }
 							
-							alert('fileUpload' + actionResult);
 				            // Del the iframe...
 				            setTimeout('iframeId.parentNode.removeChild(iframeId)', 250);
 				        };
@@ -465,16 +463,14 @@
                         sourceType: source });
                 }  
                 function capturePhoto() 
-                {
-                	 spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addPhotoButtons'));
+                {                	
                       // Take picture using device camera and retrieve image as base64-encoded string
                       navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
                         destinationType: destinationType.DATA_URL });
-                    spinner.stop();
                 }         
                 function AddPhotoToFromCaption(imageData) 
                 {
-                	spinner.stop();
+                	
                     var photoSection=document.getElementById('photosSection');
     
                     photoSection.innerHTML+="<img style='display:inline;width:60px;height:60px;padding:4px;' id='img" + photoCounter + "' />";
@@ -482,6 +478,8 @@
                     var smallImage = document.getElementById('img'+ photoCounter);
     
                     smallImage.src = "data:image/jpeg;base64," + imageData;
+                    smallImage.onclick=EnlargeImage('img'+ photoCounter);
+
                     ++photoCounter;
         
             	}
@@ -507,7 +505,6 @@
                       {
                               alert('Failed because: ' + message);
                       }
-                      spinner.stop();
                 }
                 //************* end of camera functions *********************/
 
@@ -544,7 +541,9 @@
                     lat = parseFloat(position.coords.latitude);
                     lng = parseFloat(position.coords.longitude);
                     lastCenter = new google.maps.LatLng(lat, lng);
-                    littlespinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('addressBar'));  /*here*/
+                    littlespinner = new Spinner(bigSpinnerOpts).spin(document.body,500);
+                    
+                    //littlespinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('reportPage'));  /*here*/
                     CoordinatesToStrings(lastCenter);      	
                 }
                 
@@ -554,7 +553,7 @@
                                     'code: '    + error.code    + '\n' +
                                   'message: ' + error.message + '\n');
                                   
-                   	spinner.stop();  
+                   	//spinner.stop();  
                                    
                 }      
                   
@@ -710,9 +709,8 @@
                                                 }
                                                 
                                                 
-                                          });
-                        //spinner.stop();                                        				
-                                          
+                                          });                                  				
+                           littlespinner.stop();               
 				}
                                     
                 //************ end of location functions
@@ -1026,13 +1024,17 @@
 						if (res==true)
 						{
 							localStorage.setItem('phoneNum',phoneNumber);
-							localStorage.setItem('contactsCounter',0);	
-							localStorage.setItem('userId',572297679);
+							localStorage.setItem('contactsCounter',0);
 							
-							
+							var n=actionResult.indexOf(':');
+							alert(actionResult);
+							var userIdStr=actionResult.substring(0,n);
+							alert(userIdStr);
+							userId=parseInt(userIdStr);
+							alert(userId);
+							localStorage.setItem('userId',userId);
 							localStorage.setItem('userStatus',2);
 							
-							alert('next page');
 							window.location.replace('WaitForActivation.html');
 						}
 
@@ -1056,35 +1058,17 @@
 				
 				function CheckActionResult(resStr,successValue,msgWhenSuccess,msgWhenFail,offset)
 				{
-					alert('CheckActionResult' + resStr);
-					
-					offset=0;
-		            var pos=resStr.indexOf(':');
-		            
-					if (offset==='undefined')
+					if (resStr===undefined)
 					{
-			            if (resStr.charAt(pos-1)==successValue)
-			            {
-			            	alert(msgWhenSuccess);
-			            	return true;
-			            }
-			            else
-			            {
-			            	alert(msgWhenFail);
-			            	return false;
-			            }		
+						return false;
+					}
+					else
+					{
+						offset=0;
+			            var pos=resStr.indexOf(':');
 			            
-		            }
-		            else
-		            {
-		            	alert('pos-1-offset ' + resStr.charAt(pos-1-offset));
-			            if (resStr.charAt(pos-1-offset)=='-')
-			            {
-			            	alert(msgWhenFail);
-			            	return false;
-			            }
-			            else
-			            {
+						if (offset==='undefined')
+						{
 				            if (resStr.charAt(pos-1)==successValue)
 				            {
 				            	alert(msgWhenSuccess);
@@ -1094,10 +1078,33 @@
 				            {
 				            	alert(msgWhenFail);
 				            	return false;
-				            }	
-
-			            }		
-		            }		            	
+				            }		
+				            
+			            }
+			            else
+			            {
+				            if (resStr.charAt(pos-1-offset)=='-')
+				            {
+				            	alert(msgWhenFail);
+				            	return false;
+				            }
+				            else
+				            {
+					            if (resStr.charAt(pos-1)==successValue)
+					            {
+					            	alert(msgWhenSuccess);
+					            	return true;
+					            }
+					            else
+					            {
+					            	alert(msgWhenFail);
+					            	return false;
+					            }	
+	
+				            }		
+			            }		  
+			    	}
+    	
 				}
 				
 				function SubmitCrime()
@@ -1107,7 +1114,38 @@
 					CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
 				}
 				
-				
+			
+				function EnlargeImage(id)
+				{
+					if (enlarged!='')
+					{
+						$('#' + enlarged).animate({
+	
+					   	 height:'60px',
+						    width:'60px'
+						 });
+						 enlarged='';
+					}
+					if (document.getElementById(id).style.height=='60px')
+					{
+						$('#' + id).animate({
+	
+					   	 height:'50%',
+						    width:'50%'
+						 });
+					  	enlarged=id;
+					}
+					else
+					{
+						$('#' + id).animate({
+	
+					   	 height:'60px',
+						    width:'60px'
+						 });
+						 enlarged='';
+					}
+					 
+				}				
 				
 /******************** storage format *****************************
 /*

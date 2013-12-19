@@ -1,1 +1,2 @@
-working on regpage
+fixed the margin on the nav bar
+need to delete all of the alerts
