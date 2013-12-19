@@ -1091,6 +1091,7 @@
 						
 						++times;
 						window.setTimeout(CheckActionResult(resStr,successValue,msgWhenSuccess,msgWhenFail,offset),500);*/
+						alert('ud');
 						return false;
 					}
 					else
