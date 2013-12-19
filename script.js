@@ -115,6 +115,7 @@
 					url=AddParmameterToURL(url,'type','1');
 					
 					url = url.substring(0, url.length - 1); //remove last ampersand
+					alert(url);
 					
             	}
             	
