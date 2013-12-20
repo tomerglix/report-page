@@ -189,8 +189,22 @@
 				}
 				function GetActionResult()
 				{
-					actionResult=document.getElementById('uploadIframe').innerHTML;
-					alert('GetActionResult ' + actionResult)
+					iframeId=document.getElementById('uploadIframe');
+
+		            if (iframeId.contentDocument) 
+		            {
+		                actionResult = iframeId.contentDocument.body.innerHTML;
+	            	} 
+	            	else if (iframeId.contentWindow) 
+	            	{
+		                actionResult = iframeId.contentWindow.document.body.innerHTML;
+		            } 
+		            else if (iframeId.document) 
+		            {
+		                actionResult = iframeId.document.body.innerHTML;
+		            }
+
+					alert('GetActionResult ' + actionResult);
 				}
 				
 				function fileUpload(form, action_url) 
