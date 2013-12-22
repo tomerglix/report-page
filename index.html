@@ -295,6 +295,7 @@
 	                	phoneNumber='0502712252';
 	                	userId='119637';
 	                	
+	                	
 	                	GetMessages();
 	                	
 	                }
@@ -304,8 +305,32 @@
                 		GenerateGetMessagesUrl();
                 		alert(url);
                 		SendUrl(messagesForm);
-                		messagesForm.innerHTML+=actionResult;
+                		
 	
+                	}
+                	
+                	function ParseString()
+                	{
+                		
+                	}
+                	
+                	function GetTagContent(str,tag)
+                	{
+                		var beginTag;
+                		var endTag;
+                		var start;
+                		var end;
+                		var content;
+                		
+                		beginTag='<' + tag + '>';
+                		endTag='</' + tag + '>';
+                		start=str.indexOf(beginTag)+beginTag.length;
+                		end=str.indexOf(endTag);
+                		
+                		content=str.substring(start,end);
+                		
+                		alert(content);
+                		
                 	}
                 	
 					$("#autoResizeTextBox").keyup(function (e) 

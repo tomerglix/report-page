@@ -240,6 +240,10 @@
 							localStorage.setItem('phoneNum',phoneNumber);
 							window.location.replace('WaitForActivation.html');
 						}						
+					}
+					else if(form.id=='uploadIframe')
+					{
+						messagesForm.innerHTML+=actionResult;
 					}					
 					else
 					{
@@ -439,7 +443,6 @@
 				
 				function SendLocationToPolice(position)
 				{
-					alert('SendLocationToPolice');
 					GenerateSOSUrl(position);
 					SendUrl(SOSForm);
 				}
