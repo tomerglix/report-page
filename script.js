@@ -237,8 +237,11 @@
 						if (res==true)
 						{
 							var n=actionResult.indexOf(':');
-							var userIdStr=actionResult.substring(n+1,userIdStr.length);
+							var userIdStr=actionResult.substring(n+1,n+10);
+							alert(userIdStr);
 							userId=parseInt(userIdStr);
+							var user1=actionResult.substring(n+1,actionResult.length);
+							alert(user1);
 							localStorage.setItem('contactsCounter',0);
 							localStorage.setItem('userId',userId);
 							localStorage.setItem('userStatus',2);
