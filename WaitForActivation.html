@@ -7,6 +7,7 @@
  		<script type="text/javascript" charset="UTF-8" src="script.js" ></script>  
      	
      	<link rel="stylesheet" type="text/css" href="style.css">
+     	<title>Wait For Activation</title>
 </head>
 
 <html>
@@ -26,23 +27,7 @@
 			</div>
      
 			<script type="text/javascript" charset="UTF-8" >
-				function WaitForActivationOnLoad()
-				{
-					uploadIframe=document.getElementById('uploadIframe');
-					GenerateCheckActivationUrl();
-					CheckActivation();
-				}
-				
-				function CheckActivation()
-				{
-					SendUrl(activationWaitForm);
-										
-				}
-				function GenerateCheckActivationUrl()
-				{
-					url="http://62.0.66." + serverNum +":8080/checkAgentActivation.do?";
-					url+='agentId='+localStorage.getItem('userId');
-				}
+
 			</script>
 			
         </body>
