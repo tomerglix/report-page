@@ -260,14 +260,54 @@
 <!----------------------------------------- messages section -------------------------------------->                  
 			<div id="messagesPage"  class="pageWrap" style="display: none;">
 				<div id="messagesWrap" class="sectionWrap" style=" height:500px;">
-					<h1>Under Construction</h1>
+					<form id="messagesForm" target='uploadIframe' method="post" >
+
+						<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none"> Messages </h1>
+					</form>
 				</div>
 			</div>
 
 <!----------------------------------------- end of messages section -------------------------------------->         
      
 			<script type="text/javascript" charset="UTF-8" >
-
+	                function FirstLoad()
+	                {
+	                	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
+		                //spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
+		                GetLocation(GetAddress);
+		                
+						LoadContactsFromStorage();
+						DisplayContactList();
+						if (contactsCounter==3)
+						{
+							ToggleDisplay('addbutton','inline');
+						}
+	                	PrintDate();
+	                	
+	                	messagesForm=document.getElementById('messagesForm');
+	                	SOSForm=document.getElementById('SOSForm');
+	                	reportForm=document.getElementById('reportForm');
+	                	uploadIframe=document.getElementById('uploadIframe');
+	                	
+	                	//phoneNumber=localStorage.getItem('phoneNum');
+	                	//userId=localStorage.getItem('userId');
+	                	
+	                	phoneNumber='0502712252';
+	                	userId='119637';
+	                	
+	                	GetMessages();
+	                	
+	                }
+                
+                	function GetMessages()
+                	{
+                		GenerateGetMessagesUrl();
+                		alert(url);
+                		SendUrl(messagesForm);
+                		messagesForm.innerHTML+=actionResult;
+	
+                	}
+                	
 					$("#autoResizeTextBox").keyup(function (e) 
 	                {
 	                    adaptiveheight(this);

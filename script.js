@@ -32,28 +32,7 @@
             	
             	var userStatus; //1-needs to register. 2-waiting for activation. 3-active user
 
-                function FirstLoad()
-                {
-                	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
-	                //spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
-	                GetLocation(GetAddress);
-	                
-					LoadContactsFromStorage();
-					DisplayContactList();
-					if (contactsCounter==3)
-					{
-						ToggleDisplay('addbutton','inline');
-					}
-                	PrintDate();
-                	
-                	
-                	SOSForm=document.getElementById('SOSForm');
-                	reportForm=document.getElementById('reportForm');
-                	uploadIframe=document.getElementById('uploadIframe');
-                	
-                	phoneNumber=localStorage.getItem('phoneNum');
-                	userId=localStorage.getItem('userId');
-                }
+
 	                            					
 				for (i=0;i<contactsList.length;++i)
 				{
@@ -90,6 +69,18 @@
 					button=document.getElementById("SOSButton");
 					button.src='./images/btn_sos_normal.png';		    	
 			    }
+			    
+			    function GenerateGetMessagesUrl()
+			    {
+			    	url="http://62.0.66.85/getOnlineMessagesLogin.do?";
+			    	
+			    	url=AddParmameterToURL(url,'phoneNum',userId);
+			    	url=AddParmameterToURL(url,'pin',userId);
+			    	url=AddParmameterToURL(ip,'phoneNum',userId);
+			    	
+			    	url = url.substring(0, url.length - 1); //remove last ampersand
+			    }
+
 
             	function GenerateRegUrl()
             	{
@@ -110,6 +101,7 @@
 					url=AddParmameterToURL(url,'tel',phoneNumber);
 					url=AddParmameterToURL(url,'dob',dob);
 					url=AddParmameterToURL(url,'gender',gender);
+					
 					url = url.substring(0, url.length - 1); //remove last ampersand
             	}
             	
