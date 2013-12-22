@@ -14,7 +14,8 @@
 				var enlarged;
 				var SOSForm;
 				var reportForm;
-					
+				var uploadIframeId;
+				var firstIframeLoad=true;
 				var maxContacts=3;
 				var contactsList=new Array(3);
 				var contactsCounter=0;
@@ -44,8 +45,9 @@
 					}
                 	PrintDate();
                 	
-                	SOSForm=document.getElementById('SOSform');
+                	SOSForm=document.getElementById('SOSForm');
                 	reportForm=document.getElementById('reportPageForm');
+                	uploadIframe=document.getElementById('uploadIframe');
                 	/*delete this*/
                 	localStorage.setItem('userId',572297679);
                 	
@@ -184,27 +186,44 @@
 
 				function SendUrl(form)
 				{
+					uploadIframe.onload=function() {GetActionResult(form);};
 					form.setAttribute("action", url);
 					form.submit();
+					
 				}
-				function GetActionResult()
+				function GetActionResult(form)
 				{
-					iframeId=document.getElementById('uploadIframe');
 
-		            if (iframeId.contentDocument) 
+					uploadIframe=document.getElementById('uploadIframe');
+
+		            if (uploadIframe.contentDocument) 
 		            {
-		                actionResult = iframeId.contentDocument.body.innerHTML;
+		                actionResult = uploadIframe.contentDocument.body.innerHTML;
 	            	} 
-	            	else if (iframeId.contentWindow) 
+	            	else if (uploadIframe.contentWindow) 
 	            	{
-		                actionResult = iframeId.contentWindow.document.body.innerHTML;
+		                actionResult = uploadIframe.contentWindow.document.body.innerHTML;
 		            } 
-		            else if (iframeId.document) 
+		            else if (uploadIframe.document) 
 		            {
-		                actionResult = iframeId.document.body.innerHTML;
+		                actionResult = uploadIframe.document.body.innerHTML;
 		            }
 
 					alert('GetActionResult ' + actionResult);
+					
+					if (form.id=='SOSForm')
+					{
+						CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
+						hugeSpinner.stop();
+					}
+					else if (form.id=='reportForm')
+					{
+						CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
+					}
+					else
+					{
+						alert('Unknown error');
+					}
 				}
 				
 				function fileUpload(form, action_url) 
@@ -452,18 +471,15 @@
 				{
 					
 					GenerateSOSUrl(position);
+					actionResult='';
 					SendUrl(SOSForm);
-					//fileUpload(SOSform,url);
-					alert(actionResult);
-					CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
-
-					hugeSpinner.stop();
 				}
+
 				
 				function SOSShortPress()
 				{
 					ChangeButtonToNormal();
-					$("#pressLongMessage").fadeTo(2000,1);
+					$("#pressLongMessage").fadeTo(1000,1);
 					setTimeout(function (){$("#pressLongMessage").fadeTo(1000,0);},3000);
 		
 				}                
@@ -1129,9 +1145,8 @@
 				{
 					if (resStr===undefined || resStr=='')
 					{
-
-							return false;
-
+						alert(msgWhenFail);
+						return false;
 					}
 					else
 					{
@@ -1182,9 +1197,8 @@
 				{
 					GenerateReportUrl();
 					SendUrl(reportForm);
-					alert(actionResult);
 					//fileUpload(document.getElementById('reportPageForm'),url);
-					CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
+					
 				}
 				
 			
