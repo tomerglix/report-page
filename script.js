@@ -187,6 +187,7 @@
 
 				function SendUrl(form)
 				{
+					alert(url);
 					uploadIframe.onload=function() {GetActionResult(form);};
 					form.setAttribute("action", url);
 					form.submit();
@@ -195,7 +196,9 @@
 				function GetActionResult(form)
 				{
 
-					uploadIframe=document.getElementById('uploadIframe');
+					alert(form.id);
+					
+					//uploadIframe=document.getElementById('uploadIframe');
 
 		            if (uploadIframe.contentDocument) 
 		            {
@@ -228,6 +231,7 @@
 						var res=parseInt(actionResult);
 						if (res==1)
 						{	
+							localStorage.setItem('userStatus',3);
 							alert(checkActivationSuccessStr);	
 							window.location.replace('MainPage.html');
 						}
@@ -451,7 +455,6 @@
 				{
 					
 					GenerateSOSUrl(position);
-					actionResult='';
 					SendUrl(SOSForm);
 				}
 
