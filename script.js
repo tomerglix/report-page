@@ -76,7 +76,7 @@
 			    	
 			    	url=AddParmameterToURL(url,'phoneNum',userId);
 			    	url=AddParmameterToURL(url,'pin',userId);
-			    	url=AddParmameterToURL(ip,'phoneNum',userId);
+			    	url=AddParmameterToURL(url,'ip',userId);
 			    	
 			    	url = url.substring(0, url.length - 1); //remove last ampersand
 			    }
