@@ -241,9 +241,9 @@
 							window.location.replace('WaitForActivation.html');
 						}						
 					}
-					else if(form.id=='messagesForm')
+					else if (form.id=='messagesForm')
 					{
-						messagesForm.innerHTML+=actionResult;
+						ParseMessages(actionResult);
 					}					
 					else
 					{
