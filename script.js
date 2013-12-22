@@ -46,7 +46,7 @@
                 	PrintDate();
                 	
                 	SOSForm=document.getElementById('SOSForm');
-                	reportForm=document.getElementById('reportPageForm');
+                	reportForm=document.getElementById('reportForm');
                 	uploadIframe=document.getElementById('uploadIframe');
                 	/*delete this*/
                 	localStorage.setItem('userId',572297679);
@@ -179,7 +179,6 @@
 					url=AddParmameterToURL(url,'gf2',addressUnicode);
 					url = url.substring(0, url.length - 1); //remove last ampersand
 							
-					//document.getElementById('reportPageForm').action="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do";
 					
 
                 }
@@ -208,8 +207,6 @@
 		            {
 		                actionResult = uploadIframe.document.body.innerHTML;
 		            }
-
-					alert('GetActionResult ' + actionResult);
 					
 					if (form.id=='SOSForm')
 					{
@@ -1197,7 +1194,6 @@
 				{
 					GenerateReportUrl();
 					SendUrl(reportForm);
-					//fileUpload(document.getElementById('reportPageForm'),url);
 					
 				}
 				
