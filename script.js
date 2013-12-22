@@ -46,12 +46,12 @@
 					}
                 	PrintDate();
                 	
+                	
                 	SOSForm=document.getElementById('SOSForm');
                 	reportForm=document.getElementById('reportForm');
                 	uploadIframe=document.getElementById('uploadIframe');
-                	/*delete this*/
-                	localStorage.setItem('userId',572297679);
                 	
+                	phoneNumber=localStorage.getItem('phoneNum');
                 	userId=localStorage.getItem('userId');
                 }
 	                            					
@@ -119,7 +119,7 @@
 					var now=new Date();
 					var locationStr=position.coords.latitude.toString() + '|' + position.coords.longitude.toString();
 					var address=document.getElementById('addressBar').innerHTML;
-					var phoneNum=localStorage.getItem('phoneNum');
+					
 					var addressUnicode= UnicodeString(address);
 					url="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do?";
 					
@@ -177,6 +177,7 @@
 					url=AddParmameterToURL(url,'viewNum','2');
 					url=AddParmameterToURL(url,'phoneNum',userId);
 					url=AddParmameterToURL(url,'pin',userId);
+					url=AddParmameterToURL(url,'gf1',localStorage.getItem('phoneNum'));
 					url=AddParmameterToURL(url,'gf2',addressUnicode);
 					url = url.substring(0, url.length - 1); //remove last ampersand
 							
@@ -224,11 +225,15 @@
 					}
 					else if (form.id=='activationWaitForm')
 					{
-						alert(url);
-						var res=CheckActionResult(actionResult,1,checkActivationSuccessStr,checkActivationFailStr,1);
-						if (res==true)
-						{			
+						var res=parseInt(actionResult);
+						if (res==1)
+						{	
+							alert(checkActivationSuccessStr);	
 							window.location.replace('MainPage.html');
+						}
+						else
+						{
+							alert(checkActivationFailStr);	
 						}
 					} 
 					else if (form.id=='regPageForm')
@@ -237,17 +242,12 @@
 						if (res==true)
 						{
 							var n=actionResult.indexOf(':');
-							var userIdStr=actionResult.substring(n+1,n+10);
-							alert(userIdStr);
+							var userIdStr=actionResult.substring(n+1,actionResult.length);
 							userId=parseInt(userIdStr);
-							var user1=actionResult.substring(n+1,actionResult.length);
-							alert(user1);
 							localStorage.setItem('contactsCounter',0);
 							localStorage.setItem('userId',userId);
 							localStorage.setItem('userStatus',2);
 							localStorage.setItem('phoneNum',phoneNumber);
-							
-							alert(localStorage.getItem('userId'));
 							window.location.replace('WaitForActivation.html');
 						}						
 					}					
