@@ -114,7 +114,9 @@
             	}
             	
             	function GenerateSOSUrl(position)
-            	{  			
+            	{  	
+            		alert('GenerateSOSUrl1');
+            		
 					var mifgaNum=GenerateMifgaNum();
 					var now=new Date();
 					var locationStr=position.coords.latitude.toString() + '|' + position.coords.longitude.toString();
@@ -142,6 +144,7 @@
 					
 					url = url.substring(0, url.length - 1); //remove last ampersand
 					
+					alert('GenerateSOSUrl2');
             	}
             	
             	
@@ -453,7 +456,7 @@
 				
 				function SendLocationToPolice(position)
 				{
-					
+					alert('SendLocationToPolice');
 					GenerateSOSUrl(position);
 					SendUrl(SOSForm);
 				}
