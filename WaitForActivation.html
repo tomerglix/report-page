@@ -10,10 +10,11 @@
 </head>
 
 <html>
-        <body onload=" GenerateCheckActivationUrl(); CheckActivation();" style="height: 100%; background-color:#f3f3f3" >
+        <body onload="WaitForActivationOnLoad(); " style="height: 100%; background-color:#f3f3f3" >
 			<div class="pageWrap" style="padding-top: 0;">
 				<div class="sectionWrap">
-					<form id='activationWaitForm'>
+					<form id='activationWaitForm' target='uploadIframe' method="post">
+						<iframe id='uploadIframe' style="display: none"> </iframe>
 						<p  class="headerDecoration">ACTIVACION DE CUENTA</p>
 						<p class='robo' style="color: #444444; padding: 10px">
 							Gracias por registrarse. El proceso está casi completo. <br/><br/> Para activar su cuenta por favor siga las instrucciones del e-mail que se le ha enviado a su casilla de correo electrónico.<br/><br/>Si no encuentra el correo en su bandeja de entrada consulte la carpeta de Spam.
@@ -25,18 +26,17 @@
 			</div>
      
 			<script type="text/javascript" charset="UTF-8" >
+				function WaitForActivationOnLoad()
+				{
+					uploadIframe=document.getElementById('uploadIframe');
+					GenerateCheckActivationUrl();
+					CheckActivation();
+				}
+				
 				function CheckActivation()
 				{
-					fileUpload(document.getElementById('activationWaitForm'),url);
-					var res=false;
-					res=CheckActionResult(actionResult,1,checkActivationSuccessStr,checkActivationFailStr,1);
-					if (res==true)
-					{
-						localStorage.setItem('userStatus',3);
-						alert('user status changed to 3');
-						window.location.replace('MainPage.html');
-					}	
-					
+					SendUrl(activationWaitForm);
+										
 				}
 				function GenerateCheckActivationUrl()
 				{

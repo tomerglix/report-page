@@ -12,6 +12,7 @@
 				var url;
 				var actionResult;
 				var enlarged;
+				var regPageForm;
 				var SOSForm;
 				var reportForm;
 				var uploadIframeId;
@@ -217,6 +218,35 @@
 					{
 						CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
 					}
+					else if (form.id=='activationWaitForm')
+					{
+						var res=CheckActionResult(actionResult,1,checkActivationSuccessStr,checkActivationFailStr,1);
+						if (res==true)
+						{			
+							window.location.replace('MainPage.html');
+						}
+					} 
+					else if (form.id=='regPageForm')
+					{
+						var res=CheckActionResult(actionResult,'1',registerSuccessStr,registerFailStr,1);
+						if (res==true)
+						{
+							
+							
+							var n=actionResult.indexOf(':');
+							alert(actionResult);
+							var userIdStr=actionResult.substring(0,n);
+							alert(userIdStr);
+							userId=parseInt(userIdStr);
+							alert(userId);
+							localStorage.setItem('contactsCounter',0);
+							localStorage.setItem('userId',userId);
+							localStorage.setItem('userStatus',2);
+							localStorage.setItem('phoneNum',phoneNumber);
+							
+							window.location.replace('WaitForActivation.html');
+						}						
+					}					
 					else
 					{
 						alert('Unknown error');
@@ -991,12 +1021,6 @@
 				  	
 				}
               	var today=new Date();
-				function OnRegLoad()
-				{
-
-					
-				}
-
 				
 				function ShowRegButton()
 				{
@@ -1100,27 +1124,8 @@
 						}
 						
 						GenerateRegUrl();
-						fileUpload(document.getElementById('regPageForm'), url);
-						var res=false;
-						res=CheckActionResult(actionResult,'1',registerSuccessStr,registerFailStr,1);
-						if (res==true)
-						{
-							localStorage.setItem('phoneNum',phoneNumber);
-							localStorage.setItem('contactsCounter',0);
-							
-							var n=actionResult.indexOf(':');
-							alert(actionResult);
-							var userIdStr=actionResult.substring(0,n);
-							alert(userIdStr);
-							userId=parseInt(userIdStr);
-							alert(userId);
-							localStorage.setItem('userId',userId);
-							localStorage.setItem('userStatus',2);
-							
-							window.location.replace('WaitForActivation.html');
-						}
-
-								
+						SendUrl(regPageForm);
+														
 					}
 					else
 					{
@@ -1130,7 +1135,7 @@
 				}
 				
 				var checkActivationSuccessStr="Email confirmed, your acount has been activated";
-				var checkActivationFailStr="You haven't confirmed your email yet";
+				var checkActivationFailStr="Your acount has not been confirmed. Please check your email for activation";
 				var registerSuccessStr="Your details has been received. Check your email for activation";
 				var registerFailStr="An error occured";
 				var reportSuccessStr='Report sent successfuly';

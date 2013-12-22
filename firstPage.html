@@ -17,7 +17,7 @@
 				
 				function CheckRegStatus()
 				{
-					if (localStorage.getItem('userStatus')==null || localStorage.getItem('userStatus')==undefined)
+					if (localStorage.getItem('userStatus')==null || localStorage.getItem('userStatus')===undefined || localStorage.getItem('userStatus')==='undefined')
 					{
 						localStorage.setItem('userStatus',1);
 					}
