@@ -295,7 +295,6 @@
 	                	phoneNumber='0502712252';
 	                	userId='119637';
 	                	
-	                	
 	                	GetMessages();
 	                	
 	                }
@@ -309,9 +308,13 @@
 	
                 	}
                 	
-                	function ParseString()
+                	function ParseMessages(wholeString)
                 	{
-                		
+                		while (wholeString.indexOf('<message>')!=-1)
+                		{
+                			
+                		}
+
                 	}
                 	
                 	function GetTagContent(str,tag)
@@ -329,7 +332,7 @@
                 		
                 		content=str.substring(start,end);
                 		
-                		alert(content);
+                		return content;
                 		
                 	}
                 	
