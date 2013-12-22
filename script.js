@@ -115,7 +115,6 @@
             	
             	function GenerateSOSUrl(position)
             	{  	
-            		alert('GenerateSOSUrl1');
             		
 					var mifgaNum=GenerateMifgaNum();
 					var now=new Date();
@@ -139,12 +138,11 @@
 					url=AddParmameterToURL(url,'phoneNum',userId);
 					url=AddParmameterToURL(url,'pin',userId);
 					url=AddParmameterToURL(url,'gf2',addressUnicode);
-					url=AddParmameterToURL(url,'gf1',phoneNum);
+					url=AddParmameterToURL(url,'gf1',phoneNumber);
 					url=AddParmameterToURL(url,'type','1');
 					
 					url = url.substring(0, url.length - 1); //remove last ampersand
 					
-					alert('GenerateSOSUrl2');
             	}
             	
             	
@@ -190,18 +188,13 @@
 
 				function SendUrl(form)
 				{
-					alert(url);
 					uploadIframe.onload=function() {GetActionResult(form);};
 					form.setAttribute("action", url);
 					form.submit();
 					
 				}
 				function GetActionResult(form)
-				{
-
-					alert(form.id);
-					
-					//uploadIframe=document.getElementById('uploadIframe');
+				{		
 
 		            if (uploadIframe.contentDocument) 
 		            {
@@ -216,8 +209,6 @@
 		                actionResult = uploadIframe.document.body.innerHTML;
 		            }
 					
-					
-					alert(actionResult);
 					
 					
 					if (form.id=='SOSForm')
