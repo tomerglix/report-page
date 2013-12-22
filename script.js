@@ -236,16 +236,15 @@
 						var res=CheckActionResult(actionResult,'1',registerSuccessStr,registerFailStr,1);
 						if (res==true)
 						{
-							
-							
 							var n=actionResult.indexOf(':');
-							var userIdStr=actionResult.substring(0,n);
+							var userIdStr=actionResult.substring(n+1,userIdStr.length);
 							userId=parseInt(userIdStr);
 							localStorage.setItem('contactsCounter',0);
 							localStorage.setItem('userId',userId);
 							localStorage.setItem('userStatus',2);
 							localStorage.setItem('phoneNum',phoneNumber);
 							
+							alert(localStorage.getItem('userId'));
 							window.location.replace('WaitForActivation.html');
 						}						
 					}					
