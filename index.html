@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<head>
+
+
+	<script type="text/javascript" charset="UTF-8" src="script.js" ></script>  
+	<script src="shake.js"></script>
+	
+ 	
+	<style>
+		.goatImg
+		{
+			float:left;
+
+			max-height: 100%;
+			
+			margin: 0;
+			padding: 0;
+			width: 50%;
+			height: 50%;
+		}
+
+		
+	</style>
+</head>
+
+<html>
+	<body onload="CreateGoatVoices(); AddGoatImages();">
+		<div id='goatsVoices' style="overflow: hidden">
+			
+		</div>
+
+
+		<div id='goatsImages'>
+
+		</div>
+
+		<script>
+		
+			window.addEventListener('shake', function(){alert('shake'); var randnum=Math.floor(Math.random()* 12); PlayGoatSound();}, false);
+		</script>
+	</body>
+</html>
