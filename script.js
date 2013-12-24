@@ -252,25 +252,12 @@
 					}
 					else if (form.id=='messagesForm')
 					{
-						alert(actionResult);
-						alert(strhard);
-						if (strhard==actionResult)
-						{
-							alert('1' + true);
-						}
-						else
-						{
-							alert('1' + false);
-						}
+						alert(actionResult.length);
+						alert(strhard.length);
 						
-						if (strhard==actionResult.toString())
-						{
-							alert('1' + true);
-						}
-						else
-						{
-							alert('1' + false);
-						}
+						document.getElementById('SOSPage').innerHTML+=actionResult;
+						document.getElementById('reportPage').innerHTML+=strhard;
+					
 						ParseMessages(actionResult);
 					}
 					else if (form.id=='commentForm')
@@ -1186,6 +1173,7 @@
 				
 				function SubmitCrime()
 				{
+					alert('SubmitCrime');
 					GenerateReportUrl();
 					alert(url);
 					SendUrl(reportForm);
