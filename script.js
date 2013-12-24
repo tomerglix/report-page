@@ -255,6 +255,7 @@
 					}
 					else if (form.id=='messagesForm')
 					{
+						alert(actionResult);
 						ParseMessages(actionResult);
 					}
 					else if (form.id=='commentForm')
