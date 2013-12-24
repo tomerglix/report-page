@@ -218,10 +218,6 @@
 					{
 						res=CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
 						
-						if (res==true)
-						{
-							FirstLoad();
-						}
 					}
 					else if (form.id=='activationWaitForm')
 					{
@@ -1464,6 +1460,7 @@
                 		
                 		content=str.substring(start,end);
                 		
+                		alert('tag: ' + tag + ', content: ' + content);
                 		return content;
                 		
                 	}
