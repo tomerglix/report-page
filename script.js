@@ -1221,7 +1221,8 @@
                 			msgDiv=document.createElement('div');
                 			msgDiv.className='msgBox';
                 			//get id from string
-                			msgId=GetTagContent(wholeString,'id');                			
+                			msgId=GetTagContent(wholeString,'id');
+                			alert(msgId + 'msgId');               			
                 			msgDiv.id=msgId;
                 			
                 			//cut the id tag from the string	
@@ -1229,16 +1230,19 @@
                 			
                 			//get time from string
                 			msgTime=GetTagContent(wholeString,'time');
+                			alert(msgTime + 'msgTime');
                 			//cut the time tag from the string
 							wholeString=CutWholeNextTag(wholeString,'time');
 							
 							//get the body from the strign
                 			msgContent=GetTagContent(wholeString,'body');
+                			
                 			//cut the body from the strign
                 			wholeString=CutWholeNextTag(wholeString,'body');
 							
 							//putting the message body inside the box
                 			msgDiv.innerHTML=msgContent +'<br/>';
+                			alert(msgDiv + 'msgDiv');
                 			
                 			//creating timespan
                 			timeSpan=document.createElement('span');
@@ -1349,7 +1353,6 @@
             		{
 	            		url="http://62.0.66." + serverNum +":8080/addCommentToMessage.do?";
 	            		
-	            		//var messageUnicode=UnicodeString(message);
 	
 				    	url=AddParmameterToURL(url,'projectId','116');
 				    	url=AddParmameterToURL(url,'comment',message);
@@ -1360,6 +1363,113 @@
 				    	url = url.substring(0, url.length - 1); //remove last ampersand
 
             		}
+            		
+	                function FirstLoad()
+	                {
+	                	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
+		                //spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
+		                GetLocation(GetAddress);
+		                
+						LoadContactsFromStorage();
+						DisplayContactList();
+						if (contactsCounter==3)
+						{
+							ToggleDisplay('addbutton','inline');
+						}
+	                	PrintDate();
+	                	
+	                	commentForm=document.getElementById('commentForm');
+	                	messagesForm=document.getElementById('messagesForm');
+	                	SOSForm=document.getElementById('SOSForm');
+	                	reportForm=document.getElementById('reportForm');
+	                	uploadIframe=document.getElementById('uploadIframe');
+	                	messagesSection=document.getElementById('messagesSection');
+	                	
+	                	//phoneNumber=localStorage.getItem('phoneNum');
+	                	//userId=localStorage.getItem('userId');
+	                	//email=localStorage.getItem('email');
+	                	email='tomerglix@gmail.com';
+	                	phoneNumber='0502712252';
+	                	userId='572297685';
+
+                		myUser=CutUserFromMail(email);
+
+            			//creating the username span
+            			myUserSpan=document.createElement('div');
+            			myUserSpan.className='messageBlueLeft';
+            			myUserSpan.innerHTML=myUser;	           
+	                	
+	                	GetMessages();
+	                	
+	                }
+                
+                	function GetMessages()
+                	{
+                		messagesSection.innerHTML="";
+                		GenerateGetMessagesUrl();
+                		//str="<document><message><id>43</id><time>1387654359748</time><body>TITULARES DEL PRÓXIMO PROGRAMA: LA LEY Y EL ORDEN...Jueces, secretarios y especialistas corruptos en la mira!!!!....Jefa de la OCMA le declara la guerra a la corrupción!!!! Este sábado 21 de diciembre a la media noche después EVDLV por Frecuencia Latina y conducido por Renzo Reggiardo.</body><comment><user>renzorb@hotmail.com</user><time>1387668394394</time><body>cuente con nosotros, puede llamar al *2580 desde su claro o escribir a rreggiardo@congreso.gob.pe, muchas gracias!</body></comment><comment><user>enunezalfaro58@gmail.com</user><time>1387656337482</time><body>Me parece muy bien, tengo algunos casos</body></comment></message><message><id>42</id><time>1387652751681</time><body>TITULARES DEL PRÓXIMO PROGRAMA: CASAS VIGILADAS...Cuidado!, En estas fiestas, el robo a viviendas se duplica. Alto al Crimen le trae lo último en tecnología anti roba casas..... Este sábado 21 de diciembre a la media noche después EVDLV por Frecuencia Latina y conducido por Renzo Reggiardo.</body><comment><user>jweigensberg@pelesystem.com</user><time>1387705392667</time><body>buenisimo</body></comment></message><message><id>41</id><time>1387651580604</time><body>TITULARES DEL PRÓXIMO PROGRAMA: LAS CACHINERAS DE SURQUILLO...En espectacular operativo, el Escuadrón de Emergencia capturó a dos hermanas en cuya base de operaciones no sólo había droga si no gran cantidad de cosas robadas.... Este sábado 21 de diciembre a la media noche después EVDLV por Frecuencia Latina y conducido por Renzo Reggiardo.</body></message><message><id>40</id><time>1387464939709</time><body>ALERTA POR INCENDIO EN BARRANCO, se está registrando un incendio de un VEHÍCULO frente al Estadio Galvez Chipoco,tomen sus precauciones!!! CENTRAL ALTO AL CRIMEN</body></message><message><id>39</id><time>1387215775692</time><body>ALERTA POR INCENDIO, se está registrando un incendio cerca del paradero Naranjal del METROPOLITANO en Independencia, conocido también como el paradero de la 50, lugar donde se Comercializa Accesorios de Vehículos, tomen sus precauciones!!! CENTRAL ALTO AL CRIMEN</body><comment><user>jweigensberg@pelesystem.com</user><time>1387430684740</time><body>Gracias por la informacion</body></comment></message></document>";
+                		//ParseMessages(str);
+                		SendUrl(messagesForm);
+                		
+	
+                	}
+                	
+                	
+                	function CutUserFromMail(fullMail)
+                	{
+                		n=fullMail.indexOf('@');
+                		var user=fullMail.substring(0,n);
+                		return user;
+                	}
+                	function CutWholeNextTag(str,tag)
+                	{
+                		var beginTag;
+                		var endTag;
+                		var beforeTagLocation;
+                		var afterTagLocation;
+                		var beforeTagStr;
+                		var afterTagStr;
+                		
+                		beginTag='<' + tag + '>';
+                		//alert('beginTag' + beginTag );
+                		endTag='</' + tag + '>';
+                		//alert('endTag' + endTag );
+                		               		
+                		beforeTagLocation=str.indexOf(beginTag);
+                		//alert('beforeTagLocation' + beforeTagLocation );
+                		
+                		afterTagLocation=str.indexOf(endTag)+endTag.length;
+                		//alert('afterTagLocation' + afterTagLocation );
+                		
+                		beforeTagStr=str.substring(0,beforeTagLocation);
+                		//alert('beforeTagStr' + beforeTagStr );
+                		
+                		afterTagStr=str.substring(afterTagLocation,str.length);
+                		//alert('afterTagStr' + afterTagStr );
+                		
+                		str=beforeTagStr + afterTagStr;
+                		return str;
+                		
+                	}
+                	function GetTagContent(str,tag)
+                	{
+                		var beginTag;
+                		var endTag;
+                		var start;
+                		var end;
+                		var content;
+                		
+                		beginTag='<' + tag + '>';
+                		endTag='</' + tag + '>';
+                		start=str.indexOf(beginTag)+beginTag.length;
+                		end=str.indexOf(endTag);
+                		
+                		content=str.substring(start,end);
+                		
+                		return content;
+                		
+                	}
+
 /******************** storage format *****************************
 /*
 --------------------------------
