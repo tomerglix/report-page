@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">        
+
+ 		<script type="text/javascript" charset="UTF-8" src="script.js" ></script>  
+     	
+     	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<html >
+        <body onload=" CheckRegStatus();" style="height: 100%;" >
+			
+     
+			<script type="text/javascript" charset="UTF-8" >
+				
+				function CheckRegStatus()
+				{
+					if (localStorage.getItem('userStatus')==null || localStorage.getItem('userStatus')===undefined || localStorage.getItem('userStatus')==='undefined')
+					{
+						localStorage.setItem('userStatus',1);
+					}
+					
+					switch (localStorage.getItem('userStatus'))
+					{
+						case '1':
+						{
+							window.location.replace('RegistrationPage.html');
+							break;
+						}
+						case '2':
+						{
+							window.location.replace('WaitForActivation.html');
+							break;
+						}
+						case '3':
+						{
+							window.location.replace('MainPage.html');
+							break;
+						}
+						default:
+						{
+							localStorage.setItem('userStatus',1);
+							window.location.replace('RegistrationPage.html');
+							break;
+						} 
+
+					}
+
+				}
+				
+	
+			</script>
+			
+        </body>
+</html>
