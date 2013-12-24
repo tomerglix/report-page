@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<head>
+        
+        <!--cordova (phonegap api)-->   
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+        <!--google maps api--> 
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>                 
+                
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">
+
+        <!--roboto font-->
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'> 
+                 
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+
+        <!--date picker-->
+        
+	    <script src="js/mobiscroll.core.js"></script>
+	    <script src="js/mobiscroll.scroller.js" type="text/javascript"></script>
+	
+	    <script src="js/mobiscroll.datetime.js" type="text/javascript"></script>
+	    <script src="js/mobiscroll.select.js" type="text/javascript"></script>
+	
+	    <script src="js/mobiscroll.scroller.jqm.js" type="text/javascript"></script>
+	    <script src="js/mobiscroll.scroller.ios.js" type="text/javascript"></script>
+	    <script src="js/mobiscroll.scroller.android.js" type="text/javascript"></script>
+	    <script src="js/mobiscroll.scroller.android-ics.js" type="text/javascript"></script>
+	    <script src="js/mobiscroll.scroller.wp.js" type="text/javascript"></script>
+	
+	    <script src="js/i18n/mobiscroll.i18n.de.js" type="text/javascript"></script>
+	    <script src="js/i18n/mobiscroll.i18n.es.js" type="text/javascript"></script>
+	    <script src="js/i18n/mobiscroll.i18n.fr.js" type="text/javascript"></script>
+	    <script src="js/i18n/mobiscroll.i18n.hu.js" type="text/javascript"></script>
+	    <script src="js/i18n/mobiscroll.i18n.it.js" type="text/javascript"></script>
+	    <script src="js/i18n/mobiscroll.i18n.no.js" type="text/javascript"></script>
+	    <script src="js/i18n/mobiscroll.i18n.pt-BR.js" type="text/javascript"></script>
+	    <script src="js/i18n/mobiscroll.i18n.zh.js" type="text/javascript"></script>
+	
+	    <link href="css/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
+	    <link href="css/mobiscroll.scroller.jqm.css" rel="stylesheet" type="text/css" />
+	    <link href="css/mobiscroll.scroller.android.css" rel="stylesheet" type="text/css" />
+	    <link href="css/mobiscroll.scroller.android-ics.css" rel="stylesheet" type="text/css" />
+	    <link href="css/mobiscroll.scroller.ios.css" rel="stylesheet" type="text/css" />
+	    <link href="css/mobiscroll.scroller.sense-ui.css" rel="stylesheet" type="text/css" />
+	    <link href="css/mobiscroll.scroller.wp.css" rel="stylesheet" type="text/css" />
+	
+	    <link href="css/mobiscroll.animation.css" rel="stylesheet" type="text/css" /> 		
+	    
+        <!--progress spinner-->
+        <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
+        <script type="text/javascript" charset="UTF-8" src="spinner.min.js"></script>
+
+ 		<script type="text/javascript" charset="UTF-8" src="script.js" ></script>  
+	
+		<script src="jquery.mobile-events.js"></script>
+     	<!-- general style-->
+     	
+     	<link rel="stylesheet" type="text/css" href="style.css">
+       
+   			             
+        <title>Tabs</title>
+        
+        <style>
+
+
+			
+			.msgBox
+			{
+				border: solid 1px #DDDDDD;
+				border-radius: 4px;
+				color:#444444;
+				margin-bottom: 10px;
+				overflow: hidden;
+				padding: 5px;
+				box-shadow: 5px 5px 5px #888888;
+				background: white;				
+			}
+			.commentBox
+			{
+				border: solid 1px #DDDDDD;
+				border-radius: 4px;
+				color:#444444;
+				margin-bottom: 10px;
+				overflow: hidden;
+				padding: 5px;
+				box-shadow: 5px 5px 5px #888888;			
+			}
+			.commentBox:after
+			{
+				border: solid 1px #DDDDDD;
+				border-radius: 4px;
+				color:#444444;
+				margin-bottom: 10px;
+				overflow: hidden;
+				padding: 5px;
+				box-shadow: 5px 5px 5px #888888;						
+			}
+			.commentsSectionBox
+			{
+				margin-top:10px;
+				width: 100%;
+				display: inline-block;
+			}
+			.msgHeader
+			{
+				color:#0099CC;
+				size:120%;
+			}
+			.messageBlueRight
+			{
+				color:#0099CC;
+				float: right;
+			}
+			.messageBlueLeft
+			{
+				color:#0099CC;
+				float: left;
+			}
+
+			
+        </style>
+</head>
+
+<html >
+        <body onload=" FirstLoad();" style="height: 100%; background-color:#f3f3f3" >
+        	
+            <div id="mapDisplay" style="display: none;">
+                                    
+            </div>
+            
+			<div id="topMenu" style="width: 100%; position: fixed; border-bottom: solid #f3f3f3 8px; background-color: #0099CC">
+				<ul style="width: 100%; " class="navBar">
+					<li onclick="ChangePage('SOSPage','SOSTab'); return false;" class="navTab" >
+						 <a id="SOSTab" class="tab" href="#"> SOS </a> 
+					</li>
+					<li style="width: 34%;"  class="middleTab navTab" onclick="ChangePage('reportPage','reportPageTab'); return false;" >
+						  <a id="reportPageTab"  class="tab " href="#" > Report </a>  
+					</li>
+					<li onclick="ChangePage('messagesPage','messagesTab'); return false;" class="navTab">
+						  <a id="messagesTab"   class="tab" href="#"> Messages </a> 
+					</li>
+				</ul>
+			</div>
+<!---------------------------------  sos section ---------------------------------->
+			<div id="SOSPage"  class="pageWrap" >
+				<div id="SOSWrap" class="sectionWrap">
+					<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >Send SOS</h1>
+					<form id="SOSForm" target='uploadIframe' method="post" > 
+							<iframe id='uploadIframe' style="display: none"> </iframe>
+							<div id="buttonSection" class="center" style="height: 60%; width:100%; margin-top: 10px">
+								<img id="SOSButton" src='./images/btn_sos_normal.png' />
+							</div>
+									
+							<div id="pressLongMessage" class="center" align="center" style="opacity: 0;">
+								<span style="display: inline-block;padding: 3px;background: black; color: white; border-radius: 4px; margin-top:3px; ">Hold button to send SOS</span>
+							</div>
+							<div id="contacts">
+								<div id="contactsSection" >
+									<p class="headerDecoration" style="margin-bottom: 7px; margin-top: 0px;">Contacts Circle</p>
+									
+			
+									<table id="contactsList" style='font-size: 120%; width:100% ;'>
+		
+									</table>
+		
+									<table border="0" id='addingContactField' style='display:none; font-size: 100%; width:100%' >
+										<tr>
+											<td style="width:5%" class="center"><img src="./images/x.png" class="icons" onclick="CancelAdding(); return false" style="float: none; padding-top:7px;"></td>
+											<td style="width:45%">
+													<input type="text" id="contactName" class="inputBox" placeholder="Name" />	
+											</td>
+											<td style="width:45%">
+													<input type="tel" id="contactNumber"  class="inputBox" placeholder="Number" />	
+											</td>
+											<td style="width:5%" class="center"><img src="./images/plus.png"  class="icons" onclick="AddContact(); return false "   style="float: none; padding-top:7px;">	</td>
+										</tr>
+									</table>	
+									<div id="addbutton" style="display: inline; " >
+										<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField','table'); ToggleDisplay('addbutton','inline'); return false"  />
+									</div>		
+								</div>
+			  				</div>
+	
+					</form>
+				</div>
+			</div>
+<!---------------------------------  end of sos section ---------------------------------->
+
+<!---------------------------------  report section ---------------------------------->
+            <div id="reportPage" class="pageWrap" style="display: none;">
+            	
+                   	<form id="reportForm" target='uploadIframe' method="post">
+                   		
+                    	<div  class="sectionWrap" style="margin-bottom: 10px; ">
+
+                           <button id='closeMapButton' class="center" onclick='ToggleMap(); return false; '  style="display: none; position: absolute; z-index: 100; top:0;" >Close map</button>
+						
+                            <div id="reportData">                        		  
+                        		  <!--main page header-->
+                       			  <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none"> Report Crime </h1>                                                              
+                                   
+                                   
+                                   <!--crime type section-->      
+                                  <div id="crimeType" class="section">                                                                                                                                                       
+                                          <div id="crimeTypeHeader">
+                                                  <p  class="headerDecoration">Type</p>
+                                          </div>
+                                          <div id="crimeTypeSelection" >
+                                                <select  name="subjectId" id="subjectId" style=" margin-bottom:0; font-size: 100%; position:inherit; padding: 4px;" class="dropdown" >
+                                                    <option value="1">Venta Ilegal de Pirotecnicos</option>
+                                                    <option value="2">Riesgo en Defensa Civil en Locales Comerciales</option>
+                                                    <option value="3">Venta de Juguetes Toxicos</option>
+                                                    <option value="4">Narcotráfico</option>
+                                                    <option value="5">Terrorismo</option>
+                                                    <option value="6">Secuestro</option>
+                                                    <option value="7">Homicidio</option>
+                                                    <option value="8">Pandillaje</option>
+                                                    <option value="9">Violencia familiar</option>
+                                                    <option value="10">Estafa</option>
+                                                    <option value="11">Robo de Vehículos</option>
+                                                    <option value="12">Corrupción</option>
+                                                    <option value="13">Violación</option>
+                                                    <option value="14">Robo de Casas</option>
+                                                    <option value="15">Marcas – Robo a mano armada</option>
+                                                    <option value="16">Ordenamiento vial</option>
+                                                    <option value="17">Envía Placa</option>
+                                                    <option value="18">Otros</option>
+                                                </select>
+                                          </div>
+                                  
+                                  </div>
+
+                        		 <!--crime description section-->                                   
+                                  <div id="crimeDescription" class="section">
+                                          <div id="crimeDescriptionHeader">
+                                                  <p  class="headerDecoration" >Description</p>
+                                          </div>
+                                          <div id="crimeDescriptionBox" class="robo">
+                                                  <textarea  id="descriptionBox" name="comment"  style=" display: block" class="autoResizeTextBox" onfocus="HighLightUL('crimeDescriptionUL')" onblur="DeHighLightUL('crimeDescriptionUL')"></textarea> 
+                                          </div>
+                                          <div id="crimeDescriptionUL" class="textEditUnderLine">
+                                          </div>
+                                  </div>
+    
+    								<!--crime location section-->
+                                  <div id="crimeLocation" class="section">                                                                                        
+                                          <div id="crimeLocationHeader">
+                                                  <p  class="headerDecoration">Location</p>
+                                          </div>
+                                          
+                                          <div id="crimeLocationData"  onclick="ViewLocationOnMap(); return false" >
+												<img src="./images/map-pin.png" class="icons" >
+												<div id="addressBar" class="robo">
+													<br/>						 
+												</div>  
+												        
+                                          </div>
+                                  </div>
+    
+    								 <!--crime date section-->
+                                  <div id="crimeDate" class="section" >                                                                                                                                                       
+                                          <div id="crimeDateHeader" >
+                                                  <p  class="headerDecoration">Date &amp; Hour</p>
+                                          </div>
+                                          <div id="crimeDateData">
+												<div id="datetimepicker" >
+													<img src="./images/calendar.png" class="icons">
+													<input id="scroller" name="ex221" class="roboto" style=" border:none; font-size: 100%"  />
+										            									       
+												</div>
+												  
+                                          </div>
+                                  </div>
+                                  
+                                  <!--crime photos section-->    
+                                  <div id="crimePhotos" class="section">                                                                                       
+                                        <div id="crimePhotosHeader">
+                      						<p  class="headerDecoration">Photos</p>
+                                        </div>
+                               			<div id="crimePhotoAddButtons" onclick="TogglePhotoButtons(); return false" style="display: inline;">
+                     						<img src="./images/camera.png" class="icons"  >         
+                             			</div>
+                                        <div id="addPhotoButtons" style="display:none; position: absolute; margin-left: 5px;" >
+                                                <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons','inline'); return false"  >Capture Photo</button> 
+                                                <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons','inline'); return false" >Photo Library</button>
+                                        </div>
+                                        <div id="photosSection" >
+                                                <br/> <br/> 
+                                        </div>
+								</div>
+
+                            </div>
+
+						</div>
+						
+                        <div id="submitReportButton" style="display: block; max-width:100%; margin:10px" >
+                            <input   style="width:100%" type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime(); return false;" value="Submit Crime" /> 
+                    	</div>					    
+                    </form>
+                    		
+            </div>
+<!----------------------------------------- end of report section -------------------------------------->    
+       
+<!----------------------------------------- messages section -------------------------------------->                  
+			<div id="messagesPage"  class="pageWrap" style="display: none;">
+				
+					<form id="messagesForm" target='uploadIframe' method="post" >
+
+						
+						<div id="messagesSection" style="padding: 15px;">
+							
+							
+						</div>
+					</form>
+				
+			</div>
+
+<!----------------------------------------- end of messages section -------------------------------------->         
+     
+			<script type="text/javascript" charset="UTF-8" >
+	                function FirstLoad()
+	                {
+	                	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
+		                //spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
+		                GetLocation(GetAddress);
+		                
+						LoadContactsFromStorage();
+						DisplayContactList();
+						if (contactsCounter==3)
+						{
+							ToggleDisplay('addbutton','inline');
+						}
+	                	PrintDate();
+	                	
+	                	messagesForm=document.getElementById('messagesForm');
+	                	SOSForm=document.getElementById('SOSForm');
+	                	reportForm=document.getElementById('reportForm');
+	                	uploadIframe=document.getElementById('uploadIframe');
+	                	messagesSection=document.getElementById('messagesSection');
+	                	
+	                	//phoneNumber=localStorage.getItem('phoneNum');
+	                	//userId=localStorage.getItem('userId');
+	                	//email=localStorage.getItem('email');
+	                	email='tomerglix@gmail.com';
+	                	phoneNumber='0502712252';
+	                	userId='119637';
+
+                		myUser=CutUserFromMail(email);
+
+            			//creating the username span
+            			myUserSpan=document.createElement('div');
+            			myUserSpan.className='messageBlueLeft';
+            			myUserSpan.innerHTML=myUser;	           
+	                	
+	                	GetMessages();
+	                	
+	                }
+                
+                	function GetMessages()
+                	{
+                		messagesSection.innerHTML="";
+                		GenerateGetMessagesUrl();
+                		str="<document><message><id>43</id><time>1387654359748</time><body>TITULARES DEL PRÓXIMO PROGRAMA: LA LEY Y EL ORDEN...Jueces, secretarios y especialistas corruptos en la mira!!!!....Jefa de la OCMA le declara la guerra a la corrupción!!!! Este sábado 21 de diciembre a la media noche después EVDLV por Frecuencia Latina y conducido por Renzo Reggiardo.</body><comment><user>renzorb@hotmail.com</user><time>1387668394394</time><body>cuente con nosotros, puede llamar al *2580 desde su claro o escribir a rreggiardo@congreso.gob.pe, muchas gracias!</body></comment><comment><user>enunezalfaro58@gmail.com</user><time>1387656337482</time><body>Me parece muy bien, tengo algunos casos</body></comment></message><message><id>42</id><time>1387652751681</time><body>TITULARES DEL PRÓXIMO PROGRAMA: CASAS VIGILADAS...Cuidado!, En estas fiestas, el robo a viviendas se duplica. Alto al Crimen le trae lo último en tecnología anti roba casas..... Este sábado 21 de diciembre a la media noche después EVDLV por Frecuencia Latina y conducido por Renzo Reggiardo.</body><comment><user>jweigensberg@pelesystem.com</user><time>1387705392667</time><body>buenisimo</body></comment></message><message><id>41</id><time>1387651580604</time><body>TITULARES DEL PRÓXIMO PROGRAMA: LAS CACHINERAS DE SURQUILLO...En espectacular operativo, el Escuadrón de Emergencia capturó a dos hermanas en cuya base de operaciones no sólo había droga si no gran cantidad de cosas robadas.... Este sábado 21 de diciembre a la media noche después EVDLV por Frecuencia Latina y conducido por Renzo Reggiardo.</body></message><message><id>40</id><time>1387464939709</time><body>ALERTA POR INCENDIO EN BARRANCO, se está registrando un incendio de un VEHÍCULO frente al Estadio Galvez Chipoco,tomen sus precauciones!!! CENTRAL ALTO AL CRIMEN</body></message><message><id>39</id><time>1387215775692</time><body>ALERTA POR INCENDIO, se está registrando un incendio cerca del paradero Naranjal del METROPOLITANO en Independencia, conocido también como el paradero de la 50, lugar donde se Comercializa Accesorios de Vehículos, tomen sus precauciones!!! CENTRAL ALTO AL CRIMEN</body><comment><user>jweigensberg@pelesystem.com</user><time>1387430684740</time><body>Gracias por la informacion</body></comment></message></document>";
+                		ParseMessages(str);
+                		//SendUrl(messagesForm);
+                		
+	
+                	}
+                	
+                	
+                	function CutUserFromMail(fullMail)
+                	{
+                		n=fullMail.indexOf('@');
+                		var user=fullMail.substring(0,n);
+                		return user;
+                	}
+                	function CutWholeNextTag(str,tag)
+                	{
+                		var beginTag;
+                		var endTag;
+                		var beforeTagLocation;
+                		var afterTagLocation;
+                		var beforeTagStr;
+                		var afterTagStr;
+                		
+                		beginTag='<' + tag + '>';
+                		//alert('beginTag' + beginTag );
+                		endTag='</' + tag + '>';
+                		//alert('endTag' + endTag );
+                		               		
+                		beforeTagLocation=str.indexOf(beginTag);
+                		//alert('beforeTagLocation' + beforeTagLocation );
+                		
+                		afterTagLocation=str.indexOf(endTag)+endTag.length;
+                		//alert('afterTagLocation' + afterTagLocation );
+                		
+                		beforeTagStr=str.substring(0,beforeTagLocation);
+                		//alert('beforeTagStr' + beforeTagStr );
+                		
+                		afterTagStr=str.substring(afterTagLocation,str.length);
+                		//alert('afterTagStr' + afterTagStr );
+                		
+                		str=beforeTagStr + afterTagStr;
+                		return str;
+                		
+                	}
+                	function GetTagContent(str,tag)
+                	{
+                		var beginTag;
+                		var endTag;
+                		var start;
+                		var end;
+                		var content;
+                		
+                		beginTag='<' + tag + '>';
+                		endTag='</' + tag + '>';
+                		start=str.indexOf(beginTag)+beginTag.length;
+                		end=str.indexOf(endTag);
+                		
+                		content=str.substring(start,end);
+                		
+                		return content;
+                		
+                	}
+                	
+					$(".autoResizeTextBox").keyup(function (e) 
+	                {
+	                    adaptiveheight(this);
+	                });	
+	                
+
+					 	               
+            		$(function(){
+					    // create a datetimepicker with default settings
+					    $("#scroller").mobiscroll().datetime({
+						  //  minDate: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+						  theme: 'android-ics light',
+						    display: 'modal',
+						    animate: 'pop',
+						    mode: 'mixed',
+						    // 2013-03-15 11:26:17
+						    dateFormat: 'dd/mm/yy',
+						    timeFormat: 'HH:ii',
+						    timeWheels: 'HHii'
+						}); // Shorthand for: $("#scroller").mobiscroll({ preset: 'datetime' });
+					});
+					
+					
+
+	                 
+			        $("#SOSButton").on("taphold", {duration: 1500},function (e) { SOSLongPress();} )
+	          			.on("click",   SOSShortPress)
+	          			.on("touchstart", ChangeButtonToPressed)
+						.on("touchend", ChangeButtonToNormal);
+						
+						
+						
+					$('#SOSPage').on('swipeleft', function(e){ChangePage('reportPage','reportPageTab');})
+					.on('swiperight', function(e){ChangePage('messagesPage','messagesTab');});
+					
+					$('#reportPage').on('swipeleft', function(e){ChangePage('messagesPage','messagesTab');})
+					.on('swiperight', function(e){ChangePage('SOSPage','SOSTab');});		
+
+					$('#messagesPage').on('swipeleft', function(e){ChangePage('SOSPage','SOSTab');})
+					.on('swiperight', function(e){ChangePage('reportPage','reportPageTab');});	
+					
+					$(document).click(function (e)
+					{
+						if (enlarged!='')
+						{
+						 	var container = $('.photo');
+		 				    if (!container.is(e.target) && container.has(e.target).length === 0) 
+						    {
+								$('#' + enlarged).animate({
+			
+							   	 height:'60px',
+								    width:'60px'
+								 });
+								 enlarged='';								 
+						    }						    
+						}
+					});	
+
+			</script>
+			
+        </body>
+</html>
