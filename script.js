@@ -1221,8 +1221,7 @@
                 			msgDiv=document.createElement('div');
                 			msgDiv.className='msgBox';
                 			//get id from string
-                			msgId=GetTagContent(wholeString,'id');
-                			alert(msgId + 'msgId');               			
+                			msgId=GetTagContent(wholeString,'id');              			
                 			msgDiv.id=msgId;
                 			
                 			//cut the id tag from the string	
@@ -1230,19 +1229,18 @@
                 			
                 			//get time from string
                 			msgTime=GetTagContent(wholeString,'time');
-                			alert(msgTime + 'msgTime');
+
                 			//cut the time tag from the string
 							wholeString=CutWholeNextTag(wholeString,'time');
 							
 							//get the body from the strign
                 			msgContent=GetTagContent(wholeString,'body');
-                			
+                			alert(msgContent + ' msgContent');
                 			//cut the body from the strign
                 			wholeString=CutWholeNextTag(wholeString,'body');
 							
 							//putting the message body inside the box
                 			msgDiv.innerHTML=msgContent +'<br/>';
-                			alert(msgDiv + 'msgDiv');
                 			
                 			//creating timespan
                 			timeSpan=document.createElement('span');
