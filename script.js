@@ -216,7 +216,6 @@
 					}
 					else if (form.id=='reportForm')
 					{
-						alert(actionResult);
 						CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
 						
 					}
@@ -253,10 +252,6 @@
 					else if (form.id=='messagesForm')
 					{
 						
-						
-						//document.getElementById('SOSPage').innerHTML+=actionResult;
-						//document.getElementById('reportPage').innerHTML+=strhard;
-						//CompareStrings(actionResult,strhard);
 						ParseMessages(actionResult);
 					}
 					else if (form.id=='commentForm')
@@ -1498,9 +1493,7 @@
             		
             		content=str.substring(start,end);
             		
-            		//alert('string: ' + str);
-            		//alert('start: ' + start + ', end: ' + end);
-            		//alert('tag: ' + tag + ', content: ' + content);
+
             		return content;
             		
             	}
