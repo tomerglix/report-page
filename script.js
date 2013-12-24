@@ -256,8 +256,8 @@
 						
 						//document.getElementById('SOSPage').innerHTML+=actionResult;
 						//document.getElementById('reportPage').innerHTML+=strhard;
-					
-						ParseMessages(actionResult);
+						CompareStrings(actionResult,strhard);
+						//ParseMessages(actionResult);
 					}
 					else if (form.id=='commentForm')
 					{
