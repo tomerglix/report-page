@@ -251,7 +251,7 @@
 					}
 					else if (form.id=='messagesForm')
 					{
-						alert(actionResult);
+						//alert(actionResult);
 						ParseMessages(actionResult);
 					}
 					else if (form.id=='commentForm')
@@ -1460,6 +1460,8 @@
                 		
                 		content=str.substring(start,end);
                 		
+                		alert('string: ' + str);
+                		alert('start: ' + start + ', end: ' + end);
                 		alert('tag: ' + tag + ', content: ' + content);
                 		return content;
                 		
