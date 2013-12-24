@@ -252,11 +252,10 @@
 					}
 					else if (form.id=='messagesForm')
 					{
-						alert(actionResult.length);
-						alert(strhard.length);
 						
-						document.getElementById('SOSPage').innerHTML+=actionResult;
-						document.getElementById('reportPage').innerHTML+=strhard;
+						
+						//document.getElementById('SOSPage').innerHTML+=actionResult;
+						//document.getElementById('reportPage').innerHTML+=strhard;
 					
 						ParseMessages(actionResult);
 					}
@@ -279,6 +278,28 @@
 					}
 				}
 				
+				function CompareStrings(str1,str2)
+				{
+					var len;
+					if (str1.length < str2.length)
+					{
+						len=str1.length;
+					}
+					else
+					{
+						len=str2.length;
+					}
+					
+					var log='';
+					for (var i=0;i<len;++i)
+					{
+						if (str1.charAt(i)!=str2.charAt(i))
+						{
+							log+='position: ' + i +'; str1(' + i + '): ' +str1.charAt(i) +  '; str2(' + i + '): ' + str2.charAt(i) + '\n';
+						}
+					}
+					alert(log);
+				}
                
                 function AddParmameterToURL(url,param,value)
                 {
