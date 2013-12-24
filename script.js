@@ -154,7 +154,7 @@
 					var locationStr=lastCenter.lat().toString() + '|' + lastCenter.lng().toString();
 					var address=document.getElementById('addressBar').innerHTML;
 					var addressUnicode= UnicodeString(address);
-					var utf8Str=document.getElementById('autoResizeTextBox').value;					
+					var utf8Str=document.getElementById('descriptionBox').value;					
 					var unicodeStr=UnicodeString(utf8Str);
 				
 					
@@ -256,8 +256,8 @@
 						
 						//document.getElementById('SOSPage').innerHTML+=actionResult;
 						//document.getElementById('reportPage').innerHTML+=strhard;
-						CompareStrings(actionResult,strhard);
-						//ParseMessages(actionResult);
+						//CompareStrings(actionResult,strhard);
+						ParseMessages(actionResult);
 					}
 					else if (form.id=='commentForm')
 					{
@@ -1194,9 +1194,7 @@
 				
 				function SubmitCrime()
 				{
-					alert('SubmitCrime');
 					GenerateReportUrl();
-					alert(url);
 					SendUrl(reportForm);
 					
 				}
@@ -1239,6 +1237,9 @@
             	
             		var tempId;
             		var ulId;
+        			
+        			wholeString.replace('<body>','');
+        			wholeString.replace('</body>','');
         			                		
             		while (wholeString.indexOf('<message>')!=-1)
             		{
@@ -1258,14 +1259,10 @@
             			//cut the time tag from the string
 						wholeString=CutWholeNextTag(wholeString,'time');
 						
-						//get the body from the string
-            			msgContent=GetTagContent(wholeString,'body');
-
             			//cut the body from the strign
-            			wholeString=CutWholeNextTag(wholeString,'body');
+            			//wholeString=CutWholeNextTag(wholeString,'body');
 						
-						//putting the message body inside the box
-            			msgDiv.innerHTML=msgContent +'<br/>';
+
             			
             			//creating timespan
             			timeSpan=document.createElement('span');
@@ -1289,28 +1286,38 @@
             				userSpan=document.createElement('div');
             				userSpan.className='messageBlueLeft';
             				userSpan.innerHTML=CutUserFromMail(GetTagContent(commentsString,'user'));
+            				commentsString=CutWholeNextTag(commentsString,'user');
+            				
 							
             				//creating the commenttime span
             				commentTime=document.createElement('div');
             				commentTime.className='messageBlueRight';
             				commentTime.innerHTML=GetTagContent(commentsString,'time');
+            				commentsString=CutWholeNextTag(commentsString,'time');
             				
             				//appending user and time to the comment
             				commentDiv.appendChild(userSpan);
             				commentDiv.appendChild(commentTime);
             				//adding the comment body
-            				commentDiv.innerHTML+='<br/>' + GetTagContent(commentsString,'body');
+            				commentDiv.innerHTML+='<br/>' + GetTagContent(commentsString,'comment');
             				
             				//cut the whole comment tag
             				commentsString=CutWholeNextTag(commentsString,'comment');
-            				
+            				wholeString=CutWholeNextTag(wholeString,'comment');
+
             				//append the comment box to the comment section
             				commentsSection.appendChild(commentDiv);
             				
             				//increment comment counter
             				++commentCounter;
             			}
+
+						//get the body from the string
+            			msgContent=GetTagContent(wholeString,'message');
             			
+						//putting the message body inside the box
+            			msgDiv.innerHTML=msgContent +'<br/>';
+            			            			
             			//creating user comment box
             			userCommentBox=document.createElement('div');
             			userCommentBox.className='commentBox';
@@ -1432,8 +1439,8 @@
             		messagesSection.innerHTML="";
             		GenerateGetMessagesUrl();
             		//document.body.innerHTML+=url;
-            		strhard='<document><message><id>20</id><time>1386597393887</time><body>Monday Dec-09, Testing SOS v2 ENA</body><comment><user>tomer@lola-tech.com</user><time>1387884445639</time><body>tomer test</body></comment><comment><user>enunez@pelesystem.com</user><time>1386597544996</time><body>Ok you`re stiil testing SOS App</body></comment></message><message><id>19</id><time>1386461581278</time><body>I`m still testing the application app</body><comment><user>tomer@lola-tech.com</user><time>1387886718639</time><body>Test 2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386519129387</time><body>2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386515564559</time><body>test</body></comment></message><message><id>18</id><time>1386460441559</time><body>In Oune hour I am completed the QA testing fron tghe APP</body><comment><user>enunez@pelesystem.com</user><time>1386460564012</time><body>Ok I am waiting for the app</body></comment></message><message><id>17</id><time>1386459478403</time><body>Test Message number 3 from Eduardo</body><comment><user>enunez@pelesystem.com</user><time>1386460359496</time><body>Ok the "NAVIDAD SEGURA" from La Molina its almost ready</body></comment><comment><user>enunez@pelesystem.com</user><time>1386460107543</time><body>Ok it is a back message fro ok</body></comment></message><message><id>16</id><time>1386458491262</time><body>Second Test Message from Eduardo 6:20pm Saturday Dic-06</body></message></document>';
-            		//ParseMessages(str);
+            		//strhard='<document><message><id>20</id><time>1386597393887</time><body>Monday Dec-09, Testing SOS v2 ENA</body><comment><user>tomer@lola-tech.com</user><time>1387884445639</time><body>tomer test</body></comment><comment><user>enunez@pelesystem.com</user><time>1386597544996</time><body>Ok you`re stiil testing SOS App</body></comment></message><message><id>19</id><time>1386461581278</time><body>I`m still testing the application app</body><comment><user>tomer@lola-tech.com</user><time>1387886718639</time><body>Test 2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386519129387</time><body>2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386515564559</time><body>test</body></comment></message><message><id>18</id><time>1386460441559</time><body>In Oune hour I am completed the QA testing fron tghe APP</body><comment><user>enunez@pelesystem.com</user><time>1386460564012</time><body>Ok I am waiting for the app</body></comment></message><message><id>17</id><time>1386459478403</time><body>Test Message number 3 from Eduardo</body><comment><user>enunez@pelesystem.com</user><time>1386460359496</time><body>Ok the "NAVIDAD SEGURA" from La Molina its almost ready</body></comment><comment><user>enunez@pelesystem.com</user><time>1386460107543</time><body>Ok it is a back message fro ok</body></comment></message><message><id>16</id><time>1386458491262</time><body>Second Test Message from Eduardo 6:20pm Saturday Dic-06</body></message></document>';
+            		//ParseMessages(strhard);
             		SendUrl(messagesForm);
             		
 
