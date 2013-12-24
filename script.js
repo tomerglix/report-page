@@ -12,6 +12,8 @@
 				var url;
 				var actionResult;
 				var enlarged;
+				
+				var commentForm;
 				var regPageForm;
 				var SOSForm;
 				var reportForm;
@@ -107,17 +109,7 @@
 					url = url.substring(0, url.length - 1); //remove last ampersand
             	}
             	
-            	function GenereteSendingCommentUrl(message,messageId)
-            	{
-            		url="http://62.0.66." + serverNum +":8080/addCommentToMessage.do?";
 
-			    	url=AddParmameterToURL(url,'projectId','116');
-			    	url=AddParmameterToURL(url,'comment',message);
-			    	url=AddParmameterToURL(url,'agentId',userId);
-			    	url=AddParmameterToURL(url,'pin',userId);
-			    	url=AddParmameterToURL(url,'messageId',messageId);
-
-            	}
             	
             	function GenerateSOSUrl(position)
             	{  	
@@ -224,7 +216,12 @@
 					}
 					else if (form.id=='reportForm')
 					{
-						CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
+						res=CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
+						
+						if (res==true)
+						{
+							FirstLoad();
+						}
 					}
 					else if (form.id=='activationWaitForm')
 					{
@@ -259,6 +256,19 @@
 					else if (form.id=='messagesForm')
 					{
 						ParseMessages(actionResult);
+					}
+					else if (form.id=='commentForm')
+					{
+						var res=parseInt(actionResult);
+						if (res==1)
+						{	
+							alert(sendCommentSuccessStr);
+							GetMessages();
+						}
+						else
+						{
+							alert(sendCommentFailStr);	
+						}						
 					}					
 					else
 					{
@@ -497,11 +507,11 @@
                 {
                       // Retrieve image file location from specified source
                       
-                      navigator.camera.getPicture(AddPhotoToFromLibrary, onFail, { quality: 50, 
+                      navigator.camera.getPicture(AddPhotoToFromLibrary, onFail, { quality: 50, encodingType: Camera.EncodingType.PNG,
                         destinationType: destinationType.FILE_URI,
                         sourceType: source });
                 } 
-                function foo(id) 
+                function TogglePicSize(id) 
                 {
                   
 						if (enlarged!='')
@@ -513,7 +523,8 @@
 							 });
 							 enlarged='';
 						}
-						if (document.getElementById(id).style.height=='60px')
+						
+						if ($('#' + id).height()=='60')
 						{
 							$('#' + id).animate({
 		
@@ -534,7 +545,7 @@
 				}
 				
                 function capturePhoto() 
-                {              
+                {
 
                       // Take picture using device camera and retrieve image as base64-encoded string
                       navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
@@ -547,7 +558,7 @@
 					smallImage.className='photo';
 					smallImage.id='img' + photoCounter;
 					smallImage.src = "data:image/jpeg;base64," + imageData;
-					smallImage.onclick=function (){foo(smallImage.id);};
+					smallImage.onclick=function (){TogglePicSize(smallImage.id);};
                     photoSection.appendChild(smallImage);
     	
                     ++photoCounter;
@@ -561,7 +572,7 @@
 					smallImage.className='photo';
 					smallImage.id='img' + photoCounter;
 					smallImage.src = imageURI;
-					smallImage.onclick=function (){foo(smallImage.id);};
+					smallImage.onclick=function (){TogglePicSize(smallImage.id);};
                     photoSection.appendChild(smallImage);
     	
                     ++photoCounter;
@@ -1094,6 +1105,8 @@
 					
 				}
 				
+				var sendCommentSuccessStr="Your comment has been received";
+				var sendCommentFailStr="Sending comment failed";
 				var checkActivationSuccessStr="Email confirmed, your acount has been activated";
 				var checkActivationFailStr="Your acount has not been confirmed. Please check your email for activation";
 				var registerSuccessStr="Your details has been received. Check your email for activation";
@@ -1281,9 +1294,10 @@
                 			userCommentBox.innerHTML+='<br/>';
                 			tempId='textArea'+ msgId;
                 			ulId='comUl'+ messageCounter;
-                			userCommentBox.innerHTML+="<textarea id=" + tempId +  " class='autoResizeTextBox' style='display:block; margin-top:5px;' onblur='DeHighLightUL("+'"' + ulId + '"' +");' onfocus='HighLightUL("+'"' + ulId + '"' +");'></textarea>";
-                			userCommentBox.innerHTML+="<div id=" + ulId + " class='textEditUnderLine' > </div>";
-
+                			userCommentBox.innerHTML+="<div class='msgCommentDiv'><textarea id=" + tempId +  " class='autoResizeTextBox' style='display:block; margin-top:5px;' onblur='DeHighLightUL("+'"' + ulId + '"' +");' onfocus='HighLightUL("+'"' + ulId + '"' +");'></textarea>"
+                			 + "<div id=" + ulId + " class='textEditUnderLine' > </div></div>";
+							userCommentBox.innerHTML+="<button class='sendCommentButton' onclick='SendComment(" + msgId + "," + '"' +tempId +'"' + ")'>Send</button>";
+							
 							//adding my comment box to the comment section
 							commentsSection.appendChild(userCommentBox);
                 			
@@ -1321,8 +1335,30 @@
 		                
                 	}
 		
+					function SendComment(msgId,textAreaId)
+					{
+						var message=document.getElementById(textAreaId).value;
+						GenereteSendingCommentUrl(message,msgId);
+						//document.body.innerHTML += url;
+						SendUrl(commentForm);
+						
+					}
+					
+	            	function GenereteSendingCommentUrl(message,msgId)
+            		{
+	            		url="http://62.0.66." + serverNum +":8080/addCommentToMessage.do?";
+	            		
+	            		//var messageUnicode=UnicodeString(message);
+	
+				    	url=AddParmameterToURL(url,'projectId','116');
+				    	url=AddParmameterToURL(url,'comment',message);
+				    	url=AddParmameterToURL(url,'agentId',userId);
+				    	url=AddParmameterToURL(url,'pin',userId);
+				    	url=AddParmameterToURL(url,'messageId',msgId);
+				    	
+				    	url = url.substring(0, url.length - 1); //remove last ampersand
 
-				
+            		}
 /******************** storage format *****************************
 /*
 --------------------------------
