@@ -674,7 +674,7 @@
                 function ViewLocationOnMap()
                 {
                     //spinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('reportPage'));  
-                    GetLocation(ShowMap,onError);  
+                    GetLocation(ToggleMap,onError);  
                                           
                 }
                 
@@ -721,11 +721,28 @@
                             });
                 }
                 
-                function ToggleMap()
+                function ToggleMap(position)
                 {
                     mapID=document.getElementById('mapDisplay');                                
                     if (mapID.style.display=="none")
                     {
+	                    if (lastCenter=="")
+	                    {
+	                            lastCenter=new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	                    }
+	
+	                    var mapOptions = 
+	                    {
+	                                zoom: 15,
+	                            center: lastCenter,
+	                            mapTypeId:google.maps.MapTypeId.ROADMAP
+	                    };
+	
+	                    map = new google.maps.Map(document.getElementById('mapDisplay'),mapOptions);
+	                    map.setCenter(lastCenter);     
+	                    //google.maps.event.trigger(map, 'resize');                   
+		                AddMarkerByCoordinates(lastCenter);
+	                
                     	ToggleDisplay('mapDisplay','inline'); 
                         ToggleDisplay('reportData','inline');                        
                         ToggleDisplay('topMenu','inline');
