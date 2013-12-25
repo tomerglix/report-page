@@ -278,7 +278,7 @@
 						alert('Unknown error');
 					}
 					form.style.opacity='1';
-					transitionSpinner.stop;
+					transitionSpinner.stop();
 				}
 				
 				function CompareStrings(str1,str2)
