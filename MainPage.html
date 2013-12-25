@@ -162,7 +162,7 @@
 
 <html >
         <body onload=" FirstLoad();" style="height: 100%; background-color:#f3f3f3" >
-        	
+        	<button id='closeMapButton' class="center" onclick='ToggleMap()'  style="display:none; position: absolute; z-index: 100; top:0;" >Close map</button>
             <div id="mapDisplay" style="display: none;">
                                     
             </div>
@@ -232,7 +232,7 @@
                    		
                     	<div  class="sectionWrap" style="margin-bottom: 10px; ">
 
-                           <button id='closeMapButton' class="center" onclick='ToggleMap(); return false; '  style="display: none; position: absolute; z-index: 100; top:0;" >Close map</button>
+                          
 						
                             <div id="reportData">                        		  
                         		  <!--main page header-->
@@ -287,7 +287,7 @@
                                                   <p  class="headerDecoration">Location</p>
                                           </div>
                                           
-                                          <div id="crimeLocationData"  onclick="ViewLocationOnMap(); return false" >
+                                          <div id="crimeLocationData"  onclick="ViewLocationOnMap();" >
 												<img src="./images/map-pin.png" class="icons" >
 												<div id="addressBar" class="robo">
 													<br/>						 

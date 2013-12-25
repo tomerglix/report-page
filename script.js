@@ -19,7 +19,6 @@
 				var SOSForm;
 				var reportForm;
 				var uploadIframeId;
-				var firstIframeLoad=true;
 				var maxContacts=3;
 				var contactsList=new Array(3);
 				var contactsCounter=0;
@@ -667,17 +666,32 @@
       
                 }
                 
+                function ChangeToMapPage()
+                {
+                	window.location.replace('MapPage.html');	
+                }
                 
                 function ViewLocationOnMap()
                 {
-                    spinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('reportPage'));  
+                    //spinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('reportPage'));  
                     GetLocation(ShowMap,onError);  
                                           
                 }
+                
+				function CloseMap()
+				{
+                    var lat = marker.getPosition().lat();
+                    var lng = marker.getPosition().lng();
 
+                    lastCenter = new google.maps.LatLng(lat, lng);
+
+					window.location.replace('MainPage.html');
+					CoordinatesToStrings(lastCenter);
+				}
+				
                 function ShowMap(position)
                 {
-
+					//window.location.replace('MapPage.html');
                     if (lastCenter=="")
                     {
                             lastCenter=new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -691,10 +705,11 @@
                     };
 
                     map = new google.maps.Map(document.getElementById('mapDisplay'),mapOptions);
-                                                    
+                    map.setCenter(lastCenter);     
+                    //google.maps.event.trigger(map, 'resize');                   
 	                ToggleMap();
 	                AddMarkerByCoordinates(lastCenter);
-	                spinner.stop();
+	                //spinner.stop();
                 }
                 
                 function AddMarkerByCoordinates(latlng)
@@ -705,6 +720,7 @@
                                 draggable:true
                             });
                 }
+                
                 function ToggleMap()
                 {
                     mapID=document.getElementById('mapDisplay');                                
@@ -716,7 +732,7 @@
                         ToggleDisplay('closeMapButton','inline');    
                         
                         lastCenter=map.getCenter(); 
-                        //google.maps.event.trigger(map, 'resize');
+                        google.maps.event.trigger(map, 'resize');
                         map.setCenter(lastCenter);
 
                     }
@@ -1419,6 +1435,7 @@
         		
                 function FirstLoad()
                 {
+            		firstIframeLoad=false;
                 	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
 	                //spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
 	                GetLocation(GetAddress);
@@ -1437,13 +1454,13 @@
                 	reportForm=document.getElementById('reportForm');
                 	uploadIframe=document.getElementById('uploadIframe');
                 	messagesSection=document.getElementById('messagesSection');
-                	
-                	phoneNumber=localStorage.getItem('phoneNum');
-                	userId=localStorage.getItem('userId');
-                	email=localStorage.getItem('email');
-                	//email='tomerglix@gmail.com';
-                	//phoneNumber='0502712252';
-                	//userId='572297716';
+            	
+            		//phoneNumber=localStorage.getItem('phoneNum');
+            		//userId=localStorage.getItem('userId');
+            		//email=localStorage.getItem('email');
+                	email='tomerglix@gmail.com';
+                	phoneNumber='0502712252';
+                	userId='572297716';
 
             		myUser=CutUserFromMail(email);
 
@@ -1451,9 +1468,8 @@
         			myUserSpan=document.createElement('div');
         			myUserSpan.className='messageBlueLeft';
         			myUserSpan.innerHTML=myUser;	           
-                	
-                	GetMessages();
-                	
+            	
+            		GetMessages();
                 }
                 
             	var strhard;
@@ -1462,12 +1478,10 @@
             		messagesSection.innerHTML="";
             		GenerateGetMessagesUrl();
             		//document.body.innerHTML+=url;
-            		//strhard='<document><message><id>20</id><time>1386597393887</time><body>Monday Dec-09, Testing SOS v2 ENA</body><comment><user>tomer@lola-tech.com</user><time>1387884445639</time><body>tomer test</body></comment><comment><user>enunez@pelesystem.com</user><time>1386597544996</time><body>Ok you`re stiil testing SOS App</body></comment></message><message><id>19</id><time>1386461581278</time><body>I`m still testing the application app</body><comment><user>tomer@lola-tech.com</user><time>1387886718639</time><body>Test 2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386519129387</time><body>2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386515564559</time><body>test</body></comment></message><message><id>18</id><time>1386460441559</time><body>In Oune hour I am completed the QA testing fron tghe APP</body><comment><user>enunez@pelesystem.com</user><time>1386460564012</time><body>Ok I am waiting for the app</body></comment></message><message><id>17</id><time>1386459478403</time><body>Test Message number 3 from Eduardo</body><comment><user>enunez@pelesystem.com</user><time>1386460359496</time><body>Ok the "NAVIDAD SEGURA" from La Molina its almost ready</body></comment><comment><user>enunez@pelesystem.com</user><time>1386460107543</time><body>Ok it is a back message fro ok</body></comment></message><message><id>16</id><time>1386458491262</time><body>Second Test Message from Eduardo 6:20pm Saturday Dic-06</body></message></document>';
-            		//ParseMessages(strhard);
-            		SendUrl(messagesForm);
-            		
-
-            	}
+            		strhard='<document><message><id>20</id><time>1386597393887</time><body>Monday Dec-09, Testing SOS v2 ENA</body><comment><user>tomer@lola-tech.com</user><time>1387884445639</time><body>tomer test</body></comment><comment><user>enunez@pelesystem.com</user><time>1386597544996</time><body>Ok you`re stiil testing SOS App</body></comment></message><message><id>19</id><time>1386461581278</time><body>I`m still testing the application app</body><comment><user>tomer@lola-tech.com</user><time>1387886718639</time><body>Test 2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386519129387</time><body>2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386515564559</time><body>test</body></comment></message><message><id>18</id><time>1386460441559</time><body>In Oune hour I am completed the QA testing fron tghe APP</body><comment><user>enunez@pelesystem.com</user><time>1386460564012</time><body>Ok I am waiting for the app</body></comment></message><message><id>17</id><time>1386459478403</time><body>Test Message number 3 from Eduardo</body><comment><user>enunez@pelesystem.com</user><time>1386460359496</time><body>Ok the "NAVIDAD SEGURA" from La Molina its almost ready</body></comment><comment><user>enunez@pelesystem.com</user><time>1386460107543</time><body>Ok it is a back message fro ok</body></comment></message><message><id>16</id><time>1386458491262</time><body>Second Test Message from Eduardo 6:20pm Saturday Dic-06</body></message></document>';
+            		ParseMessages(strhard);
+            		//SendUrl(messagesForm);
+				}
             	
             	
             	function CutUserFromMail(fullMail)
