@@ -183,7 +183,7 @@
 
 				function SendUrl(form)
 				{
-					form.style.display='none';
+					form.style.opacity='0.5';
 					transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 					uploadIframe.onload=function() {GetActionResult(form);};
 					form.setAttribute("action", url);
@@ -277,7 +277,7 @@
 					{
 						alert('Unknown error');
 					}
-					form.style.display='block';
+					form.style.opacity='1';
 					transitionSpinner.stop;
 				}
 				
