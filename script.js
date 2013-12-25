@@ -727,7 +727,7 @@
                     if (mapID.style.display=="none")
                     {
                     	ToggleDisplay('mapDisplay','inline'); 
-                        ToggleDisplay('reportPage','inline');                        
+                        ToggleDisplay('reportPage','block');                        
                         ToggleDisplay('topMenu','inline');
                         ToggleDisplay('closeMapButton','inline');    
                         
@@ -739,7 +739,7 @@
                     else        
                     {
                         ToggleDisplay('mapDisplay','inline');
-                        ToggleDisplay('reportPage','inline');
+                        ToggleDisplay('reportPage','block');
                         ToggleDisplay('closeMapButton','inline');
                         ToggleDisplay('topMenu','inline');
                         
