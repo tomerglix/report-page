@@ -5,6 +5,9 @@
                 var city = "";
                 var street = "";  
                 var streetNum = "";
+                var hugeSpinner;
+                var mapSpinner;
+                var transitionSpinner;
         		var spinner;
 				var i;
 				var serverNum=7;
@@ -13,6 +16,7 @@
 				var actionResult;
 				var enlarged;
 				var openCommentBoxId='';
+				var firstLoadActivationCheck=true;
 				
 				var commentForm;
 				var regPageForm;
@@ -31,22 +35,16 @@
 				var maxPhotos=3;				
 
             	var highlightedTab='SOSTab';
-            	var currentPage='SOSPage';
-            	
-            	
+            	var currentPage='SOSPage';            	            	
             	var userStatus; //1-needs to register. 2-waiting for activation. 3-active user
-
-
-	                            					
+           					
 				for (i=0;i<contactsList.length;++i)
 				{
 					contactsList[i]=new Array(2);
 				}	
 			                 
-
                 function ChangePage(pageID,tabID)
-                {
-                	
+                {                	
 					if (pageID!=currentPage)
 					{
 						ToggleDisplay(pageID,'block');
@@ -59,8 +57,7 @@
 						
 						highlightedTab=tabID;
 						currentPage=pageID;
-					}
-                	
+					}          	
                 }
                 																
 			    function ChangeButtonToPressed()
@@ -186,6 +183,8 @@
 
 				function SendUrl(form)
 				{
+					form.style.display='none';
+					transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 					uploadIframe.onload=function() {GetActionResult(form);};
 					form.setAttribute("action", url);
 					form.submit();
@@ -230,7 +229,14 @@
 						}
 						else
 						{
-							alert(checkActivationFailStr);	
+							if (firstLoadActivationCheck==true)
+							{
+								firstLoadActivationCheck=false;
+							}
+							else
+							{
+								alert(checkActivationFailStr);	
+							}
 						}
 					} 
 					else if (form.id=='regPageForm')
@@ -271,6 +277,8 @@
 					{
 						alert('Unknown error');
 					}
+					form.style.display='block';
+					transitionSpinner.stop;
 				}
 				
 				function CompareStrings(str1,str2)
@@ -643,9 +651,8 @@
                     lat = parseFloat(position.coords.latitude);
                     lng = parseFloat(position.coords.longitude);
                     lastCenter = new google.maps.LatLng(lat, lng);
-                    littlespinner = new Spinner(bigSpinnerOpts).spin(document.body,500);
+                    //littlespinner = new Spinner(bigSpinnerOpts).spin(document.body,500);
                     
-                    //littlespinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('reportPage'));  /*here*/
                     CoordinatesToStrings(lastCenter);      	
                 }
                 
@@ -655,7 +662,6 @@
                                     'code: '    + error.code    + '\n' +
                                   'message: ' + error.message + '\n');
                                   
-                   	//spinner.stop();  
                                    
                 }      
                   
@@ -829,7 +835,7 @@
                                                 
                                                 
                                           });                                  				
-                           littlespinner.stop();               
+                          // littlespinner.stop();               
 				}
                                     
                 //************ end of location functions
@@ -882,12 +888,12 @@
                   	left: 'auto' // Left position relative to parent in px
                 };
                 
-                var smallSpinnerOpts = 
+                var transitionSpinnerOpts = 
                 {
-					lines: 9, // The number of lines to draw
-					length: 3, // The length of each line
-					width: 2, // The line thickness
-					radius: 3, // The radius of the inner circle
+					lines: 10, // The number of lines to draw
+					length: 6, // The length of each line
+					width: 4, // The line thickness
+					radius: 7, // The radius of the inner circle
 					corners: 1, // Corner roundness (0..1)
 					rotate: 0, // The rotation offset
 					direction: 1, // 1: clockwise, -1: counterclockwise
@@ -898,8 +904,9 @@
 					hwaccel: false, // Whether to use hardware acceleration
 					className: 'spinner', // The CSS class to assign to the spinner
 					zIndex: 2e9, // The z-index (defaults to 2000000000)
-					top: 'auto', // Top position relative to parent in px
-					left: 'auto' // Left position relative to parent in px
+					top: '50%', // Top position relative to parent in px
+					left: '50%', // Left position relative to parent in px
+					position: 'absolute'
                 };
                             
 				var HugeSpinnerOpts = 
@@ -1437,7 +1444,6 @@
                 {
             		firstIframeLoad=false;
                 	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
-	                //spinner = new Spinner(smallSpinnerOpts).spin(document.getElementById('addressBar'));
 	                GetLocation(GetAddress);
 	                
 					LoadContactsFromStorage();

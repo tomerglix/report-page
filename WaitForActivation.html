@@ -12,9 +12,10 @@
 
 <html>
         <body onload="WaitForActivationOnLoad(); " style="height: 100%; background-color:#f3f3f3" >
-			<div class="pageWrap" style="padding-top: 0;">
-				<div class="sectionWrap">
-					<form id='activationWaitForm' target='uploadIframe' method="post">
+			<form id='activationWaitForm' target='uploadIframe' method="post">
+				<div class="pageWrap" style="padding-top: 0;">
+					<div class="sectionWrap">
+					
 						<iframe id='uploadIframe' style="display: none"> </iframe>
 						<p  class="headerDecoration">ACTIVACION DE CUENTA</p>
 						<p class='robo' style="color: #444444; padding: 10px">
@@ -22,10 +23,9 @@
 						</p>
 					
 						<input  style="width:100%" type="submit" id="OKButton" class="submitButtonStyle" onclick="CheckActivation(); return false;" value="OK" /> 
-					</form>
+					</div>
 				</div>
-			</div>
-     
+			</form>     
 			<script type="text/javascript" charset="UTF-8" >
 
 			</script>
