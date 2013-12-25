@@ -176,7 +176,7 @@
 					url=AddParmameterToURL(url,'viewNum','2');
 					url=AddParmameterToURL(url,'phoneNum',userId);
 					url=AddParmameterToURL(url,'pin',userId);
-					url=AddParmameterToURL(url,'gf1',localStorage.getItem('phoneNum'));
+					url=AddParmameterToURL(url,'gf1',phoneNumber);
 					url=AddParmameterToURL(url,'gf2',addressUnicode);
 					url = url.substring(0, url.length - 1); //remove last ampersand
 							
@@ -1233,18 +1233,12 @@
             		var tempId;
             		var ulId;
         			
-        			wholeString.replace('<body>','');
-        			wholeString.replace('</body>','');
-        			                		
+        			wholeString=wholeString.replace('<body>','');
+        			wholeString=wholeString.replace('</body>','');
+          		
             		while (wholeString.indexOf('<message>')!=-1)
-            		{
-            			//creating message box
-            			msgDiv=document.createElement('div');
-            			msgDiv.className='msgBox';
-            			//get id from string
-            			msgId=GetTagContent(wholeString,'id');              			
-            			msgDiv.id=msgId;
-            			
+            		{            			            			
+            			msgId=GetTagContent(wholeString,'id'); 
             			//cut the id tag from the string	
             			wholeString=CutWholeNextTag(wholeString,'id');
             			
@@ -1254,28 +1248,26 @@
             			//cut the time tag from the string
 						wholeString=CutWholeNextTag(wholeString,'time');
 						
-            			//cut the body from the strign
-            			//wholeString=CutWholeNextTag(wholeString,'body');
-						
-
-            			
             			//creating timespan
             			timeSpan=document.createElement('span');
             			timeSpan.className='messageBlueRight';
-            			timeSpan.innerHTML=msgTime;
+            			timeSpan.innerHTML=MilisecToTime(msgTime);
             			                			
             			//creating the comment section
             			commentCounter=0;
             			commentsSection=document.createElement('div');
             			commentsSection.id='comments' + msgId;
             			commentsSection.className='commentsSectionBox';
+            			commentsSection.style.display='none';
+            			
             			
             			commentsString=GetTagContent(wholeString,'message');
             			while (commentsString.indexOf('<comment>')!=-1)
             			{
             				//creating single comment box
             				commentDiv=document.createElement('div');
-            				commentDiv.className='commentBox';
+            				//commentDiv.className='commentBox';
+            				commentDiv.className='commentBubble';
             				
             				//creating the userspan
             				userSpan=document.createElement('div');
@@ -1287,7 +1279,7 @@
             				//creating the commenttime span
             				commentTime=document.createElement('div');
             				commentTime.className='messageBlueRight';
-            				commentTime.innerHTML=GetTagContent(commentsString,'time');
+            				commentTime.innerHTML=MilisecToTime(GetTagContent(commentsString,'time'));
             				commentsString=CutWholeNextTag(commentsString,'time');
             				
             				//appending user and time to the comment
@@ -1307,15 +1299,13 @@
             				++commentCounter;
             			}
 
-						//get the body from the string
+						//get the body of the message from the string (whats left from the tag)
             			msgContent=GetTagContent(wholeString,'message');
-            			
-						//putting the message body inside the box
-            			msgDiv.innerHTML=msgContent +'<br/>';
+
             			            			
             			//creating user comment box
             			userCommentBox=document.createElement('div');
-            			userCommentBox.className='commentBox';
+            			userCommentBox.className='commentBubble';
             			                		
             			
             			
@@ -1341,31 +1331,71 @@
 						
 						//creating comments counter and time line
 						messageCounterTimeLine=document.createElement('div');
+						messageCounterTimeLine.className='CounterTimeLine';
 						//adding the timespan to the message
 						messageCounterTimeLine.appendChild(timeSpan);
 						//adding the commentcounter
 						messageCounterTimeLine.appendChild(commentCounterSpan);
 
+						//creating message box
+            			messagesSection.innerHTML+="<div id='msg" + msgId + "' class='msgBox'>" + msgContent +"<br/>" +"</div>";
+            			
+            			msgDiv=document.getElementById('msg' + msgId);
+	
+            			//msgDiv.id=msgId;
+            			msgDiv=document.getElementById('msg' + msgId);
             			//adding the counter and time line to the message box
 						msgDiv.appendChild(messageCounterTimeLine);
+						
 						//adding the commentsection to the message
 						msgDiv.appendChild(commentsSection);
-            			
-            			//adding the whole message including the comments
-            			messagesSection.appendChild(msgDiv);
-            			
 
-            			++messageCounter;
+            			++messageCounter;	
             		}
             		
+ 					$('.msgBox').click(function (e)
+					{
+						commentBoxId=(this.id.toString()).replace('msg','comments');
+						var commentBox = $('#' + commentBoxId);
+						
+						var allComments=$('.commentsSectionBox');
+						if (!allComments.is(e.target) && allComments.has(e.target).length === 0)
+						{
+							allComments.slideUp();
+
+							if (commentBoxId!=openCommentBoxId)
+							{
+								$('#' + commentBoxId).slideDown();
+								openCommentBoxId=commentBoxId;
+							}
+							else
+							{
+								openCommentBoxId='';
+							}
+							
+						}
+		
+						
+
+
+						
+					});
+
+					            		
 					$(".autoResizeTextBox").keyup(function (e) 
 	                {
 	                    adaptiveheight(this);
 	                });	
 	                
             	}
+				
+				var openCommentBoxId='';
 	
-				function SendComment(msgId,textAreaId)
+				function ToggleComments(commentId)
+				{
+					alert(commentId);
+				}
+				function SendComment(msgNum,textAreaId)
 				{
 					var message=document.getElementById(textAreaId).value;
 					GenereteSendingCommentUrl(message,msgId);
@@ -1434,9 +1464,9 @@
             		messagesSection.innerHTML="";
             		GenerateGetMessagesUrl();
             		//document.body.innerHTML+=url;
-            		//strhard='<document><message><id>20</id><time>1386597393887</time><body>Monday Dec-09, Testing SOS v2 ENA</body><comment><user>tomer@lola-tech.com</user><time>1387884445639</time><body>tomer test</body></comment><comment><user>enunez@pelesystem.com</user><time>1386597544996</time><body>Ok you`re stiil testing SOS App</body></comment></message><message><id>19</id><time>1386461581278</time><body>I`m still testing the application app</body><comment><user>tomer@lola-tech.com</user><time>1387886718639</time><body>Test 2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386519129387</time><body>2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386515564559</time><body>test</body></comment></message><message><id>18</id><time>1386460441559</time><body>In Oune hour I am completed the QA testing fron tghe APP</body><comment><user>enunez@pelesystem.com</user><time>1386460564012</time><body>Ok I am waiting for the app</body></comment></message><message><id>17</id><time>1386459478403</time><body>Test Message number 3 from Eduardo</body><comment><user>enunez@pelesystem.com</user><time>1386460359496</time><body>Ok the "NAVIDAD SEGURA" from La Molina its almost ready</body></comment><comment><user>enunez@pelesystem.com</user><time>1386460107543</time><body>Ok it is a back message fro ok</body></comment></message><message><id>16</id><time>1386458491262</time><body>Second Test Message from Eduardo 6:20pm Saturday Dic-06</body></message></document>';
-            		//ParseMessages(strhard);
-            		SendUrl(messagesForm);
+            		strhard='<document><message><id>20</id><time>1386597393887</time><body>Monday Dec-09, Testing SOS v2 ENA</body><comment><user>tomer@lola-tech.com</user><time>1387884445639</time><body>tomer test</body></comment><comment><user>enunez@pelesystem.com</user><time>1386597544996</time><body>Ok you`re stiil testing SOS App</body></comment></message><message><id>19</id><time>1386461581278</time><body>I`m still testing the application app</body><comment><user>tomer@lola-tech.com</user><time>1387886718639</time><body>Test 2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386519129387</time><body>2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386515564559</time><body>test</body></comment></message><message><id>18</id><time>1386460441559</time><body>In Oune hour I am completed the QA testing fron tghe APP</body><comment><user>enunez@pelesystem.com</user><time>1386460564012</time><body>Ok I am waiting for the app</body></comment></message><message><id>17</id><time>1386459478403</time><body>Test Message number 3 from Eduardo</body><comment><user>enunez@pelesystem.com</user><time>1386460359496</time><body>Ok the "NAVIDAD SEGURA" from La Molina its almost ready</body></comment><comment><user>enunez@pelesystem.com</user><time>1386460107543</time><body>Ok it is a back message fro ok</body></comment></message><message><id>16</id><time>1386458491262</time><body>Second Test Message from Eduardo 6:20pm Saturday Dic-06</body></message></document>';
+            		ParseMessages(strhard);
+            		//SendUrl(messagesForm);
             		
 
             	}
@@ -1496,6 +1526,16 @@
 
             		return content;
             		
+            	}
+            	
+            	function MilisecToTime(timeMilisec)
+            	{
+
+            		var time=new Date(Number(timeMilisec));
+					var month= time.getMonth()+1;
+            		var timeStr=time.getDate() + '/' + month+ '/' + time.getFullYear();
+
+					return timeStr;
             	}
 
 /******************** storage format *****************************

@@ -64,9 +64,65 @@
         <title>Tabs</title>
         
         <style>
+        	.CounterTimeLine
+        	{
+        		margin-top:10px;
+        	}
+			.commentBubble 
+			{
+				border: solid #DDDDDD 1px;
+				margin: 13px 20px;
+				margin-right: 8px;
+				position: relative;
+				padding: 12px;
+				background: #FFFFFF;
+				-webkit-border-radius: 4px;
+				box-shadow: 5px 5px 5px #888888;	
+			}
+			.commentBubble:after 
+			{
+				content: '';
+				position: absolute;
+				border-style: solid;
+				border-width: 8px 15px 11px 0;
+				border-color: transparent white;
+				display: block;
+				width: 0;
+				z-index: 1;
+				left: -15px;
+				top: 8px;
+			}
+			.commentBubble:before 
+			{
+				content: '';
+				position: absolute;
+				border-style: solid;
+				border-width: 8px 15px 11px 0px;
+				border-color: transparent #DDDDDD;
+				display: block;
+				width: 0;
+				z-index: 0;
+				left: -16px;
+				top: 8px;
+			}
 
+			.msgCommentDiv
+			{
 
-			
+			}
+			.sendCommentButton
+			{
+				background:white;
+				border: solid 1px #0099CC;
+				color: #0099CC;
+				font-size: 100%;
+				border-radius: 4px;
+			}
+			.sendCommentButton:active
+			{
+				background:#0099CC;
+				color:white;
+			}
 			.msgBox
 			{
 				border: solid 1px #DDDDDD;
@@ -74,33 +130,13 @@
 				color:#444444;
 				margin-bottom: 10px;
 				overflow: hidden;
-				padding: 5px;
+				padding: 10px;
 				box-shadow: 5px 5px 5px #888888;
 				background: white;				
 			}
-			.commentBox
-			{
-				border: solid 1px #DDDDDD;
-				border-radius: 4px;
-				color:#444444;
-				margin-bottom: 10px;
-				overflow: hidden;
-				padding: 5px;
-				box-shadow: 5px 5px 5px #888888;			
-			}
-			.commentBox:after
-			{
-				border: solid 1px #DDDDDD;
-				border-radius: 4px;
-				color:#444444;
-				margin-bottom: 10px;
-				overflow: hidden;
-				padding: 5px;
-				box-shadow: 5px 5px 5px #888888;						
-			}
+
 			.commentsSectionBox
 			{
-				margin-top:10px;
 				width: 100%;
 				display: inline-block;
 			}
@@ -131,7 +167,7 @@
                                     
             </div>
             
-			<div id="topMenu" style="width: 100%; position: fixed; border-bottom: solid #f3f3f3 8px; background-color: #0099CC">
+			<div id="topMenu" style="width: 100%; position: fixed; border-bottom: solid #f3f3f3 8px; background-color: #0099CC; z-index: 100">
 				<ul style="width: 100%; " class="navBar">
 					<li onclick="ChangePage('SOSPage','SOSTab'); return false;" class="navTab" >
 						 <a id="SOSTab" class="tab" href="#"> SOS </a> 
@@ -309,7 +345,9 @@
 				
 					<form id="messagesForm" target='uploadIframe' method="post" >
 
-						
+					</form>
+					
+					<form id="commentForm"	target='uploadIframe' method="post" >
 						<div id="messagesSection" style="padding: 15px;">
 							
 							
@@ -321,7 +359,7 @@
 <!----------------------------------------- end of messages section -------------------------------------->         
      
 			<script type="text/javascript" charset="UTF-8" >
-                	
+					               	
 					$(".autoResizeTextBox").keyup(function (e) 
 	                {
 	                    adaptiveheight(this);
@@ -379,6 +417,7 @@
 						    }						    
 						}
 					});	
+					
 
 			</script>
 			

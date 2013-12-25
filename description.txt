@@ -1,3 +1,1 @@
-working on messages
-
-problem with body - the xml doesnt have the body tag
+messages work, need to hide the
