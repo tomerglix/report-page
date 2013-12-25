@@ -12,6 +12,7 @@
 				var url;
 				var actionResult;
 				var enlarged;
+				var openCommentBoxId='';
 				
 				var commentForm;
 				var regPageForm;
@@ -1233,12 +1234,18 @@
             		var tempId;
             		var ulId;
         			
-        			wholeString=wholeString.replace('<body>','');
-        			wholeString=wholeString.replace('</body>','');
-          		
+        			wholeString.replace('<body>','');
+        			wholeString.replace('</body>','');
+        			                		
             		while (wholeString.indexOf('<message>')!=-1)
-            		{            			            			
-            			msgId=GetTagContent(wholeString,'id'); 
+            		{
+            			//creating message box
+            			msgDiv=document.createElement('div');
+            			msgDiv.className='msgBox';
+            			//get id from string
+            			msgId=GetTagContent(wholeString,'id');              			
+            			msgDiv.id='msg' + msgId;
+            			
             			//cut the id tag from the string	
             			wholeString=CutWholeNextTag(wholeString,'id');
             			
@@ -1301,7 +1308,9 @@
 
 						//get the body of the message from the string (whats left from the tag)
             			msgContent=GetTagContent(wholeString,'message');
-
+            			
+						//putting the message body inside the box
+            			msgDiv.innerHTML=msgContent +'<br/>';
             			            			
             			//creating user comment box
             			userCommentBox=document.createElement('div');
@@ -1331,28 +1340,23 @@
 						
 						//creating comments counter and time line
 						messageCounterTimeLine=document.createElement('div');
-						messageCounterTimeLine.className='CounterTimeLine';
 						//adding the timespan to the message
 						messageCounterTimeLine.appendChild(timeSpan);
 						//adding the commentcounter
 						messageCounterTimeLine.appendChild(commentCounterSpan);
 
-						//creating message box
-            			messagesSection.innerHTML+="<div id='msg" + msgId + "' class='msgBox'>" + msgContent +"<br/>" +"</div>";
-            			
-            			msgDiv=document.getElementById('msg' + msgId);
-	
-            			//msgDiv.id=msgId;
-            			msgDiv=document.getElementById('msg' + msgId);
             			//adding the counter and time line to the message box
 						msgDiv.appendChild(messageCounterTimeLine);
-						
 						//adding the commentsection to the message
 						msgDiv.appendChild(commentsSection);
+            			
+            			//adding the whole message including the comments
+            			messagesSection.appendChild(msgDiv);
+            			
 
-            			++messageCounter;	
+            			++messageCounter;
             		}
-            		
+
  					$('.msgBox').click(function (e)
 					{
 						commentBoxId=(this.id.toString()).replace('msg','comments');
@@ -1375,21 +1379,15 @@
 							
 						}
 		
-						
-
-
-						
 					});
-
 					            		
 					$(".autoResizeTextBox").keyup(function (e) 
 	                {
 	                    adaptiveheight(this);
 	                });	
 	                
-            	}
+            	}            					
 				
-				var openCommentBoxId='';
 	
 				function ToggleComments(commentId)
 				{
@@ -1398,7 +1396,7 @@
 				function SendComment(msgNum,textAreaId)
 				{
 					var message=document.getElementById(textAreaId).value;
-					GenereteSendingCommentUrl(message,msgId);
+					GenereteSendingCommentUrl(message,msgNum);
 					//document.body.innerHTML += url;
 					SendUrl(commentForm);
 					
@@ -1445,7 +1443,7 @@
                 	email=localStorage.getItem('email');
                 	//email='tomerglix@gmail.com';
                 	//phoneNumber='0502712252';
-                	//userId='572297685';
+                	//userId='572297716';
 
             		myUser=CutUserFromMail(email);
 
