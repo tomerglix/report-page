@@ -4,6 +4,8 @@ improvements needed:
 
 sending pics
 sending sms
+change to spanish
+
 action bar
 fix buttons active
 fix sos address						c
@@ -11,9 +13,12 @@ reload report page after sending	c
 spinner when map opens				c
 check if comment is empty			c
 check phone number properly			c
-add bubble when phone is not valid
-camera options menu
+
 delete unused mobiscroll js and css	c
-change to spanish
+
 change alerts
 spinner when address load
+comments time						c
+
+add bubble when phone is not valid
+camera options menu
