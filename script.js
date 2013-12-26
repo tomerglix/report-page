@@ -1,10 +1,6 @@
 				var map;
                 var marker;
-                var latlng;
                 var lastCenter="";
-                var city = "";
-                var street = "";  
-                var streetNum = "";
                 var mapSpinner;
                 var transitionSpinner;
         		var spinner;
@@ -27,6 +23,7 @@
 				var contactsCounter=0;
 				var myUser;
 				var myUserSpan;
+				var address;
 				
                 var pictureSource;   // picture source
                 var destinationType; // sets the format of returned value
@@ -113,7 +110,6 @@
 					var mifgaNum=GenerateMifgaNum();
 					var now=new Date();
 					var locationStr=position.coords.latitude.toString() + '|' + position.coords.longitude.toString();
-					var address=document.getElementById('addressBar').innerHTML;
 					
 					var addressUnicode= UnicodeString(address);
 					url="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do?";
@@ -139,8 +135,12 @@
 					
             	}
             	
-            	
-
+            	function RefreshReportPage()
+				{
+	                GetLocation(GetAddress);
+                	PrintDate();                	
+            		GetMessages();
+				}
 					
                 function GenerateReportUrl()
                 {
@@ -214,6 +214,7 @@
 					else if (form.id=='reportForm')
 					{
 						CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
+						RefreshReportPage();
 						
 					}
 					else if (form.id=='activationWaitForm')
@@ -398,8 +399,8 @@
                 }
 				function AddContact()
 				{
-					number=document.getElementById('contactNumber').value;
-					if (isNumber(number))
+					var number=document.getElementById('contactNumber').value;
+					if (isNumber(number) && number.length < 15 && number.length>9)
 					{
 						name=document.getElementById('contactName').value;
 						if (name.indexOf('/') == -1)
@@ -571,7 +572,6 @@
 				
                 function capturePhoto() 
                 {
-
                       // Take picture using device camera and retrieve image as base64-encoded string
                       navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
                         destinationType: destinationType.DATA_URL });
@@ -640,18 +640,15 @@
                 }
                 //************ end of auto adjusting text box
 
-                //************ beginning location functions
-        
-                             
+                //************ beginning location functions          
                 function GetAddress(position)
                 {
                 	
-                    lat = parseFloat(position.coords.latitude);
-                    lng = parseFloat(position.coords.longitude);
-                    lastCenter = new google.maps.LatLng(lat, lng);
-                    //littlespinner = new Spinner(bigSpinnerOpts).spin(document.body,500);
+                    var lat = parseFloat(position.coords.latitude);
+                    var lng = parseFloat(position.coords.longitude);
+                    var pos = new google.maps.LatLng(lat, lng);
                     
-                    CoordinatesToStrings(lastCenter);      	
+                    CoordinatesToStrings(pos,'addressBar');      	
                 }
                 
                 function onError(error) 
@@ -659,39 +656,22 @@
                     alert(        'Sending location failed\n'        +
                                     'code: '    + error.code    + '\n' +
                                   'message: ' + error.message + '\n');
-                                  
-                                   
+                   	transitionSpinner.stop();
+                 
                 }      
                   
                 function GetLocation(functionWhenSuccess)
-                {
-						
-                    	navigator.geolocation.getCurrentPosition(functionWhenSuccess, onError);
-      
+                {		
+                	navigator.geolocation.getCurrentPosition(functionWhenSuccess, onError);
                 }
-                
-                function ChangeToMapPage()
-                {
-                	window.location.replace('MapPage.html');	
-                }
-                
+
                 function ViewLocationOnMap()
                 {
-                    //spinner = new Spinner(bigSpinnerOpts).spin(document.getElementById('reportPage'));  
-                    GetLocation(ShowMap,onError);  
-                                          
+                	transitionSpinner=new Spinner(transitionSpinnerOpts).spin(document.body);
+                    GetLocation(ShowMap,onError);                                          
                 }
                 
-				function CloseMap()
-				{
-                    var lat = marker.getPosition().lat();
-                    var lng = marker.getPosition().lng();
 
-                    lastCenter = new google.maps.LatLng(lat, lng);
-
-					window.location.replace('MainPage.html');
-					CoordinatesToStrings(lastCenter);
-				}
 				
                 function ShowMap(position)
                 {
@@ -713,7 +693,7 @@
                     //google.maps.event.trigger(map, 'resize');                   
 	                ToggleMap();
 	                AddMarkerByCoordinates(lastCenter);
-	                //spinner.stop();
+					transitionSpinner.stop();
                 }
                 
                 function AddMarkerByCoordinates(latlng)
@@ -754,18 +734,22 @@
                         lastCenter = new google.maps.LatLng(lat, lng);
                         
 						
-                        CoordinatesToStrings(lastCenter);
+                        CoordinatesToStrings(lastCenter,'addressBar');
                     }
                         
                 }
 				
-                function CoordinatesToStrings(latlng)
+                function CoordinatesToStrings(latlng,target)
                 {
 						
                         geocoder = new google.maps.Geocoder();
                         geocoder.geocode({'latLng': latlng}, 
                                         function(results, status) 
                                         {
+                        	                var city = "";
+							                var street = "";  
+							                var streetNum = "";
+							                address="";
                                                   
                                             if (status == google.maps.GeocoderStatus.OK) 
                                             {
@@ -792,33 +776,8 @@
                                                                     
                                                             }
                                                 		}
-                                                		
-                                                		addressBar=document.getElementById("addressBar");
-                                        
-											            if (street!="")
-											            {
-											                addressBar.innerHTML=street;
-											                if (streetNum!="")
-											                {
-											                	addressBar.innerHTML+=" " + streetNum;
-											                }
-											                if (city!="")
-											                {
-											                    addressBar.innerHTML+=", " + city;
-											                }
-											            
-											            }
-											            else
-											            {
-											                if (city!="")
-											                {
-											                    addressBar.innerHTML=city;
-											                }
-											                else
-											                {
-											                	addressBar.innerHTML+="Unknown location <br/>";
-											            	}
-											            }		
+														address=street + ' ' + streetNum + ', ' +  city;
+															
                                     
                                                     }
                                                     else 
@@ -831,7 +790,20 @@
                                                     alert("Error: " + status);
                                                 }
                                                 
-                                                
+                                        		if (!(target===undefined))
+                                        		{
+                                        			if (address!='')
+                                        			{
+	                                        			targetId=document.getElementById(target);
+	                                        			targetId.innerHTML=address;
+	                                        		}
+	                                        		else
+	                                        		{
+	                                        			targetId.innerHTML='Uknown location';
+	                                        			
+	                                        		}
+                                        		}
+                                        
                                           });                                  				
                           // littlespinner.stop();               
 				}
@@ -1396,9 +1368,11 @@
 				function SendComment(msgNum,textAreaId)
 				{
 					var message=document.getElementById(textAreaId).value;
-					GenereteSendingCommentUrl(message,msgNum);
-					//document.body.innerHTML += url;
-					SendUrl(commentForm);
+					if (message!='')	//if message is not empty
+					{
+						GenereteSendingCommentUrl(message,msgNum);
+						SendUrl(commentForm);
+					}
 					
 				}
 				
@@ -1419,7 +1393,6 @@
         		
                 function FirstLoad()
                 {
-            		firstIframeLoad=false;
                 	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
 	                GetLocation(GetAddress);
 	                
