@@ -8,11 +8,20 @@
 	var i;
 	var serverNum=7;
 	var userId;
+	
+	var localHostDom='http://localhost';
+	var hostDom="http://62.0.66.";
+	var port='8080';
+	
+	var currnetHost=hostDom+serverNum+':'+port;
+	//var currnetHost='http://localhost';
+	
 	var url;
 	var actionResult;
 	var enlarged;
 	var openCommentBoxId='';
 	var firstLoadActivationCheck=true;
+	
 	
 	var commentForm;
 	var regPageForm;
@@ -24,7 +33,6 @@
 	var contactsCounter=0;
 	var myUser;
 	var myUserSpan;
-	var address;
 	
     var pictureSource;   // picture source
     var destinationType; // sets the format of returned value
@@ -82,7 +90,7 @@
     
     function GenerateGetMessagesUrl()
     {
-    	url="http://62.0.66." + serverNum +":8080/getOnlineMessagesLogin.do?";
+    	url=currnetHost+ "/getOnlineMessagesLogin.do?";
     	
     	url=AddParmameterToURL(url,'phoneNum',userId);
     	url=AddParmameterToURL(url,'pin',userId);
@@ -94,7 +102,7 @@
 
 	function GenerateRegUrl()
 	{
-		url="http://62.0.66." + serverNum +":8080/addCivilianAgent.do?";
+		url=currnetHost + "/addCivilianAgent.do?";
 		
 		var dob=document.getElementById('picker').value;
 		var gender;
@@ -115,17 +123,29 @@
 		url = url.substring(0, url.length - 1); //remove last ampersand
 	}
 	
+	
+	function SendLocationToPolice(position)
+	{
+		//GenerateSOSUrl(position);
+        var lat = parseFloat(position.coords.latitude);
+        var lng = parseFloat(position.coords.longitude);
+        var pos = new google.maps.LatLng(lat, lng);
+        GenerateSOSUrl(pos);
+        CoordinatesToStrings(pos);
+        
+		
+	}
 
 	
-	function GenerateSOSUrl(position)
+	function GenerateSOSUrl(latlng)
 	{  	
-		
+		console.log('GenerateSOSUrl');
 		var mifgaNum=GenerateMifgaNum();
 		var now=new Date();
-		var locationStr=position.coords.latitude.toString() + '|' + position.coords.longitude.toString();
+        var locationStr=latlng.lat() + '|' + latlng.lng();                       
+           
 		
-		var addressUnicode= UnicodeString(address);
-		url="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do?";
+		url=currnetHost + "/addMifgaLoginJ2ME.do?";
 		
 		url=AddParmameterToURL(url,'mifgaNum',mifgaNum);
 		url=AddParmameterToURL(url,'time',now.getTime());
@@ -139,12 +159,12 @@
 		url=AddParmameterToURL(url,'acc','1');
 		url=AddParmameterToURL(url,'viewNum','1');
 		url=AddParmameterToURL(url,'phoneNum',userId);
-		url=AddParmameterToURL(url,'pin',userId);
-		url=AddParmameterToURL(url,'gf2',addressUnicode);
+		url=AddParmameterToURL(url,'pin',userId);		
 		url=AddParmameterToURL(url,'gf1',phoneNumber);
 		url=AddParmameterToURL(url,'type','1');
 		
-		url = url.substring(0, url.length - 1); //remove last ampersand
+		//url=AddParmameterToURL(url,'gf2',addressUnicode);
+		//url = url.substring(0, url.length - 1); //remove last ampersand
 		
 	}
 	
@@ -157,6 +177,7 @@
 		
     function GenerateReportUrl()
     {
+    	console.log('GenerateReportUrl');
 		var crimeTimeMilisec=$('#scroller').mobiscroll('getDate').getTime();
 		var mifgaNum=GenerateMifgaNum();
 		var now=new Date();
@@ -167,7 +188,7 @@
 		var unicodeStr=UnicodeString(utf8Str);
 	
 		
-		url="http://62.0.66." + serverNum +":8080/addMifgaLoginJ2ME.do?";
+		url=currnetHost + "/addMifgaLoginJ2ME.do?";
 		
 		url=AddParmameterToURL(url,'mifgaNum',mifgaNum);
 		url=AddParmameterToURL(url,'subjectId',document.getElementById('subjectId').value);
@@ -195,6 +216,7 @@
 
 	function SendUrl(form)
 	{
+		console.log(url);
 		form.style.opacity='0.5';
 		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 		uploadIframe.onload=function() {GetActionResult(form);};
@@ -504,12 +526,6 @@
 	
 		ChangeButtonToNormal();
 
-	}
-	
-	function SendLocationToPolice(position)
-	{
-		GenerateSOSUrl(position);
-		SendUrl(SOSForm);
 	}
 
 	
@@ -823,11 +839,15 @@
                             		}
                             		else
                             		{
-                            			address=addressStr;
+                            			var addressUnicode= UnicodeString(addressStr);
+                            			
+                            			url=AddParmameterToURL(url,'gf2',addressUnicode);
+										url = url.substring(0, url.length - 1); //remove last ampersand
+										
+										SendUrl(SOSForm);
                             		}
                             
-                              });                                  				
-              // littlespinner.stop();               
+                              });                                  				          
 	}
                         
     //************ end of location functions
@@ -1192,7 +1212,7 @@
 	}
 	function GenerateCheckActivationUrl()
 	{
-		url="http://62.0.66." + serverNum +":8080/checkAgentActivation.do?";
+		url=currnetHost + "/checkAgentActivation.do?";
 		url+='agentId='+localStorage.getItem('userId');
 	}			
 

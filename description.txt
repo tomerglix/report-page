@@ -22,3 +22,7 @@ comments time						c
 
 add bubble when phone is not valid
 camera options menu
+
+push notifications
+
+bonus: slide page effect
