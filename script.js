@@ -1,4 +1,4 @@
-	var debugMode=false;
+	var debugMode=true;
 	var map;
     var marker;
     var lastCenter="";
@@ -676,9 +676,9 @@
     	
         var lat = parseFloat(position.coords.latitude);
         var lng = parseFloat(position.coords.longitude);
-        var pos = new google.maps.LatLng(lat, lng);
+        lastCenter = new google.maps.LatLng(lat, lng);
         
-        CoordinatesToStrings(pos,'addressBar');      	
+        CoordinatesToStrings(lastCenter,'addressBar');      	
     }
     
     function onError(error) 
