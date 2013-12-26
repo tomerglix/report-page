@@ -228,6 +228,7 @@
 		{
 			CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
 			RefreshReportPage();
+			transitionSpinner.stop();
 			
 		}
 		else if (form.id=='activationWaitForm')
@@ -791,7 +792,10 @@
                                                 }
                                     		}
 											addressStr=street + ' ' + streetNum + ', ' +  city;
-												
+											if (street=='')
+											{
+												addressStr=city;
+											}	
                         
                                         }
                                         else 
@@ -809,7 +813,7 @@
                             			if (addressStr!='')
                             			{
                                 			targetId=document.getElementById(target);
-                                			targetId.innerHTML=address;
+                                			targetId.innerHTML=addressStr;
                                 		}
                                 		else
                                 		{
