@@ -1,4 +1,4 @@
-	var debugMode=true;
+	var debugMode=false;
 	var map;
     var marker;
     var lastCenter="";
@@ -8,6 +8,7 @@
 	var i;
 	var serverNum=7;
 	var userId;
+	var mifgaNum;
 	
 	var localHostDom='http://localhost';
 	var hostDom="http://62.0.66.";
@@ -37,7 +38,8 @@
     var pictureSource;   // picture source
     var destinationType; // sets the format of returned value
 	var photoCounter=0;
-	var maxPhotos=3;				
+	var maxPhotos=3;
+	var photos=new Array(3);			
 
 	var highlightedTab='SOSTab';
 	var currentPage='SOSPage';            	            	
@@ -87,7 +89,22 @@
 		button=document.getElementById("SOSButton");
 		button.src='./images/btn_sos_normal.png';		    	
     }
-    
+
+	function GeneratePicSendUrl(index)
+	{
+		url=currnetHost+ "/storeMifgaPicPhoneGap.do?";
+		var reportNum=mifgaNum + '_' +  index;
+		
+    	url=AddParmameterToURL(url,'phoneNum',userId);
+    	url=AddParmameterToURL(url,'pin',userId);
+    	url=AddParmameterToURL(url,'ip',userId);
+    	url=AddParmameterToURL(url,'base64Pic',photos[0]);
+    	url=AddParmameterToURL(url,'reportNum',reportNum);
+    	
+    	
+    	url = url.substring(0, url.length - 1); //remove last ampersand
+	}
+	    
     function GenerateGetMessagesUrl()
     {
     	url=currnetHost+ "/getOnlineMessagesLogin.do?";
@@ -140,7 +157,7 @@
 	function GenerateSOSUrl(latlng)
 	{  	
 		console.log('GenerateSOSUrl');
-		var mifgaNum=GenerateMifgaNum();
+		mifgaNum=GenerateMifgaNum();
 		var now=new Date();
         var locationStr=latlng.lat() + '|' + latlng.lng();                       
            
@@ -179,7 +196,7 @@
     {
     	console.log('GenerateReportUrl');
 		var crimeTimeMilisec=$('#scroller').mobiscroll('getDate').getTime();
-		var mifgaNum=GenerateMifgaNum();
+		mifgaNum=GenerateMifgaNum();
 		var now=new Date();
 		var locationStr=lastCenter.lat().toString() + '|' + lastCenter.lng().toString();
 		var address=document.getElementById('addressBar').innerHTML;
@@ -615,7 +632,8 @@
 		smallImage.src = "data:image/jpeg;base64," + imageData;
 		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
         photoSection.appendChild(smallImage);
-
+		
+		photos[photoCounter]=imageData;
         ++photoCounter;
                         	
 
@@ -1588,6 +1606,9 @@
 		return timeStr;
 						
 	}
+	
+	
+
  
 /******************** storage format *****************************
 /*
