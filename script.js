@@ -265,9 +265,10 @@
 		}
 		else if (form.id=='reportForm')
 		{
+			transitionSpinner.stop();
 			CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
 			RefreshReportPage();
-			transitionSpinner.stop();
+			
 			
 		}
 		else if (form.id=='activationWaitForm')
