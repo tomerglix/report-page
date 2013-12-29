@@ -267,9 +267,9 @@
 		}
 		else if (form.id=='reportForm')
 		{
-			transitionSpinner.stop();
+			//transitionSpinner.stop();
 			CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
-			RefreshReportPage();
+			//RefreshReportPage();
 			
 			
 		}
