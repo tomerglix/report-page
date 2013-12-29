@@ -51,7 +51,7 @@
 					}
 					if (debugMode==true)
 					{
-						localStorage.setItem('userStatus',3);
+						localStorage.setItem('userStatus',1);
 					}
 					
 					switch (localStorage.getItem('userStatus'))
@@ -63,7 +63,8 @@
 						}
 						case '2':
 						{
-							window.location.replace('WaitForActivation.html');
+							//window.location.replace('WaitForActivation.html');
+							window.location.replace('test.html');
 							break;
 						}
 						case '3':

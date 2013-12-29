@@ -26,3 +26,5 @@ camera options menu
 push notifications
 
 bonus: slide page effect
+
+trying to fix buttons

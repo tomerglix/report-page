@@ -93,8 +93,7 @@
 								</table>	
 								<div id="addbutton" style="display: inline; " >
 									<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField','table'); ToggleDisplay('addbutton','inline'); return false"  />
-								</div>	
-								<input  style="width:100%" type="submit" id="OKButton" class="submitButtonStyle" onclick="CheckActivation();" value="OK" /> 	
+								</div>		
 							</div>
 	
 					</form>
@@ -212,7 +211,7 @@
                     	</div>					    
                     </form>
 					<form id="picForm" target='uploadIframe' method="post" >
-					</form>                		
+					</form>                    		
             </div>
 <!----------------------------------------- end of report section -------------------------------------->    
        
@@ -227,81 +226,10 @@
 								
 						</div>
 					</form>
-												<div>							
-								<input class="submitButtonStyle" type="submit" value="baa" style="width: 100%;"  onclick="Register();  return false" />
-							</div>
 			</div>
 
 <!----------------------------------------- end of messages section -------------------------------------->         
-      	<!--<form id="regPageForm" target='uploadIframe' method="post">
-				<div id="registrationPage"  class="pageWrap" style="padding-top: 0;">
-					<div id="registrationWrap" class="sectionWrap" >					
-						<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >Registration</h1>
-						
-						<div id="phoneNumberSection">
-							<p  class="headerDecoration">Phone Number</p>
-							<img id="numberAttention" src="./images/attention.png" class="attentionIcon" onclick="ShowBubble('numberBubble',phoneNumberError); return false">
-							<input type="tel" id="phoneNumber"  maxlength="15" class="regInputBox" placeholder=""  onfocus="HighLightUL('phoneNumberUL'); HideElement('numberAttention');" onblur="DeHighLightUL('phoneNumberUL'); ValidatePhone()"  />
-							
-							<div id="phoneNumberUL" class="textEditUnderLine">
-								
-							</div>
-							<div id="numberBubble" class="bubble" style="float:right; display: none" >
-								
-							</div>
-						</div>
-						
-						<div id="emailSection">
-							<p  class="headerDecoration">Email</p>
-							<img id="emailAttention" src="./images/attention.png" class="attentionIcon" onclick="ShowBubble('emailBubble',emailError); return false" >
-							<input type="email" id="email"  class="regInputBox" placeholder="" onfocus="HighLightUL('emailUL');  HideElement('emailAttention');" onblur="DeHighLightUL('emailUL'); EmailValidation()"  />
-							
-							<div id="emailUL" class="textEditUnderLine">
-								
-							</div>
-							<div id="emailBubble" class="bubble" style="float:right; display: none">
-								
-							</div>
-						</div>
-						
-						<div id="dateSection">
-							<p  class="headerDecoration">Birth Date</p>
-							<img id="dateAttention" src="./images/attention.png" class="attentionIcon" onclick="ShowBubble('dateBubble',birthDateError); return false"  >
-							<input id="picker" name="picker" class="roboto regInputBox" placeholder="" style="width:100%; border:none; font-size: 120%; color:black" onchange="CheckDate()"  />
-	
-							<div id="dateUL" class="textEditUnderLine">
-								
-							</div>
-							<div id="dateBubble" class="bubble" style="float:right; display: none">
-								
-							</div>
-						</div>
-						
-						<div id="sexSection">
-							<p  class="headerDecoration">Sex</p>
-							<input type="radio" name="sex" value="Male" checked>Male
-							<input type="radio" name="sex" value="Female">Female
-	
-						</div>
-	
-						<div id="termsSection">
-							<p  class="headerDecoration">Terms and Conditions</p>
-							<p style="color: #444444; padding: 10px">
-								El presente aplicativo celular es brindado a la población en forma gratuita por la empresa Pele System, como servicio a la comunidad para el envío de denuncias y alertas S.O.S. al Centro de Control de Alto al Crimen, que contribuyan a  la prevención y tratamiento de emergencias y  hechos delictivos. <br/> Pele System y Alto al Crimen no  serán responsables por  defectos o mal funcionamiento del aplicativo ni por el daño directo, indirecto, incidental o consecuente o  daño resultante de la pérdida de uso o pérdida de beneficios esperados como resultado de una avería en la aplicación.  <br/>La aplicación soporta la asociación de hasta 3 fotos por evento.  <br/>El aplicativo es operado con señal celular,  por lo cual en caso de producirse fallas en trasmisión de datos del proveedor celular,  es posible que estos datos no sean  recepcionados por el Centro de Control de Alto al Crimen.  <br/>El aplicativo S.O.S. Alto al Crimen  no reemplaza las tradicionales vías de contacto con  los servicios oficiales de seguridad y  emergencia, mediante  los cuales el ciudadano deberá acudir en caso necesario.  <br/>La activación del botón de S.O.S  producirá el envío de un mensaje de alerta al círculo de contactos definido por el usuario como destinatarios  para recibir la alerta por SMS.  Los SMS tendrán el costo de un mensaje de texto normal y serán a cargo del usuario de la aplicación S.O.S.
-							</p>
-							<input id="termsCheck" type="checkbox" name="agree" value="agree" style="margin-bottom: 10px;" onclick="ShowRegButton();"><span id="checkBoxText" onclick="ToggleCheck(); ShowRegButton(); return false"> I agree to the terms and conditions</span>
-						-->
-						<div id="bapage" class="pageWrap" >
-							<div>							
-								<input class="submitButtonStyle" type="submit" value="Register" style="width: 100%;"  onclick="Register();  return false" />
-							</div>
-						</div>
-					<!--	</div>
-					
-					</div>
-			
-				</div>
-			</form>	     -->
+     
 			<script type="text/javascript" charset="UTF-8" >
 					               	
 					$(".autoResizeTextBox").keyup(function (e) 
@@ -334,8 +262,8 @@
 	          			.on("touchstart", ChangeButtonToPressed)
 						.on("touchend", ChangeButtonToNormal);
 						
-						$('#bapage').on('swipeleft', function(e){});
-
+						
+						
 					$('#SOSPage').on('swipeleft', function(e){ChangePage('reportPage','reportPageTab');})
 					.on('swiperight', function(e){ChangePage('messagesPage','messagesTab');});
 					
@@ -362,53 +290,7 @@
 						}
 					});	
 					
-				function OnRegLoad()
-				{
-					regPageForm=document.getElementById('regPageForm');
-					uploadIframe=document.getElementById('uploadIframe');					
-				}
-								
-				var dateChecker=false;
-        		$(function(){
-        			d=new Date('1990','0','1');
-				    // create a datetimepicker with default settings
-				    $("#picker").mobiscroll().date({
-					  theme: 'android-ics light',
-					    display: 'modal',
-					    animate: 'pop',
-					    mode: 'mixed',
-					    // 2013-03-15 11:26:17
-					    dateFormat: 'dd-mm-yy',
-						defaultValue: d,
-						onShow: function(html,inst){document.getElementById('dateAttention').style.display='none';},
-						onClose: function(html,inst) {dateChecker=true;},
-						onCancel: function(html,inst) {CheckDate();}
-		
-					}); // Shorthand for: $("#scroller").mobiscroll({ preset: 'datetime' });
 
-			
-				});
-				$(document).mouseup(function (e)
-				{
-				    var container = $(".bubble");
-				
-				    if (!container.is(e.target) // if the target of the click isn't the container...
-				        && container.has(e.target).length === 0) // ... nor a descendant of the container
-				    {
-				        $('.bubble').slideUp();
-				    }
-				    
-					if (dateChecker==true)
-					{
-					    container=$("#dateSection");
-    				    if (!container.is(e.target) // if the target of the click isn't the container...
-					        && container.has(e.target).length === 0) // ... nor a descendant of the container
-					    {
-					        CheckDate();
-					        dateChecker=false;
-					    }
-				   	}
-				});
 			</script>
 			
         </body>

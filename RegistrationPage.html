@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <head>
+        
         <!--cordova (phonegap api)-->   
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
         <!--google maps api--> 
@@ -34,12 +35,17 @@
      	<script src="jquery.mobile-events.js"></script>
      	<link rel="stylesheet" type="text/css" href="style.css">
         <script type="text/javascript" charset="UTF-8" src="script.js" ></script>  
-   			             
-        <title>Main Page</title>
+               
+        <title>Registration</title>
+        
+        <style>
+
+			
+        </style>
 </head>
 
 <html >
-        <body onload=" FirstLoad();" style="height: 100%; background-color:#f3f3f3" >
+        <body  style="height: 100%; background-color:#f3f3f3" onload="OnRegLoad()" >
         	<form id="regPageForm" target='uploadIframe' method="post">
 				<div id="registrationPage"  class="pageWrap" style="padding-top: 0;">
 					<div id="registrationWrap" class="sectionWrap" >					
@@ -114,6 +120,8 @@
 					regPageForm=document.getElementById('regPageForm');
 					uploadIframe=document.getElementById('uploadIframe');					
 				}
+				
+				$('#registrationPage').on('swipeleft', function(e){});
 								
 				var dateChecker=false;
         		$(function(){
@@ -158,6 +166,6 @@
 				});
 				
         	</script>	
-			
         </body>
+
 </html>
