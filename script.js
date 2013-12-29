@@ -16,7 +16,7 @@
 	var port='8080';
 	
 	//var currnetHost=hostDom+serverNum+':'+port;
-	var currnetHost='http://localhost';
+	var currnetHost=localHostDom;
 	
 	var url;
 	var actionResult;
