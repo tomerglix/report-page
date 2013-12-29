@@ -14,8 +14,8 @@
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	
-	var currnetHost=hostDom+serverNum+':'+port;
-	//var currnetHost='http://localhost';
+	//var currnetHost=hostDom+serverNum+':'+port;
+	var currnetHost='http://localhost';
 	
 	var url;
 	var actionResult;
@@ -103,7 +103,7 @@
     	
     	
     	url = url.substring(0, url.length - 1); //remove last ampersand
-    	alert(url);
+    	//alert(url);
 	}
 	    
     function GenerateGetMessagesUrl()
@@ -636,7 +636,7 @@
         photoSection.appendChild(smallImage);
 		
 		photos[photoCounter]=imageData;
-		alert('imageData: ' + photos[photoCounter]);
+		//alert('imageData: ' + photos[photoCounter]);
         ++photoCounter;
                         	
 
@@ -651,6 +651,7 @@
 		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
         photoSection.appendChild(smallImage);
 
+		photos[photoCounter]=imageURI;
         ++photoCounter;
 
 	}
