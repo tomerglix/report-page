@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<head>  
+<head>
+        
         <!--cordova (phonegap api)-->   
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
         <!--google maps api--> 
@@ -38,26 +39,197 @@
 </head>
 
 <html>
-        <!--<body onload="WaitForActivationOnLoad(); " style="height: 100%; background-color:#f3f3f3" >-->
-        	<body  style="height: 100%; background-color:#f3f3f3" >
-			<!--<form id='activationWaitForm' target='uploadIframe' method="post">
-				<div class="pageWrap" style="padding-top: 0;">
-					<div class="sectionWrap">
-					
-						<iframe id='uploadIframe' style="display: none"> </iframe>
-						<p  class="headerDecoration">ACTIVACION DE CUENTA</p>
-						<p class='robo' style="color: #444444; padding: 10px">
-							Gracias por registrarse. El proceso está casi completo. <br/><br/> Para activar su cuenta por favor siga las instrucciones del e-mail que se le ha enviado a su casilla de correo electrónico.<br/><br/>Si no encuentra el correo en su bandeja de entrada consulte la carpeta de Spam.
-						</p>-->
-						<div id="OKButton">
-							<input  class="submitButtonStyle" type="submit" value="OK" style="width:100%"  onclick="CheckActivation();"  /> 
-						</div>				
-					<!--</div>
+        <body onload="WaitForActivationOnLoad(); " style="height: 100%; background-color:#f3f3f3" >
+        <body onload=" FirstLoad();" style="height: 100%; background-color:#f3f3f3" >
+        	<button id='closeMapButton' class="center" onclick='ToggleMap()'  style="display:none; position: absolute; z-index: 100; top:0;" >Close map</button>
+            <div id="mapDisplay" style="display: none;">
+                                    
+            </div>
+            
+			<div id="topMenu" style="width: 100%; position: fixed; border-bottom: solid #f3f3f3 8px; background-color: #0099CC; z-index: 100">
+				<ul style="width: 100%; " class="navBar">
+					<li onclick="ChangePage('SOSPage','SOSTab'); return false;" class="navTab" >
+						 <a id="SOSTab" class="tab" href="#"> SOS </a> 
+					</li>
+					<li style="width: 34%;"  class="middleTab navTab" onclick="ChangePage('reportPage','reportPageTab'); return false;" >
+						  <a id="reportPageTab"  class="tab " href="#" > Report </a>  
+					</li>
+					<li onclick="ChangePage('messagesPage','messagesTab'); return false;" class="navTab">
+						  <a id="messagesTab"   class="tab" href="#"> Messages </a> 
+					</li>
+				</ul>
+			</div>
+<!---------------------------------  sos section ---------------------------------->
+			<div id="SOSPage"  class="pageWrap" >
+				<div id="SOSWrap" class="sectionWrap">
+					<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >Send SOS</h1>
+					<form id="SOSForm" target='uploadIframe' method="post" > 
+							<iframe id='uploadIframe' style="display: none"> </iframe>
+							<div id="buttonSection" class="center" style="height: 60%; width:100%; margin-top: 10px">
+								<img id="SOSButton" src='./images/btn_sos_normal.png' />
+							</div>
+									
+							<div id="pressLongMessage" class="center" align="center" style="opacity: 0;">
+								<span style="display: inline-block;padding: 3px;background: black; color: white; border-radius: 4px; margin-top:3px; ">Hold button to send SOS</span>
+							</div>
+							<div id="contactsSection" >
+								<p class="headerDecoration" style="margin-bottom: 7px; margin-top: 0px;">Contacts Circle</p>
+								
+		
+								<table id="contactsList" style='font-size: 120%; width:100% ;'>
+	
+								</table>
+	
+								<table border="0" id='addingContactField' style='display:none; font-size: 100%; width:100%' >
+									<tr>
+										<td style="width:5%" class="center"><img src="./images/x.png" class="icons" onclick="CancelAdding(); return false" style="float: none; padding-top:7px;"></td>
+										<td style="width:45%">
+												<input type="text" id="contactName" class="inputBox" placeholder="Name" />	
+										</td>
+										<td style="width:45%">
+												<input type="tel" id="contactNumber"  class="inputBox" placeholder="Number" />	
+										</td>
+										<td style="width:5%" class="center"><img src="./images/plus.png"  class="icons" onclick="AddContact(); return false "   style="float: none; padding-top:7px;">	</td>
+									</tr>
+								</table>	
+								<div id="addbutton" style="display: inline; " >
+									<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField','table'); ToggleDisplay('addbutton','inline'); return false"  />
+								</div>		
+							</div>
+	
+					</form>
 				</div>
-			</form>     -->
-						<div id="addbutton" style="display: inline; " >
-							<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField','table'); ToggleDisplay('addbutton','inline'); return false"  />
-						</div>	
+			</div>
+<!---------------------------------  end of sos section ---------------------------------->
+
+<!---------------------------------  report section ---------------------------------->
+            <div id="reportPage" class="pageWrap" style="display: none;">
+            	
+                   	<form id="reportForm" target='uploadIframe' method="post">
+ 		
+                    	<div  class="sectionWrap" style="margin-bottom: 10px; ">
+
+                            <div id="reportData">                        		  
+                        		  <!--main page header-->
+                       			  <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none"> Report Crime </h1>                                                              
+                                   
+                                   
+                                   <!--crime type section-->      
+                                  <div id="crimeType" class="section">                                                                                                                                                       
+                                          <div id="crimeTypeHeader">
+                                                  <p  class="headerDecoration">Type</p>
+                                          </div>
+                                          <div id="crimeTypeSelection" >
+                                                <select  name="subjectId" id="subjectId" style=" margin-bottom:0; font-size: 100%; position:inherit; padding: 4px;" class="dropdown" >
+                                                    <option value="1">Venta Ilegal de Pirotecnicos</option>
+                                                    <option value="2">Riesgo en Defensa Civil en Locales Comerciales</option>
+                                                    <option value="3">Venta de Juguetes Toxicos</option>
+                                                    <option value="4">Narcotráfico</option>
+                                                    <option value="5">Terrorismo</option>
+                                                    <option value="6">Secuestro</option>
+                                                    <option value="7">Homicidio</option>
+                                                    <option value="8">Pandillaje</option>
+                                                    <option value="9">Violencia familiar</option>
+                                                    <option value="10">Estafa</option>
+                                                    <option value="11">Robo de Vehículos</option>
+                                                    <option value="12">Corrupción</option>
+                                                    <option value="13">Violación</option>
+                                                    <option value="14">Robo de Casas</option>
+                                                    <option value="15">Marcas – Robo a mano armada</option>
+                                                    <option value="16">Ordenamiento vial</option>
+                                                    <option value="17">Envía Placa</option>
+                                                    <option value="18">Otros</option>
+                                                </select>
+                                          </div>
+                                  
+                                  </div>
+
+                        		 <!--crime description section-->                                   
+                                  <div id="crimeDescription" class="section">
+                                          <div id="crimeDescriptionHeader">
+                                                  <p  class="headerDecoration" >Description</p>
+                                          </div>
+                                          <div id="crimeDescriptionBox" class="robo">
+                                                  <textarea  id="descriptionBox" name="comment"  style=" display: block" class="autoResizeTextBox" onfocus="HighLightUL('crimeDescriptionUL')" onblur="DeHighLightUL('crimeDescriptionUL')"></textarea> 
+                                          </div>
+                                          <div id="crimeDescriptionUL" class="textEditUnderLine">
+                                          </div>
+                                  </div>
+    
+    								<!--crime location section-->
+                                  <div id="crimeLocation" class="section">                                                                                        
+                                          <div id="crimeLocationHeader">
+                                                  <p  class="headerDecoration">Location</p>
+                                          </div>
+                                          
+                                          <div id="crimeLocationData"  onclick="ViewLocationOnMap();" >
+												<img src="./images/map-pin.png" class="icons" >
+												<div id="addressBar" class="robo">
+													<br/>						 
+												</div>  
+												        
+                                          </div>
+                                  </div>
+    
+    								 <!--crime date section-->
+                                  <div id="crimeDate" class="section" >                                                                                                                                                       
+                                          <div id="crimeDateHeader" >
+                                                  <p  class="headerDecoration">Date &amp; Hour</p>
+                                          </div>
+                                          <div id="crimeDateData">
+												<div id="datetimepicker" >
+													<img src="./images/calendar.png" class="icons">
+													<input id="scroller" name="ex221" class="roboto" style=" border:none; font-size: 100%"  />
+										            									       
+												</div>
+												  
+                                          </div>
+                                  </div>
+                                  
+                                  <!--crime photos section-->    
+                                  <div id="crimePhotos" class="section">                                                                                       
+                                        <div id="crimePhotosHeader">
+                      						<p  class="headerDecoration">Photos</p>
+                                        </div>
+                               			<div id="crimePhotoAddButtons" onclick="TogglePhotoButtons(); return false" style="display: inline;">
+                     						<img src="./images/camera.png" class="icons"  >         
+                             			</div>
+                                        <div id="addPhotoButtons" style="display:none; position: absolute; margin-left: 5px;" >
+                                                <button id="captureButton" class="littleButtonStyle" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons','inline'); return false"  >Capture Photo</button> 
+                                                <button id="fromLibButton" class="littleButtonStyle" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons','inline'); return false" >Photo Library</button>
+                                        </div>
+                                        <div id="photosSection" >
+                                                <br/> <br/> 
+                                        </div>
+								</div>
+
+                            </div>
+
+						</div>
+						
+                        <div id="submitReportButton" style="display: block; max-width:100%; margin:10px" >
+                            <input   style="width:100%" type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime(); return false;" value="Submit Crime" /> 
+                    	</div>					    
+                    </form>
+					<form id="picForm" target='uploadIframe' method="post" >
+					</form>                    		
+            </div>
+<!----------------------------------------- end of report section -------------------------------------->    
+       
+<!----------------------------------------- messages section -------------------------------------->                  
+			<div id="messagesPage"  class="pageWrap" style="display: none;">
+				
+					<form id="messagesForm" target='uploadIframe' method="post" >
+					</form>
+					<form id="commentForm"	target='uploadIframe' method="post" >
+						<div id="messagesSection" style="padding: 15px;">
+								
+								
+						</div>
+					</form>
+			</div>
+
+<!----------------------------------------- end of messages section -------------------------------------->         
 			
         </body>
 </html>
