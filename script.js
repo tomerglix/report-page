@@ -192,6 +192,7 @@
         GetLocation(GetAddress);
     	PrintDate();                	
 		GetMessages();
+		document.getElementById('descriptionBox').value='';
 	}
 		
     function GenerateReportUrl()
@@ -331,13 +332,15 @@
 			{	
 				transitionSpinner.stop();
 				alert(sendCommentSuccessStr);
+				commentRefreshSpinner.stop();
 				GetMessages();
 			}
 			else
 			{
-				alert(sendCommentFailStr);	
+				alert(sendCommentFailStr);
+				commentRefreshSpinner.stop();	
 			}
-			commentRefreshSpinner.stop();						
+									
 		}					
 		else if (form.id=='picForm')
 		{
