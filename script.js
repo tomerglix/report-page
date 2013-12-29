@@ -330,9 +330,8 @@
 			var res=parseInt(actionResult);
 			if (res==1)
 			{	
-				transitionSpinner.stop();
-				alert(sendCommentSuccessStr);
 				commentRefreshSpinner.stop();
+				alert(sendCommentSuccessStr);
 				GetMessages();
 			}
 			else
