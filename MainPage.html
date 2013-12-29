@@ -291,7 +291,7 @@
 							</p>
 							<input id="termsCheck" type="checkbox" name="agree" value="agree" style="margin-bottom: 10px;" onclick="ShowRegButton();"><span id="checkBoxText" onclick="ToggleCheck(); ShowRegButton(); return false"> I agree to the terms and conditions</span>
 						-->
-						<div class="pageWrap" >
+						<div id="bapage" class="pageWrap" >
 							<div>							
 								<input class="submitButtonStyle" type="submit" value="Register" style="width: 100%;"  onclick="Register();  return false" />
 							</div>
@@ -334,8 +334,8 @@
 	          			.on("touchstart", ChangeButtonToPressed)
 						.on("touchend", ChangeButtonToNormal);
 						
-						
-						
+						$('#bapage').on('swipeleft', function(e){});
+
 					$('#SOSPage').on('swipeleft', function(e){ChangePage('reportPage','reportPageTab');})
 					.on('swiperight', function(e){ChangePage('messagesPage','messagesTab');});
 					
