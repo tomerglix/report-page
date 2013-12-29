@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-<head>
-        
+<head>  
         <!--cordova (phonegap api)-->   
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
         <!--google maps api--> 
@@ -39,7 +38,8 @@
 </head>
 
 <html>
-        <body onload="WaitForActivationOnLoad(); " style="height: 100%; background-color:#f3f3f3" >
+        <!--<body onload="WaitForActivationOnLoad(); " style="height: 100%; background-color:#f3f3f3" >-->
+        	<body  style="height: 100%; background-color:#f3f3f3" >
 			<!--<form id='activationWaitForm' target='uploadIframe' method="post">
 				<div class="pageWrap" style="padding-top: 0;">
 					<div class="sectionWrap">
@@ -49,7 +49,9 @@
 						<p class='robo' style="color: #444444; padding: 10px">
 							Gracias por registrarse. El proceso está casi completo. <br/><br/> Para activar su cuenta por favor siga las instrucciones del e-mail que se le ha enviado a su casilla de correo electrónico.<br/><br/>Si no encuentra el correo en su bandeja de entrada consulte la carpeta de Spam.
 						</p>-->
-						<input  style="width:100%" type="submit" id="OKButton" class="submitButtonStyle" onclick="CheckActivation();" value="OK" /> 
+						<div id="OKButton">
+						<input  class="submitButtonStyle" type="submit" value="OK" style="width:100%"  onclick="CheckActivation();"  /> 
+						</div>				
 					<!--</div>
 				</div>
 			</form>     -->
