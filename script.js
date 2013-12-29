@@ -1467,9 +1467,9 @@
 		}
 		else
 		{
-        	email='tomerglix@gmail.com';
-        	phoneNumber='0502712252';
-        	userId='572297716';
+        	email='tomer@lola-tech.com';
+        	phoneNumber='99999999';
+        	userId='2101350';
         }
 
 		myUser=CutUserFromMail(email);
