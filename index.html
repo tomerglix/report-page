@@ -1,90 +1,51 @@
 <!DOCTYPE html>
 
-<head>
-        
-        <!--cordova (phonegap api)-->   
-        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-        <!--google maps api--> 
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>                 
-                
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-        <meta charset="utf-8">
+<head>  
 
-        <!--roboto font-->
-        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'> 
-                    
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>	
-
-        <!--date picker-->
-        
-	    <script src="js/mobiscroll.core.js"></script>
-	    <script src="js/mobiscroll.scroller.js" type="text/javascript"></script>	
-	    <script src="js/mobiscroll.datetime.js" type="text/javascript"></script>
-	    <script src="js/mobiscroll.select.js" type="text/javascript"></script>	
-	 	<script src="js/i18n/mobiscroll.i18n.es.js" type="text/javascript"></script>
-		<script src="js/mobiscroll.scroller.android-ics.js" type="text/javascript"></script>
-		<link href="css/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
-	    <link href="css/mobiscroll.scroller.android-ics.css" rel="stylesheet" type="text/css" />
-	    <link href="css/mobiscroll.animation.css" rel="stylesheet" type="text/css" /> 				
-
-	    
-        <!--progress spinner-->
-        <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="spinner.min.js"></script>
-  		<!-- general style-->
-     	<script src="jquery.mobile-events.js"></script>
      	<link rel="stylesheet" type="text/css" href="style.css">
-        <script type="text/javascript" charset="UTF-8" src="script.js" ></script>  
+     	<style>
+			.but 
+			{
+						 
+				
+			  	border-radius: 4px;
+			  	text-shadow: 1px 1px 0px #000000 !important;
+				
+			  	color: #ffffff;
+			  	font-size: 20px;
+			  	/*background: #3498db;*/
+			  	padding: 10px 20px 10px 20px;
+			  	border:none;
+			  	text-decoration: none;
+			  	-webkit-border-radius: 4px;
+				-moz-border-radius: 4px;
+
+				background:#0099CC;
+		
+		
+				
+		
+			}
+		
+			.but:active 
+			{
+
+				background:#FF8800;
+			  	text-decoration: none;
+			  	border: solid #cc0000 1px;
+			  	text-shadow: 1px 1px 0px #000000;
+			}
+	</style>
 </head>
 
-<html >
-        <body onload=" CheckRegStatus();" style="height: 100%;" >
-			
-     
-			<script type="text/javascript" charset="UTF-8" >
-				
-				function CheckRegStatus()
-				{
-					if (localStorage.getItem('userStatus')==null || localStorage.getItem('userStatus')===undefined || localStorage.getItem('userStatus')==='undefined')
-					{
-						localStorage.setItem('userStatus',1);
-					}
-					if (debugMode==true)
-					{
-						localStorage.setItem('userStatus',2);
-					}
-					
-					switch (localStorage.getItem('userStatus'))
-					{
-						case '1':
-						{
-							window.location.replace('RegistrationPage.html');
-							break;
-						}
-						case '2':
-						{
-							//window.location.replace('WaitForActivation.html');
-							window.location.replace('test.html');
-							break;
-						}
-						case '3':
-						{
-							window.location.replace('MainPage.html');
-							break;
-						}
-						default:
-						{
-							localStorage.setItem('userStatus',1);
-							window.location.replace('RegistrationPage.html');
-							break;
-						} 
+<html>
 
-					}
+        	<body >
 
-				}
-				
-	
-			</script>
+						<div id="OKButton">
+							<input  class="but" type="submit" value="OK" style="width:100%"    /> 
+						</div>				
+
 			
         </body>
 </html>
