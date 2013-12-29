@@ -24,7 +24,7 @@
 	var openCommentBoxId='';
 	var firstLoadActivationCheck=true;
 	
-	
+	var picForm;
 	var commentForm;
 	var regPageForm;
 	var SOSForm;
@@ -104,7 +104,6 @@
     	
     	
     	url = url.substring(0, url.length - 1); //remove last ampersand
-    	//alert(url);
 	}
 	    
     function GenerateGetMessagesUrl()
@@ -238,7 +237,6 @@
 		try
 		{
 			console.log(url);
-			alert(url);
 			form.style.opacity='0.5';
 			transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 			uploadIframe.onload=function() {GetActionResult(form);};
@@ -252,9 +250,7 @@
 	}
 	
 	function GetActionResult(form)
-	{		
-		alert(actionResult);
-		
+	{				
         if (uploadIframe.contentDocument) 
         {
             actionResult = uploadIframe.contentDocument.body.innerHTML;
@@ -273,15 +269,19 @@
 		if (form.id=='SOSForm')
 		{
 			CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
-			alert('sosform');
 		}
 		else if (form.id=='reportForm')
 		{
 			//transitionSpinner.stop();
-			CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
+			var res=CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
 			//RefreshReportPage();
-			
-			
+			if (res==true)
+			{
+				alert('sending pic');
+				GeneratePicSendUrl(0);
+				SendUrl(picForm);
+								
+			}			
 		}
 		else if (form.id=='activationWaitForm')
 		{
@@ -339,6 +339,10 @@
 				alert(sendCommentFailStr);	
 			}						
 		}					
+		else if (form.id=='picForm')
+		{
+			alert('action result: ' + actionResult);
+		}
 		else
 		{
 			alert('Unknown error');
@@ -1359,7 +1363,7 @@
 			userCommentBox.innerHTML+='<br/>';
 			tempId='textArea'+ msgId;
 			ulId='comUl'+ messageCounter;
-			userCommentBox.innerHTML+="<div class='msgCommentDiv'><textarea id=" + tempId +  " class='autoResizeTextBox' style='display:block; margin-top:5px;' onblur='DeHighLightUL("+'"' + ulId + '"' +");' onfocus='HighLightUL("+'"' + ulId + '"' +");'></textarea>"
+			userCommentBox.innerHTML+="<div class='msgCommentDiv'><textarea id=" + tempId +  " class='autoResizeTextBox' placeholder='Write a comment...' style='display:block; margin-top:5px;' onblur='DeHighLightUL("+'"' + ulId + '"' +");' onfocus='HighLightUL("+'"' + ulId + '"' +");'></textarea>"
 			 + "<div id=" + ulId + " class='textEditUnderLine' > </div></div>";
 			userCommentBox.innerHTML+="<button class='sendCommentButton' onclick='SendComment(" + msgId + "," + '"' +tempId +'"' + ")'>Send</button>";
 			
@@ -1469,7 +1473,8 @@
     	reportForm=document.getElementById('reportForm');
     	uploadIframe=document.getElementById('uploadIframe');
     	messagesSection=document.getElementById('messagesSection');
-
+		picForm=document.getElementById('picForm');
+		
 		if (debugMode==false)
 		{            	
 			phoneNumber=localStorage.getItem('phoneNum');
