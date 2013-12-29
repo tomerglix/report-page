@@ -253,7 +253,8 @@
 	
 	function GetActionResult(form)
 	{		
-
+		alert(actionResult);
+		
         if (uploadIframe.contentDocument) 
         {
             actionResult = uploadIframe.contentDocument.body.innerHTML;
