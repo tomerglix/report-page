@@ -40,7 +40,7 @@
 
 <html>
         <body onload="WaitForActivationOnLoad(); " style="height: 100%; background-color:#f3f3f3" >
-			<form id='activationWaitForm' target='uploadIframe' method="post">
+			<!--<form id='activationWaitForm' target='uploadIframe' method="post">
 				<div class="pageWrap" style="padding-top: 0;">
 					<div class="sectionWrap">
 					
@@ -48,14 +48,14 @@
 						<p  class="headerDecoration">ACTIVACION DE CUENTA</p>
 						<p class='robo' style="color: #444444; padding: 10px">
 							Gracias por registrarse. El proceso está casi completo. <br/><br/> Para activar su cuenta por favor siga las instrucciones del e-mail que se le ha enviado a su casilla de correo electrónico.<br/><br/>Si no encuentra el correo en su bandeja de entrada consulte la carpeta de Spam.
-						</p>
-						<div>
-							<input  style="width:100%" type="submit" id="OKButton" class="submitButtonStyle" onclick="CheckActivation();" value="OK" /> 
-						</div>
-					</div>
+						</p>-->
+						<input  style="width:100%" type="submit" id="OKButton" class="submitButtonStyle" onclick="CheckActivation();" value="OK" /> 
+					<!--</div>
 				</div>
-			</form>     
-
+			</form>     -->
+						<div id="addbutton" style="display: inline; " >
+							<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField','table'); ToggleDisplay('addbutton','inline'); return false"  />
+						</div>	
 			
         </body>
 </html>
