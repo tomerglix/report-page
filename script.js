@@ -11,7 +11,7 @@
 	var userId;
 	var mifgaNum;
 	
-	var localHostDom='http://localhost';
+	var localHostDom='http://10.0.0.37';
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	
