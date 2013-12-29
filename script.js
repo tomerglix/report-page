@@ -1,5 +1,5 @@
-	var debugMode=false;
-	var messageFromString=false;
+	var debugMode=true;
+	var messageFromString=true;
 	var map;
     var marker;
     var lastCenter="";
