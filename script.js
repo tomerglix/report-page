@@ -238,6 +238,7 @@
 		try
 		{
 			console.log(url);
+			alert(url);
 			form.style.opacity='0.5';
 			transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 			uploadIframe.onload=function() {GetActionResult(form);};
@@ -249,6 +250,7 @@
 			alert('error: ' + error + '.\n');
 		}
 	}
+	
 	function GetActionResult(form)
 	{		
 
@@ -270,6 +272,7 @@
 		if (form.id=='SOSForm')
 		{
 			CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
+			alert('sosform');
 		}
 		else if (form.id=='reportForm')
 		{
