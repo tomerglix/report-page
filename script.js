@@ -235,13 +235,19 @@
 
 	function SendUrl(form)
 	{
-		console.log(url);
-		form.style.opacity='0.5';
-		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
-		uploadIframe.onload=function() {GetActionResult(form);};
-		form.setAttribute("action", url);
-		form.submit();
-		
+		try
+		{
+			console.log(url);
+			form.style.opacity='0.5';
+			transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
+			uploadIframe.onload=function() {GetActionResult(form);};
+			form.setAttribute("action", url);
+			form.submit();
+		}
+		catch (error)
+		{
+			alert('error: ' + error + '.\n');
+		}
 	}
 	function GetActionResult(form)
 	{		
