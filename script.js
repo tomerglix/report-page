@@ -1,4 +1,4 @@
-	var debugMode=false;
+	var debugMode=true;
 	var map;
     var marker;
     var lastCenter="";
@@ -98,11 +98,12 @@
     	url=AddParmameterToURL(url,'phoneNum',userId);
     	url=AddParmameterToURL(url,'pin',userId);
     	url=AddParmameterToURL(url,'ip',userId);
-    	url=AddParmameterToURL(url,'base64Pic',photos[0]);
     	url=AddParmameterToURL(url,'reportNum',reportNum);
+    	url=AddParmameterToURL(url,'base64Pic',photos[0]);
     	
     	
     	url = url.substring(0, url.length - 1); //remove last ampersand
+    	alert(url);
 	}
 	    
     function GenerateGetMessagesUrl()
@@ -635,6 +636,7 @@
         photoSection.appendChild(smallImage);
 		
 		photos[photoCounter]=imageData;
+		alert('imageData: ' + photos[photoCounter]);
         ++photoCounter;
                         	
 
