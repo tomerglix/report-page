@@ -1,5 +1,5 @@
-	var debugMode=true;
-	var messageFromString=true;
+	var debugMode=false;
+	var messageFromString=false;
 	var map;
     var marker;
     var lastCenter="";
@@ -10,13 +10,14 @@
 	var serverNum=7;
 	var userId;
 	var mifgaNum;
+	var commentRefreshSpinner;
 	
 	var localHostDom='http://10.0.0.37';
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	
-	//var currnetHost=hostDom+serverNum+':'+port;
-	var currnetHost=localHostDom;
+	var currnetHost=hostDom+serverNum+':'+port;
+	//var currnetHost=localHostDom;
 	
 	var url;
 	var actionResult;
@@ -100,8 +101,8 @@
     	url=AddParmameterToURL(url,'pin',userId);
     	url=AddParmameterToURL(url,'ip',userId);
     	url=AddParmameterToURL(url,'reportNum',reportNum);
-    	url=AddParmameterToURL(url,'base64Pic',photos[0]);
-    	
+    	var pic="iVBORw0KGgoAAAANSUhEUgAAAAYAAAAKCAYAAACXDi8zAAAALElEQVQIW2NkgID/UBpGMTKCBE22Pm1EljjjLV1PZQkGoB0N2OygpgQ2DwIAa7omAzGcgmQAAAAASUVORK5CYII=";
+       	url=AddParmameterToURL(url,'base64Pic',pic);
     	
     	url = url.substring(0, url.length - 1); //remove last ampersand
 	}
@@ -238,7 +239,7 @@
 		{
 			console.log(url);
 			form.style.opacity='0.5';
-			transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
+			//transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 			uploadIframe.onload=function() {GetActionResult(form);};
 			form.setAttribute("action", url);
 			form.submit();
@@ -269,19 +270,14 @@
 		if (form.id=='SOSForm')
 		{
 			CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
+			transitionSpinner.stop();
 		}
 		else if (form.id=='reportForm')
 		{
-			//transitionSpinner.stop();
-			var res=CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
-			//RefreshReportPage();
-			if (res==true)
-			{
-				alert('sending pic');
-				GeneratePicSendUrl(0);
-				SendUrl(picForm);
-								
-			}			
+			CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
+			transitionSpinner.stop();
+			RefreshReportPage();
+	
 		}
 		else if (form.id=='activationWaitForm')
 		{
@@ -303,6 +299,7 @@
 					alert(checkActivationFailStr);	
 				}
 			}
+			transitionSpinner.stop();
 		} 
 		else if (form.id=='regPageForm')
 		{
@@ -318,12 +315,14 @@
 				localStorage.setItem('phoneNum',phoneNumber);
 				localStorage.setItem('email',email);
 				window.location.replace('WaitForActivation.html');
-			}						
+			}
+			transitionSpinner.stop();						
 		}
 		else if (form.id=='messagesForm')
 		{
 			
 			ParseMessages(actionResult);
+			commentRefreshSpinner.stop();
 		}
 		else if (form.id=='commentForm')
 		{
@@ -337,7 +336,8 @@
 			else
 			{
 				alert(sendCommentFailStr);	
-			}						
+			}
+			commentRefreshSpinner.stop();						
 		}					
 		else if (form.id=='picForm')
 		{
@@ -348,7 +348,6 @@
 			alert('Unknown error');
 		}
 		form.style.opacity='1';
-		transitionSpinner.stop();
 	}
 	
 	function CompareStrings(str1,str2)
@@ -464,7 +463,7 @@
         }
         else
         {
-                alert("You can only add " + maxPhotos + "photos.");                
+                alert("You can only add " + maxPhotos + " photos");                
         }
     }
 	function AddContact()
@@ -650,7 +649,7 @@
 		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
         photoSection.appendChild(smallImage);
 		
-		photos[photoCounter]=imageData;
+		photos[0]=imageData;
 		//alert('imageData: ' + photos[photoCounter]);
         ++photoCounter;
                         	
@@ -881,6 +880,7 @@
                             			url=AddParmameterToURL(url,'gf2',addressUnicode);
 										url = url.substring(0, url.length - 1); //remove last ampersand
 										
+										transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 										SendUrl(SOSForm);
                             		}
                             
@@ -1166,6 +1166,7 @@
 			}
 			
 			GenerateRegUrl();
+			transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 			SendUrl(regPageForm);
 											
 		}
@@ -1230,7 +1231,10 @@
 	
 	function SubmitCrime()
 	{
+				//GeneratePicSendUrl(0);
+				//SendUrl(picForm);
 		GenerateReportUrl();
+		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 		SendUrl(reportForm);
 		
 	}
@@ -1244,6 +1248,7 @@
 	
 	function CheckActivation()
 	{
+		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 		SendUrl(activationWaitForm);
 							
 	}
@@ -1434,6 +1439,8 @@
 		if (message!='')	//if message is not empty
 		{
 			GenereteSendingCommentUrl(message,msgNum);
+			
+			commentRefreshSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 			SendUrl(commentForm);
 		}
 		
@@ -1510,6 +1517,7 @@
 		}
 		else
 		{
+			commentRefreshSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 			SendUrl(messagesForm);
 		}
 	}
