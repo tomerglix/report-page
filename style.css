@@ -312,6 +312,11 @@
    	 	height:60px;
    	 	padding:4px;
    }
+   .thrashCanIcon
+   {
+   	 	width:10px;
+   	 	height:10px;   	
+   }
    
 	input.regInputBox 
 	{
@@ -596,4 +601,16 @@
 		left: 50%;
 		top: 50%;
 		display: inline-block;
+	}
+	
+	.wholeWrap 
+	{
+	   display: inline-block;
+	   position: relative;
+	   z-index : 1;
+	}
+
+	.picWrap + img 
+	{ 
+		position: absolute; z-index: 1; top: 0; right: 0; 
 	}

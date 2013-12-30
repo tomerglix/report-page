@@ -1,4 +1,4 @@
-	var debugMode=false;
+	var debugMode=true;
 	var messageFromString=false;
 	var map;
     var marker;
@@ -645,6 +645,38 @@
 	
     function capturePhoto() 
     {
+	/*	var photoSection=document.getElementById('photosSection');
+		var smallImage=document.createElement('img');
+		
+		var wholeWrap=document.createElement('div');
+		wholeWrap.className='wholeWrap';
+		var picWrap=document.createElement('div');
+		picWrap.className='picWrap';
+		
+		
+		
+		smallImage.className='photo';
+		smallImage.id='img' + photoCounter;
+		//smallImage.src = "data:image/jpeg;base64," + imageData;
+		smallImage.src='./images/camera.png';
+		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
+		
+		picWrap.appendChild(smallImage);
+		wholeWrap.appendChild(picWrap);
+		
+		var thrash=document.createElement('img');
+		thrash.src='./images/thrash.png';
+		thrash.className='thrashCanIcon';
+		thrash.id='thrash' + photoCounter;		
+		wholeWrap.appendChild(thrash);
+				
+        //photoSection.appendChild(wholeWrap);
+        
+
+		//photos[photoCounter]=imageData;
+		//alert('imageData: ' + photos[photoCounter]);
+        ++photoCounter;*/
+    	
           // Take picture using device camera and retrieve image as base64-encoded string
           navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
             destinationType: destinationType.DATA_URL });
@@ -655,11 +687,12 @@
 		var smallImage=document.createElement('img');
 		smallImage.className='photo';
 		smallImage.id='img' + photoCounter;
-		smallImage.src = "data:image/jpeg;base64," + imageData;
+		//smallImage.src = "data:image/jpeg;base64," + imageData;
+		smallImage.src='./images/camera.png';
 		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
         photoSection.appendChild(smallImage);
 		
-		photos[0]=imageData;
+		photos[photoCounter]=imageData;
 		//alert('imageData: ' + photos[photoCounter]);
         ++photoCounter;
                         	
@@ -1705,6 +1738,15 @@
 	    map.setCenter(pos);
 	}
 
+	function PhotoLongPress()
+	{
+		var thrash=document.createElement('img');
+		thrash.src='./images/thrash.png';
+		thrash.className='thrashCanIcon';
+		thrash.id=this.id.toString().replace('img','thrash');
+
+		this.appendChild(thrash);
+	}
  
 /******************** storage format *****************************
 /*

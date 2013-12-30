@@ -63,7 +63,9 @@
   				position: absolute;
   				bottom: 0;
   				left: -234px;
-			}        	
+			}   
+			
+     	
         </style>
 </head>
 
@@ -238,8 +240,8 @@
                  						<img id="crimePhotoAddButton" src="./images/camera.png" class="icons"  >         
                          				<div  id='slideleft' class='slide'>
 	                                        <div id="addPhotoButtons"  class='inner'>
-	                                                <button id="captureButton" class="picButton" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons','inline'); return false"  >Capture Photo</button> 
-	                                                <button id="fromLibButton" class="picButton" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons','inline'); return false" >Photo Library</button>
+                                                <button id="captureButton" class="picButton" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons','inline'); return false"  >Capture Photo</button> 
+                                                <button id="fromLibButton" class="picButton" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons','inline'); return false" >Photo Library</button>
 	                                        </div>
                                         </div>
                                         <div id="photosSection" >
@@ -309,9 +311,7 @@
 						}); // Shorthand for: $("#scroller").mobiscroll({ preset: 'datetime' });
 					});
 					
-					
-
-	                 
+					 
 			        $("#SOSButton").on("taphold", {duration: 1500},function (e) {SOSLongPress();} )
 	          			.on("click",   SOSShortPress)
 	          			.on("touchstart", ChangeButtonToPressed)
