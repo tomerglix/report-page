@@ -1,4 +1,4 @@
-	var debugMode=true;
+	var debugMode=false;
 	var messageFromString=false;
 	var map;
     var marker;
