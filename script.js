@@ -687,8 +687,8 @@
 		var smallImage=document.createElement('img');
 		smallImage.className='photo';
 		smallImage.id='img' + photoCounter;
-		//smallImage.src = "data:image/jpeg;base64," + imageData;
-		smallImage.src='./images/camera.png';
+		smallImage.src = "data:image/jpeg;base64," + imageData;
+		//smallImage.src='./images/camera.png';
 		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
         photoSection.appendChild(smallImage);
 		
