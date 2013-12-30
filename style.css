@@ -27,8 +27,9 @@
 		height: 100%;
 		width: 100%;
 		
-		font-family: 'roboto';
-		padding-top: 44px;
+		font-family: 'roboto',helvetica,arial,sans;
+		padding-top: 90px;
+		
 		background-color: #f3f3f3;
 
 	}
@@ -538,3 +539,47 @@
 	  	text-shadow: 1px 1px 0px #000000;
 	}
 			
+	#actionBar
+	{
+		height: 45px;
+		position: fixed;
+		width: 100%;
+		z-index: 200000;
+		background: black;
+	}
+
+	#topMenu
+	{
+		width: 100%;
+	 	position: fixed;
+ 	 	top:45px;
+ 	  	border-bottom: solid #f3f3f3 8px;
+ 	  	background-color: #0099CC;
+		z-index: 100;
+	}
+	
+	#actionBarTextBox
+	{
+		padding: 0px;
+		height: 30px;
+		margin: 5px 10px;
+		position: absolute;
+		font-size: 100%;
+		display: none;
+		font-family: 'roboto',helvetica,arial,sans;
+	}
+	
+	.bodySpinner
+	{
+		position: fixed;
+		left: 50%;
+		top: 50%;
+	}
+	
+	.addressSpinner
+	{
+		position: relative;
+		left: 50%;
+		top: 50%;
+		display: inline-block;
+	}

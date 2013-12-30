@@ -5,6 +5,7 @@
     var lastCenter="";
     var mapSpinner;
     var transitionSpinner;
+    var addressBarSpinner;
 	var spinner;
 	var i;
 	var serverNum=7;
@@ -18,7 +19,8 @@
 	
 	var currnetHost=hostDom+serverNum+':'+port;
 	//var currnetHost=localHostDom;
-	
+	var termsString = "El presente aplicativo celular es brindado a la población en forma gratuita por la empresa Pele System, como servicio a la comunidad para el envío de denuncias y alertas S.O.S. al Centro de Control de Alto al Crimen, que contribuyan a  la prevención y tratamiento de emergencias y  hechos delictivos. <br/> Pele System y Alto al Crimen no  serán responsables por  defectos o mal funcionamiento del aplicativo ni por el daño directo, indirecto, incidental o consecuente o  daño resultante de la pérdida de uso o pérdida de beneficios esperados como resultado de una avería en la aplicación.  <br/>La aplicación soporta la asociación de hasta 3 fotos por evento.  <br/>El aplicativo es operado con señal celular,  por lo cual en caso de producirse fallas en trasmisión de datos del proveedor celular,  es posible que estos datos no sean  recepcionados por el Centro de Control de Alto al Crimen.  <br/>El aplicativo S.O.S. Alto al Crimen  no reemplaza las tradicionales vías de contacto con  los servicios oficiales de seguridad y  emergencia, mediante  los cuales el ciudadano deberá acudir en caso necesario.  <br/>La activación del botón de S.O.S  producirá el envío de un mensaje de alerta al círculo de contactos definido por el usuario como destinatarios  para recibir la alerta por SMS.  Los SMS tendrán el costo de un mensaje de texto normal y serán a cargo del usuario de la aplicación S.O.S.";
+				
 	var url;
 	var actionResult;
 	var enlarged;
@@ -240,7 +242,7 @@
 		{
 			console.log(url);
 			form.style.opacity='0.5';
-			//transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
+			//transitionSpinner= new Spinner(transitionSpinnerOpts).spin(documeGoToMarkerLocationnt.body);
 			uploadIframe.onload=function() {GetActionResult(form);};
 			form.setAttribute("action", url);
 			form.submit();
@@ -459,14 +461,20 @@
     
     function TogglePhotoButtons()
     {
-        if (photoCounter<maxPhotos)
+	    var $lefty = $('#addPhotoButtons');
+	    $lefty.animate({
+	      left: parseInt($lefty.css('left'),10) == 0 ?
+	        -$lefty.outerWidth() :
+	        0
+	    });
+       /* if (photoCounter<maxPhotos)
         {
                 ToggleDisplay('addPhotoButtons','inline');
         }
         else
         {
                 alert("You can only add " + maxPhotos + " photos");                
-        }
+        }*/
     }
 	function AddContact()
 	{
@@ -715,7 +723,7 @@
         var lat = parseFloat(position.coords.latitude);
         var lng = parseFloat(position.coords.longitude);
         lastCenter = new google.maps.LatLng(lat, lng);
-        
+        addressBarSpinner=new Spinner(littleSpinnerOpts).spin(document.getElementById('addressBar'));
         CoordinatesToStrings(lastCenter,'addressBar');      	
     }
     
@@ -773,11 +781,12 @@
                 });
     }
     
-    function ToggleMap()
+    function ToggleMap(changeToNewLocation)
     {
         mapID=document.getElementById('mapDisplay');                                
         if (mapID.style.display=="none")
         {
+        	ShowIcon('acceptIcon','cancelIcon','hereIcon','markerIcon');
         	ToggleDisplay('mapDisplay','inline'); 
             ToggleDisplay('reportPage','block');                        
             ToggleDisplay('topMenu','inline');
@@ -790,19 +799,22 @@
         }
         else        
         {
+        	ShowIcon();
             ToggleDisplay('mapDisplay','inline');
             ToggleDisplay('reportPage','block');
             ToggleDisplay('closeMapButton','inline');
             ToggleDisplay('topMenu','inline');
             
-            //updates the city and country
-            var lat = marker.getPosition().lat();
-            var lng = marker.getPosition().lng();
-
-            lastCenter = new google.maps.LatLng(lat, lng);
-            
-			
-            CoordinatesToStrings(lastCenter,'addressBar');
+            if (!(changeToNewLocation===undefined))
+            {
+	            //updates the city and country
+	            var lat = marker.getPosition().lat();
+	            var lng = marker.getPosition().lng();
+	
+	            lastCenter = new google.maps.LatLng(lat, lng);
+	            addressBarSpinner=new Spinner(littleSpinnerOpts).spin(document.getElementById('addressBar'));	            
+	            CoordinatesToStrings(lastCenter,'addressBar');
+           }
         }
             
     }
@@ -849,7 +861,31 @@
 											if (street=='')
 											{
 												addressStr=city;
-											}	
+											}
+											
+		                            		if (!(target===undefined))
+		                            		{
+		                            			addressBarSpinner.stop();
+		                            			if (addressStr!='')
+		                            			{
+		                                			targetId=document.getElementById(target);
+		                                			targetId.innerHTML=addressStr;
+		                                		}
+		                                		else
+		                                		{
+		                                			targetId.innerHTML='Uknown location';
+		                                		}
+		                            		}
+		                            		else
+		                            		{
+		                            			var addressUnicode= UnicodeString(addressStr);
+		                            			
+		                            			url=AddParmameterToURL(url,'gf2',addressUnicode);
+												url = url.substring(0, url.length - 1); //remove last ampersand
+												
+												transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
+												SendUrl(SOSForm);
+		                            		}	
                         
                                         }
                                         else 
@@ -861,30 +897,11 @@
                                     {
                                         alert("Error: " + status);
                                     }
-                                    
-                            		if (!(target===undefined))
-                            		{
-                            			if (addressStr!='')
-                            			{
-                                			targetId=document.getElementById(target);
-                                			targetId.innerHTML=addressStr;
-                                		}
-                                		else
-                                		{
-                                			targetId.innerHTML='Uknown location';
-                                			
-                                		}
-                            		}
-                            		else
-                            		{
-                            			var addressUnicode= UnicodeString(addressStr);
-                            			
-                            			url=AddParmameterToURL(url,'gf2',addressUnicode);
-										url = url.substring(0, url.length - 1); //remove last ampersand
-										
-										transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
-										SendUrl(SOSForm);
-                            		}
+                                    if(addressBarSpinner)
+                                   	{
+                                   		addressBarSpinner.stop();
+                                   	}	
+
                             
                               });                                  				          
 	}
@@ -919,26 +936,27 @@
 
     //****************** spinner options *****************/
     
-    var bigSpinnerOpts = 
-    {
-      	lines: 9, // The number of lines to draw
-      	length: 6, // The length of each line
-      	width: 4, // The line thickness
-      	radius: 7, // The radius of the inner circle
-      	corners: 1, // Corner roundness (0..1)
-      	rotate: 0, // The rotation offset
-      	direction: 1, // 1: clockwise, -1: counterclockwise
-      	color: '#000', // #rgb or #rrggbb or array of colors
-      	speed: 1, // Rounds per second
-      	trail: 44, // Afterglow percentage
-      	shadow: false, // Whether to render a shadow
-      	hwaccel: false, // Whether to use hardware acceleration
-      	className: 'spinner', // The CSS class to assign to the spinner
-      	zIndex: 2e9, // The z-index (defaults to 2000000000)
-      	top: 'auto', // Top position relative to parent in px
-      	left: 'auto' // Left position relative to parent in px
-    };
-    
+
+	var littleSpinnerOpts = 
+	{
+	  lines: 11, // The number of lines to draw
+	  length: 4, // The length of each line
+	  width: 2, // The line thickness
+	  radius: 5, // The radius of the inner circle
+	  corners: 1, // Corner roundness (0..1)
+	  rotate: 0, // The rotation offset
+	  direction: 1, // 1: clockwise, -1: counterclockwise
+	  color: '#000', // #rgb or #rrggbb or array of colors
+	  speed: 1, // Rounds per second
+	  trail: 60, // Afterglow percentage
+	  shadow: false, // Whether to render a shadow
+	  hwaccel: false, // Whether to use hardware acceleration
+	  className: 'spinner addressSpinner', // The CSS class to assign to the spinner
+	  zIndex: 2e9, // The z-index (defaults to 2000000000)
+	  top: 'auto', // Top position relative to parent in px
+	  left: 'auto' // Left position relative to parent in px
+	};
+      
     var transitionSpinnerOpts = 
     {
 		lines: 10, // The number of lines to draw
@@ -953,11 +971,10 @@
 		trail: 60, // Afterglow percentage
 		shadow: false, // Whether to render a shadow
 		hwaccel: false, // Whether to use hardware acceleration
-		className: 'spinner', // The CSS class to assign to the spinner
+		className: 'spinner bodySpinner', // The CSS class to assign to the spinner
 		zIndex: 2e9, // The z-index (defaults to 2000000000)
 		top: '50%', // Top position relative to parent in px
 		left: '50%', // Left position relative to parent in px
-		position: 'fixed'
     };
 
 	function LoadContactsFromStorage()
@@ -1466,6 +1483,7 @@
     function FirstLoad()
     {
     	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
+    	document.getElementById('helpIcon').style.display='block';
         GetLocation(GetAddress);
         
 		LoadContactsFromStorage();
@@ -1637,7 +1655,55 @@
 						
 	}
 	
+
+	function ToggleTerms()
+	{
+		termsPar=$('#termsParagraph');
+		
+		if (termsPar.css('display')=='none')
+		{
+			termsPar.slideDown();
+			$('#showTermsButton').html('Hide <img src="./images/up.png" style="width:10px; height: 10px">');
+		   	$('html, body').animate({
+		        scrollTop: $("#termsParagraph").offset().top
+		    }, 100);
+		}
+		else
+		{
+			termsPar.slideUp();
+			$('#showTermsButton').html('Show <img src="./images/down.png" style="width:10px; height: 10px">');
+		}
+	}				
 	
+	function ShowIcon()
+	{
+		$('.actionBarIcon').hide();
+		
+  		for (var i = 0; i < arguments.length; i++) 
+  		{
+   			$('#' + arguments[i]).show();
+  		}
+			
+	}
+	
+	function GoToMyPosition(position)
+	{
+		
+        var lat = parseFloat(position.coords.latitude);
+        var lng = parseFloat(position.coords.longitude);
+        var pos = new google.maps.LatLng(lat, lng);
+        map.setCenter(pos);
+        marker.setPosition(pos);
+        transitionSpinner.stop();
+	}
+
+	function GoToMarkerLocation()
+	{
+        var lat = marker.getPosition().lat();
+	    var lng = marker.getPosition().lng();
+	    var pos = new google.maps.LatLng(lat, lng);
+	    map.setCenter(pos);
+	}
 
  
 /******************** storage format *****************************
