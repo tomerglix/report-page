@@ -240,8 +240,8 @@
                  						<img id="crimePhotoAddButton" src="./images/camera.png" class="icons"  >         
                          				<div  id='slideleft' class='slide'>
 	                                        <div id="addPhotoButtons"  class='inner'>
-                                                <button id="captureButton" class="picButton" onclick="capturePhoto(); ToggleDisplay('addPhotoButtons','inline'); return false"  >Capture Photo</button> 
-                                                <button id="fromLibButton" class="picButton" onclick="getPhoto(pictureSource.PHOTOLIBRARY); ToggleDisplay('addPhotoButtons','inline'); return false" >Photo Library</button>
+                                                <button id="captureButton" class="picButton" onclick="capturePhoto(); TogglePhotoButtons();"  >Capture Photo</button> 
+                                                <button id="fromLibButton" class="picButton" onclick="getPhoto(pictureSource.PHOTOLIBRARY); TogglePhotoButtons();" >Photo Library</button>
 	                                        </div>
                                         </div>
                                         <div id="photosSection" >
@@ -278,15 +278,18 @@
 <!----------------------------------------- end of messages section -------------------------------------->         
      
 			<script type="text/javascript" charset="UTF-8" >
-					$(document).ready(function() {
-					  $('#crimePhotoAddButton').click(function() {
+					function TogglePhotoButtons()
+					{
 					    var $lefty = $('#addPhotoButtons');
 					    $lefty.animate({
 					      left: parseInt($lefty.css('left'),10) == 0 ?
 					        -$lefty.outerWidth() :
 					        0
 					    });
-					  });
+					}
+			
+					$(document).ready(function() {
+					  $('#crimePhotoAddButton').click(function() {TogglePhotoButtons(); });
 					});
 									               	
 					$(".autoResizeTextBox").keyup(function (e) 
