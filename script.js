@@ -1,4 +1,4 @@
-	var debugMode=true;
+	var debugMode=false;
 	var messageFromString=false;
 	var map;
     var marker;
@@ -195,6 +195,9 @@
     	PrintDate();                	
 		GetMessages();
 		document.getElementById('descriptionBox').value='';
+		photoCounter=0;
+		document.getElementById('photosSection').innerHTML='';
+		adaptiveheight($(".autoResizeTextBox"));
 	}
 		
     function GenerateReportUrl()
@@ -634,8 +637,8 @@
 
 			   	 height:'110px',
 				    width:'110px'
-				 });
-				 document.getElementById(thrashId).style.display='block';
+			 	});
+			 	document.getElementById(thrashId).style.display='block';
 			  	enlarged=id;
 			}
 			else
@@ -654,8 +657,43 @@
     {    	
     	
           // Take picture using device camera and retrieve image as base64-encoded string
-          navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
-            destinationType: destinationType.FILE_URI });
+          if (debugMode==false)
+          { 
+	          	navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
+	            destinationType: destinationType.FILE_URI });
+          }
+          else
+          {
+      			var photoSection=document.getElementById('photosSection');
+				var smallImage=document.createElement('img');
+				
+				var wholeWrap=document.createElement('div');
+				wholeWrap.className='wholeWrap';
+				var picWrap=document.createElement('div');
+				picWrap.className='picWrap';
+				
+				smallImage.className='photo';
+				smallImage.id='img' + photoCounter;
+				//smallImage.src = imageURI;
+				smallImage.src='./images/logo.png';
+				smallImage.onclick=function (){TogglePicSize(smallImage.id);};
+				
+				picWrap.appendChild(smallImage);
+				wholeWrap.appendChild(picWrap);
+				
+				var thrash=document.createElement('img');
+				thrash.src='./images/thrash.png';
+				thrash.className='thrashCanIcon';
+				thrash.id='thrash' + photoCounter;		
+				wholeWrap.appendChild(thrash);
+						
+		        photoSection.appendChild(wholeWrap);
+				
+				photos[photoCounter]=imageURI;
+				//photos[photoCounter]=imageData;
+				//alert('imageData: ' + photos[photoCounter]);
+		        ++photoCounter;
+          }
     }         
     function AddPhotoToFromCaption(imageURI) 
     {

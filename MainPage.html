@@ -278,19 +278,6 @@
 <!----------------------------------------- end of messages section -------------------------------------->         
      
 			<script type="text/javascript" charset="UTF-8" >
-					/*function TogglePhotoButtons()
-					{
-					    var $lefty = $('#addPhotoButtons');
-					    $lefty.animate({
-					      left: parseInt($lefty.css('left'),10) == 0 ?
-					        -$lefty.outerWidth() :
-					        0
-					    });
-					}*/
-			
-		/*			$(document).ready(function() {
-					  $('#crimePhotoAddButton').click(function() {TogglePhotoButtons(); });
-					});*/
 									               	
 					$(".autoResizeTextBox").keyup(function (e) 
 	                {
@@ -344,8 +331,10 @@
 			
 							   	 height:'60px',
 								    width:'60px'
-								 });
-								 enlarged='';								 
+							 	});
+							 	var thrashId=enlarged.replace('img','thrash');
+			 			 		document.getElementById(thrashId).style.display='none';
+							 	enlarged='';								 
 						    }						    
 						}
 					});	
