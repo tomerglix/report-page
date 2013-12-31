@@ -57,6 +57,7 @@
 				position: relative;
 				overflow: hidden;
 				height: 28px;
+				margin-bottom: 10px;
 			}
 			.slide .inner 
 			{
@@ -237,7 +238,7 @@
                       						<p  class="headerDecoration">Photos</p>
                                         </div>
                                			
-                 						<img id="crimePhotoAddButton" src="./images/camera.png" class="icons"  >         
+                 						<img id="crimePhotoAddButton" src="./images/camera.png" class="icons" onclick="TogglePhotoButtons()" >         
                          				<div  id='slideleft' class='slide'>
 	                                        <div id="addPhotoButtons"  class='inner'>
                                                 <button id="captureButton" class="picButton" onclick="capturePhoto(); TogglePhotoButtons();"  >Capture Photo</button> 
@@ -245,7 +246,6 @@
 	                                        </div>
                                         </div>
                                         <div id="photosSection" >
-                                                <br/> 
                                         </div>
 								</div>
 
@@ -278,7 +278,7 @@
 <!----------------------------------------- end of messages section -------------------------------------->         
      
 			<script type="text/javascript" charset="UTF-8" >
-					function TogglePhotoButtons()
+					/*function TogglePhotoButtons()
 					{
 					    var $lefty = $('#addPhotoButtons');
 					    $lefty.animate({
@@ -286,11 +286,11 @@
 					        -$lefty.outerWidth() :
 					        0
 					    });
-					}
+					}*/
 			
-					$(document).ready(function() {
+		/*			$(document).ready(function() {
 					  $('#crimePhotoAddButton').click(function() {TogglePhotoButtons(); });
-					});
+					});*/
 									               	
 					$(".autoResizeTextBox").keyup(function (e) 
 	                {

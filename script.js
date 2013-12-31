@@ -1,4 +1,4 @@
-	var debugMode=false;
+	var debugMode=true;
 	var messageFromString=false;
 	var map;
     var marker;
@@ -461,20 +461,22 @@
     
     function TogglePhotoButtons()
     {
+
 	    var $lefty = $('#addPhotoButtons');
-	    $lefty.animate({
-	      left: parseInt($lefty.css('left'),10) == 0 ?
-	        -$lefty.outerWidth() :
-	        0
-	    });
-       /* if (photoCounter<maxPhotos)
-        {
-                ToggleDisplay('addPhotoButtons','inline');
-        }
-        else
-        {
-                alert("You can only add " + maxPhotos + " photos");                
-        }*/
+	    
+	    if (!(parseInt($lefty.css('left'),10)==0) && photoCounter>=maxPhotos)
+	    {
+	    	alert("You can only add " + maxPhotos + " photos");
+	    	
+	    }
+	    else
+	    {
+		    $lefty.animate({
+		      left: parseInt($lefty.css('left'),10) == 0 ?
+		        -$lefty.outerWidth() :
+		        0
+		    });
+	   	}
     }
 	function AddContact()
 	{
@@ -612,7 +614,7 @@
     } 
     function TogglePicSize(id) 
     {
-      
+      		var thrashId;
 			if (enlarged!='')
 			{
 				$('#' + enlarged).animate({
@@ -620,16 +622,20 @@
 			   	 height:'60px',
 				    width:'60px'
 				 });
+				 thrashId=enlarged.replace('img','thrash');
+				 document.getElementById(thrashId).style.display='none';
 				 enlarged='';
 			}
 			
+			thrashId=id.replace('img','thrash');
 			if ($('#' + id).height()=='60')
 			{
 				$('#' + id).animate({
 
-			   	 height:'200px',
-				    width:'200px'
+			   	 height:'110px',
+				    width:'110px'
 				 });
+				 document.getElementById(thrashId).style.display='block';
 			  	enlarged=id;
 			}
 			else
@@ -639,47 +645,19 @@
 			   	 height:'60px',
 				    width:'60px'
 				 });
+				 document.getElementById(thrashId).style.display='none';
 				 enlarged='';
 			} 
 	}
 	
     function capturePhoto() 
-    {
-		var photoSection=document.getElementById('photosSection');
-		var smallImage=document.createElement('img');
-		
-		var wholeWrap=document.createElement('div');
-		wholeWrap.className='wholeWrap';
-		var picWrap=document.createElement('div');
-		picWrap.className='picWrap';
-		
-		smallImage.className='photo';
-		smallImage.id='img' + photoCounter;
-		//smallImage.src = "data:image/jpeg;base64," + imageData;
-		smallImage.src='./images/logo.png';
-		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
-		
-		picWrap.appendChild(smallImage);
-		wholeWrap.appendChild(picWrap);
-		
-		var thrash=document.createElement('img');
-		thrash.src='./images/thrash.png';
-		thrash.className='thrashCanIcon';
-		thrash.id='thrash' + photoCounter;		
-		wholeWrap.appendChild(thrash);
-				
-        photoSection.appendChild(wholeWrap);
-		
-		photos[photoCounter]=imageData;
-		//alert('imageData: ' + photos[photoCounter]);
-        ++photoCounter;
-    	
+    {    	
     	/*
           // Take picture using device camera and retrieve image as base64-encoded string
           navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
-            destinationType: destinationType.DATA_URL });*/
+            destinationType: destinationType.FILE_URI });*/
     }         
-    function AddPhotoToFromCaption(imageData) 
+    function AddPhotoToFromCaption(imageURI) 
     {
 		var photoSection=document.getElementById('photosSection');
 		var smallImage=document.createElement('img');
@@ -691,7 +669,7 @@
 		
 		smallImage.className='photo';
 		smallImage.id='img' + photoCounter;
-		smallImage.src = "data:image/jpeg;base64," + imageData;
+		smallImage.src = imageURI;
 		//smallImage.src='./images/logo.png';
 		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
 		
@@ -706,7 +684,8 @@
 				
         photoSection.appendChild(wholeWrap);
 		
-		photos[photoCounter]=imageData;
+		photos[photoCounter]=imageURI;
+		//photos[photoCounter]=imageData;
 		//alert('imageData: ' + photos[photoCounter]);
         ++photoCounter;
                         	
@@ -739,7 +718,7 @@
 				
         photoSection.appendChild(wholeWrap);
 		
-		photos[photoCounter]=imageData;
+		photos[photoCounter]=imageURI;
 		//alert('imageData: ' + photos[photoCounter]);
         ++photoCounter;
 
@@ -966,7 +945,7 @@
                                    	{
                                    		addressBarSpinner.stop();
                                    	}	
-									document.getElementById("div").style.pointerEvents = "auto";
+									document.getElementById("SOSPage").style.pointerEvents = "auto";
                             
                               });                                  				          
 	}
@@ -1784,6 +1763,11 @@
 		thrash.id=this.id.toString().replace('img','thrash');
 
 		this.appendChild(thrash);
+	}
+	
+	function DeletePhoto()
+	{
+		
 	}
  
 /******************** storage format *****************************
