@@ -238,19 +238,11 @@
 
 	function SendUrl(form)
 	{
-		try
-		{
-			console.log(url);
-			form.style.opacity='0.5';
-			//transitionSpinner= new Spinner(transitionSpinnerOpts).spin(documeGoToMarkerLocationnt.body);
-			uploadIframe.onload=function() {GetActionResult(form);};
-			form.setAttribute("action", url);
-			form.submit();
-		}
-		catch (error)
-		{
-			alert('error: ' + error + '.\n');
-		}
+		console.log(url);
+		form.style.opacity='0.5';
+		uploadIframe.onload=function() {GetActionResult(form);};
+		form.setAttribute("action", url);
+		form.submit();
 	}
 	
 	function GetActionResult(form)
@@ -274,12 +266,17 @@
 		{
 			CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
 			transitionSpinner.stop();
+			document.getElementById("SOSPage").style.pointerEvents = "auto";
 		}
 		else if (form.id=='reportForm')
 		{
-			CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
+			var res=CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
 			transitionSpinner.stop();
-			RefreshReportPage();
+			if (res==true)
+			{
+				RefreshReportPage();
+			}
+			document.getElementById("reportPage").style.pointerEvents = "auto";
 	
 		}
 		else if (form.id=='activationWaitForm')
@@ -303,6 +300,7 @@
 				}
 			}
 			transitionSpinner.stop();
+			document.getElementById("activationWaitPage").style.pointerEvents = "auto";
 		} 
 		else if (form.id=='regPageForm')
 		{
@@ -319,13 +317,15 @@
 				localStorage.setItem('email',email);
 				window.location.replace('WaitForActivation.html');
 			}
-			transitionSpinner.stop();						
+			transitionSpinner.stop();
+			document.getElementById("registrationPage").style.pointerEvents = "auto";						
 		}
 		else if (form.id=='messagesForm')
 		{
 			
 			ParseMessages(actionResult);
 			commentRefreshSpinner.stop();
+			document.getElementById("messagesPage").style.pointerEvents = "auto";
 		}
 		else if (form.id=='commentForm')
 		{
@@ -564,7 +564,7 @@
 	
 	function SOSLongPress()
 	{
-
+		document.getElementById("SOSPage").style.pointerEvents = "none";
 		GetLocation(SendLocationToPolice, onError);
 	
 		ChangeButtonToNormal();
@@ -645,11 +645,39 @@
 	
     function capturePhoto() 
     {
-
+		var photoSection=document.getElementById('photosSection');
+		var smallImage=document.createElement('img');
+		
+		var wholeWrap=document.createElement('div');
+		wholeWrap.className='wholeWrap';
+		var picWrap=document.createElement('div');
+		picWrap.className='picWrap';
+		
+		smallImage.className='photo';
+		smallImage.id='img' + photoCounter;
+		//smallImage.src = "data:image/jpeg;base64," + imageData;
+		smallImage.src='./images/logo.png';
+		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
+		
+		picWrap.appendChild(smallImage);
+		wholeWrap.appendChild(picWrap);
+		
+		var thrash=document.createElement('img');
+		thrash.src='./images/thrash.png';
+		thrash.className='thrashCanIcon';
+		thrash.id='thrash' + photoCounter;		
+		wholeWrap.appendChild(thrash);
+				
+        photoSection.appendChild(wholeWrap);
+		
+		photos[photoCounter]=imageData;
+		//alert('imageData: ' + photos[photoCounter]);
+        ++photoCounter;
     	
+    	/*
           // Take picture using device camera and retrieve image as base64-encoded string
           navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
-            destinationType: destinationType.DATA_URL });
+            destinationType: destinationType.DATA_URL });*/
     }         
     function AddPhotoToFromCaption(imageData) 
     {
@@ -938,7 +966,7 @@
                                    	{
                                    		addressBarSpinner.stop();
                                    	}	
-
+									document.getElementById("div").style.pointerEvents = "auto";
                             
                               });                                  				          
 	}
@@ -1179,6 +1207,7 @@
 	
 	function Register()
 	{
+		document.getElementById("registrationPage").style.pointerEvents = "none";
 		var check=true;
 		if (ValidatePhone()==false)
 		{		
@@ -1229,6 +1258,7 @@
 		else
 		{
 			alert('Please fill all the fields with a valid data');
+			document.getElementById("registrationPage").style.pointerEvents = "auto";
 		}
 		
 	}
@@ -1289,6 +1319,7 @@
 	{
 				//GeneratePicSendUrl(0);
 				//SendUrl(picForm);
+		document.getElementById("reportPage").style.pointerEvents = "none";
 		GenerateReportUrl();
 		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 		SendUrl(reportForm);
@@ -1304,6 +1335,7 @@
 	
 	function CheckActivation()
 	{
+		document.getElementById("activationWaitPage").style.pointerEvents = "none";
 		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 		SendUrl(activationWaitForm);
 							
@@ -1491,6 +1523,7 @@
 	
 	function SendComment(msgNum,textAreaId)
 	{
+		document.getElementById("messagesPage").style.pointerEvents = "none";
 		var message=document.getElementById(textAreaId).value;
 		if (message!='')	//if message is not empty
 		{
@@ -1563,7 +1596,7 @@
     }
     
 	function GetMessages()
-	{
+	{	document.getElementById("messagesPage").style.pointerEvents = "none";
 		messagesSection.innerHTML="";
 		GenerateGetMessagesUrl();
 		//document.body.innerHTML+=url;
@@ -1571,6 +1604,7 @@
 		{
 			var strhard='<document><message><id>20</id><time>1386597393887</time><body>Monday Dec-09, Testing SOS v2 ENA</body><comment><user>tomer@lola-tech.com</user><time>1387884445639</time><body>tomer test</body></comment><comment><user>enunez@pelesystem.com</user><time>1386597544996</time><body>Ok you`re stiil testing SOS App</body></comment></message><message><id>19</id><time>1386461581278</time><body>I`m still testing the application app</body><comment><user>tomer@lola-tech.com</user><time>1387886718639</time><body>Test 2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386519129387</time><body>2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386515564559</time><body>test</body></comment></message><message><id>18</id><time>1386460441559</time><body>In Oune hour I am completed the QA testing fron tghe APP</body><comment><user>enunez@pelesystem.com</user><time>1386460564012</time><body>Ok I am waiting for the app</body></comment></message><message><id>17</id><time>1386459478403</time><body>Test Message number 3 from Eduardo</body><comment><user>enunez@pelesystem.com</user><time>1386460359496</time><body>Ok the "NAVIDAD SEGURA" from La Molina its almost ready</body></comment><comment><user>enunez@pelesystem.com</user><time>1386460107543</time><body>Ok it is a back message fro ok</body></comment></message><message><id>16</id><time>1386458491262</time><body>Second Test Message from Eduardo 6:20pm Saturday Dic-06</body></message></document>';
 			ParseMessages(strhard);
+			document.getElementById("messagesPage").style.pointerEvents = "auto";
 		}
 		else
 		{

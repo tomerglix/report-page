@@ -5,6 +5,13 @@ improvements needed:
 sending pics
 sending sms
 change to spanish
+change time picker to spanish
+
+change alerts
+add bubble when phone is not valid
+push notifications
+
+make page unclickable when waiting	c
 
 action bar							c
 fix buttons active					c	v
@@ -13,16 +20,13 @@ reload report page after sending	c	v
 spinner when map opens				c	v
 check if comment is empty			c	v
 check phone number properly			c	v
-change time picker to spanish
 delete unused mobiscroll js and css	c	v
+spinner when address load			c	v
+comments time						c	v
 
-change alerts
-spinner when address load
-comments time						c
 
-add bubble when phone is not valid
-camera options menu					c
+camera options menu					c	v
 
-push notifications
+
 
 bonus: slide page effect

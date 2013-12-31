@@ -316,7 +316,7 @@
    {
    	 	width:30px;
    	 	height:30px;
-   	 	display: hidden;   	
+   	 	display: none;   	
    }
    
 	input.regInputBox 
@@ -599,7 +599,7 @@
 	.addressSpinner
 	{
 		position: relative;
-		left: 50%;
+		left: 40%;
 		top: 50%;
 		display: inline-block;
 	}
