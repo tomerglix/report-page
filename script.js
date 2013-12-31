@@ -197,7 +197,7 @@
 		document.getElementById('descriptionBox').value='';
 		photoCounter=0;
 		document.getElementById('photosSection').innerHTML='';
-		adaptiveheight($(".autoResizeTextBox"));
+		adaptiveheight(document.getElementById('descriptionBox'));
 	}
 		
     function GenerateReportUrl()
@@ -277,8 +277,11 @@
 			transitionSpinner.stop();
 			if (res==true)
 			{
+				//form.style.opacity='1';
+				//document.getElementById("reportPage").style.pointerEvents = "auto";
 				RefreshReportPage();
 			}
+			//form.style.opacity='1';
 			document.getElementById("reportPage").style.pointerEvents = "auto";
 	
 		}
