@@ -679,7 +679,7 @@
           // Take picture using device camera and retrieve image as base64-encoded string
           if (photoTrial==false)
           { 
-	          	navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
+	          	navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50, encodingType: Camera.EncodingType.PNG,
 	            destinationType: destinationType.DATA_URL });
           }
           else
@@ -728,7 +728,7 @@
 		
 		smallImage.className='photo';
 		smallImage.id='img' + photoCounter;
-		smallImage.src = imageData;
+		smallImage.src = "data:image/png;base64," + imageData;
 		//smallImage.src='./images/logo.png';
 		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
 		
