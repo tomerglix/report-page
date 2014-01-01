@@ -743,7 +743,7 @@
 
 		smallImage.className='photo';
 		smallImage.id='img' + photoCounter;
-		smallImage.src = "data:image/jpg;base64," + imageData;
+		smallImage.src = "data:image/jpeg;base64," + imageData;
 		
 		//smallImage.src='./images/logo.png';
 		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
