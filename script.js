@@ -687,7 +687,7 @@
           if (photoTrial==false)
           { 
 	          	navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.PNG,
-	            destinationType: destinationType.DATA_URL, saveToPhotoAlbum: true, correctOrientation: true });
+	            destinationType: destinationType.DATA_URL, saveToPhotoAlbum: false, correctOrientation: true });
           }
           else
           {
