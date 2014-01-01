@@ -645,12 +645,12 @@
 			   	 height:'60px',
 				    width:'60px'
 				 });
-				 thrashId=enlarged.replace('img','thrash');
-				 document.getElementById(thrashId).style.display='none';
+				// thrashId=enlarged.replace('img','thrash');
+				// document.getElementById(thrashId).style.display='none';
 				 enlarged='';
 			}
 			
-			thrashId=id.replace('img','thrash');
+			//thrashId=id.replace('img','thrash');
 			if ($('#' + id).height()=='60')
 			{
 				$('#' + id).animate({
@@ -658,7 +658,7 @@
 			   	 height:'110px',
 				    width:'110px'
 			 	});
-			 	document.getElementById(thrashId).style.display='block';
+			 	//document.getElementById(thrashId).style.display='block';
 			  	enlarged=id;
 			}
 			else
@@ -668,7 +668,7 @@
 			   	 height:'60px',
 				    width:'60px'
 				 });
-				 document.getElementById(thrashId).style.display='none';
+				 //document.getElementById(thrashId).style.display='none';
 				 enlarged='';
 			} 
 	}
@@ -679,7 +679,7 @@
           // Take picture using device camera and retrieve image as base64-encoded string
           if (photoTrial==false)
           { 
-	          	navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50, encodingType: Camera.EncodingType.PNG,
+	          	navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50, encodingType: Camera.EncodingType.JPEG,
 	            destinationType: destinationType.DATA_URL });
           }
           else
@@ -721,17 +721,12 @@
 		var photoSection=document.getElementById('photosSection');
 		var smallImage=document.createElement('img');
 		
-		var wholeWrap=document.createElement('div');
+		/*var wholeWrap=document.createElement('div');
 		wholeWrap.className='wholeWrap';
 		var picWrap=document.createElement('div');
 		picWrap.className='picWrap';
 		
-		smallImage.className='photo';
-		smallImage.id='img' + photoCounter;
-		smallImage.src = "data:image/png;base64," + imageData;
-		//smallImage.src='./images/logo.png';
-		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
-		
+
 		picWrap.appendChild(smallImage);
 		wholeWrap.appendChild(picWrap);
 		
@@ -740,9 +735,15 @@
 		thrash.className='thrashCanIcon';
 		thrash.id='thrash' + photoCounter;		
 		wholeWrap.appendChild(thrash);
-				
-        photoSection.appendChild(wholeWrap);
-		
+*/
+		smallImage.className='photo';
+		smallImage.id='img' + photoCounter;
+		smallImage.src = "data:image/jpeg;base64," + imageData;
+		//smallImage.src='./images/logo.png';
+		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
+						
+       // photoSection.appendChild(wholeWrap);
+		photoSection.appendChild(smallImage);
 		photos[0]=imageData;
 		//photos[photoCounter]=imageData;
 		//alert('imageData: ' + photos[photoCounter]);
@@ -1620,7 +1621,7 @@
 		{
         	email='tomer@lola-tech.com';
         	phoneNumber='99999999';
-        	userId='210135011';
+        	userId='2101350';
         }
 
 		myUser=CutUserFromMail(email);
