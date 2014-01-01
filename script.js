@@ -104,6 +104,7 @@
 		document.getElementById('ip').value=userId;
 		document.getElementById('reportNum').value=reportNum;
 		document.getElementById('pic').value=photos[0];
+		alert(photos[0]);
 		
 		document.getElementById('picForm').submit();
 		
@@ -746,6 +747,7 @@
         photoSection.appendChild(wholeWrap);
 		
 		photos[0]=imageURI;
+		alert(photos[0]);
 		//photos[photoCounter]=imageData;
 		//alert('imageData: ' + photos[photoCounter]);
         ++photoCounter;
