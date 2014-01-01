@@ -637,7 +637,7 @@
     {
           // Retrieve image file location from specified source
           
-          navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.PNG,
+          navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,
             destinationType: destinationType.DATA_URL, correctOrientation: true,
             sourceType: source });
     } 
@@ -684,7 +684,7 @@
           // Take picture using device camera and retrieve image as base64-encoded string
           if (photoTrial==false)
           { 
-	          	navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.PNG,
+	          	navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,
 	            destinationType: destinationType.DATA_URL, saveToPhotoAlbum: true, correctOrientation: true });
           }
           else
@@ -726,7 +726,7 @@
 		var photoSection=document.getElementById('photosSection');
 		var smallImage=document.createElement('img');
 		
-		/*var wholeWrap=document.createElement('div');
+		var wholeWrap=document.createElement('div');
 		wholeWrap.className='wholeWrap';
 		var picWrap=document.createElement('div');
 		picWrap.className='picWrap';
@@ -740,16 +740,16 @@
 		thrash.className='thrashCanIcon';
 		thrash.id='thrash' + photoCounter;		
 		wholeWrap.appendChild(thrash);
-*/
+
 		smallImage.className='photo';
 		smallImage.id='img' + photoCounter;
-		smallImage.src = "data:image/png;base64," + imageData;
+		smallImage.src = "data:image/jpg;base64," + imageData;
 		
 		//smallImage.src='./images/logo.png';
 		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
 						
-       // photoSection.appendChild(wholeWrap);
-		photoSection.appendChild(smallImage);
+        photoSection.appendChild(wholeWrap);
+		//photoSection.appendChild(smallImage);
 		photos[photoCounter]=imageData;
 		//photos[photoCounter]=imageData;
 		//alert('imageData: ' + photos[photoCounter]);
