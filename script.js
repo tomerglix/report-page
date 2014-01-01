@@ -98,14 +98,19 @@
 	function SendPic()
 	{
 		mifgaNum=GenerateMifgaNum();
-		var reportNum=mifgaNum + '_' +  0;
+		var reportNum;
+		
 		document.getElementById('phoneNum').value=userId;
 		document.getElementById('pin').value=userId;
-		document.getElementById('ip').value=userId;
-		document.getElementById('reportNum').value=reportNum;
-		document.getElementById('base64Pic').value=photos[0];
 		
-		document.getElementById('picForm').submit();
+		for (var i=0;i<photoCounter;++i)
+		{
+			reportNum=mifgaNum + '_' +  i;
+			document.getElementById('reportNum').value=reportNum;
+			document.getElementById('base64Pic').value=photos[i];
+			
+			document.getElementById('picForm').submit();
+		}
 		
 	}
 	
@@ -679,8 +684,8 @@
           // Take picture using device camera and retrieve image as base64-encoded string
           if (photoTrial==false)
           { 
-	          	navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50, encodingType: Camera.EncodingType.JPEG,
-	            destinationType: destinationType.DATA_URL });
+	          	navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 10, encodingType: Camera.EncodingType.JPEG,
+	            destinationType: destinationType.DATA_URL, saveToPhotoAlbum: true, correctOrientation: true });
           }
           else
           {
@@ -739,12 +744,13 @@
 		smallImage.className='photo';
 		smallImage.id='img' + photoCounter;
 		smallImage.src = "data:image/jpeg;base64," + imageData;
+		
 		//smallImage.src='./images/logo.png';
 		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
 						
        // photoSection.appendChild(wholeWrap);
 		photoSection.appendChild(smallImage);
-		photos[0]=imageData;
+		photos[photoCounter]=imageData;
 		//photos[photoCounter]=imageData;
 		//alert('imageData: ' + photos[photoCounter]);
         ++photoCounter;
