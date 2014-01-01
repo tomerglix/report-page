@@ -14,7 +14,7 @@
 	var mifgaNum;
 	var commentRefreshSpinner;
 	
-	var localHostDom='http://10.0.0.10';
+	var localHostDom='http://10.0.0.14';
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	
@@ -56,11 +56,12 @@
 	var checkActivationFailStr="Your acount has not been confirmed. Please check your email for activation";
 	var registerSuccessStr="Your details has been received. Check your email for activation";
 	var registerFailStr="An error occured";
-	var reportSuccessStr='Report sent successfuly';
 	var reportFailStr='Failed to send report';
+	var reportSuccessStr='Report was successfuly sent';
 	var SOSSuccessStr='Your location has sent to the local police and to your contact circle';
 	var SOSFailStr='Failed to send SOS';
-	
+	var PicSendSuccessStr='Report was successfuly sent';
+	var PicSendFailStr='Report was sent without photos';
 					
 	for (i=0;i<contactsList.length;++i)
 	{
@@ -97,7 +98,6 @@
 
 	function SendPic()
 	{
-		uploadIframe.onload=function() {GetActionResult(picForm);};
 		mifgaNum=GenerateMifgaNum();
 
 		document.getElementById('phoneNum').value=userId;
@@ -114,20 +114,6 @@
 	}
 	
 
-	function GeneratePicSendUrl(index)
-	{
-		url=currnetHost+ "/storeMifgaPicPhoneGap.do?";
-		var reportNum=mifgaNum + '_' +  index;
-		
-    	url=AddParmameterToURL(url,'phoneNum',userId);
-    	url=AddParmameterToURL(url,'pin',userId);
-    	url=AddParmameterToURL(url,'ip',userId);
-    	url=AddParmameterToURL(url,'reportNum',reportNum);
-    	//var pic="iVBORw0KGgoAAAANSUhEUgAAAAYAAAAKCAYAAACXDi8zAAAALElEQVQIW2NkgID/UBpGMTKCBE22Pm1EljjjLV1PZQkGoB0N2OygpgQ2DwIAa7omAzGcgmQAAAAASUVORK5CYII=";
-       	//url=AddParmameterToURL(url,'base64Pic',pic);
-    	
-    	url = url.substring(0, url.length - 1); //remove last ampersand
-	}
 	    
     function GenerateGetMessagesUrl()
     {
@@ -216,10 +202,15 @@
     	PrintDate();                	
 		GetMessages();
 		document.getElementById('descriptionBox').value='';
+    	for (var j=0;j<photoCounter;++j)
+   		{
+   			document.getElementById('base64Pic' + j).value='';
+   		}
 		photoCounter=0;
 		document.getElementById('photosSection').innerHTML='';
 		adaptiveheight(document.getElementById('descriptionBox'));
     	document.getElementById("subjectId").selectedIndex=0;
+
 		
 	}
 		
@@ -293,13 +284,24 @@
 		}
 		else if (form.id=='reportForm')
 		{
-			var res=CheckActionResult(actionResult,5,reportSuccessStr,reportFailStr);
+			var res=CheckActionResult(actionResult,5);
 			transitionSpinner.stop();
 			if (res==true)
 			{
-				//form.style.opacity='1';
-				//document.getElementById("reportPage").style.pointerEvents = "auto";
-				RefreshReportPage();
+				if (photoCounter>0)
+				{
+					SendPic();
+				}
+				else
+				{
+					alert(reportSuccessStr);
+					RefreshReportPage();
+				}
+				
+			}
+			else
+			{
+				alert(reportFailStr);
 			}
 			//form.style.opacity='1';
 			document.getElementById("reportPage").style.pointerEvents = "auto";
@@ -330,7 +332,7 @@
 		} 
 		else if (form.id=='regPageForm')
 		{
-			var res=CheckActionResult(actionResult,'1',registerSuccessStr,registerFailStr,1);
+			var res=CheckActionResult(actionResult,1,registerSuccessStr,registerFailStr,1);
 			if (res==true)
 			{
 				var n=actionResult.indexOf(':');
@@ -371,7 +373,8 @@
 		}					
 		else if (form.id=='picForm')
 		{
-			alert('action result: ' + actionResult);
+			CheckActionResult(actionResult,6,PicSendSuccessStr,PicSendFailStr);
+			//alert('action result: ' + actionResult);
 		}
 		else
 		{
@@ -634,7 +637,7 @@
     {
           // Retrieve image file location from specified source
           
-          navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,
+          navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.PNG,
             destinationType: destinationType.DATA_URL, correctOrientation: true,
             sourceType: source });
     } 
@@ -681,7 +684,7 @@
           // Take picture using device camera and retrieve image as base64-encoded string
           if (photoTrial==false)
           { 
-	          	navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,
+	          	navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.PNG,
 	            destinationType: destinationType.DATA_URL, saveToPhotoAlbum: true, correctOrientation: true });
           }
           else
@@ -740,7 +743,7 @@
 */
 		smallImage.className='photo';
 		smallImage.id='img' + photoCounter;
-		smallImage.src = "data:image/jpeg;base64," + imageData;
+		smallImage.src = "data:image/png;base64," + imageData;
 		
 		//smallImage.src='./images/logo.png';
 		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
@@ -1309,7 +1312,7 @@
 	{
 		if (resStr===undefined || resStr=='')
 		{
-			alert(msgWhenFail);
+			alert('Error');
 			return false;
 		}
 		else
@@ -1321,12 +1324,18 @@
 			{
 	            if (resStr.charAt(pos-1)==successValue)
 	            {
-	            	alert(msgWhenSuccess);
+	            	if (!(msgWhenSuccess===undefined))
+	            	{
+	            		alert(msgWhenSuccess);
+	            	}
 	            	return true;
 	            }
 	            else
 	            {
-	            	alert(msgWhenFail);
+	            	if (!(msgWhenFail===undefined))
+	            	{
+	            		alert(msgWhenFail);
+	            	}
 	            	return false;
 	            }		
 	            
@@ -1359,11 +1368,10 @@
 	
 	function SubmitCrime()
 	{
-		SendPic();
-		/*document.getElementById("reportPage").style.pointerEvents = "none";
+		document.getElementById("reportPage").style.pointerEvents = "none";
 		GenerateReportUrl();
 		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
-		SendUrl(reportForm);*/
+		SendUrl(reportForm);
 		
 	}
 	
@@ -1607,13 +1615,14 @@
     	PrintDate();
     	
     	picForm=document.getElementById('picForm');
+    	picForm.action=currnetHost +"/storeMifgaPicPhoneGap.do";
     	for (var j=0;j<maxPhotos;++j)
     	{
     		tempInput=document.createElement('input');
     		tempInput.name='base64Pic' + j;
     		tempInput.id='base64Pic' + j;
     		tempInput.type='hidden';
-    		tempInput.value=null;
+    		tempInput.value='';
     		picForm.appendChild(tempInput);
     	}
     	commentForm=document.getElementById('commentForm');
