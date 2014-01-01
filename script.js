@@ -634,8 +634,8 @@
     {
           // Retrieve image file location from specified source
           
-          navigator.camera.getPicture(AddPhotoToFromLibrary, onFail, { quality: 50, encodingType: Camera.EncodingType.PNG,
-            destinationType: destinationType.FILE_URI,
+          navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,
+            destinationType: destinationType.DATA_URL,
             sourceType: source });
     } 
     function TogglePicSize(id) 
