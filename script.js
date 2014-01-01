@@ -98,8 +98,6 @@
 
 	function SendPic()
 	{
-		mifgaNum=GenerateMifgaNum();
-
 		document.getElementById('phoneNum').value=userId;
 		document.getElementById('pin').value=userId;
 		document.getElementById('mifgaNum').value=mifgaNum;
