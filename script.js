@@ -371,7 +371,11 @@
 		}					
 		else if (form.id=='picForm')
 		{
-			CheckActionResult(actionResult,6,PicSendSuccessStr,PicSendFailStr);
+			var res=CheckActionResult(actionResult,6,PicSendSuccessStr,PicSendFailStr);
+			if (res==true)
+			{
+				RefreshReportPage();
+			}
 			//alert('action result: ' + actionResult);
 		}
 		else
@@ -730,7 +734,7 @@
 		picWrap.className='picWrap';
 		
 
-		picWrap.appendChild(smallImage);
+		
 		wholeWrap.appendChild(picWrap);
 		
 		var thrash=document.createElement('img');
@@ -741,11 +745,12 @@
 
 		smallImage.className='photo';
 		smallImage.id='img' + photoCounter;
-		smallImage.src = "data:image/jpeg;base64," + imageData;
+		smallImage.src = "data:image/png;base64," + imageData;
 		
 		//smallImage.src='./images/logo.png';
 		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
-						
+		
+		picWrap.appendChild(smallImage);				
         photoSection.appendChild(wholeWrap);
 		//photoSection.appendChild(smallImage);
 		photos[photoCounter]=imageData;
