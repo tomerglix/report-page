@@ -649,8 +649,8 @@
 			   	 height:'60px',
 				    width:'60px'
 				 });
-				// thrashId=enlarged.replace('img','thrash');
-				// document.getElementById(thrashId).style.display='none';
+				 thrashId=enlarged.replace('img','thrash');
+				 document.getElementById(thrashId).style.display='none';
 				 enlarged='';
 			}
 			
@@ -662,7 +662,7 @@
 			   	 height:'110px',
 				    width:'110px'
 			 	});
-			 	//document.getElementById(thrashId).style.display='block';
+			 	document.getElementById(thrashId).style.display='block';
 			  	enlarged=id;
 			}
 			else
@@ -672,7 +672,7 @@
 			   	 height:'60px',
 				    width:'60px'
 				 });
-				 //document.getElementById(thrashId).style.display='none';
+				 document.getElementById(thrashId).style.display='none';
 				 enlarged='';
 			} 
 	}
@@ -793,7 +793,7 @@
     //
     function onFail(message) 
     {
-        if (message!='Camera cancelled.' && message!='Selection cancelled.')
+        if (message!='Camera cancelled.' && message!='Selection cancelled.' && message!='no image selected')
           {
                   alert('Failed because: ' + message);
           }
@@ -1374,10 +1374,13 @@
 	
 	function SubmitCrime()
 	{
+		RefreshReportPage();
+		/*
 		document.getElementById("reportPage").style.pointerEvents = "none";
 		GenerateReportUrl();
 		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
-		SendUrl(reportForm);
+		SendUrl(reportForm);*/
+		
 		
 	}
 	
