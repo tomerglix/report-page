@@ -1,5 +1,6 @@
 	var debugMode=true;
 	var messageFromString=true;
+	var photoTrial=false;
 	var map;
     var marker;
     var lastCenter="";
@@ -678,7 +679,7 @@
     {    	
     	
           // Take picture using device camera and retrieve image as base64-encoded string
-          if (debugMode==false)
+          if (photoTrial==false)
           { 
 	          	navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
 	            destinationType: destinationType.FILE_URI });
