@@ -14,7 +14,7 @@
 	var mifgaNum;
 	var commentRefreshSpinner;
 	
-	var localHostDom='http://10.0.0.37';
+	var localHostDom='http://10.0.0.10';
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	
@@ -103,8 +103,7 @@
 		document.getElementById('pin').value=userId;
 		document.getElementById('ip').value=userId;
 		document.getElementById('reportNum').value=reportNum;
-		document.getElementById('pic').value=photos[0];
-		alert(photos[0]);
+		document.getElementById('base64Pic').value=photos[0];
 		
 		document.getElementById('picForm').submit();
 		
@@ -282,9 +281,7 @@
         {
             actionResult = uploadIframe.document.body.innerHTML;
         }
-		
-		
-		
+		alert(actionResult);
 		if (form.id=='SOSForm')
 		{
 			CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
@@ -683,7 +680,7 @@
           if (photoTrial==false)
           { 
 	          	navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 50,
-	            destinationType: destinationType.FILE_URI });
+	            destinationType: destinationType.DATA_URL });
           }
           else
           {
@@ -719,7 +716,7 @@
           }
     }
              
-    function AddPhotoToFromCaption(imageURI) 
+    function AddPhotoToFromCaption(imageData) 
     {
 		var photoSection=document.getElementById('photosSection');
 		var smallImage=document.createElement('img');
@@ -731,7 +728,7 @@
 		
 		smallImage.className='photo';
 		smallImage.id='img' + photoCounter;
-		smallImage.src = imageURI;
+		smallImage.src = imageData;
 		//smallImage.src='./images/logo.png';
 		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
 		
@@ -746,8 +743,7 @@
 				
         photoSection.appendChild(wholeWrap);
 		
-		photos[0]=imageURI;
-		alert(photos[0]);
+		photos[0]=imageData;
 		//photos[photoCounter]=imageData;
 		//alert('imageData: ' + photos[photoCounter]);
         ++photoCounter;
