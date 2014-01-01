@@ -107,6 +107,7 @@
 		{
 			document.getElementById('base64Pic' + j).value=photos[j];
 		}
+
 		
 		uploadIframe.onload=function() {GetActionResult(picForm);};
 		document.getElementById('picForm').submit();
@@ -284,7 +285,6 @@
         {
             actionResult = uploadIframe.document.body.innerHTML;
         }
-		alert(actionResult);
 		if (form.id=='SOSForm')
 		{
 			CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
@@ -634,8 +634,8 @@
     {
           // Retrieve image file location from specified source
           
-          navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,
-            destinationType: destinationType.DATA_URL,
+          navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,
+            destinationType: destinationType.DATA_URL, correctOrientation: true,
             sourceType: source });
     } 
     function TogglePicSize(id) 
@@ -681,7 +681,7 @@
           // Take picture using device camera and retrieve image as base64-encoded string
           if (photoTrial==false)
           { 
-	          	navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,
+	          	navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,
 	            destinationType: destinationType.DATA_URL, saveToPhotoAlbum: true, correctOrientation: true });
           }
           else
@@ -718,7 +718,7 @@
           }
     }
              
-    function AddPhotoToFromCaption(imageData) 
+    function AddPhotoToReport(imageData) 
     {
 		var photoSection=document.getElementById('photosSection');
 		var smallImage=document.createElement('img');
@@ -1613,6 +1613,7 @@
     		tempInput.name='base64Pic' + j;
     		tempInput.id='base64Pic' + j;
     		tempInput.type='hidden';
+    		tempInput.value=null;
     		picForm.appendChild(tempInput);
     	}
     	commentForm=document.getElementById('commentForm');
