@@ -635,7 +635,7 @@
     {
           // Retrieve image file location from specified source
           
-          navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,
+          navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.PNG,
             destinationType: destinationType.DATA_URL, correctOrientation: true,
             sourceType: source });
     } 
@@ -682,7 +682,7 @@
           // Take picture using device camera and retrieve image as base64-encoded string
           if (photoTrial==false)
           { 
-	          	navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,
+	          	navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.PNG,
 	            destinationType: destinationType.DATA_URL, saveToPhotoAlbum: true, correctOrientation: true });
           }
           else
@@ -1315,10 +1315,9 @@
 		}
 		else
 		{
-			times=0;
             var pos=resStr.indexOf(':');
             
-			if (offset==='undefined')
+			if (offset===undefined)
 			{
 	            if (resStr.charAt(pos-1)==successValue)
 	            {
@@ -1342,19 +1341,28 @@
             {
 	            if (resStr.charAt(pos-1-offset)=='-')
 	            {
-	            	alert(msgWhenFail);
+	            	if (!(msgWhenFail===undefined))
+	            	{
+	            		alert(msgWhenFail);
+	            	}
 	            	return false;
 	            }
 	            else
 	            {
 		            if (resStr.charAt(pos-1)==successValue)
 		            {
-		            	alert(msgWhenSuccess);
+		            	if (!(msgWhenSuccess===undefined))
+		            	{
+		            		alert(msgWhenSuccess);
+		            	}
 		            	return true;
 		            }
 		            else
 		            {
-		            	alert(msgWhenFail);
+		            	if (!(msgWhenFail===undefined))
+		            	{
+		            		alert(msgWhenFail);
+		            	}
 		            	return false;
 		            }	
 
