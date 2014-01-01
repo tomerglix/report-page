@@ -1374,12 +1374,11 @@
 	
 	function SubmitCrime()
 	{
-		RefreshReportPage();
-		/*
+		
 		document.getElementById("reportPage").style.pointerEvents = "none";
 		GenerateReportUrl();
 		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
-		SendUrl(reportForm);*/
+		SendUrl(reportForm);
 		
 		
 	}
