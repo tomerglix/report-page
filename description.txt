@@ -11,7 +11,7 @@ change alerts to fading messages
 add bubble when phone is not valid
 push notifications
 
-make page unclickable when waiting	c
+make page unclickable when waiting	c	v
 
 action bar							c	v
 fix buttons active					c	v
@@ -23,8 +23,8 @@ check phone number properly			c	v
 delete unused mobiscroll js and css	c	v
 spinner when address load			c	v
 comments time						c	v
-textbox doesnt shrink after sending	c	
-
+textbox doesnt shrink after sending	c	v
+check future date
 camera options menu					c	v
 
 

@@ -97,21 +97,19 @@
 
 	function SendPic()
 	{
+		uploadIframe.onload=function() {GetActionResult(picForm);};
 		mifgaNum=GenerateMifgaNum();
-		var reportNum;
-		
+
 		document.getElementById('phoneNum').value=userId;
 		document.getElementById('pin').value=userId;
-		
-		for (var i=0;i<photoCounter;++i)
+		document.getElementById('mifgaNum').value=mifgaNum;
+		for (var j=0;j<photoCounter;++j)
 		{
-			reportNum=mifgaNum + '_' +  i;
-			document.getElementById('reportNum').value=reportNum;
-			document.getElementById('base64Pic').value=photos[i];
-			
-			document.getElementById('picForm').submit();
+			document.getElementById('base64Pic' + j).value=photos[j];
 		}
 		
+		uploadIframe.onload=function() {GetActionResult(picForm);};
+		document.getElementById('picForm').submit();
 	}
 	
 
@@ -680,11 +678,10 @@
 	
     function capturePhoto() 
     {    	
-    	
           // Take picture using device camera and retrieve image as base64-encoded string
           if (photoTrial==false)
           { 
-	          	navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 10, encodingType: Camera.EncodingType.JPEG,
+	          	navigator.camera.getPicture(AddPhotoToFromCaption, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,
 	            destinationType: destinationType.DATA_URL, saveToPhotoAlbum: true, correctOrientation: true });
           }
           else
@@ -1609,13 +1606,21 @@
 		}
     	PrintDate();
     	
+    	picForm=document.getElementById('picForm');
+    	for (var j=0;j<maxPhotos;++j)
+    	{
+    		tempInput=document.createElement('input');
+    		tempInput.name='base64Pic' + j;
+    		tempInput.id='base64Pic' + j;
+    		tempInput.type='hidden';
+    		picForm.appendChild(tempInput);
+    	}
     	commentForm=document.getElementById('commentForm');
     	messagesForm=document.getElementById('messagesForm');
     	SOSForm=document.getElementById('SOSForm');
     	reportForm=document.getElementById('reportForm');
     	uploadIframe=document.getElementById('uploadIframe');
     	messagesSection=document.getElementById('messagesSection');
-		picForm=document.getElementById('picForm');
 		
 		if (debugMode==false)
 		{            	
