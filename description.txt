@@ -7,7 +7,7 @@ sending sms
 change to spanish
 change time picker to spanish
 splash screen
-
+timeout when there's no connection
 change alerts to fading messages
 add bubble when phone is not valid
 push notifications

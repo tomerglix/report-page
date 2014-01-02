@@ -1,5 +1,5 @@
-	var debugMode=true;
-	var messageFromString=true;
+	var debugMode=false;
+	var messageFromString=false;
 	var photoTrial=false;
 	var map;
     var marker;
@@ -19,8 +19,8 @@
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	
-	//var currnetHost=hostDom+serverNum+':'+port;
-	var currnetHost=localHostDom;
+	var currnetHost=hostDom+serverNum+':'+port;
+	//var currnetHost=localHostDom;
 	
 				
 	var url;
@@ -694,7 +694,7 @@
           // Take picture using device camera and retrieve image as base64-encoded string
           if (photoTrial==false)
           { 
-	          	navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,
+	          	navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,targetWidth: 100,targetHeight: 100 ,
 	            destinationType: destinationType.DATA_URL, saveToPhotoAlbum: false, correctOrientation: true });
           }
           else
