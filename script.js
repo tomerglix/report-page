@@ -1,5 +1,5 @@
-	var debugMode=true;
-	var messageFromString=true;
+	var debugMode=false;
+	var messageFromString=false;
 	var photoTrial=false;
 	var map;
     var marker;
@@ -19,8 +19,8 @@
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	
-	//var currnetHost=hostDom+serverNum+':'+port;
-	var currnetHost=localHostDom;
+	var currnetHost=hostDom+serverNum+':'+port;
+	//var currnetHost=localHostDom;
 	var termsString = "El presente aplicativo celular es brindado a la población en forma gratuita por la empresa Pele System, como servicio a la comunidad para el envío de denuncias y alertas S.O.S. al Centro de Control de Alto al Crimen, que contribuyan a  la prevención y tratamiento de emergencias y  hechos delictivos. <br/> Pele System y Alto al Crimen no  serán responsables por  defectos o mal funcionamiento del aplicativo ni por el daño directo, indirecto, incidental o consecuente o  daño resultante de la pérdida de uso o pérdida de beneficios esperados como resultado de una avería en la aplicación.  <br/>La aplicación soporta la asociación de hasta 3 fotos por evento.  <br/>El aplicativo es operado con señal celular,  por lo cual en caso de producirse fallas en trasmisión de datos del proveedor celular,  es posible que estos datos no sean  recepcionados por el Centro de Control de Alto al Crimen.  <br/>El aplicativo S.O.S. Alto al Crimen  no reemplaza las tradicionales vías de contacto con  los servicios oficiales de seguridad y  emergencia, mediante  los cuales el ciudadano deberá acudir en caso necesario.  <br/>La activación del botón de S.O.S  producirá el envío de un mensaje de alerta al círculo de contactos definido por el usuario como destinatarios  para recibir la alerta por SMS.  Los SMS tendrán el costo de un mensaje de texto normal y serán a cargo del usuario de la aplicación S.O.S.";
 				
 	var url;
@@ -119,11 +119,11 @@
     	var messageUrl;
     	messageUrl=currnetHost+ "/getOnlineMessagesLogin.do?";
     	
-    	messageUrl=AddParmameterToURL(url,'phoneNum',userId);
-    	messageUrl=AddParmameterToURL(url,'pin',userId);
-    	messageUrl=AddParmameterToURL(url,'ip',userId);
+    	messageUrl=AddParmameterToURL(messageUrl,'phoneNum',userId);
+    	messageUrl=AddParmameterToURL(messageUrl,'pin',userId);
+    	messageUrl=AddParmameterToURL(messageUrl,'ip',userId);
     	
-    	messageUrl = url.substring(0, url.length - 1); //remove last ampersand
+    	messageUrl = messageUrl.substring(0, messageUrl.length - 1); //remove last ampersand
     	
     	return messageUrl;
     }
@@ -666,7 +666,7 @@
 				 enlarged='';
 			}
 			
-			//thrashId=id.replace('img','thrash');
+			thrashId=id.replace('img','thrash');
 			if ($('#' + id).height()=='60')
 			{
 				$('#' + id).animate({
