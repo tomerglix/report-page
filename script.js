@@ -282,6 +282,10 @@
         {
             actionResult = uploadIframe.document.body.innerHTML;
         }
+        
+        
+        alert(actionResult);
+        
 		if (form.id=='SOSForm')
 		{
 			CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
@@ -379,7 +383,6 @@
 		}					
 		else if (form.id=='picForm')
 		{
-			alert(actionResult);
 			var res=CheckActionResult(actionResult,6,PicSendSuccessStr,PicSendFailStr);
 			if (res==true)
 			{

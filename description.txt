@@ -28,7 +28,9 @@ comments time						c	v
 textbox doesnt shrink after sending	c	v
 camera options menu					c	v
 registration - attention icon on text
-fix click enable timing when sending report with pic	
+fix click enable timing when sending report with pic
+
+bug - after sending sos and trying to capture photo strange messages appear	
 
 
 bonus: slide page effect

@@ -241,8 +241,8 @@
                  						<img id="crimePhotoAddButton" src="./images/camera.png" class="icons" onclick="TogglePhotoButtons()" >         
                          				<div  id='slideleft' class='slide'>
 	                                        <div id="addPhotoButtons"  class='inner'>
-                                                <button id="captureButton" class="picButton" onclick="capturePhoto(); TogglePhotoButtons();"  >Capture Photo</button> 
-                                                <button id="fromLibButton" class="picButton" onclick="getPhoto(pictureSource.PHOTOLIBRARY); TogglePhotoButtons();" >Photo Library</button>
+                                                <button id="captureButton" class="picButton" onclick="capturePhoto(); TogglePhotoButtons(); return false"  >Capture Photo</button> 
+                                                <button id="fromLibButton" class="picButton" onclick="getPhoto(pictureSource.PHOTOLIBRARY); TogglePhotoButtons(); return false" >Photo Library</button>
 	                                        </div>
                                         </div>
                                         <div id="photosSection" >
