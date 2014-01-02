@@ -55,7 +55,7 @@
 	var sendCommentFailStr="Sending comment failed";
 	var checkActivationSuccessStr="Email confirmed, your acount has been activated";
 	var checkActivationFailStr="Your acount has not been confirmed. Please check your email for activation";
-	var registerSuccessStr="Your details has been received. Check your email for activation";
+	var registerSuccessStr="Your details have been received. Check your email for activation";
 	var registerFailStr="An error occured";
 	var reportFailStr='Failed to send report';
 	var reportSuccessStr='Report was successfuly sent';
