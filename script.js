@@ -1,6 +1,6 @@
-	var debugMode=true;
-	var messageFromString=true;
-	var photoTrial=true;
+	var debugMode=false;
+	var messageFromString=false;
+	var photoTrial=false;
 	var map;
     var marker;
     var lastCenter="";
