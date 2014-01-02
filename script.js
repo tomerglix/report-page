@@ -379,6 +379,7 @@
 		}					
 		else if (form.id=='picForm')
 		{
+			alert(actionResult);
 			var res=CheckActionResult(actionResult,6,PicSendSuccessStr,PicSendFailStr);
 			if (res==true)
 			{
