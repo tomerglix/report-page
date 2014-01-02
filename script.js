@@ -15,7 +15,7 @@
 	var messageUrl;
 	
 	var serverNum=7;	
-	var localHostDom='http://10.0.0.27';
+	var localHostDom='http://10.0.0.69';
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	
