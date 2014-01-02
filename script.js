@@ -1,4 +1,4 @@
-	var debugMode=true;
+	var debugMode=false;
 	var messageFromString=true;
 	var photoTrial=false;
 	var map;
@@ -15,7 +15,7 @@
 	var messageUrl;
 	
 	var serverNum=7;	
-	var localHostDom='http://10.0.0.69';
+	var localHostDom='http://10.0.0.5';
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	
