@@ -1,0 +1,34 @@
+works fine
+
+improvements needed:
+
+sending pics
+sending sms
+change to spanish
+change time picker to spanish
+splash screen
+
+change alerts to fading messages
+add bubble when phone is not valid
+push notifications
+
+check future date (reg and report)	c
+create msg url only once			c	v			
+make page unclickable while waiting	c	v
+action bar							c	v
+fix buttons active					c	v
+fix sos address						c	v
+reload report page after sending	c	v
+spinner when map opens				c	v
+check if comment is empty			c	v
+check phone number properly			c	v
+delete unused mobiscroll js and css	c	v
+spinner when address load			c	v
+comments time						c	v
+textbox doesnt shrink after sending	c	v
+camera options menu					c	v
+registration - attention icon on text
+fix click enable timing when sending report with pic	
+
+
+bonus: slide page effect
