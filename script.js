@@ -1,5 +1,5 @@
-	var debugMode=false;
-	var messageFromString=false;
+	var debugMode=true;
+	var messageFromString=true;
 	var photoTrial=false;
 	var map;
     var marker;
@@ -9,19 +9,19 @@
     var addressBarSpinner;
 	var spinner;
 	var i;
-	var serverNum=7;
 	var userId;
 	var mifgaNum;
 	var commentRefreshSpinner;
 	var messageUrl;
 	
+	var serverNum=7;	
 	var localHostDom='http://10.0.0.14';
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	
 	var currnetHost=hostDom+serverNum+':'+port;
 	//var currnetHost=localHostDom;
-	var termsString = "El presente aplicativo celular es brindado a la población en forma gratuita por la empresa Pele System, como servicio a la comunidad para el envío de denuncias y alertas S.O.S. al Centro de Control de Alto al Crimen, que contribuyan a  la prevención y tratamiento de emergencias y  hechos delictivos. <br/> Pele System y Alto al Crimen no  serán responsables por  defectos o mal funcionamiento del aplicativo ni por el daño directo, indirecto, incidental o consecuente o  daño resultante de la pérdida de uso o pérdida de beneficios esperados como resultado de una avería en la aplicación.  <br/>La aplicación soporta la asociación de hasta 3 fotos por evento.  <br/>El aplicativo es operado con señal celular,  por lo cual en caso de producirse fallas en trasmisión de datos del proveedor celular,  es posible que estos datos no sean  recepcionados por el Centro de Control de Alto al Crimen.  <br/>El aplicativo S.O.S. Alto al Crimen  no reemplaza las tradicionales vías de contacto con  los servicios oficiales de seguridad y  emergencia, mediante  los cuales el ciudadano deberá acudir en caso necesario.  <br/>La activación del botón de S.O.S  producirá el envío de un mensaje de alerta al círculo de contactos definido por el usuario como destinatarios  para recibir la alerta por SMS.  Los SMS tendrán el costo de un mensaje de texto normal y serán a cargo del usuario de la aplicación S.O.S.";
+	
 				
 	var url;
 	var actionResult;
@@ -63,7 +63,8 @@
 	var SOSFailStr='Failed to send SOS';
 	var PicSendSuccessStr='Report was successfuly sent';
 	var PicSendFailStr='Report was sent without photos';
-					
+	var termsString = "El presente aplicativo celular es brindado a la población en forma gratuita por la empresa Pele System, como servicio a la comunidad para el envío de denuncias y alertas S.O.S. al Centro de Control de Alto al Crimen, que contribuyan a  la prevención y tratamiento de emergencias y  hechos delictivos. <br/> Pele System y Alto al Crimen no  serán responsables por  defectos o mal funcionamiento del aplicativo ni por el daño directo, indirecto, incidental o consecuente o  daño resultante de la pérdida de uso o pérdida de beneficios esperados como resultado de una avería en la aplicación.  <br/>La aplicación soporta la asociación de hasta 3 fotos por evento.  <br/>El aplicativo es operado con señal celular,  por lo cual en caso de producirse fallas en trasmisión de datos del proveedor celular,  es posible que estos datos no sean  recepcionados por el Centro de Control de Alto al Crimen.  <br/>El aplicativo S.O.S. Alto al Crimen  no reemplaza las tradicionales vías de contacto con  los servicios oficiales de seguridad y  emergencia, mediante  los cuales el ciudadano deberá acudir en caso necesario.  <br/>La activación del botón de S.O.S  producirá el envío de un mensaje de alerta al círculo de contactos definido por el usuario como destinatarios  para recibir la alerta por SMS.  Los SMS tendrán el costo de un mensaje de texto normal y serán a cargo del usuario de la aplicación S.O.S.";
+						
 	for (i=0;i<contactsList.length;++i)
 	{
 		contactsList[i]=new Array(2);
@@ -1646,9 +1647,8 @@
 
     	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
     	document.getElementById('helpIcon').style.display='block';
-    	messageUrl=GenerateGetMessagesUrl();
-        GetLocation(GetAddress);
-        
+    	
+
 		LoadContactsFromStorage();
 		DisplayContactList();
 		if (contactsCounter==3)
@@ -1685,7 +1685,8 @@
 		{
         	email='tomer@lola-tech.com';
         	phoneNumber='99999999';
-        	userId='2101350';
+        	//userId='2101350';
+        	userId=	'572297753';
         }
 
 		myUser=CutUserFromMail(email);
@@ -1695,6 +1696,9 @@
 		myUserSpan.className='messageBlueLeft';
 		myUserSpan.innerHTML=myUser;	           
 	
+	
+		messageUrl=GenerateGetMessagesUrl();
+		GetLocation(GetAddress);
 		GetMessages();
     }
     
