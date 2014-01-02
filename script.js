@@ -1,5 +1,5 @@
-	var debugMode=false;
-	var messageFromString=false;
+	var debugMode=true;
+	var messageFromString=ture;
 	var photoTrial=false;
 	var map;
     var marker;
