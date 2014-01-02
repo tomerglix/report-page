@@ -83,6 +83,8 @@
         		<img id='cancelIcon' src='./images/cancel.png' class="actionBarIcon" onclick='ToggleMap()'>
         		<img id='hereIcon' src='./images/here.png' class="actionBarIcon" onclick='transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body); GetLocation(GoToMyPosition);'>
         		<img id='markerIcon' src='./images/marker.png' class="actionBarIcon" onclick='GoToMarkerLocation();'>
+        		<img id='backIcon' src='./images/back.png' class="actionBarIcon" onclick='TogglePicFullScreen()'>
+        		<img id='discardIcon' src='./images/discard.png' class="actionBarIcon" onclick=''>
         		<!--<img id='searchIcon' src='./images/search.png' class="actionBarIcon">-->
         		
         		
@@ -90,6 +92,10 @@
         	<button id='closeMapButton' class="center" onclick='ToggleMap()'  style="display:none; position: absolute; z-index: 100; top:0;" >Close map</button>
             <div id="mapDisplay" style="display: none; margin-top: 45px;">
                                     
+            </div>
+            
+            <div id="picDisplay" style="display: none; margin-top: 45px;" class="fullScreen" >
+                 <img id="fullScreenPic" src='' style="height: 100%; width:100%">                   
             </div>
             
 			<div id="topMenu">
@@ -326,7 +332,7 @@
 					$('#messagesPage').on('swipeleft', function(e){ChangePage('SOSPage','SOSTab'); ShowIcon('helpIcon');})
 					.on('swiperight', function(e){ChangePage('reportPage','reportPageTab'); ShowIcon();});	
 					
-					$(document).click(function (e)
+				/*	$(document).click(function (e)
 					{
 						if (enlarged!='')
 						{
@@ -339,11 +345,11 @@
 								    width:'60px'
 							 	});
 							 	var thrashId=enlarged.replace('img','thrash');
-			 			 		document.getElementById(thrashId).style.display='none';
+			 			 		//document.getElementById(thrashId).style.display='none';
 							 	enlarged='';								 
 						    }						    
 						}
-					});	
+					});	*/
 					
 
 			</script>

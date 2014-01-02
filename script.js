@@ -1,6 +1,6 @@
-	var debugMode=false;
-	var messageFromString=false;
-	var photoTrial=false;
+	var debugMode=true;
+	var messageFromString=true;
+	var photoTrial=true;
 	var map;
     var marker;
     var lastCenter="";
@@ -655,9 +655,9 @@
             destinationType: destinationType.DATA_URL, correctOrientation: true,
             sourceType: source });
     } 
-    function TogglePicSize(id) 
+/*    function TogglePicSize(id) 
     {
-      		var thrashId;
+      		//var thrashId;
 			if (enlarged!='')
 			{
 				$('#' + enlarged).animate({
@@ -665,12 +665,12 @@
 			   	 height:'60px',
 				    width:'60px'
 				 });
-				 thrashId=enlarged.replace('img','thrash');
-				 document.getElementById(thrashId).style.display='none';
+				 //thrashId=enlarged.replace('img','thrash');
+				// document.getElementById(thrashId).style.display='none';
 				 enlarged='';
 			}
 			
-			thrashId=id.replace('img','thrash');
+			//thrashId=id.replace('img','thrash');
 			if ($('#' + id).height()=='60')
 			{
 				$('#' + id).animate({
@@ -678,7 +678,7 @@
 			   	 height:'110px',
 				    width:'110px'
 			 	});
-			 	document.getElementById(thrashId).style.display='block';
+			 	//document.getElementById(thrashId).style.display='block';
 			  	enlarged=id;
 			}
 			else
@@ -688,17 +688,17 @@
 			   	 height:'60px',
 				    width:'60px'
 				 });
-				 document.getElementById(thrashId).style.display='none';
+				 //document.getElementById(thrashId).style.display='none';
 				 enlarged='';
 			} 
-	}
+	}*/
 	
     function capturePhoto() 
     {    	
           // Take picture using device camera and retrieve image as base64-encoded string
           if (photoTrial==false)
           { 
-	          	navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,targetWidth: 100,targetHeight: 100 ,
+	          	navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,/*targetWidth: 100,targetHeight: 100 ,*/
 	            destinationType: destinationType.DATA_URL, saveToPhotoAlbum: false, correctOrientation: true });
           }
           else
@@ -706,18 +706,18 @@
       			var photoSection=document.getElementById('photosSection');
 				var smallImage=document.createElement('img');
 				
-				var wholeWrap=document.createElement('div');
+			/*	var wholeWrap=document.createElement('div');
 				wholeWrap.className='wholeWrap';
 				var picWrap=document.createElement('div');
-				picWrap.className='picWrap';
+				picWrap.className='picWrap';*/
 				
 				smallImage.className='photo';
 				smallImage.id='img' + photoCounter;
 				//smallImage.src = imageURI;
 				smallImage.src='./images/logo.png';
-				smallImage.onclick=function (){TogglePicSize(smallImage.id);};
+				smallImage.onclick=function (){TogglePicFullScreen(smallImage.id);};
 				
-				picWrap.appendChild(smallImage);
+			/*	picWrap.appendChild(smallImage);
 				wholeWrap.appendChild(picWrap);
 				
 				var thrash=document.createElement('img');
@@ -726,9 +726,9 @@
 				thrash.id='thrash' + photoCounter;		
 				wholeWrap.appendChild(thrash);
 						
-		        photoSection.appendChild(wholeWrap);
-				
-				photos[photoCounter]=imageURI;
+		        photoSection.appendChild(wholeWrap);*/
+				photoSection.appendChild(smallImage);
+				//photos[photoCounter]=imageURI;
 				//photos[photoCounter]=imageData;
 				//alert('imageData: ' + photos[photoCounter]);
 		        ++photoCounter;
@@ -740,7 +740,7 @@
 		var photoSection=document.getElementById('photosSection');
 		var smallImage=document.createElement('img');
 		
-		var wholeWrap=document.createElement('div');
+		/*var wholeWrap=document.createElement('div');
 		wholeWrap.className='wholeWrap';
 		var picWrap=document.createElement('div');
 		picWrap.className='picWrap';
@@ -753,26 +753,46 @@
 		thrash.src='./images/thrash.png';
 		thrash.className='thrashCanIcon';
 		thrash.id='thrash' + photoCounter;		
-		wholeWrap.appendChild(thrash);
+		wholeWrap.appendChild(thrash);*/
 
 		smallImage.className='photo';
 		smallImage.id='img' + photoCounter;
 		smallImage.src = "data:image/jpeg;base64," + imageData;
 		
 		//smallImage.src='./images/logo.png';
-		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
+		smallImage.onclick=function (){TogglePicFullScreen(smallImage.id);};
 		
-		picWrap.appendChild(smallImage);				
-        photoSection.appendChild(wholeWrap);
-		//photoSection.appendChild(smallImage);
+		//picWrap.appendChild(smallImage);				
+        //photoSection.appendChild(wholeWrap);
+		photoSection.appendChild(smallImage);
 		photos[photoCounter]=imageData;
 		//photos[photoCounter]=imageData;
 		//alert('imageData: ' + photos[photoCounter]);
         ++photoCounter;
-                        	
-
 	}
-    function AddPhotoToFromLibrary(imageURI) 
+	
+	function TogglePicFullScreen(imageId)
+	{
+		
+		if (document.getElementById('picDisplay').style.display=='none')
+		{	
+			var imageSrc=document.getElementById(imageId).src;
+			document.getElementById('fullScreenPic').src=imageSrc;
+        	ToggleDisplay('picDisplay','block'); 
+            ToggleDisplay('reportPage','block');
+            ToggleDisplay('topMenu','inline');
+            ShowIcon('backIcon','discardIcon');  
+        }
+        else
+        {
+        	ToggleDisplay('picDisplay','block'); 
+            ToggleDisplay('reportPage','block');
+            ToggleDisplay('topMenu','inline');
+            ShowIcon();          	
+        }   
+	}
+
+ /*   function AddPhotoToFromLibrary(imageURI) 
     {
 		var photoSection=document.getElementById('photosSection');
 		var smallImage=document.createElement('img');
@@ -804,7 +824,7 @@
         ++photoCounter;
 
 	}
-
+*/
 
     // Called if something bad happens.
     //
