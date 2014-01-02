@@ -15,7 +15,7 @@
 	var messageUrl;
 	
 	var serverNum=7;	
-	var localHostDom='http://10.0.0.14';
+	var localHostDom='http://10.0.0.27';
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	
@@ -108,7 +108,6 @@
 			document.getElementById('base64Pic' + j).value=photos[j];
 		}
 
-		
 		uploadIframe.onload=function() {GetActionResult(picForm);};
 		document.getElementById('picForm').submit();
 	}
