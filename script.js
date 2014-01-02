@@ -19,8 +19,8 @@
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	
-	var currnetHost=hostDom+serverNum+':'+port;
-	//var currnetHost=localHostDom;
+	//var currnetHost=hostDom+serverNum+':'+port;
+	var currnetHost=localHostDom;
 	
 				
 	var url;
