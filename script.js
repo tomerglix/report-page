@@ -1,4 +1,4 @@
-	var debugMode=false;
+	var debugMode=true;
 	var messageFromString=true;
 	var photoTrial=false;
 	var map;
