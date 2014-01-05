@@ -1,6 +1,6 @@
-	var debugMode=false;
-	var messageFromString=false;
-	var photoTrial=false;
+	var debugMode=true;
+	var messageFromString=true;
+	var photoTrial=true;
 	var map;
     var marker;
     var lastCenter="";
@@ -13,14 +13,14 @@
 	var mifgaNum;
 	var commentRefreshSpinner;
 	var messageUrl;
-	
+	var contactToDelete;	
 	var serverNum=7;	
 	var localHostDom='http://10.0.0.5';
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	
-	var currnetHost=hostDom+serverNum+':'+port;
-	//var currnetHost=localHostDom;
+	//var currnetHost=hostDom+serverNum+':'+port;
+	var currnetHost=localHostDom;
 	
 				
 	var url;
@@ -64,7 +64,7 @@
 	var PicSendSuccessStr='Report was successfuly sent';
 	var PicSendFailStr='Report was sent without photos';
 	var termsString = "El presente aplicativo celular es brindado a la población en forma gratuita por la empresa Pele System, como servicio a la comunidad para el envío de denuncias y alertas S.O.S. al Centro de Control de Alto al Crimen, que contribuyan a  la prevención y tratamiento de emergencias y  hechos delictivos. <br/> Pele System y Alto al Crimen no  serán responsables por  defectos o mal funcionamiento del aplicativo ni por el daño directo, indirecto, incidental o consecuente o  daño resultante de la pérdida de uso o pérdida de beneficios esperados como resultado de una avería en la aplicación.  <br/>La aplicación soporta la asociación de hasta 3 fotos por evento.  <br/>El aplicativo es operado con señal celular,  por lo cual en caso de producirse fallas en trasmisión de datos del proveedor celular,  es posible que estos datos no sean  recepcionados por el Centro de Control de Alto al Crimen.  <br/>El aplicativo S.O.S. Alto al Crimen  no reemplaza las tradicionales vías de contacto con  los servicios oficiales de seguridad y  emergencia, mediante  los cuales el ciudadano deberá acudir en caso necesario.  <br/>La activación del botón de S.O.S  producirá el envío de un mensaje de alerta al círculo de contactos definido por el usuario como destinatarios  para recibir la alerta por SMS.  Los SMS tendrán el costo de un mensaje de texto normal y serán a cargo del usuario de la aplicación S.O.S.";
-						
+	var sosDescription="Enviar mensaje SOS a Alto el Crimen y a Emergencia Municipal.<br/><br/>Notificar a su círculo de contactos que está en una emergencia";					
 	for (i=0;i<contactsList.length;++i)
 	{
 		contactsList[i]=new Array(2);
@@ -294,7 +294,7 @@
 		else if (form.id=='reportForm')
 		{
 			var res=CheckActionResult(actionResult,5);
-			transitionSpinner.stop();
+			
 			if (res==true)
 			{
 				if (photoCounter>0)
@@ -303,17 +303,21 @@
 				}
 				else
 				{
-					alert(reportSuccessStr);
+					transitionSpinner.stop();
+					document.getElementById("reportPage").style.pointerEvents = "auto";
+					CreateAlert(reportSuccessStr);
 					RefreshReportPage();
 				}
 				
 			}
 			else
-			{
-				alert(reportFailStr);
+			{	transitionSpinner.stop();
+				document.getElementById("reportPage").style.pointerEvents = "auto";
+				CreateAlert(reportFailStr);
+				
 			}
 			//form.style.opacity='1';
-			document.getElementById("reportPage").style.pointerEvents = "auto";
+			
 	
 		}
 		else if (form.id=='activationWaitForm')
@@ -322,7 +326,7 @@
 			if (res==1)
 			{	
 				localStorage.setItem('userStatus',3);
-				alert(checkActivationSuccessStr);	
+				CreateAlert(checkActivationSuccessStr);	
 				window.location.replace('MainPage.html');
 			}
 			else
@@ -370,12 +374,12 @@
 			if (res==1)
 			{	
 				commentRefreshSpinner.stop();
-				alert(sendCommentSuccessStr);
+				CreateAlert(sendCommentSuccessStr);
 				GetMessages();
 			}
 			else
 			{
-				alert(sendCommentFailStr);
+				CreateAlert(sendCommentFailStr);
 				commentRefreshSpinner.stop();	
 			}
 									
@@ -384,6 +388,8 @@
 		{
 			var res=CheckActionResult(actionResult,6,PicSendSuccessStr,PicSendFailStr);
 		 	alert(actionResult);
+			transitionSpinner.stop();
+			document.getElementById("reportPage").style.pointerEvents = "auto";
 			if (res==true)
 			{
 				RefreshReportPage();
@@ -392,7 +398,7 @@
 		}
 		else
 		{
-			alert('Unknown error');
+			CreateAlert('Unknown error');
 		}
 		form.style.opacity='1';
 	}
@@ -417,7 +423,7 @@
 				log+='position: ' + i +'; str1(' + i + '): ' +str1.charAt(i) +  '; str2(' + i + '): ' + str2.charAt(i) + '\n';
 			}
 		}
-		alert(log);
+		CreateAlert(log);
 	}
    
     function AddParmameterToURL(url,param,value)
@@ -509,7 +515,8 @@
 	    
 	    if (!(parseInt($lefty.css('left'),10)==0) && photoCounter>=maxPhotos)
 	    {
-	    	alert("You can only add " + maxPhotos + " photos");
+	    	//alert();
+	    	CreateAlert("You can only add " + maxPhotos + " photos");
 	    	
 	    }
 	    else
@@ -524,7 +531,7 @@
 	function AddContact()
 	{
 		var number=document.getElementById('contactNumber').value;
-		if (isNumber(number) && number.length < 15 && number.length>9)
+		if (isNumber(number) && number.length < 15 && number.length>=9)
 		{
 			name=document.getElementById('contactName').value;
 			if (name.indexOf('/') == -1)
@@ -547,13 +554,13 @@
 			}
 			else
 			{
-				alert("'/' is not alowed.");
+				CreateAlert("'/' is not alowed.");
 			}
 			
 		}
 		else
 		{
-			alert("Please enter a valid number.");
+			CreateAlert("Please enter a valid number.");
 		}
 
 	}
@@ -565,10 +572,17 @@
 	
 	function DisplaySingleContact(contactIndex)
 	{	
-		document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:5%' class='center'> <img src='./images/x.png' class='icons'  onclick='DeleteContact(" +contactIndex +"); return false' style='float: none; padding-top:7px;'></td>  <td class='robo' style='width:45%;'>"
+		document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:5%' class='center'> <img src='./images/x.png' class='icons'  onclick='OpenDeleteContactConfirm(" +contactIndex +"); return false' style='float: none; padding-top:7px;'></td>  <td class='robo' style='width:45%;'>"
 															+ contactsList[contactIndex][0] + "</td> <td  style='width:50%' class='robo'> " + contactsList[contactIndex][1] + "</td> </tr>";
 	}
-	
+
+
+	function OpenDeleteContactConfirm(contactIndex)
+	{
+		contactToDelete=contactIndex;
+		$('#contactDeletion' ).dialog('open');
+		
+	}	
 	function DisplayContactList()
 	{
 		document.getElementById('contactsList').innerHTML="";
@@ -584,27 +598,23 @@
 		ToggleDisplay('addbutton','inline');
 	}
 	
-	function DeleteContact(contactIndex)
+	function DeleteContact()
 	{
-		var comfirmDeletion=confirm("Contact will be deleted");
-		if (comfirmDeletion==true)
+		for (i=contactToDelete; i<contactsCounter-1; ++i)
 		{
-			for (i=contactIndex; i<contactsCounter-1; ++i)
-			{
-				
-				localStorage.setItem(i,localStorage.getItem(i+1));
-				contactsList[i][0]=contactsList[i+1][0];
-				contactsList[i][1]=contactsList[i+1][1];
-			}
-			localStorage.removeItem(i);
-			if (contactsCounter==3)
-			{
-				ToggleDisplay('addbutton','inline');
-			}
-			--contactsCounter;
-			localStorage.setItem('contactsCounter',contactsCounter);
-			DisplayContactList();
+			
+			localStorage.setItem(i,localStorage.getItem(i+1));
+			contactsList[i][0]=contactsList[i+1][0];
+			contactsList[i][1]=contactsList[i+1][1];
 		}
+		localStorage.removeItem(i);
+		if (contactsCounter==3)
+		{
+			ToggleDisplay('addbutton','inline');
+		}
+		--contactsCounter;
+		localStorage.setItem('contactsCounter',contactsCounter);
+		DisplayContactList();
 	}
 	
 	function SOSLongPress()
@@ -817,7 +827,7 @@
     {
         if (message!='Camera cancelled.' && message!='Selection cancelled.' && message!='no image selected')
           {
-                  alert('Failed because: ' + message);
+                  CreateAlert('Failed because: ' + message);
           }
     }
     //************* end of camera functions *********************/
@@ -859,7 +869,7 @@
     
     function onError(error) 
     {
-        alert(        'Sending location failed\n'        +
+        CreateAlert(        'Sending location failed\n'        +
                         'code: '    + error.code    + '\n' +
                       'message: ' + error.message + '\n');
        	transitionSpinner.stop();
@@ -907,7 +917,8 @@
         marker = new google.maps.Marker({
                     position: latlng,
                     map: map,
-                    draggable:true
+                    draggable:true,
+                   //  zIndex: 5
                 });
     }
     
@@ -1020,12 +1031,12 @@
                                         }
                                         else 
                                         {
-                                            alert("Error in finding location");
+                                            CreateAlert("Error in finding location");
                                         }
                                     } 
                                     else 
                                     {
-                                        alert("Error: " + status);
+                                        CreateAlert("Error: " + status);
                                     }
                                     if(addressBarSpinner)
                                    	{
@@ -1343,7 +1354,7 @@
 		}
 		else
 		{
-			alert('Please fill all the fields with a valid data');
+			CreateAlert('Please fill all the fields with a valid data');
 			document.getElementById("registrationPage").style.pointerEvents = "auto";
 		}
 		
@@ -1353,7 +1364,7 @@
 	{
 		if (resStr===undefined || resStr=='')
 		{
-			alert('Error');
+			CreateAlert('Error');
 			return false;
 		}
 		else
@@ -1366,7 +1377,7 @@
 	            {
 	            	if (!(msgWhenSuccess===undefined))
 	            	{
-	            		alert(msgWhenSuccess);
+	            		CreateAlert(msgWhenSuccess);
 	            	}
 	            	return true;
 	            }
@@ -1374,7 +1385,7 @@
 	            {
 	            	if (!(msgWhenFail===undefined))
 	            	{
-	            		alert(msgWhenFail);
+	            		CreateAlert(msgWhenFail);
 	            	}
 	            	return false;
 	            }		
@@ -1386,7 +1397,7 @@
 	            {
 	            	if (!(msgWhenFail===undefined))
 	            	{
-	            		alert(msgWhenFail);
+	            		CreateAlert(msgWhenFail);
 	            	}
 	            	return false;
 	            }
@@ -1396,7 +1407,7 @@
 		            {
 		            	if (!(msgWhenSuccess===undefined))
 		            	{
-		            		alert(msgWhenSuccess);
+		            		CreateAlert(msgWhenSuccess);
 		            	}
 		            	return true;
 		            }
@@ -1404,7 +1415,7 @@
 		            {
 		            	if (!(msgWhenFail===undefined))
 		            	{
-		            		alert(msgWhenFail);
+		            		CreateAlert(msgWhenFail);
 		            	}
 		            	return false;
 		            }	
@@ -1656,7 +1667,8 @@
     	document.getElementById('SOSTab').style.borderBottomColor='#33B5E5';
     	document.getElementById('helpIcon').style.display='block';
     	
-
+    	document.getElementById('sosDescription').innerHTML=sosDescription;
+		
 		LoadContactsFromStorage();
 		DisplayContactList();
 		if (contactsCounter==3)
@@ -1703,7 +1715,6 @@
 		myUserSpan=document.createElement('div');
 		myUserSpan.className='messageBlueLeft';
 		myUserSpan.innerHTML=myUser;	           
-	
 	
 		messageUrl=GenerateGetMessagesUrl();
 		GetLocation(GetAddress);
@@ -1893,24 +1904,33 @@
 
 	function DeletePhoto()
 	{
-		var comfirmDeletion=confirm('Delete photo?');
-		if (comfirmDeletion==true)
+
+		var picToDeleteId=document.getElementById('fullScreenPic').name;
+		var picIndex=picToDeleteId.charAt(picToDeleteId.indexOf('img')+3);
+		for (var i=picIndex;i<photoCounter-1;++i)
 		{
-			var picToDeleteId=document.getElementById('fullScreenPic').name;
-			var picIndex=picToDeleteId.charAt(picToDeleteId.indexOf('img')+3);
-			for (var i=picIndex;i<photoCounter-1;++i)
-			{
-				var nextPhotoIndex=parseInt(i)+1;
-				photos[i]=photos[nextPhotoIndex];
-				var nextPhoto=document.getElementById('img'+ nextPhotoIndex);
-				var currentPhoto=document.getElementById('img'+ i);
-				currentPhoto.src=nextPhoto.src;
-			}
-			var n=photoCounter-1;
-			document.getElementById('photosSection').removeChild(document.getElementById('img' + n));
-			TogglePicFullScreen();
-			--photoCounter;
+			var nextPhotoIndex=parseInt(i)+1;
+			photos[i]=photos[nextPhotoIndex];
+			var nextPhoto=document.getElementById('img'+ nextPhotoIndex);
+			var currentPhoto=document.getElementById('img'+ i);
+			currentPhoto.src=nextPhoto.src;
 		}
+		var n=photoCounter-1;
+		document.getElementById('base64Pic' + n).value='';
+		document.getElementById('photosSection').removeChild(document.getElementById('img' + n));
+		TogglePicFullScreen();
+		--photoCounter;
+	}
+	
+	function CreateAlert(content,title)
+	{
+		document.getElementById('generalAlert').innerHTML=content;
+		if (!(title===undefined))
+		{
+			$('#generalAlert').dialog("option", "title", title);
+		}
+		$('#generalAlert').dialog('open');
+		$('#generalAlert').dialog("option", "title", "ALTO al CRIMEN");
 	}
  
 /******************** storage format *****************************

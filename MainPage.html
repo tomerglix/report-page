@@ -26,7 +26,16 @@
 	    <link href="css/mobiscroll.scroller.android-ics.css" rel="stylesheet" type="text/css" />
 	    <link href="css/mobiscroll.animation.css" rel="stylesheet" type="text/css" /> 				
 
-	    
+		<!--dialog box-->
+		<link rel="stylesheet" href="./ui/jquery.ui.core.css">
+		<link rel="stylesheet" href="./ui/jquery.ui.button.css">
+		<link rel="stylesheet" href="./ui/jquery.ui.dialog.css">
+		<script src="./ui/jquery.ui.core.js"></script>
+		<script src="./ui/jquery.ui.widget.js"></script>
+		<script src="./ui/jquery.ui.position.js"></script>
+		<script src="./ui/jquery.ui.button.js"></script>
+		<script src="./ui/jquery.ui.dialog.js"></script>
+			    
         <!--progress spinner-->
         <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
         <script type="text/javascript" charset="UTF-8" src="spinner.min.js"></script>
@@ -37,35 +46,7 @@
    			             
         <title>Main Page</title>
         <style>
-        	.actionBarIcon
-        	{
-				padding-top: 5px;
-				width: 35px;
-				height: 40px;
-				float: right;
-				display: none;
-				        		
-        		
-        	}
-        	.actionBarIcon:active
-        	{
-        		background-color: #33b5e5;
-        	}
-			.slide 
-			{
-				margin-left: 35px;
-				position: relative;
-				overflow: hidden;
-				height: 28px;
-				margin-bottom: 10px;
-			}
-			.slide .inner 
-			{
-  				position: absolute;
-  				bottom: 0;
-  				left: -234px;
-			}   
-			
+
      	
         </style>
 </head>
@@ -77,18 +58,25 @@
         		<img src='./images/logo.png' style="height: 100%; width: 40%">
         		<!--<input id='actionBarTextBox' type="search"  />-->
         		
-        		<img id='helpIcon' src='./images/help.png' class="actionBarIcon">
+        		<img id='helpIcon' src='./images/help.png' class="actionBarIcon" onclick="$('#sosDescription' ).dialog('open');">
         		<img id='refreshIcon' src='./images/refresh.png' class="actionBarIcon" onclick="GetMessages();">
         		<img id='acceptIcon' src='./images/accept.png' class="actionBarIcon" onclick='ToggleMap(true)'>
         		<img id='cancelIcon' src='./images/cancel.png' class="actionBarIcon" onclick='ToggleMap()'>
         		<img id='hereIcon' src='./images/here.png' class="actionBarIcon" onclick='transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body); GetLocation(GoToMyPosition);'>
         		<img id='markerIcon' src='./images/marker.png' class="actionBarIcon" onclick='GoToMarkerLocation();'>
         		<img id='backIcon' src='./images/back.png' class="actionBarIcon" onclick='TogglePicFullScreen()'>
-        		<img id='discardIcon' src='./images/discard.png' class="actionBarIcon" onclick='DeletePhoto();'>
+        		<img id='discardIcon' src='./images/discard.png' class="actionBarIcon" onclick='$("#photoDeletion" ).dialog("open");'>
         		<!--<img id='searchIcon' src='./images/search.png' class="actionBarIcon">-->
         		
         		
         	</div>
+			<p id='photoDeletion'>
+				Remove photo?
+			</p>
+			<P id='generalAlert'>
+				
+			</P>
+			
         	<button id='closeMapButton' class="center" onclick='ToggleMap()'  style="display:none; position: absolute; z-index: 100; top:0;" >Close map</button>
             <div id="mapDisplay" style="display: none; margin-top: 45px;">
                                     
@@ -151,6 +139,13 @@
 	
 					</form>
 				</div>
+				<p id='sosDescription'>
+					
+				</p>
+				<p id='contactDeletion'>
+					Remove contact?
+				</p>
+				
 			</div>
 <!---------------------------------  end of sos section ---------------------------------->
 
@@ -332,25 +327,61 @@
 					$('#messagesPage').on('swipeleft', function(e){ChangePage('SOSPage','SOSTab'); ShowIcon('helpIcon');})
 					.on('swiperight', function(e){ChangePage('reportPage','reportPageTab'); ShowIcon();});	
 					
-				/*	$(document).click(function (e)
-					{
-						if (enlarged!='')
-						{
-						 	var container = $('.photo');
-		 				    if (!container.is(e.target) && container.has(e.target).length === 0) 
-						    {
-								$('#' + enlarged).animate({
-			
-							   	 height:'60px',
-								    width:'60px'
-							 	});
-							 	var thrashId=enlarged.replace('img','thrash');
-			 			 		//document.getElementById(thrashId).style.display='none';
-							 	enlarged='';								 
-						    }						    
+					$('#sosDescription' ).dialog({
+						width: 250,
+						autoOpen: false,
+						modal: true,
+						dialogClass: "no-close robo alertBox",
+						title: "MENSAJE SOS",
+					  	buttons: [{text: "OK", click: function() {$( this ).dialog( "close" );}}]
+
+					});	
+
+					$('#contactDeletion' ).dialog({
+						width: 250,
+						autoOpen: false,
+						modal: true,
+						dialogClass: "no-close robo alertBox confirmBox",
+						title: "DELETE CONTACT",
+						buttons: {
+							OK: function() {
+								DeleteContact();
+								$( this ).dialog( "close" );
+							},
+							Cancel: function() {
+								$( this ).dialog( "close" );
+							}
 						}
-					});	*/
+
+					});						
 					
+					$('#photoDeletion' ).dialog({
+						width: 250,
+						autoOpen: false,
+						modal: true,
+						dialogClass: "no-close robo alertBox confirmBox",
+						title: "DELETE PHOTO",
+						buttons: {
+							OK: function() {
+								DeletePhoto();
+								$( this ).dialog( "close" );
+							},
+							Cancel: function() {
+								$( this ).dialog( "close" );
+							}
+						}
+
+					});	
+					
+					$('#generalAlert').dialog({
+						width: 250,
+						autoOpen: false,
+						modal: true,
+						dialogClass: "no-close robo alertBox",
+						title: "ALTO al CRIMEN",
+						buttons: [{text: "OK", click: function() {$( this ).dialog( "close" );}}]
+					});	
+						
 
 			</script>
 			

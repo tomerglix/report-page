@@ -198,6 +198,7 @@
 	
 	.dropdown 
 	{
+		white-space: normal;
 		padding-left: 5px;
       	border: 1px solid;
      	border-color: #C4C4C3;
@@ -635,3 +636,83 @@
 		height: 100%;
 		width:100%;
 	}
+	
+	.alertBox
+	{
+		border:solid #aaaaaa 1px;
+		position: absolute;
+		padding: .2em;
+		outline: 0;
+		border-radius: 8px;
+		border: 1px solid #aaaaaa/*{borderColorContent}*/;
+		background: #ffffff/*{bgColorContent}*/ url(images/ui-bg_flat_75_ffffff_40x100.png)/*{bgImgUrlContent}*/ 50%/*{bgContentXPos}*/ 50%/*{bgContentYPos}*/ repeat-x/*{bgContentRepeat}*/;
+		color: #222222/*{fcContent}*/;
+		
+	}
+	.alertBox .ui-dialog-buttonset
+	{
+
+	}
+	.alertBox button
+	{
+		float:right;
+	}
+	
+	.confirmBox .ui-dialog-buttonset
+	{
+		float:none;
+	}
+	.confirmBox button
+	{
+		width:48%;
+		margin:1%;
+	}
+	.ui-widget-header 
+	{
+		border: 1px solid #aaaaaa/*{borderColorHeader}*/;
+		background: #0099CC/*{bgColorHeader}*/ url(images/ui-bg_highlight-soft_75_cccccc_1x100.png)/*{bgImgUrlHeader}*/ 50%/*{bgHeaderXPos}*/ 50%/*{bgHeaderYPos}*/ repeat-x/*{bgHeaderRepeat}*/;
+		color: white;
+		font-weight: bold;
+		border-radius: 4px;
+	}
+		
+	.ui-widget-overlay 
+	{
+		background: #aaaaaa/*{bgColorOverlay}*/ url(images/ui-bg_flat_0_aaaaaa_40x100.png)/*{bgImgUrlOverlay}*/ 50%/*{bgOverlayXPos}*/ 50%/*{bgOverlayYPos}*/ repeat-x/*{bgOverlayRepeat}*/;
+		opacity: .3/*{opacityOverlay}*/;
+	}
+	
+	.no-close .ui-dialog-titlebar-close 
+	{
+	  display: none;
+	}
+
+	.actionBarIcon
+	{
+		padding-top: 5px;
+		width: 35px;
+		height: 40px;
+		float: right;
+		display: none;
+		        		
+		
+	}
+	.actionBarIcon:active
+	{
+		background-color: #33b5e5;
+	}
+	.slide 
+	{
+		margin-left: 35px;
+		position: relative;
+		overflow: hidden;
+		height: 28px;
+		margin-bottom: 10px;
+	}
+	.slide .inner 
+	{
+		position: absolute;
+		bottom: 0;
+		left: -234px;
+	}   
+	

@@ -27,7 +27,16 @@
 	    <link href="css/mobiscroll.scroller.android-ics.css" rel="stylesheet" type="text/css" />
 	    <link href="css/mobiscroll.animation.css" rel="stylesheet" type="text/css" /> 				
 
-	    
+		<!--dialog box-->
+		<link rel="stylesheet" href="./ui/jquery.ui.core.css">
+		<link rel="stylesheet" href="./ui/jquery.ui.button.css">
+		<link rel="stylesheet" href="./ui/jquery.ui.dialog.css">
+		<script src="./ui/jquery.ui.core.js"></script>
+		<script src="./ui/jquery.ui.widget.js"></script>
+		<script src="./ui/jquery.ui.position.js"></script>
+		<script src="./ui/jquery.ui.button.js"></script>
+		<script src="./ui/jquery.ui.dialog.js"></script>
+			    
         <!--progress spinner-->
         <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
         <script type="text/javascript" charset="UTF-8" src="spinner.min.js"></script>
@@ -35,6 +44,7 @@
      	<script src="jquery.mobile-events.js"></script>
      	<link rel="stylesheet" type="text/css" href="style.css">
         <script type="text/javascript" charset="UTF-8" src="script.js" ></script>  
+   			             
      	<title>Wait For Activation</title>
 </head>
 
@@ -53,9 +63,21 @@
 						<input  style="width:100%" type="submit" id="OKButton" class="submitButtonStyle" onclick="CheckActivation();" value="OK" /> 
 					</div>
 				</div>
-			</form>     
+			</form> 
+			<P id='generalAlert'>
+				
+			</P>    
 			<script type="text/javascript" charset="UTF-8" >
 				$('#activationWaitPage').on('swipeleft', function(e){});
+				
+				$('#generalAlert').dialog({
+					width: 250,
+					autoOpen: false,
+					modal: true,
+					dialogClass: "no-close robo alertBox",
+					title: "ALTO al CRIMEN",
+					buttons: [{text: "OK", click: function() {$( this ).dialog( "close" );}}]
+				});	
 			</script>
 			
         </body>
