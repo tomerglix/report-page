@@ -1,6 +1,6 @@
 	var debugMode=true;
 	var messageFromString=true;
-	var photoTrial=true;
+	var photoTrial=false;
 	var map;
     var marker;
     var lastCenter="";
@@ -283,7 +283,7 @@
             actionResult = uploadIframe.document.body.innerHTML;
         }
         
-        
+	 	alert(actionResult);        
         
 		if (form.id=='SOSForm')
 		{
@@ -387,7 +387,7 @@
 		else if (form.id=='picForm')
 		{
 			var res=CheckActionResult(actionResult,6,PicSendSuccessStr,PicSendFailStr);
-		 	alert(actionResult);
+
 			transitionSpinner.stop();
 			document.getElementById("reportPage").style.pointerEvents = "auto";
 			if (res==true)

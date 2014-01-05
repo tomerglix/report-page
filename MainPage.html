@@ -314,7 +314,7 @@
 	          			.on("touchstart", ChangeButtonToPressed)
 						.on("touchend", ChangeButtonToNormal);
 						
-						
+					$('.ui-button').on('swipeleft', function(e){});	
 					$('#actionBar').on('swipeleft', function(e){});
 					$('#topMenu').on('swipeleft', function(e){});
 						
@@ -381,6 +381,8 @@
 						title: "ALTO al CRIMEN",
 						buttons: [{text: "OK", click: function() {$( this ).dialog( "close" );}}]
 					});	
+					
+					
 						
 
 			</script>

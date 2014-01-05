@@ -9,7 +9,6 @@ change time picker to spanish
 splash screen
 timeout when there's no connection
 change alerts to fading messages
-add bubble when phone is not valid
 push notifications
 
 check future date (reg and report)	c			check sending report with a future date
@@ -31,7 +30,7 @@ after removing 1 photo, it send the last pic twice		c
 marker disappear after dragging - try to refresh map	c
 text overrides the arrow at the select box				c
 registration - attention icon on text when text is long
-fix click enable timing when sending report with pic
+fix click enable timing when sending report with pic	c
 tapping on calendar icon will open picker
 
 bug - after sending sos and trying to capture photo strange messages appear		c
