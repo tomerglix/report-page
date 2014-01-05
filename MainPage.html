@@ -84,7 +84,7 @@
         		<img id='hereIcon' src='./images/here.png' class="actionBarIcon" onclick='transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body); GetLocation(GoToMyPosition);'>
         		<img id='markerIcon' src='./images/marker.png' class="actionBarIcon" onclick='GoToMarkerLocation();'>
         		<img id='backIcon' src='./images/back.png' class="actionBarIcon" onclick='TogglePicFullScreen()'>
-        		<img id='discardIcon' src='./images/discard.png' class="actionBarIcon" onclick=''>
+        		<img id='discardIcon' src='./images/discard.png' class="actionBarIcon" onclick='DeletePhoto();'>
         		<!--<img id='searchIcon' src='./images/search.png' class="actionBarIcon">-->
         		
         		
@@ -95,7 +95,7 @@
             </div>
             
             <div id="picDisplay" style="display: none; margin-top: 45px;" class="fullScreen" >
-                 <img id="fullScreenPic" src='' style="height: 100%; width:100%">                   
+                 <img id="fullScreenPic" src='' >                   
             </div>
             
 			<div id="topMenu">

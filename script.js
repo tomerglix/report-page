@@ -284,7 +284,6 @@
         }
         
         
-        alert(actionResult);
         
 		if (form.id=='SOSForm')
 		{
@@ -384,6 +383,7 @@
 		else if (form.id=='picForm')
 		{
 			var res=CheckActionResult(actionResult,6,PicSendSuccessStr,PicSendFailStr);
+		 	alert(actionResult);
 			if (res==true)
 			{
 				RefreshReportPage();
@@ -586,7 +586,7 @@
 	
 	function DeleteContact(contactIndex)
 	{
-		var comfirmDeletion=confirm("Contact will be deleted.");
+		var comfirmDeletion=confirm("Contact will be deleted");
 		if (comfirmDeletion==true)
 		{
 			for (i=contactIndex; i<contactsCounter-1; ++i)
@@ -714,7 +714,7 @@
 				smallImage.className='photo';
 				smallImage.id='img' + photoCounter;
 				//smallImage.src = imageURI;
-				smallImage.src='./images/logo.png';
+				smallImage.src='./images/rihanna.jpg';
 				smallImage.onclick=function (){TogglePicFullScreen(smallImage.id);};
 				
 			/*	picWrap.appendChild(smallImage);
@@ -740,34 +740,17 @@
 		var photoSection=document.getElementById('photosSection');
 		var smallImage=document.createElement('img');
 		
-		/*var wholeWrap=document.createElement('div');
-		wholeWrap.className='wholeWrap';
-		var picWrap=document.createElement('div');
-		picWrap.className='picWrap';
-		
 
-		
-		wholeWrap.appendChild(picWrap);
-		
-		var thrash=document.createElement('img');
-		thrash.src='./images/thrash.png';
-		thrash.className='thrashCanIcon';
-		thrash.id='thrash' + photoCounter;		
-		wholeWrap.appendChild(thrash);*/
 
 		smallImage.className='photo';
 		smallImage.id='img' + photoCounter;
 		smallImage.src = "data:image/jpeg;base64," + imageData;
 		
-		//smallImage.src='./images/logo.png';
 		smallImage.onclick=function (){TogglePicFullScreen(smallImage.id);};
-		
-		//picWrap.appendChild(smallImage);				
-        //photoSection.appendChild(wholeWrap);
+
 		photoSection.appendChild(smallImage);
 		photos[photoCounter]=imageData;
-		//photos[photoCounter]=imageData;
-		//alert('imageData: ' + photos[photoCounter]);
+
         ++photoCounter;
 	}
 	
@@ -776,8 +759,10 @@
 		
 		if (document.getElementById('picDisplay').style.display=='none')
 		{	
-			var imageSrc=document.getElementById(imageId).src;
-			document.getElementById('fullScreenPic').src=imageSrc;
+			var smallImg=document.getElementById(imageId);
+			var fullScreenPic=document.getElementById('fullScreenPic');
+			fullScreenPic.src=smallImg.src;
+			fullScreenPic.name=smallImg.id;
         	ToggleDisplay('picDisplay','block'); 
             ToggleDisplay('reportPage','block');
             ToggleDisplay('topMenu','inline');
@@ -1906,19 +1891,26 @@
 	    map.setCenter(pos);
 	}
 
-	function PhotoLongPress()
-	{
-		var thrash=document.createElement('img');
-		thrash.src='./images/thrash.png';
-		thrash.className='thrashCanIcon';
-		thrash.id=this.id.toString().replace('img','thrash');
-
-		this.appendChild(thrash);
-	}
-	
 	function DeletePhoto()
 	{
-		
+		var comfirmDeletion=confirm('Delete photo?');
+		if (comfirmDeletion==true)
+		{
+			var picToDeleteId=document.getElementById('fullScreenPic').name;
+			var picIndex=picToDeleteId.charAt(picToDeleteId.indexOf('img')+3);
+			for (var i=picIndex;i<photoCounter-1;++i)
+			{
+				var nextPhotoIndex=parseInt(i)+1;
+				photos[i]=photos[nextPhotoIndex];
+				var nextPhoto=document.getElementById('img'+ nextPhotoIndex);
+				var currentPhoto=document.getElementById('img'+ i);
+				currentPhoto.src=nextPhoto.src;
+			}
+			var n=photoCounter-1;
+			document.getElementById('photosSection').removeChild(document.getElementById('img' + n));
+			TogglePicFullScreen();
+			--photoCounter;
+		}
 	}
  
 /******************** storage format *****************************
