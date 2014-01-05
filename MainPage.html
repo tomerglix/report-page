@@ -290,7 +290,9 @@
 	                    adaptiveheight(this);
 	                });	
 	                
-
+	               
+					$('#picDisplay').on('swiperight', function(e){ChangeFullScreenPhoto(-1);})
+					.on('swipeleft', function(e){ChangeFullScreenPhoto(1);});
 					 	               
             		$(function(){
 					    // create a datetimepicker with default settings
@@ -314,7 +316,7 @@
 	          			.on("touchstart", ChangeButtonToPressed)
 						.on("touchend", ChangeButtonToNormal);
 						
-					$('.ui-button').on('swipeleft', function(e){});	
+					
 					$('#actionBar').on('swipeleft', function(e){});
 					$('#topMenu').on('swipeleft', function(e){});
 						

@@ -1,5 +1,5 @@
-	var debugMode=true;
-	var messageFromString=true;
+	var debugMode=false;
+	var messageFromString=false;
 	var photoTrial=false;
 	var map;
     var marker;
@@ -19,8 +19,8 @@
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	
-	//var currnetHost=hostDom+serverNum+':'+port;
-	var currnetHost=localHostDom;
+	var currnetHost=hostDom+serverNum+':'+port;
+	//var currnetHost=localHostDom;
 	
 				
 	var url;
@@ -282,14 +282,14 @@
         {
             actionResult = uploadIframe.document.body.innerHTML;
         }
-        
-	 	alert(actionResult);        
+             
         
 		if (form.id=='SOSForm')
 		{
 			CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
 			transitionSpinner.stop();
 			document.getElementById("SOSPage").style.pointerEvents = "auto";
+			form.style.opacity='1';
 		}
 		else if (form.id=='reportForm')
 		{
@@ -305,6 +305,7 @@
 				{
 					transitionSpinner.stop();
 					document.getElementById("reportPage").style.pointerEvents = "auto";
+					form.style.opacity='1';
 					CreateAlert(reportSuccessStr);
 					RefreshReportPage();
 				}
@@ -313,6 +314,7 @@
 			else
 			{	transitionSpinner.stop();
 				document.getElementById("reportPage").style.pointerEvents = "auto";
+				form.style.opacity='1';
 				CreateAlert(reportFailStr);
 				
 			}
@@ -337,11 +339,12 @@
 				}
 				else
 				{
-					alert(checkActivationFailStr);	
+					CreateAlert(checkActivationFailStr);	
 				}
 			}
 			transitionSpinner.stop();
 			document.getElementById("activationWaitPage").style.pointerEvents = "auto";
+			form.style.opacity='1';
 		} 
 		else if (form.id=='regPageForm')
 		{
@@ -359,7 +362,8 @@
 				window.location.replace('WaitForActivation.html');
 			}
 			transitionSpinner.stop();
-			document.getElementById("registrationPage").style.pointerEvents = "auto";						
+			document.getElementById("registrationPage").style.pointerEvents = "auto";
+			form.style.opacity='1';						
 		}
 		else if (form.id=='messagesForm')
 		{
@@ -367,6 +371,7 @@
 			ParseMessages(actionResult);
 			commentRefreshSpinner.stop();
 			document.getElementById("messagesPage").style.pointerEvents = "auto";
+			form.style.opacity='1';
 		}
 		else if (form.id=='commentForm')
 		{
@@ -390,17 +395,18 @@
 
 			transitionSpinner.stop();
 			document.getElementById("reportPage").style.pointerEvents = "auto";
+			form.style.opacity='1';
+			
 			if (res==true)
 			{
 				RefreshReportPage();
 			}
-			//alert('action result: ' + actionResult);
 		}
 		else
 		{
 			CreateAlert('Unknown error');
 		}
-		form.style.opacity='1';
+		
 	}
 	
 	function CompareStrings(str1,str2)
@@ -515,7 +521,7 @@
 	    
 	    if (!(parseInt($lefty.css('left'),10)==0) && photoCounter>=maxPhotos)
 	    {
-	    	//alert();
+
 	    	CreateAlert("You can only add " + maxPhotos + " photos");
 	    	
 	    }
@@ -716,31 +722,15 @@
       			var photoSection=document.getElementById('photosSection');
 				var smallImage=document.createElement('img');
 				
-			/*	var wholeWrap=document.createElement('div');
-				wholeWrap.className='wholeWrap';
-				var picWrap=document.createElement('div');
-				picWrap.className='picWrap';*/
-				
+
 				smallImage.className='photo';
 				smallImage.id='img' + photoCounter;
-				//smallImage.src = imageURI;
+
 				smallImage.src='./images/rihanna.jpg';
 				smallImage.onclick=function (){TogglePicFullScreen(smallImage.id);};
-				
-			/*	picWrap.appendChild(smallImage);
-				wholeWrap.appendChild(picWrap);
-				
-				var thrash=document.createElement('img');
-				thrash.src='./images/thrash.png';
-				thrash.className='thrashCanIcon';
-				thrash.id='thrash' + photoCounter;		
-				wholeWrap.appendChild(thrash);
-						
-		        photoSection.appendChild(wholeWrap);*/
+
 				photoSection.appendChild(smallImage);
-				//photos[photoCounter]=imageURI;
-				//photos[photoCounter]=imageData;
-				//alert('imageData: ' + photos[photoCounter]);
+
 		        ++photoCounter;
           }
     }
@@ -787,39 +777,6 @@
         }   
 	}
 
- /*   function AddPhotoToFromLibrary(imageURI) 
-    {
-		var photoSection=document.getElementById('photosSection');
-		var smallImage=document.createElement('img');
-		
-		var wholeWrap=document.createElement('div');
-		wholeWrap.className='wholeWrap';
-		var picWrap=document.createElement('div');
-		picWrap.className='picWrap';
-		
-		smallImage.className='photo';
-		smallImage.id='img' + photoCounter;
-		smallImage.src = imageURI;
-		//smallImage.src='./images/logo.png';
-		smallImage.onclick=function (){TogglePicSize(smallImage.id);};
-		
-		picWrap.appendChild(smallImage);
-		wholeWrap.appendChild(picWrap);
-		
-		var thrash=document.createElement('img');
-		thrash.src='./images/thrash.png';
-		thrash.className='thrashCanIcon';
-		thrash.id='thrash' + photoCounter;		
-		wholeWrap.appendChild(thrash);
-				
-        photoSection.appendChild(wholeWrap);
-		
-		photos[photoCounter]=imageURI;
-		//alert('imageData: ' + photos[photoCounter]);
-        ++photoCounter;
-
-	}
-*/
 
     // Called if something bad happens.
     //
@@ -1043,6 +1000,7 @@
                                    		addressBarSpinner.stop();
                                    	}	
 									document.getElementById("SOSPage").style.pointerEvents = "auto";
+									form.style.opacity='1';
                             
                               });                                  				          
 	}
@@ -1356,6 +1314,7 @@
 		{
 			CreateAlert('Please fill all the fields with a valid data');
 			document.getElementById("registrationPage").style.pointerEvents = "auto";
+			//form.style.opacity='1';
 		}
 		
 	}
@@ -1731,6 +1690,7 @@
 			var strhard='<document><message><id>20</id><time>1386597393887</time><body>Monday Dec-09, Testing SOS v2 ENA</body><comment><user>tomer@lola-tech.com</user><time>1387884445639</time><body>tomer test</body></comment><comment><user>enunez@pelesystem.com</user><time>1386597544996</time><body>Ok you`re stiil testing SOS App</body></comment></message><message><id>19</id><time>1386461581278</time><body>I`m still testing the application app</body><comment><user>tomer@lola-tech.com</user><time>1387886718639</time><body>Test 2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386519129387</time><body>2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386515564559</time><body>test</body></comment></message><message><id>18</id><time>1386460441559</time><body>In Oune hour I am completed the QA testing fron tghe APP</body><comment><user>enunez@pelesystem.com</user><time>1386460564012</time><body>Ok I am waiting for the app</body></comment></message><message><id>17</id><time>1386459478403</time><body>Test Message number 3 from Eduardo</body><comment><user>enunez@pelesystem.com</user><time>1386460359496</time><body>Ok the "NAVIDAD SEGURA" from La Molina its almost ready</body></comment><comment><user>enunez@pelesystem.com</user><time>1386460107543</time><body>Ok it is a back message fro ok</body></comment></message><message><id>16</id><time>1386458491262</time><body>Second Test Message from Eduardo 6:20pm Saturday Dic-06</body></message></document>';
 			ParseMessages(strhard);
 			document.getElementById("messagesPage").style.pointerEvents = "auto";
+			form.style.opacity='1';
 		}
 		else
 		{
@@ -1933,6 +1893,22 @@
 		$('#generalAlert').dialog("option", "title", "ALTO al CRIMEN");
 	}
  
+
+	function ChangeFullScreenPhoto(direction)
+	{
+		if (photoCounter>1)
+		{
+			var pic=document.getElementById('fullScreenPic');
+			var picIndex=pic.name.charAt(pic.name.indexOf('img')+3);
+			var nextPicIndex=((parseInt(picIndex)+1*direction)%(photoCounter)+(photoCounter))%(photoCounter);
+			pic.src=document.getElementById('img' + nextPicIndex).src;
+			pic.name='img' + nextPicIndex;
+			
+		}
+
+		
+				
+	} 
 /******************** storage format *****************************
 /*
 --------------------------------
