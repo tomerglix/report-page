@@ -27,7 +27,6 @@
 	var actionResult;
 	var enlarged='';
 	var openCommentBoxId='';
-	var firstLoadActivationCheck=true;
 	
 	var picForm;
 	var commentForm;
@@ -51,6 +50,7 @@
 	var currentPage='SOSPage';            	            	
 	var userStatus; //1-needs to register. 2-waiting for activation. 3-active user
 
+	var gettingMessagesFailStr="Failed loading messages";
 	var sendCommentSuccessStr="Your comment has been received";
 	var sendCommentFailStr="Sending comment failed";
 	var checkActivationSuccessStr="Email confirmed, your acount has been activated";
@@ -287,7 +287,7 @@
         
 		if (form.id=='SOSForm')
 		{
-			CheckActionResult(actionResult,5,SOSSuccessStr,SOSFailStr);
+			CheckActionResult(actionResult,5,SOSFailStr,SOSSuccessStr);
 			transitionSpinner.stop();
 			document.getElementById("SOSPage").style.pointerEvents = "auto";
 			form.style.opacity='1';
@@ -325,31 +325,20 @@
 		}
 		else if (form.id=='activationWaitForm')
 		{
-			var res=parseInt(actionResult);
-			if (res==1)
-			{	
+			var res=CheckActionResult(actionResult,1,checkActivationFailStr);
+			if (res==true)
+			{
 				localStorage.setItem('userStatus',3);
-				//CreateAlert(checkActivationSuccessStr);	
 				window.location.replace('MainPage.html');
 			}
-			else
-			{
-				if (firstLoadActivationCheck==true)
-				{
-					firstLoadActivationCheck=false;
-				}
-				else
-				{
-					CreateAlert(checkActivationFailStr);	
-				}
-			}
+
 			transitionSpinner.stop();
 			document.getElementById("activationWaitPage").style.pointerEvents = "auto";
 			form.style.opacity='1';
 		} 
 		else if (form.id=='regPageForm')
 		{
-			var res=CheckActionResult(actionResult,1,registerSuccessStr,registerFailStr,1);
+			var res=CheckActionResult(actionResult,1,registerFailStr,registerSuccessStr);
 			if (res==true)
 			{
 				var n=actionResult.indexOf(':');
@@ -368,8 +357,14 @@
 		}
 		else if (form.id=='messagesForm')
 		{
-			
-			ParseMessages(actionResult);
+			if (actionResult=='')
+			{
+				CreateAlert(gettingMessagesFailStr);
+			}
+			else
+			{
+				ParseMessages(actionResult);
+			}
 			commentRefreshSpinner.stop();
 			document.getElementById("messagesPage").style.pointerEvents = "auto";
 			form.style.opacity='1';
@@ -392,7 +387,7 @@
 		}					
 		else if (form.id=='picForm')
 		{
-			var res=CheckActionResult(actionResult,6,PicSendSuccessStr,PicSendFailStr);
+			var res=CheckActionResult(actionResult,6,PicSendFailStr,PicSendSuccessStr);
 
 			transitionSpinner.stop();
 			document.getElementById("reportPage").style.pointerEvents = "auto";
@@ -716,7 +711,7 @@
           if (photoTrial==false)
           { 
 	          	navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,/*targetWidth: 100,targetHeight: 100 ,*/
-	            destinationType: destinationType.DATA_URL, saveToPhotoAlbum: false, correctOrientation: true });
+	            destinationType: destinationType.DATA_URL, saveToPhotoAlbum: true, correctOrientation: true, allowEdit:true, targetWidth:400, targetHeight:600  });
           }
           else
           {
@@ -1316,7 +1311,7 @@
 		
 	}
 
-	function CheckActionResult(resStr,successValue,msgWhenSuccess,msgWhenFail,offset)
+	function CheckActionResult(resStr,successValue,msgWhenFail,msgWhenSuccess)
 	{
 		if (resStr===undefined || resStr=='')
 		{
@@ -1325,61 +1320,25 @@
 		}
 		else
 		{
-            var pos=resStr.indexOf(':');
-            
-			if (offset===undefined)
-			{
-	            if (resStr.charAt(pos-1)==successValue)
-	            {
-	            	if (!(msgWhenSuccess===undefined))
-	            	{
-	            		CreateAlert(msgWhenSuccess);
-	            	}
-	            	return true;
-	            }
-	            else
-	            {
-	            	if (!(msgWhenFail===undefined))
-	            	{
-	            		CreateAlert(msgWhenFail);
-	            	}
-	            	return false;
-	            }		
-	            
+            var resultNum=parseInt(resStr);
+            if (resultNum==successValue)
+            {
+            	if (!(msgWhenSuccess===undefined))
+            	{
+            		CreateAlert(msgWhenSuccess);            		
+            	}
+            	return true;
             }
             else
             {
-	            if (resStr.charAt(pos-1-offset)=='-')
-	            {
-	            	if (!(msgWhenFail===undefined))
-	            	{
-	            		CreateAlert(msgWhenFail);
-	            	}
-	            	return false;
-	            }
-	            else
-	            {
-		            if (resStr.charAt(pos-1)==successValue)
-		            {
-		            	if (!(msgWhenSuccess===undefined))
-		            	{
-		            		CreateAlert(msgWhenSuccess);
-		            	}
-		            	return true;
-		            }
-		            else
-		            {
-		            	if (!(msgWhenFail===undefined))
-		            	{
-		            		CreateAlert(msgWhenFail);
-		            	}
-		            	return false;
-		            }	
+            	if (!(msgWhenFail===undefined))
+            	{
+            		CreateAlert(msgWhenFail);            		
+            	}
+            	return false;            	
+            }
 
-	            }		
-            }		  
-    	}
-
+		}
 	}
 	
 	function SubmitCrime()

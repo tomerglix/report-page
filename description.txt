@@ -35,8 +35,9 @@ fix click enable timing when sending report with pic	c	v
 tapping on calendar icon will open picker				c
 fix the pic size from caption (too big)
 registration - attention icon on text when text is long
-active alert buttons									c
-fix the getactionresult function
+active alert buttons									c	v
+fix the getactionresult function						c
+disable action bar when spinner works-apply the change on body instead of pages				
 
 
 bonus: slide page effect
