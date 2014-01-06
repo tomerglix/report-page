@@ -1326,6 +1326,7 @@
 		}
 		else
 		{
+			resStr=resStr.replace(/ /g,'');
             var resultNum=parseInt(resStr);
             if (resultNum==successValue)
             {
