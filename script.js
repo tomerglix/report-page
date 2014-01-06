@@ -537,7 +537,7 @@
     }
 	function AddContact()
 	{
-		$("#contactNumber").blur();
+		$(window).scrollTop($(document).height());
 		var number=document.getElementById('contactNumber').value;
 		if (isNumber(number) && number.length < 15 && number.length>=9)
 		{
