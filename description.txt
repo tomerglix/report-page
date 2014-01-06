@@ -2,7 +2,7 @@ works fine
 
 improvements needed:
 
-sending pics
+sending pics						c	v
 sending sms
 change to spanish
 change time picker to spanish
@@ -11,7 +11,7 @@ timeout when there's no connection
 change alerts to fading messages
 push notifications
 
-sliding photos fullscreen			c
+sliding photos fullscreen			c	v
 check future date (reg and report)	c			check sending report with a future date
 create msg url only once			c	v			
 make page unclickable while waiting	c	v
@@ -27,16 +27,16 @@ spinner when address load			c	v
 comments time						c	v
 textbox doesnt shrink after sending	c	v
 camera options menu					c	v
-
-after removing 1 photo, it send the last pic twice		c
-marker disappear after dragging - try to refresh map	c
-text overrides the arrow at the select box				c
-bug - after sending sos and trying to capture photo strange messages appear		c
-fix click enable timing when sending report with pic	c
-tapping on calendar icon will open picker
+after removing 1 photo, it send the last pic twice		c	v
+marker disappear after dragging - try to refresh map	c	v
+text overrides the arrow at the select box				c	v
+bug - after sending sos and trying to capture photo strange messages appear		c	v
+fix click enable timing when sending report with pic	c	v
+tapping on calendar icon will open picker				c
 fix the pic size from caption (too big)
 registration - attention icon on text when text is long
-active alert buttons
+active alert buttons									c
+fix the getactionresult function
 
 
 bonus: slide page effect

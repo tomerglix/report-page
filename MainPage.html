@@ -225,7 +225,7 @@
                                           </div>
                                           <div id="crimeDateData">
 												<div id="datetimepicker" >
-													<img src="./images/calendar.png" class="icons">
+												<label for='scroller'><img src="./images/calendar.png" class="icons"></label>	
 													<input id="scroller" name="ex221" class="roboto" style=" border:none; font-size: 100%"  />
 										            									       
 												</div>
@@ -332,7 +332,7 @@
 						modal: true,
 						dialogClass: "no-close robo alertBox",
 						title: "MENSAJE SOS",
-					  	buttons: [{text: "OK", click: function() {$( this ).dialog( "close" );}}]
+					  	buttons: [{text: "Close", click: function() {$( this ).dialog( "close" );}}]
 
 					});	
 
@@ -341,7 +341,7 @@
 						autoOpen: false,
 						modal: true,
 						dialogClass: "no-close robo alertBox confirmBox",
-						title: "DELETE CONTACT",
+						title: "ALTO al CRIMEN",
 						
 						buttons: {
 							OK: function() {
@@ -362,7 +362,7 @@
 						autoOpen: false,
 						modal: true,
 						dialogClass: "no-close robo alertBox confirmBox",
-						title: "DELETE PHOTO",
+						title: "ALTO al CRIMEN",
 						buttons: {
 							OK: function() {
 								DeletePhoto();

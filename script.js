@@ -1256,10 +1256,6 @@
 		}
 	}
 	
-	function ToggleCheck()
-	{
-		document.getElementById('termsCheck').checked=!document.getElementById('termsCheck').checked;
-	}
 	
 	function Register()
 	{
