@@ -284,7 +284,6 @@
         }
              
         console.log(actionResult);
-        alert(actionResult);
         
 		if (form.id=='SOSForm')
 		{
@@ -1327,7 +1326,6 @@
 		}
 		else
 		{
-			resStr=resStr.replace(/ /g,'');
             var resultNum=parseInt(resStr);
             if (resultNum==successValue)
             {
