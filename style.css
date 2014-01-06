@@ -48,7 +48,7 @@
 		/*border-bottom-color:#00CCFF;*/
 		color:#33b5e5;
 		font-family: 'roboto',helvetica,arial,sans;
-		font-size:150%;
+		font-size:130%;
 		border-bottom-style:solid;
 		border-bottom-width:2px;
 		border-bottom-color:#33b5e5;
@@ -57,12 +57,16 @@
 	}
 
 	
-	img.icons
+	.icons
 	{
 		width: 30px;
 		height: 30px;
 		float: left;
 		max-width:none;
+	}
+	.icons:active
+	{
+		background: #33b5e5;
 	}
 	
     #mapDisplay
@@ -640,7 +644,7 @@
 	.alertBox
 	{
 		border:solid #aaaaaa 1px;
-		position: absolute;
+		position: fixed;
 		padding: .2em;
 		outline: 0;
 		border-radius: 8px;
@@ -715,4 +719,25 @@
 		bottom: 0;
 		left: -234px;
 	}   
+	
+	#softAlert
+	{
+		z-index: 100;
+		width: 100%;
+		position: fixed;
+		opacity: 0;
+		top: 40%;
+ 	}
+ 	#softAlertContent
+ 	{
+ 		font-family: 'roboto',helvetica,arial,sans;
+ 		max-width: 80%;
+ 		display: inline-block;
+ 		padding: 3px;
+ 		background: #000000;
+ 		color: white; 
+ 		border-radius: 4px; 
+ 		white-space: pre;
+		word-break: break-word;
+ 	}
 	

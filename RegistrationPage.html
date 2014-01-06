@@ -48,6 +48,9 @@
 
 <html >
         <body  style="height: 100%; background-color:#f3f3f3" onload="OnRegLoad()" ontouchstart='' >
+        	<div id='softAlert' class="center">
+        		<span id='softAlertContent'></span>
+        	</div>
         	<form id="regPageForm" target='uploadIframe' method="post">
 				<div id="registrationPage"  class="pageWrap" style="padding-top: 0;">
 					<div id="registrationWrap" class="sectionWrap" >					
@@ -55,7 +58,7 @@
 						<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >Registration</h1>
 						
 						<div id="phoneNumberSection">
-							<p  class="headerDecoration">Phone Number</p>
+							<label for='phoneNumber'><p  class="headerDecoration">Phone Number</p></label>
 							<img id="numberAttention" src="./images/attention.png" class="attentionIcon" onclick="ShowBubble('numberBubble',phoneNumberError); return false">
 							<input type="tel" id="phoneNumber"  maxlength="15" class="regInputBox" placeholder=""  onfocus="HighLightUL('phoneNumberUL'); HideElement('numberAttention');" onblur="DeHighLightUL('phoneNumberUL'); ValidatePhone()"  />
 							
@@ -68,7 +71,7 @@
 						</div>
 						
 						<div id="emailSection">
-							<p  class="headerDecoration">Email</p>
+							<label for='email'><p  class="headerDecoration">Email</p></label>
 							<img id="emailAttention" src="./images/attention.png" class="attentionIcon" onclick="ShowBubble('emailBubble',emailError); return false" >
 							<input type="email" id="email"  class="regInputBox" placeholder="" onfocus="HighLightUL('emailUL');  HideElement('emailAttention');" onblur="DeHighLightUL('emailUL'); EmailValidation()"  />
 							
@@ -81,7 +84,7 @@
 						</div>
 						
 						<div id="dateSection">
-							<p  class="headerDecoration">Birth Date</p>
+							<label for='picker'><p  class="headerDecoration">Birth Date</p></label>
 							<img id="dateAttention" src="./images/attention.png" class="attentionIcon" onclick="ShowBubble('dateBubble',birthDateError); return false"  >
 							<input id="picker" name="picker" class="roboto regInputBox" placeholder="" style="width:100%; border:none; font-size: 120%; color:black" onchange="CheckDate()"  />
 	
@@ -118,9 +121,7 @@
 			
 				</div>
 			</form>	
-			<P id='generalAlert'>
-				
-			</P>
+
 	        <script>
 	        
 
@@ -173,15 +174,7 @@
 					    }
 				   	}
 				});
-				
-				$('#generalAlert').dialog({
-					width: 250,
-					autoOpen: false,
-					modal: true,
-					dialogClass: "no-close robo alertBox",
-					title: "ALTO al CRIMEN",
-					buttons: [{text: "OK", click: function() {$( this ).dialog( "close" );}}]
-				});					
+							
         	</script>	
         </body>
 

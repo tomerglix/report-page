@@ -1,5 +1,5 @@
-	var debugMode=false;
-	var messageFromString=false;
+	var debugMode=true;
+	var messageFromString=true;
 	var photoTrial=false;
 	var map;
     var marker;
@@ -325,11 +325,15 @@
 		}
 		else if (form.id=='activationWaitForm')
 		{
-			var res=CheckActionResult(actionResult,1,checkActivationFailStr);
+			var res=CheckActionResult(actionResult,1);
 			if (res==true)
-			{
+			{	
 				localStorage.setItem('userStatus',3);
 				window.location.replace('MainPage.html');
+			}
+			else
+			{
+				ShowMessage(checkActivationFailStr);
 			}
 
 			transitionSpinner.stop();
@@ -371,18 +375,19 @@
 		}
 		else if (form.id=='commentForm')
 		{
-			var res=parseInt(actionResult);
-			if (res==1)
+			var res=CheckActionResult(actionResult,1,sendCommentFailStr);
+			if (res==true)
 			{	
+				ShowMessage(sendCommentSuccessStr);
 				commentRefreshSpinner.stop();
-				CreateAlert(sendCommentSuccessStr);
 				GetMessages();
 			}
 			else
 			{
-				CreateAlert(sendCommentFailStr);
-				commentRefreshSpinner.stop();	
+				commentRefreshSpinner.stop();
+				
 			}
+			form.style.opacity='1';	
 									
 		}					
 		else if (form.id=='picForm')
@@ -518,7 +523,7 @@
 	    if (!(parseInt($lefty.css('left'),10)==0) && photoCounter>=maxPhotos)
 	    {
 
-	    	CreateAlert("You can only add " + maxPhotos + " photos");
+	    	ShowMessage("You can only add " + maxPhotos + " photos");
 	    	
 	    }
 	    else
@@ -574,7 +579,7 @@
 	
 	function DisplaySingleContact(contactIndex)
 	{	
-		document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:5%' class='center'> <img src='./images/x.png' class='icons'  onclick='OpenDeleteContactConfirm(" +contactIndex +"); return false' style='float: none; padding-top:7px;'></td>  <td class='robo' style='width:45%;'>"
+		document.getElementById('contactsList').innerHTML+= "<tr> <td style='width:5%' class='center'> <img src='./images/x.png' class='icons'  onclick='OpenDeleteContactConfirm(" +contactIndex +"); return false' style='float: none; margin-top:7px;'></td>  <td class='robo' style='width:45%;'>"
 															+ contactsList[contactIndex][0] + "</td> <td  style='width:50%' class='robo'> " + contactsList[contactIndex][1] + "</td> </tr>";
 	}
 
@@ -1304,7 +1309,8 @@
 		}
 		else
 		{
-			CreateAlert('Please fill all the fields with a valid data');
+			ShowMessage('Please fill all the fields with a valid data');
+			//CreateAlert('Please fill all the fields with a valid data');
 			document.getElementById("registrationPage").style.pointerEvents = "auto";
 			//form.style.opacity='1';
 		}
@@ -1860,11 +1866,17 @@
 			pic.src=document.getElementById('img' + nextPicIndex).src;
 			pic.name='img' + nextPicIndex;
 			
-		}
-
-		
-				
+		}	
 	} 
+	
+	function ShowMessage(content)
+	{
+		document.getElementById('softAlertContent').innerHTML=content;
+		document.getElementById('softAlert').style.opacity='1';
+		window.setTimeout(function (){$("#softAlert").fadeTo(1000,0);},3000);
+	
+	}
+
 /******************** storage format *****************************
 /*
 --------------------------------

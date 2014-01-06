@@ -50,6 +50,9 @@
 
 <html>
         <body onload="WaitForActivationOnLoad(); " style="height: 100%; background-color:#f3f3f3" ontouchstart=''>
+        	<div id='softAlert' class="center">
+        		<span id='softAlertContent'></span>
+        	</div>
 			<form id='activationWaitForm' target='uploadIframe' method="post">
 				<div id='activationWaitPage' class="pageWrap" style="padding-top: 0;">
 					<div class="sectionWrap">
@@ -64,20 +67,8 @@
 					</div>
 				</div>
 			</form> 
-			<P id='generalAlert'>
-				
-			</P>    
-			<script type="text/javascript" charset="UTF-8" >
-				
-				$('#generalAlert').dialog({
-					width: 250,
-					autoOpen: false,
-					modal: true,
-					dialogClass: "no-close robo alertBox",
-					title: "ALTO al CRIMEN",
-					buttons: [{text: "OK", click: function() {$( this ).dialog( "close" );}}]
-				});	
-			</script>
+  
+
 			
         </body>
 </html>
