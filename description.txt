@@ -30,19 +30,19 @@ camera options menu					c	v
 after removing 1 photo, it send the last pic twice		c	v
 marker disappear after dragging - try to refresh map	c	v
 text overrides the arrow at the select box				c	v
-bug - after sending sos and trying to capture photo strange messages appear		c	v
+
 fix click enable timing when sending report with pic	c	v
 tapping on calendar icon will open picker				c	v
 fix the pic size from caption (too big)
 active alert buttons									c	v
-fix the getactionresult function						c
+fix the getactionresult function						c	v
 disable action bar when spinner works-apply the change on body instead of pages
-labelfor before text boxes and combo box				c
-sending comment - screen keeps opacity 0.5				c	
-consider comment sent message (not necessary) - check alert when comment sent	c
-active buttons on add contact
-change + to V
-
+labelfor before text boxes and combo box				c	v
+sending comment - screen keeps opacity 0.5				c	v
+active buttons on add contact							c	v
+change + to V											c	v
+consider comment sent message (not necessary) - check alert when comment sent	c	v
+bug - after sending sos and trying to capture photo strange messages appear		c	v
 		
 registration - attention icon on text when text is long	- leave it for now
 

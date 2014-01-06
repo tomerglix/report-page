@@ -64,7 +64,7 @@
 	var PicSendSuccessStr='Report was successfuly sent';
 	var PicSendFailStr='Report was sent without photos';
 	var termsString = "El presente aplicativo celular es brindado a la población en forma gratuita por la empresa Pele System, como servicio a la comunidad para el envío de denuncias y alertas S.O.S. al Centro de Control de Alto al Crimen, que contribuyan a  la prevención y tratamiento de emergencias y  hechos delictivos. <br/> Pele System y Alto al Crimen no  serán responsables por  defectos o mal funcionamiento del aplicativo ni por el daño directo, indirecto, incidental o consecuente o  daño resultante de la pérdida de uso o pérdida de beneficios esperados como resultado de una avería en la aplicación.  <br/>La aplicación soporta la asociación de hasta 3 fotos por evento.  <br/>El aplicativo es operado con señal celular,  por lo cual en caso de producirse fallas en trasmisión de datos del proveedor celular,  es posible que estos datos no sean  recepcionados por el Centro de Control de Alto al Crimen.  <br/>El aplicativo S.O.S. Alto al Crimen  no reemplaza las tradicionales vías de contacto con  los servicios oficiales de seguridad y  emergencia, mediante  los cuales el ciudadano deberá acudir en caso necesario.  <br/>La activación del botón de S.O.S  producirá el envío de un mensaje de alerta al círculo de contactos definido por el usuario como destinatarios  para recibir la alerta por SMS.  Los SMS tendrán el costo de un mensaje de texto normal y serán a cargo del usuario de la aplicación S.O.S.";
-	var sosDescription="Enviar mensaje SOS a Alto el Crimen y a Emergencia Municipal.<br/><br/>Notificar a su círculo de contactos que está en una emergencia";					
+	var sosDescription="Enviar mensaje SOS a Alto al Crimen y a Emergencia Municipal.<br/><br/>Notificar a su círculo de contactos que está en una emergencia";					
 	for (i=0;i<contactsList.length;++i)
 	{
 		contactsList[i]=new Array(2);
@@ -561,13 +561,13 @@
 			}
 			else
 			{
-				CreateAlert("'/' is not alowed.");
+				ShowMessage("'/' is not alowed");
 			}
 			
 		}
 		else
 		{
-			CreateAlert("Please enter a valid number.");
+			ShowMessage("Please enter a valid number");
 		}
 
 	}
@@ -1626,8 +1626,8 @@
 		{
         	email='tomer@lola-tech.com';
         	phoneNumber='99999999';
-        	userId='2101350';
-        	//userId=	'572297753';
+        	//userId='2101350';
+        	userId=	'572297753';
         }
 
 		myUser=CutUserFromMail(email);
