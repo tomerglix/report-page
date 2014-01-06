@@ -284,6 +284,7 @@
         }
              
         console.log(actionResult);
+        alert(actionResult);
         
 		if (form.id=='SOSForm')
 		{
