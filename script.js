@@ -395,7 +395,7 @@
 
 			transitionSpinner.stop();
 			document.getElementById("reportPage").style.pointerEvents = "auto";
-			form.style.opacity='1';
+			reportForm.style.opacity='1';
 			
 			if (res==true)
 			{
