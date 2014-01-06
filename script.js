@@ -343,7 +343,7 @@
 		} 
 		else if (form.id=='regPageForm')
 		{
-			var res=CheckActionResult(actionResult,1,registerFailStr,registerSuccessStr);
+			var res=CheckActionResult(actionResult,1,registerFailStr);
 			if (res==true)
 			{
 				var n=actionResult.indexOf(':');

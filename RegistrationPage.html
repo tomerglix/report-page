@@ -121,7 +121,9 @@
 			
 				</div>
 			</form>	
-
+			<P id='generalAlert'>
+				
+			</P>
 	        <script>
 	        
 
@@ -174,7 +176,15 @@
 					    }
 				   	}
 				});
-							
+				
+				$('#generalAlert').dialog({
+					width: 250,
+					autoOpen: false,
+					modal: true,
+					dialogClass: "no-close robo alertBox",
+					title: "ALTO al CRIMEN",
+					buttons: [{text: "OK", click: function() {$( this ).dialog( "close" );}}]
+				});					
         	</script>	
         </body>
 
