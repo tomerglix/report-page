@@ -52,7 +52,7 @@
 </head>
 
 <html >
-        <body onload=" FirstLoad();" style="height: 100%; background-color:#f3f3f3" >
+        <body onload=" FirstLoad();" style="height: 100%; background-color:#f3f3f3" ontouchstart='' >
         	
         	<div id='actionBar'>
         		<img src='./images/logo.png' style="height: 100%; width: 40%">
@@ -316,9 +316,6 @@
 	          			.on("touchstart", ChangeButtonToPressed)
 						.on("touchend", ChangeButtonToNormal);
 						
-					
-					$('#actionBar').on('swipeleft', function(e){});
-					$('#topMenu').on('swipeleft', function(e){});
 						
 					$('#SOSPage').on('swipeleft', function(e){ChangePage('reportPage','reportPageTab'); ShowIcon();})
 					.on('swiperight', function(e){ChangePage('messagesPage','messagesTab'); ShowIcon('refreshIcon');});
@@ -345,6 +342,7 @@
 						modal: true,
 						dialogClass: "no-close robo alertBox confirmBox",
 						title: "DELETE CONTACT",
+						
 						buttons: {
 							OK: function() {
 								DeleteContact();
@@ -353,7 +351,9 @@
 							Cancel: function() {
 								$( this ).dialog( "close" );
 							}
+							
 						}
+
 
 					});						
 					
@@ -372,7 +372,6 @@
 								$( this ).dialog( "close" );
 							}
 						}
-
 					});	
 					
 					$('#generalAlert').dialog({
@@ -381,7 +380,7 @@
 						modal: true,
 						dialogClass: "no-close robo alertBox",
 						title: "ALTO al CRIMEN",
-						buttons: [{text: "OK", click: function() {$( this ).dialog( "close" );}}]
+						buttons: [{text: "OK", click: function() {$( this ).dialog( "close" );}}]					
 					});	
 					
 					

@@ -40,14 +40,14 @@
         <script type="text/javascript" charset="UTF-8" src="spinner.js"></script>
         <script type="text/javascript" charset="UTF-8" src="spinner.min.js"></script>
   		<!-- general style-->
-     	<!--<script src="jquery.mobile-events.js"></script>-->
+     	<script src="jquery.mobile-events.js"></script>
      	<link rel="stylesheet" type="text/css" href="style.css">
         <script type="text/javascript" charset="UTF-8" src="script.js" ></script>  
    			             
 </head>
 
 <html >
-        <body  style="height: 100%; background-color:#f3f3f3" onload="OnRegLoad()" >
+        <body  style="height: 100%; background-color:#f3f3f3" onload="OnRegLoad()" ontouchstart='' >
         	<form id="regPageForm" target='uploadIframe' method="post">
 				<div id="registrationPage"  class="pageWrap" style="padding-top: 0;">
 					<div id="registrationWrap" class="sectionWrap" >					
@@ -131,8 +131,6 @@
 					document.getElementById('termsParagraph').innerHTML=termsString;	
 				}
 				
-				//$('#registrationPage').on('swipeleft', function(e){});
-				//$('.alertBox').on('swipeleft', function(e){});	
 								
 				var dateChecker=false;
         		$(function(){

@@ -283,6 +283,7 @@
             actionResult = uploadIframe.document.body.innerHTML;
         }
              
+        console.log(actionResult);
         
 		if (form.id=='SOSForm')
 		{
@@ -328,7 +329,7 @@
 			if (res==1)
 			{	
 				localStorage.setItem('userStatus',3);
-				CreateAlert(checkActivationSuccessStr);	
+				//CreateAlert(checkActivationSuccessStr);	
 				window.location.replace('MainPage.html');
 			}
 			else

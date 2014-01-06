@@ -49,7 +49,7 @@
 </head>
 
 <html>
-        <body onload="WaitForActivationOnLoad(); " style="height: 100%; background-color:#f3f3f3" >
+        <body onload="WaitForActivationOnLoad(); " style="height: 100%; background-color:#f3f3f3" ontouchstart=''>
 			<form id='activationWaitForm' target='uploadIframe' method="post">
 				<div id='activationWaitPage' class="pageWrap" style="padding-top: 0;">
 					<div class="sectionWrap">
@@ -68,8 +68,6 @@
 				
 			</P>    
 			<script type="text/javascript" charset="UTF-8" >
-				$('#activationWaitPage').on('swipeleft', function(e){});
-				$('.alertBox').on('swipeleft', function(e){});	
 				
 				$('#generalAlert').dialog({
 					width: 250,
