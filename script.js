@@ -18,6 +18,7 @@
 	var localHostDom='http://10.0.0.5';
 	var hostDom="http://62.0.66.";
 	var port='8080';
+	var maxMessages=5;
 	
 	var currnetHost=hostDom+serverNum+':'+port;
 	//var currnetHost=localHostDom;
@@ -537,7 +538,7 @@
     }
 	function AddContact()
 	{
-		$(window).scrollTop($(document).height());
+		$('html,body').animate({scrollTop: $(document).height()});
 		var number=document.getElementById('contactNumber').value;
 		if (isNumber(number) && number.length < 15 && number.length>=9)
 		{
@@ -1243,11 +1244,7 @@
 		}
 		
 	}
-	function HideElement(id)
-	{
-		document.getElementById(id).style.display='none';
-	}
-	
+
 	function ShowBubble(id,errorMsg)
 	{
 		if(document.getElementById(id).style.display=='none')
@@ -1379,7 +1376,7 @@
 		url+='agentId='+localStorage.getItem('userId');
 	}			
 
-	var maxMessages=5;
+	
 	function ParseMessages(wholeString)
 	{
 		var messageCounter=0;
