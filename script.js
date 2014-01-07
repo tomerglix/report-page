@@ -19,6 +19,8 @@
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	var maxMessages=5;
+	var timeOut=60;
+	var checkTimeOut;
 	
 	var currnetHost=hostDom+serverNum+':'+port;
 	//var currnetHost=localHostDom;
@@ -108,9 +110,16 @@
 		{
 			document.getElementById('base64Pic' + j).value=photos[j];
 		}
+		$.ajax({
+		    type : 'POST',
+		    url : currnetHost +"/storeMifgaPicPhoneGap.do",
+		    data : 
+		        $('#picForm').serialize(),
+	        success: function(result){alert('ajax ' + result);}
 
-		uploadIframe.onload=function() {GetActionResult(picForm);};
-		document.getElementById('picForm').submit();
+		});
+		//uploadIframe.onload=function() {GetActionResult(picForm);};
+		//document.getElementById('picForm').submit();
 	}
 	
 
@@ -192,9 +201,26 @@
 		url=AddParmameterToURL(url,'pin',userId);		
 		url=AddParmameterToURL(url,'gf1',phoneNumber);
 		url=AddParmameterToURL(url,'type','1');
+		url = url.substring(0, url.length - 1); //remove last ampersand
+		
+/*		<input type="hidden" id="mifgaNum" name="mifgaNum" value="">
+		<input type="hidden" id="time" name="time" value="">
+		<input type="hidden" id="ip" name="ip" value="">
+		<input type="hidden" id="loc" name="loc" value="">
+		<input type="hidden" id="numSat" name="numSat" value="">
+		<input type="hidden" id="useCase" name="useCase" value="">
+		<input type="hidden" id="useCaseId" name="useCaseId" value="">
+		<input type="hidden" id="gpsTime" name="gpsTime" value="">
+		<input type="hidden" id="refId" name="refId" value="">
+		<input type="hidden" id="acc" name="acc" value="">
+		<input type="hidden" id="viewNum" name="viewNum" value="">
+		<input type="hidden" id="phoneNum" name="phoneNum" value="">
+		<input type="hidden" id="pin" name="pin" value="">
+		<input type="hidden" id="gf1" name="gf1" value="">
+		<input type="hidden" id="type" name="type" value="">*/
 		
 		//url=AddParmameterToURL(url,'gf2',addressUnicode);
-		//url = url.substring(0, url.length - 1); //remove last ampersand
+		
 		
 	}
 	
@@ -255,8 +281,6 @@
 		url=AddParmameterToURL(url,'gf1',phoneNumber);
 		url=AddParmameterToURL(url,'gf2',addressUnicode);
 		url = url.substring(0, url.length - 1); //remove last ampersand
-				
-		
 
     }
 
@@ -718,7 +742,7 @@
           if (photoTrial==false)
           { 
 	          	navigator.camera.getPicture(AddPhotoToReport, onFail, { quality: 0, encodingType: Camera.EncodingType.JPEG,/*targetWidth: 100,targetHeight: 100 ,*/
-	            destinationType: destinationType.DATA_URL, saveToPhotoAlbum: true, correctOrientation: true, allowEdit:true, targetWidth:400, targetHeight:600  });
+	            destinationType: destinationType.DATA_URL, saveToPhotoAlbum: true, correctOrientation: true, allowEdit:true, targetWidth:600, targetHeight:800  });
           }
           else
           {
@@ -996,7 +1020,7 @@
                                     } 
                                     else 
                                     {
-                                        CreateAlert("Error: " + status);
+                                        CreateAlert("Location error: " + status);
                                     }
                                     if(addressBarSpinner)
                                    	{

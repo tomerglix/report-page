@@ -30,7 +30,6 @@ camera options menu					c	v
 after removing 1 photo, it send the last pic twice		c	v
 marker disappear after dragging - try to refresh map	c	v
 text overrides the arrow at the select box				c	v
-
 fix click enable timing when sending report with pic	c	v
 tapping on calendar icon will open picker				c	v
 fix the pic size from caption (too big)
@@ -43,7 +42,7 @@ active buttons on add contact							c	v
 change + to V											c	v
 consider comment sent message (not necessary) - check alert when comment sent	c	v
 bug - after sending sos and trying to capture photo strange messages appear		c	v
-bug - scenario: adding contact, number field is empty, keyboard is open, pressing on the V - bars are mislocated		
+bug - scenario: adding contact, number field is empty, keyboard is open, pressing on the V - bars are mislocated	c		
 registration - attention icon on text when text is long	- leave it for now
 
 bonus: slide page effect
