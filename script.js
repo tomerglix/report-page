@@ -334,7 +334,7 @@
 			}
 			else
 			{
-				ShowMessage(checkActivationFailStr);
+				ShowMessage(checkActivationFailStr,'red');
 			}
 
 			transitionSpinner.stop();
@@ -379,7 +379,7 @@
 			var res=CheckActionResult(actionResult,1,sendCommentFailStr);
 			if (res==true)
 			{	
-				ShowMessage(sendCommentSuccessStr);
+				ShowMessage(sendCommentSuccessStr,'black');
 				commentRefreshSpinner.stop();
 				GetMessages();
 			}
@@ -524,7 +524,7 @@
 	    if (!(parseInt($lefty.css('left'),10)==0) && photoCounter>=maxPhotos)
 	    {
 
-	    	ShowMessage("You can only add " + maxPhotos + " photos");
+	    	ShowMessage("You can only add " + maxPhotos + " photos",'red');
 	    	
 	    }
 	    else
@@ -563,13 +563,13 @@
 			}
 			else
 			{
-				ShowMessage("'/' is not alowed");
+				ShowMessage("'/' is not alowed",'red');
 			}
 			
 		}
 		else
 		{
-			ShowMessage("Please enter a valid number");
+			ShowMessage("Please enter a valid number",'red');
 		}
 
 	}
@@ -1307,7 +1307,7 @@
 		}
 		else
 		{
-			ShowMessage('Please fill all the fields with a valid data');
+			ShowMessage('Please fill all the fields with a valid data','red');
 			//CreateAlert('Please fill all the fields with a valid data');
 			document.getElementById("registrationPage").style.pointerEvents = "auto";
 			//form.style.opacity='1';
@@ -1867,11 +1867,13 @@
 		}	
 	} 
 	
-	function ShowMessage(content)
+	function ShowMessage(content,color)
 	{
-		document.getElementById('softAlertContent').innerHTML=content;
+		var softAlert=document.getElementById('softAlertContent');
+		softAlert.style.background=color;
+		softAlert.innerHTML=content;
 		document.getElementById('softAlert').style.opacity='1';
-		window.setTimeout(function (){$("#softAlert").fadeTo(1000,0);},3000);
+		window.setTimeout(function (){$("#softAlert").fadeTo(1000,0);},2500);
 	
 	}
 
