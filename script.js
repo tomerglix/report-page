@@ -19,8 +19,6 @@
 	var hostDom="http://62.0.66.";
 	var port='8080';
 	var maxMessages=5;
-	var timeOut=60;
-	var checkTimeOut;
 	
 	var currnetHost=hostDom+serverNum+':'+port;
 	//var currnetHost=localHostDom;
@@ -36,7 +34,6 @@
 	var regPageForm;
 	var SOSForm;
 	var reportForm;
-	var uploadIframeId;
 	var maxContacts=3;
 	var contactsList=new Array(3);
 	var contactsCounter=0;
@@ -106,6 +103,7 @@
 		document.getElementById('phoneNum').value=userId;
 		document.getElementById('pin').value=userId;
 		document.getElementById('mifgaNum').value=mifgaNum;
+		
 		for (var j=0;j<photoCounter;++j)
 		{
 			document.getElementById('base64Pic' + j).value=photos[j];
@@ -115,19 +113,152 @@
 		    url : currnetHost +"/storeMifgaPicPhoneGap.do",
 		    data : 
 		        $('#picForm').serialize(),
-	        success: function(result){alert('ajax ' + result);}
+	        success: function(result)
+	        {
+				var res=CheckActionResult(result,6,PicSendFailStr,PicSendSuccessStr);
+	
+				transitionSpinner.stop();
+				document.getElementById("reportPage").style.pointerEvents = "auto";
+				reportForm.style.opacity='1';
+				
+				if (res==true)
+				{
+					RefreshReportPage();
+				}
+	        }
 
 		});
-		//uploadIframe.onload=function() {GetActionResult(picForm);};
-		//document.getElementById('picForm').submit();
 	}
 	
+	function PostAjax(form,action,postData)
+	{
+		console.log(currnetHost + action + postData);
+		form.style.opacity='0.5';
+		$.ajax({
+		    type : 'POST',
+		    url :currnetHost + action,
+		    data : postData,
+	        success: function(actionResult)
+	        {
+				if (form.id=='SOSForm')
+				{
+					CheckActionResult(actionResult,5,SOSFailStr,SOSSuccessStr);
+					transitionSpinner.stop();
+					document.getElementById("SOSPage").style.pointerEvents = "auto";
+					form.style.opacity='1';
+				}
+				else if (form.id=='reportForm')
+				{
+					var res=CheckActionResult(actionResult,5);
+					
+					if (res==true)
+					{
+						if (photoCounter>0)
+						{
+							SendPic();
+						}
+						else
+						{
+							transitionSpinner.stop();
+							document.getElementById("reportPage").style.pointerEvents = "auto";
+							form.style.opacity='1';
+							CreateAlert(reportSuccessStr);
+							RefreshReportPage();
+						}
+						
+					}
+					else
+					{	transitionSpinner.stop();
+						document.getElementById("reportPage").style.pointerEvents = "auto";
+						form.style.opacity='1';
+						CreateAlert(reportFailStr);
+						
+					}
+					//form.style.opacity='1';
+					
+			
+				}
+				else if (form.id=='activationWaitForm')
+				{
+					var res=CheckActionResult(actionResult,1);
+					if (res==true)
+					{	
+						localStorage.setItem('userStatus',3);
+						window.location.replace('MainPage.html');
+					}
+					else
+					{
+						ShowMessage(checkActivationFailStr,'red');
+					}
+		
+					transitionSpinner.stop();
+					document.getElementById("activationWaitPage").style.pointerEvents = "auto";
+					form.style.opacity='1';
+				} 
+				else if (form.id=='regPageForm')
+				{
+					var res=CheckActionResult(actionResult,1,registerFailStr);
+					if (res==true)
+					{
+						var n=actionResult.indexOf(':');
+						var userIdStr=actionResult.substring(n+1,actionResult.length);
+						userId=parseInt(userIdStr);
+						localStorage.setItem('contactsCounter',0);
+						localStorage.setItem('userId',userId);
+						localStorage.setItem('userStatus',2);
+						localStorage.setItem('phoneNum',phoneNumber);
+						localStorage.setItem('email',email);
+						window.location.replace('WaitForActivation.html');
+					}
+					transitionSpinner.stop();
+					document.getElementById("registrationPage").style.pointerEvents = "auto";
+					form.style.opacity='1';						
+				}
+				else if (form.id=='messagesForm')
+				{
+					if (actionResult=='')
+					{
+						CreateAlert(gettingMessagesFailStr);
+					}
+					else
+					{
+						ParseMessages(actionResult);
+					}
+					commentRefreshSpinner.stop();
+					document.getElementById("messagesPage").style.pointerEvents = "auto";
+					form.style.opacity='1';
+				}
+				else if (form.id=='commentForm')
+				{
+					var res=CheckActionResult(actionResult,1,sendCommentFailStr);
+					if (res==true)
+					{	
+						ShowMessage(sendCommentSuccessStr,'black');
+						commentRefreshSpinner.stop();
+						GetMessages();
+					}
+					else
+					{
+						commentRefreshSpinner.stop();
+						
+					}
+					form.style.opacity='1';	
+											
+				}					
+				else
+				{
+					CreateAlert('Unknown error');
+				}
+	        }
+
+		});		
+	}
 
 	    
     function GenerateGetMessagesUrl()
     {
     	var messageUrl;
-    	messageUrl=currnetHost+ "/getOnlineMessagesLogin.do?";
+    	messageUrl='';
     	
     	messageUrl=AddParmameterToURL(messageUrl,'phoneNum',userId);
     	messageUrl=AddParmameterToURL(messageUrl,'pin',userId);
@@ -141,8 +272,7 @@
 
 	function GenerateRegUrl()
 	{
-		url=currnetHost + "/addCivilianAgent.do?";
-		
+		url='';
 		var dob=document.getElementById('picker').value;
 		var gender;
 		if (document.getElementsByName('sex')[0].checked==true)
@@ -165,7 +295,6 @@
 	
 	function SendLocationToPolice(position)
 	{
-		//GenerateSOSUrl(position);
         var lat = parseFloat(position.coords.latitude);
         var lng = parseFloat(position.coords.longitude);
         var pos = new google.maps.LatLng(lat, lng);
@@ -178,13 +307,12 @@
 	
 	function GenerateSOSUrl(latlng)
 	{  	
-		console.log('GenerateSOSUrl');
 		mifgaNum=GenerateMifgaNum();
 		var now=new Date();
         var locationStr=latlng.lat() + '|' + latlng.lng();                       
            
 		
-		url=currnetHost + "/addMifgaLoginJ2ME.do?";
+		url='';
 		
 		url=AddParmameterToURL(url,'mifgaNum',mifgaNum);
 		url=AddParmameterToURL(url,'time',now.getTime());
@@ -201,25 +329,7 @@
 		url=AddParmameterToURL(url,'pin',userId);		
 		url=AddParmameterToURL(url,'gf1',phoneNumber);
 		url=AddParmameterToURL(url,'type','1');
-		url = url.substring(0, url.length - 1); //remove last ampersand
-		
-/*		<input type="hidden" id="mifgaNum" name="mifgaNum" value="">
-		<input type="hidden" id="time" name="time" value="">
-		<input type="hidden" id="ip" name="ip" value="">
-		<input type="hidden" id="loc" name="loc" value="">
-		<input type="hidden" id="numSat" name="numSat" value="">
-		<input type="hidden" id="useCase" name="useCase" value="">
-		<input type="hidden" id="useCaseId" name="useCaseId" value="">
-		<input type="hidden" id="gpsTime" name="gpsTime" value="">
-		<input type="hidden" id="refId" name="refId" value="">
-		<input type="hidden" id="acc" name="acc" value="">
-		<input type="hidden" id="viewNum" name="viewNum" value="">
-		<input type="hidden" id="phoneNum" name="phoneNum" value="">
-		<input type="hidden" id="pin" name="pin" value="">
-		<input type="hidden" id="gf1" name="gf1" value="">
-		<input type="hidden" id="type" name="type" value="">*/
-		
-		//url=AddParmameterToURL(url,'gf2',addressUnicode);
+		//doesnt remove last ampersand because there's another parameter
 		
 		
 	}
@@ -245,7 +355,6 @@
 		
     function GenerateReportUrl()
     {
-    	console.log('GenerateReportUrl');
 		var crimeTimeMilisec=$('#scroller').mobiscroll('getDate').getTime();
 		mifgaNum=GenerateMifgaNum();
 		var now=new Date();
@@ -260,7 +369,7 @@
 		var unicodeStr=UnicodeString(utf8Str);
 	
 		
-		url=currnetHost + "/addMifgaLoginJ2ME.do?";
+		url='';
 		
 		url=AddParmameterToURL(url,'mifgaNum',mifgaNum);
 		url=AddParmameterToURL(url,'subjectId',document.getElementById('subjectId').value);
@@ -284,16 +393,7 @@
 
     }
 
-	function SendUrl(form)
-	{
-		console.log(url);
-		form.style.opacity='0.5';
-		uploadIframe.onload=function() {GetActionResult(form);};
-		form.setAttribute("action", url);
-		form.submit();
-	}
-	
-	function GetActionResult(form)
+/*	function GetActionResult(form)
 	{				
         if (uploadIframe.contentDocument) 
         {
@@ -344,7 +444,6 @@
 				CreateAlert(reportFailStr);
 				
 			}
-			//form.style.opacity='1';
 			
 	
 		}
@@ -417,23 +516,14 @@
 		}					
 		else if (form.id=='picForm')
 		{
-			var res=CheckActionResult(actionResult,6,PicSendFailStr,PicSendSuccessStr);
 
-			transitionSpinner.stop();
-			document.getElementById("reportPage").style.pointerEvents = "auto";
-			reportForm.style.opacity='1';
-			
-			if (res==true)
-			{
-				RefreshReportPage();
-			}
 		}
 		else
 		{
 			CreateAlert('Unknown error');
 		}
 		
-	}
+	}*/
 	
 	function CompareStrings(str1,str2)
 	{
@@ -830,7 +920,6 @@
             }
             j++;
             var i =a.selectionEnd;
-            console.log(i);
             if(i >=max){
                 $(document).scrollTop(parseInt(a.style.height));
             }else{
@@ -1009,7 +1098,7 @@
 												url = url.substring(0, url.length - 1); //remove last ampersand
 												
 												transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
-												SendUrl(SOSForm);
+												PostAjax(SOSForm,"/addMifgaLoginJ2ME.do?",url);
 		                            		}	
                         
                                         }
@@ -1324,9 +1413,10 @@
 				sex=document.getElementsByName('sex')[1].value;
 			}
 			
-			GenerateRegUrl();
+			
 			transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
-			SendUrl(regPageForm);
+			GenerateRegUrl();
+			PostAjax(regPageForm,"/addCivilianAgent.do?",url);
 											
 		}
 		else
@@ -1375,14 +1465,13 @@
 		document.getElementById("reportPage").style.pointerEvents = "none";
 		GenerateReportUrl();
 		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
-		SendUrl(reportForm);
+		PostAjax(reportForm,"/addMifgaLoginJ2ME.do?",url);
 		
 		
 	}
 	
 	function WaitForActivationOnLoad()
 	{
-		uploadIframe=document.getElementById('uploadIframe');
 		GenerateCheckActivationUrl();
 		CheckActivation();
 	}
@@ -1391,13 +1480,13 @@
 	{
 		document.getElementById("activationWaitPage").style.pointerEvents = "none";
 		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
-		SendUrl(activationWaitForm);
+		PostAjax(activationWaitForm,"/checkAgentActivation.do",url);
 							
 	}
+	
 	function GenerateCheckActivationUrl()
 	{
-		url=currnetHost + "/checkAgentActivation.do?";
-		url+='agentId='+localStorage.getItem('userId');
+		url='agentId='+localStorage.getItem('userId');
 	}			
 
 	
@@ -1584,14 +1673,14 @@
 			GenerateSendingCommentUrl(message,msgNum);
 			
 			commentRefreshSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
-			SendUrl(commentForm);
+			PostAjax(commentForm,"/addCommentToMessage.do",url);
 		}
 		
 	}
 	
 	function GenerateSendingCommentUrl(message,msgId)
 	{
-		url="http://62.0.66." + serverNum +":8080/addCommentToMessage.do?";
+		url="";
 		
 
     	url=AddParmameterToURL(url,'projectId','116');
@@ -1621,7 +1710,6 @@
     	PrintDate();
     	
     	picForm=document.getElementById('picForm');
-    	picForm.action=currnetHost +"/storeMifgaPicPhoneGap.do";
     	for (var j=0;j<maxPhotos;++j)
     	{
     		tempInput=document.createElement('input');
@@ -1635,7 +1723,6 @@
     	messagesForm=document.getElementById('messagesForm');
     	SOSForm=document.getElementById('SOSForm');
     	reportForm=document.getElementById('reportForm');
-    	uploadIframe=document.getElementById('uploadIframe');
     	messagesSection=document.getElementById('messagesSection');
 		
 		if (debugMode==false)
@@ -1668,7 +1755,6 @@
 	{	document.getElementById("messagesPage").style.pointerEvents = "none";
 		messagesSection.innerHTML="";
 		url=messageUrl;
-		//document.body.innerHTML+=url;
 		if (messageFromString==true)
 		{
 			var strhard='<document><message><id>20</id><time>1386597393887</time><body>Monday Dec-09, Testing SOS v2 ENA</body><comment><user>tomer@lola-tech.com</user><time>1387884445639</time><body>tomer test</body></comment><comment><user>enunez@pelesystem.com</user><time>1386597544996</time><body>Ok you`re stiil testing SOS App</body></comment></message><message><id>19</id><time>1386461581278</time><body>I`m still testing the application app</body><comment><user>tomer@lola-tech.com</user><time>1387886718639</time><body>Test 2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386519129387</time><body>2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386515564559</time><body>test</body></comment></message><message><id>18</id><time>1386460441559</time><body>In Oune hour I am completed the QA testing fron tghe APP</body><comment><user>enunez@pelesystem.com</user><time>1386460564012</time><body>Ok I am waiting for the app</body></comment></message><message><id>17</id><time>1386459478403</time><body>Test Message number 3 from Eduardo</body><comment><user>enunez@pelesystem.com</user><time>1386460359496</time><body>Ok the "NAVIDAD SEGURA" from La Molina its almost ready</body></comment><comment><user>enunez@pelesystem.com</user><time>1386460107543</time><body>Ok it is a back message fro ok</body></comment></message><message><id>16</id><time>1386458491262</time><body>Second Test Message from Eduardo 6:20pm Saturday Dic-06</body></message></document>';
@@ -1679,7 +1765,7 @@
 		else
 		{
 			commentRefreshSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
-			SendUrl(messagesForm);
+			PostAjax(messagesForm,"/getOnlineMessagesLogin.do",url);
 		}
 	}
 	
@@ -1900,7 +1986,11 @@
 		window.setTimeout(function (){$("#softAlert").fadeTo(1000,0);},2500);
 	
 	}
-
+	
+	function HideElement(id)
+	{
+		document.getElementById(id).style.display='none';
+	}
 /******************** storage format *****************************
 /*
 --------------------------------

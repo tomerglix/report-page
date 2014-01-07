@@ -6,7 +6,7 @@
         <!--google maps api--> 
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>                 
                 
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi" />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta charset="utf-8">
 
         <!--roboto font-->
@@ -103,8 +103,7 @@
 			<div id="SOSPage"  class="pageWrap" >
 				<div id="SOSWrap" class="sectionWrap">
 					<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >Send SOS</h1>
-					<form id="SOSForm" target='uploadIframe' method="post" > 
-							<iframe id='uploadIframe' style="display: none"> </iframe>
+					<form id="SOSForm" > 	
 							<div id="buttonSection" class="center" style="height: 60%; width:100%; margin-top: 10px">
 								<img id="SOSButton" src='./images/btn_sos_normal.png' />
 							</div>
@@ -152,7 +151,7 @@
 <!---------------------------------  report section ---------------------------------->
             <div id="reportPage" class="pageWrap" style="display: none;">
             	
-                   	<form id="reportForm" target='uploadIframe' method="post" >
+                   	<form id="reportForm">
 
                     	<div  class="sectionWrap" style="margin-bottom: 10px; ">
 
@@ -247,7 +246,7 @@
                             <input   style="width:100%" type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime(); return false;" value="Submit Crime" /> 
                     	</div>					    
                     </form>
-					<form id="picForm" target='uploadIframe' method="post">
+					<form id="picForm">
 						                   		
  						<input type="hidden" id="phoneNum" name="phoneNum" value="">
  						<input type="hidden" id="pin" name="pin" value="">
@@ -260,9 +259,9 @@
 <!----------------------------------------- messages section -------------------------------------->                  
 			<div id="messagesPage"  class="pageWrap" style="display: none;">
 				
-					<form id="messagesForm" target='uploadIframe' method="post" >
+					<form id="messagesForm" >
 					</form>
-					<form id="commentForm"	target='uploadIframe' method="post" >
+					<form id="commentForm" >
 						<div id="messagesSection" style="padding: 15px;">
 								
 								

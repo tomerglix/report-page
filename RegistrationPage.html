@@ -6,7 +6,7 @@
         <!--google maps api--> 
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>                 
                 
-		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta charset="utf-8">
 
         <!--roboto font-->
@@ -51,10 +51,9 @@
         	<div id='softAlert' class="center">
         		<span id='softAlertContent'></span>
         	</div>
-        	<form id="regPageForm" target='uploadIframe' method="post">
+        	<form id="regPageForm">
 				<div id="registrationPage"  class="pageWrap" style="padding-top: 0;">
 					<div id="registrationWrap" class="sectionWrap" >					
-						<iframe id='uploadIframe' style="display: none"> </iframe>
 						<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >Registration</h1>
 						
 						<div id="phoneNumberSection">
@@ -130,7 +129,6 @@
 				function OnRegLoad()
 				{
 					regPageForm=document.getElementById('regPageForm');
-					uploadIframe=document.getElementById('uploadIframe');	
 					document.getElementById('termsParagraph').innerHTML=termsString;	
 				}
 				
