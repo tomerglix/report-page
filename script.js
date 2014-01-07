@@ -113,6 +113,11 @@
 		    url : currnetHost +"/storeMifgaPicPhoneGap.do",
 		    data : 
 		        $('#picForm').serialize(),
+	   		timeout: 60*1000,
+		    error: function (jqXHR, textStatus, errorThrown) 
+		    {
+		    	CreateAlert('Could not connect to server');
+		    },
 	        success: function(result)
 	        {
 				var res=CheckActionResult(result,6,PicSendFailStr,PicSendSuccessStr);
@@ -138,6 +143,11 @@
 		    type : 'POST',
 		    url :currnetHost + action,
 		    data : postData,
+		    timeout: 60*1000,
+		    error: function (jqXHR, textStatus, errorThrown) 
+		    {
+		    	CreateAlert('Could not connect to server');
+		    },
 	        success: function(actionResult)
 	        {
 				if (form.id=='SOSForm')
@@ -1098,7 +1108,7 @@
 												url = url.substring(0, url.length - 1); //remove last ampersand
 												
 												transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
-												PostAjax(SOSForm,"/addMifgaLoginJ2ME.do?",url);
+												PostAjax(SOSForm,"/addMifgaLoginJ2ME.do",url);
 		                            		}	
                         
                                         }
@@ -1416,7 +1426,7 @@
 			
 			transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 			GenerateRegUrl();
-			PostAjax(regPageForm,"/addCivilianAgent.do?",url);
+			PostAjax(regPageForm,"/addCivilianAgent.do",url);
 											
 		}
 		else
@@ -1465,7 +1475,7 @@
 		document.getElementById("reportPage").style.pointerEvents = "none";
 		GenerateReportUrl();
 		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
-		PostAjax(reportForm,"/addMifgaLoginJ2ME.do?",url);
+		PostAjax(reportForm,"/addMifgaLoginJ2ME.do",url);
 		
 		
 	}
@@ -1885,21 +1895,21 @@
 
 	function ToggleTerms()
 	{
+
 		termsPar=$('#termsParagraph');
 		
 		if (termsPar.css('display')=='none')
 		{
 			termsPar.slideDown();
 			$('#showTermsButton').html('Hide'); //<img src="./images/up.png" style="width:10px; height: 10px">');
-		   	$('html, body').animate({
-		        scrollTop: $("#termsParagraph").offset().top
-		    }, 100);
+		   	$('html, body').animate({scrollTop: $("#termsParagraph").offset().top}, 100);
 		}
 		else
 		{
 			termsPar.slideUp();
 			$('#showTermsButton').html('Show'); //<img src="./images/down.png" style="width:10px; height: 10px">');
 		}
+
 	}				
 	
 	function ShowIcon()

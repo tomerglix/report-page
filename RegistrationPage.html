@@ -108,10 +108,10 @@
 							</p>
 							
 							<!--<button id='showTermsButton'  onclick='ToggleTerms()' style="margin-bottom: 10px;">Show <img src='./images/down.png' style="width:10px; height: 10px"></button>-->
-							<button id='showTermsButton'  onclick='ToggleTerms()' style="margin-bottom: 10px;">Show</button>
+							<button id='showTermsButton'  onclick='ToggleTerms();return false' style="margin-bottom: 10px;">Show</button>
 							
 							<br/>
-							<input id="termsCheck" type="checkbox" name="agree" value="agree" style="margin-bottom: 10px;" onclick="ShowRegButton();"><label for="termsCheck"> I agree to the terms and conditions</label>
+							<input id="termsCheck" type="checkbox" name="agree" value="agree" style="margin-bottom: 10px;" onclick="ShowRegButton(); return false"><label for="termsCheck"> I agree to the terms and conditions</label>
 							
 							<input id="regButton" class="submitButtonStyle" type="submit" value="Register" style="width: 100%; display: none"  onclick="Register();  return false" />
 						</div>
@@ -124,8 +124,6 @@
 				
 			</P>
 	        <script>
-	        
-
 				function OnRegLoad()
 				{
 					regPageForm=document.getElementById('regPageForm');

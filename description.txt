@@ -49,5 +49,6 @@ delete iframes
 delete sendurl function
 delete getactionresult
 check if '?' is needed at the end of the action
+sos page is on hold without spinner when get location fails
 
 bonus: slide page effect
