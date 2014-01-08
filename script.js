@@ -112,7 +112,7 @@
 		    url : currnetHost +"/storeMifgaPicPhoneGap.do",
 		    data : 
 		        $('#picForm').serialize(),
-	   		timeout: 60*1000,
+	   		timeout: 5000,
 		    error: function (jqXHR, textStatus, errorThrown) 
 		    {
 		    	CreateAlert('Error de red. Inténte nuevamente más tarde.');
