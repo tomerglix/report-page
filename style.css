@@ -18,6 +18,7 @@
 	}
 	body
 	{
+		-webkit-user-select: none;
 		-webkit-tap-highlight-color: rgba(255, 255, 255, 0); /*disabling orange square*/
 		margin:0px;
 		padding:0px;
@@ -720,7 +721,7 @@
 		left: -234px;
 	}   
 	
-	#softAlert
+	.softAlert
 	{
 		z-index: 100;
 		width: 100%;
@@ -728,7 +729,7 @@
 		opacity: 0;
 		top: 40%;
  	}
- 	#softAlertContent
+ 	.softAlertContent
  	{
  		font-family: 'roboto',helvetica,arial,sans;
  		max-width: 80%;

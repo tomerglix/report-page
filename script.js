@@ -50,19 +50,18 @@
 	var currentPage='SOSPage';            	            	
 	var userStatus; //1-needs to register. 2-waiting for activation. 3-active user
 
-	var gettingMessagesFailStr="Failed loading messages";
+	var gettingMessagesFailStr="Error en la actualización de mensajes. Favor re-intentar luego";
 	var sendCommentSuccessStr="Your comment has been received";
 	var sendCommentFailStr="Sending comment failed";
-	var checkActivationSuccessStr="Email confirmed, your acount has been activated";
-	var checkActivationFailStr="Your acount has not been confirmed. Please check your email for activation";
-	var registerSuccessStr="Your details have been received. Check your email for activation";
-	var registerFailStr="An error occured";
-	var reportFailStr='Failed to send report';
-	var reportSuccessStr='Report was successfuly sent';
-	var SOSSuccessStr='Your location has sent to the local police and to your contact circle';
+	var checkActivationFailStr="Su cuenta no ha sido activada aún.";
+	var registerFailStr="Error de Registración. Intente nuevamente más tarde.";
+	var reportFailStr='Error enviando reporte, intente nuevamente por favor.';
+	var reportSuccessStr;
+	var reportStr='Denuncia recibida, muchas gracias!<br/><br/>Reporte No.: ';
+	var SOSStr='Mensaje SOS enviado!<br/><br/>Reporte No.: ';
+	var SOSSuccessStr;
 	var SOSFailStr='Failed to send SOS';
-	var PicSendSuccessStr='Report was successfuly sent';
-	var PicSendFailStr='Report was sent without photos';
+	var picSendFailStr='Report was sent without photos';
 	var termsString = "El presente aplicativo celular es brindado a la población en forma gratuita por la empresa Pele System, como servicio a la comunidad para el envío de denuncias y alertas S.O.S. al Centro de Control de Alto al Crimen, que contribuyan a  la prevención y tratamiento de emergencias y  hechos delictivos. <br/> Pele System y Alto al Crimen no  serán responsables por  defectos o mal funcionamiento del aplicativo ni por el daño directo, indirecto, incidental o consecuente o  daño resultante de la pérdida de uso o pérdida de beneficios esperados como resultado de una avería en la aplicación.  <br/>La aplicación soporta la asociación de hasta 3 fotos por evento.  <br/>El aplicativo es operado con señal celular,  por lo cual en caso de producirse fallas en trasmisión de datos del proveedor celular,  es posible que estos datos no sean  recepcionados por el Centro de Control de Alto al Crimen.  <br/>El aplicativo S.O.S. Alto al Crimen  no reemplaza las tradicionales vías de contacto con  los servicios oficiales de seguridad y  emergencia, mediante  los cuales el ciudadano deberá acudir en caso necesario.  <br/>La activación del botón de S.O.S  producirá el envío de un mensaje de alerta al círculo de contactos definido por el usuario como destinatarios  para recibir la alerta por SMS.  Los SMS tendrán el costo de un mensaje de texto normal y serán a cargo del usuario de la aplicación S.O.S.";
 	var sosDescription="Enviar mensaje SOS a Alto al Crimen y a Emergencia Municipal.<br/><br/>Notificar a su círculo de contactos que está en una emergencia";					
 	for (i=0;i<contactsList.length;++i)
@@ -116,11 +115,12 @@
 	   		timeout: 60*1000,
 		    error: function (jqXHR, textStatus, errorThrown) 
 		    {
-		    	CreateAlert('Could not connect to server');
+		    	CreateAlert('Error de red. Inténte nuevamente más tarde.');
 		    },
 	        success: function(result)
 	        {
-				var res=CheckActionResult(result,6,PicSendFailStr,PicSendSuccessStr);
+
+				var res=CheckActionResult(result,6,picSendFailStr,reportSuccessStr);
 	
 				transitionSpinner.stop();
 				document.getElementById("reportPage").style.pointerEvents = "auto";
@@ -146,7 +146,7 @@
 		    timeout: 60*1000,
 		    error: function (jqXHR, textStatus, errorThrown) 
 		    {
-		    	CreateAlert('Could not connect to server');
+		    	CreateAlert('Error de red. Inténte nuevamente más tarde.');
 		    },
 	        success: function(actionResult)
 	        {
@@ -403,137 +403,6 @@
 
     }
 
-/*	function GetActionResult(form)
-	{				
-        if (uploadIframe.contentDocument) 
-        {
-            actionResult = uploadIframe.contentDocument.body.innerHTML;
-    	} 
-    	else if (uploadIframe.contentWindow) 
-    	{
-            actionResult = uploadIframe.contentWindow.document.body.innerHTML;
-        } 
-        else if (uploadIframe.document) 
-        {
-            actionResult = uploadIframe.document.body.innerHTML;
-        }
-             
-        console.log(actionResult);
-        
-		if (form.id=='SOSForm')
-		{
-			CheckActionResult(actionResult,5,SOSFailStr,SOSSuccessStr);
-			transitionSpinner.stop();
-			document.getElementById("SOSPage").style.pointerEvents = "auto";
-			form.style.opacity='1';
-		}
-		else if (form.id=='reportForm')
-		{
-			var res=CheckActionResult(actionResult,5);
-			
-			if (res==true)
-			{
-				if (photoCounter>0)
-				{
-					SendPic();
-				}
-				else
-				{
-					transitionSpinner.stop();
-					document.getElementById("reportPage").style.pointerEvents = "auto";
-					form.style.opacity='1';
-					CreateAlert(reportSuccessStr);
-					RefreshReportPage();
-				}
-				
-			}
-			else
-			{	transitionSpinner.stop();
-				document.getElementById("reportPage").style.pointerEvents = "auto";
-				form.style.opacity='1';
-				CreateAlert(reportFailStr);
-				
-			}
-			
-	
-		}
-		else if (form.id=='activationWaitForm')
-		{
-			var res=CheckActionResult(actionResult,1);
-			if (res==true)
-			{	
-				localStorage.setItem('userStatus',3);
-				window.location.replace('MainPage.html');
-			}
-			else
-			{
-				ShowMessage(checkActivationFailStr,'red');
-			}
-
-			transitionSpinner.stop();
-			document.getElementById("activationWaitPage").style.pointerEvents = "auto";
-			form.style.opacity='1';
-		} 
-		else if (form.id=='regPageForm')
-		{
-			var res=CheckActionResult(actionResult,1,registerFailStr);
-			if (res==true)
-			{
-				var n=actionResult.indexOf(':');
-				var userIdStr=actionResult.substring(n+1,actionResult.length);
-				userId=parseInt(userIdStr);
-				localStorage.setItem('contactsCounter',0);
-				localStorage.setItem('userId',userId);
-				localStorage.setItem('userStatus',2);
-				localStorage.setItem('phoneNum',phoneNumber);
-				localStorage.setItem('email',email);
-				window.location.replace('WaitForActivation.html');
-			}
-			transitionSpinner.stop();
-			document.getElementById("registrationPage").style.pointerEvents = "auto";
-			form.style.opacity='1';						
-		}
-		else if (form.id=='messagesForm')
-		{
-			if (actionResult=='')
-			{
-				CreateAlert(gettingMessagesFailStr);
-			}
-			else
-			{
-				ParseMessages(actionResult);
-			}
-			commentRefreshSpinner.stop();
-			document.getElementById("messagesPage").style.pointerEvents = "auto";
-			form.style.opacity='1';
-		}
-		else if (form.id=='commentForm')
-		{
-			var res=CheckActionResult(actionResult,1,sendCommentFailStr);
-			if (res==true)
-			{	
-				ShowMessage(sendCommentSuccessStr,'black');
-				commentRefreshSpinner.stop();
-				GetMessages();
-			}
-			else
-			{
-				commentRefreshSpinner.stop();
-				
-			}
-			form.style.opacity='1';	
-									
-		}					
-		else if (form.id=='picForm')
-		{
-
-		}
-		else
-		{
-			CreateAlert('Unknown error');
-		}
-		
-	}*/
 	
 	function CompareStrings(str1,str2)
 	{
@@ -687,13 +556,13 @@
 			}
 			else
 			{
-				ShowMessage("'/' is not alowed",'red');
+				ShowMessage("'/' is not allowed",'red');
 			}
 			
 		}
 		else
 		{
-			ShowMessage("Please enter a valid number",'red');
+			ShowMessage("Please enter a valid phone number",'red');
 		}
 
 	}
@@ -1014,7 +883,7 @@
         	ToggleDisplay('mapDisplay','inline'); 
             ToggleDisplay('reportPage','block');                        
             ToggleDisplay('topMenu','inline');
-            ToggleDisplay('closeMapButton','inline');    
+            document.getElementById('mapHelp').style.opacity='1';
             
             lastCenter=map.getCenter(); 
             google.maps.event.trigger(map, 'resize');
@@ -1026,9 +895,8 @@
         	ShowIcon();
             ToggleDisplay('mapDisplay','inline');
             ToggleDisplay('reportPage','block');
-            ToggleDisplay('closeMapButton','inline');
             ToggleDisplay('topMenu','inline');
-            
+            document.getElementById('mapHelp').style.opacity='0';
             if (!(changeToNewLocation===undefined))
             {
 	            //updates the city and country
@@ -1102,6 +970,7 @@
 		                            		}
 		                            		else
 		                            		{
+		                            			SOSSuccessStr=SOSStr + mifgaNum;
 		                            			var addressUnicode= UnicodeString(addressStr);
 		                            			
 		                            			url=AddParmameterToURL(url,'gf2',addressUnicode);
@@ -1114,7 +983,7 @@
                                         }
                                         else 
                                         {
-                                            CreateAlert("Error in finding location");
+                                            CreateAlert("Dirección no se encuentra.");
                                         }
                                     } 
                                     else 
@@ -1252,7 +1121,7 @@
 	    //var stripped = num.replace(/[\(\)\.\-\ ]/g, '');     
 	
 	   if (num == "") {
-	        phoneNumberError = "Required field";
+	        phoneNumberError = "Campo requerido!";
 	       
 	    } else if (isNumber(num)==false) {
 	        phoneNumberError = "The phone number contains illegal characters";
@@ -1286,7 +1155,7 @@
 		var dotpos=mail.lastIndexOf(".");
 		if (mail=="")
 		{
-			emailError="Required field";
+			emailError="Campo requerido!";
 		} else
 		if (atpos<1 || dotpos<atpos+2 || dotpos+2>=mail.length || atpos!=atsecpos)
 	  	{
@@ -1342,7 +1211,7 @@
 		var d=document.getElementById('picker').value;
 		if (d=='')
 		{
-			birthDateError='Required field';
+			birthDateError='Campo requerido!';
 		}
 		else
 		{
@@ -1432,9 +1301,7 @@
 		else
 		{
 			ShowMessage('Please fill all the fields with a valid data','red');
-			//CreateAlert('Please fill all the fields with a valid data');
 			document.getElementById("registrationPage").style.pointerEvents = "auto";
-			//form.style.opacity='1';
 		}
 		
 	}
@@ -1474,6 +1341,7 @@
 		
 		document.getElementById("reportPage").style.pointerEvents = "none";
 		GenerateReportUrl();
+		reportSuccessStr=reportStr+mifgaNum;
 		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 		PostAjax(reportForm,"/addMifgaLoginJ2ME.do",url);
 		
@@ -1622,7 +1490,7 @@
 			//creating the comment counter span
 			commentCounterSpan=document.createElement('div');
 			commentCounterSpan.className='messageBlueLeft';
-			commentCounterSpan.innerHTML=commentCounter + ' comments';
+			commentCounterSpan.innerHTML=commentCounter + ' comentarios';
 			
 			//creating comments counter and time line
 			messageCounterTimeLine=document.createElement('div');
@@ -1854,11 +1722,11 @@
 				{
 					if (days==1)
 					{
-						timeStr='Yesterday';
+						timeStr='Ayer';
 					}
 					else 
 					{
-						timeStr=days + ' days ago';
+						timeStr='Hace ' + days + ' dias';
 					}
 				}	
 			}
@@ -1866,24 +1734,28 @@
 			{
 				if (hours==1)
 				{
-					timeStr='1 hour ago';
+					timeStr='Hace 1 horas';
 				}
 				else
 				{
-					timeStr=hours + ' hours ago';
+					timeStr='Hace ' + hours + ' horas';
 				}
 		
 			}
 		}
 		else
 		{
-			if (min<=1)
+			if (min<1)
 			{
-				timeStr='1 minute ago';
+				timeStr='Ahora';
+			}
+			else if  (min==1)
+			{
+				timeStr='Hace 1 minuto';
 			}
 			else
 			{
-				timeStr=min + ' minutes ago';
+				timeStr='Hace ' + min + ' minutos';
 			}
 		}
 					

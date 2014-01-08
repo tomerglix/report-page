@@ -6,7 +6,7 @@
         <!--google maps api--> 
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>                 
                 
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1, user-scalable=no">
         <meta charset="utf-8">
 
         <!--roboto font-->
@@ -52,8 +52,8 @@
 
 <html >
         <body onload=" FirstLoad();" style="height: 100%; background-color:#f3f3f3" ontouchstart='' >
-        	<div id='softAlert' class="center">
-        		<span id='softAlertContent'></span>
+        	<div id='softAlert' class="center softAlert">
+        		<span id='softAlertContent' class='softAlertContent' ></span>
         	</div>
         	<div id='actionBar'>
         		<img src='./images/logo.png' style="height: 100%; width: 40%">
@@ -71,15 +71,17 @@
         		
         		
         	</div>
+ 
 			<p id='photoDeletion'>
 				Remove photo?
 			</p>
 			<P id='generalAlert'>
 			</P>
-			
-        	<button id='closeMapButton' class="center" onclick='ToggleMap()'  style="display:none; position: absolute; z-index: 100; top:0;" >Close map</button>
+        	<div id='mapHelp' class="center softAlert" style="bottom: 0; top:inherit; margin-bottom: 5px;" >
+	        		<span id='mapHelpContent' class="softAlertContent" >Drag marker to change crime location</span>
+        	</div>   			
             <div id="mapDisplay" style="display: none; margin-top: 45px;">
-                                    
+                                
             </div>
             
             <div id="picDisplay" style="display: none; margin-top: 45px;" class="fullScreen" >
@@ -92,27 +94,27 @@
 						 <a id="SOSTab" class="tab" href="#"> SOS </a> 
 					</li>
 					<li style="width: 34%;"  class="middleTab navTab" onclick="ChangePage('reportPage','reportPageTab'); ShowIcon();" >
-						  <a id="reportPageTab"  class="tab " href="#" > Report </a>  
+						  <a id="reportPageTab"  class="tab " href="#" > Reportes </a>  
 					</li>
 					<li onclick="ChangePage('messagesPage','messagesTab'); ShowIcon('refreshIcon');" class="navTab">
-						  <a id="messagesTab"   class="tab" href="#"> Messages </a> 
+						  <a id="messagesTab"   class="tab" href="#"> Mensajes </a> 
 					</li>
 				</ul>
 			</div>
 <!---------------------------------  sos section ---------------------------------->
 			<div id="SOSPage"  class="pageWrap" >
 				<div id="SOSWrap" class="sectionWrap">
-					<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >Send SOS</h1>
+					<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >MENSAJE SOS</h1>
 					<form id="SOSForm" > 	
 							<div id="buttonSection" class="center" style="height: 60%; width:100%; margin-top: 10px">
 								<img id="SOSButton" src='./images/btn_sos_normal.png' />
 							</div>
 									
 							<div id="pressLongMessage" class="center" align="center" style="opacity: 0;">
-								<span style="display: inline-block;padding: 3px;background: black; color: white; border-radius: 4px; margin-top:3px; ">Hold button to send SOS</span>
+								<span style="display: inline-block;padding: 3px;background: black; color: white; border-radius: 4px; margin-top:3px; ">Click Largo para enviar SOS</span>
 							</div>
 							<div id="contactsSection" >
-								<p class="headerDecoration" style="margin-bottom: 7px; margin-top: 0px;">Contacts Circle</p>
+								<p class="headerDecoration" style="margin-bottom: 7px; margin-top: 0px;">CIRCULO DE CONTACTOS</p>
 								
 		
 								<table id="contactsList" style='font-size: 120%; width:100% ;'>
@@ -132,7 +134,7 @@
 									</tr>
 								</table>	
 								<div id="addbutton" style="display: inline; " >
-									<input class="submitButtonStyle" type="submit" value="Add contact" style="width: 100%" onclick="ToggleDisplay('addingContactField','table'); ToggleDisplay('addbutton','inline'); return false"  />
+									<input class="submitButtonStyle" type="submit" value="Agregar Contacto" style="width: 100%" onclick="ToggleDisplay('addingContactField','table'); ToggleDisplay('addbutton','inline'); return false"  />
 								</div>		
 							</div>
 	
@@ -157,13 +159,13 @@
 
                             <div id="reportData">                        		  
                         		  <!--main page header-->
-                       			  <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none"> Report Crime </h1>                                                              
+                       			  <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none">REPORTAR CRIMEN</h1>                                                              
                                    
                                    
                                    <!--crime type section-->      
                                   <div id="crimeType" class="section">                                                                                                                                                       
 
-                                          <label for='subjectId'><p  class="headerDecoration">Type</p></label>
+                                          <label for='subjectId'><p  class="headerDecoration">TIPO</p></label>
 
                                           <div id="crimeTypeSelection" >
                                                 <select  name="subjectId" id="subjectId" style=" margin-bottom:0; font-size: 100%; position:inherit; padding: 4px;" class="dropdown" >
@@ -192,7 +194,7 @@
 
                     		 	<!--crime description section-->                                   
                                   <div id="crimeDescription" class="section">
-                                                  <label for='descriptionBox'><p  class="headerDecoration" >Description</p></label>
+                                                  <label for='descriptionBox'><p  class="headerDecoration" >DESCRIPCION</p></label>
                                                   <textarea  id="descriptionBox" name="comment"  style=" display: block" class="autoResizeTextBox" onfocus="HighLightUL('crimeDescriptionUL')" onblur="DeHighLightUL('crimeDescriptionUL')"></textarea> 
                                           <div id="crimeDescriptionUL" class="textEditUnderLine">
                                           </div>
@@ -200,7 +202,7 @@
     
 									<!--crime location section-->
                                   	<div id="crimeLocation" class="section">                                                                                        
-                                          <p  class="headerDecoration">Location</p>
+                                          <p  class="headerDecoration">UBICACION</p>
                                           <div id="crimeLocationData"  onclick="ViewLocationOnMap();" >
 												<img src="./images/map-pin.png" class="icons" >
 												<div id="addressBar" class="robo">
@@ -212,7 +214,7 @@
     
     								 <!--crime date section-->
                                   <div id="crimeDate" class="section" >                                                                                                                                                       
-                                          <p  class="headerDecoration">Date &amp; Hour</p>
+                                          <p  class="headerDecoration">FECHA Y HORA</p>
                                           <div id="crimeDateData">
 												<div id="datetimepicker" >
 												<label for='scroller'><img src="./images/calendar.png" class="icons"></label>	
@@ -225,7 +227,7 @@
                                   
                                   <!--crime photos section-->    
                                   <div id="crimePhotos" class="section">                                                                                       
-                  						<p  class="headerDecoration">Photos</p>
+                  						<p  class="headerDecoration">Fotos</p>
                                			
                  						<img id="crimePhotoAddButton" src="./images/camera.png" class="icons" onclick="TogglePhotoButtons()" >         
                          				<div  id='slideleft' class='slide'>
@@ -243,7 +245,7 @@
 						</div>
 						
                         <div id="submitReportButton" style="display: block; max-width:100%; margin:10px" >
-                            <input   style="width:100%" type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime(); return false;" value="Submit Crime" /> 
+                            <input   style="width:100%" type="Enviar" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime(); return false;" value="Submit Crime" /> 
                     	</div>					    
                     </form>
 					<form id="picForm">
@@ -294,7 +296,6 @@
 						    //dateFormat: 'dd/mm/yy',
 						    timeFormat: 'HH:ii',
 						    timeWheels: 'HHii',
-						    //lang: 'es'
 						}); // Shorthand for: $("#scroller").mobiscroll({ preset: 'datetime' });
 					});
 					
@@ -329,7 +330,7 @@
 						autoOpen: false,
 						modal: true,
 						dialogClass: "no-close robo alertBox confirmBox",
-						title: "ALTO al CRIMEN",
+						title: "Alto al Crimen",
 						
 						buttons: {
 							OK: function() {
@@ -350,7 +351,7 @@
 						autoOpen: false,
 						modal: true,
 						dialogClass: "no-close robo alertBox confirmBox",
-						title: "ALTO al CRIMEN",
+						title: "Alto al Crimen",
 						buttons: {
 							OK: function() {
 								DeletePhoto();
@@ -367,12 +368,12 @@
 						autoOpen: false,
 						modal: true,
 						dialogClass: "no-close robo alertBox",
-						title: "ALTO al CRIMEN",
+						title: "Alto al Crimen",
 						buttons: [{text: "OK", click: function() {$( this ).dialog( "close" );}}]					
 					});	
 					
 					
-						
+					$(document.body).mousedown(function(){if (document.getElementById('mapHelp').style.opacity!='0') {$('#mapHelp').fadeTo(1000,0);}});	
 
 			</script>
 			

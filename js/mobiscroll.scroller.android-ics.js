@@ -1,6 +1,6 @@
 (function ($) {
     var theme = {
-        dateOrder: 'Mddyy',
+        dateOrder: 'ddMyy',
         mode: 'mixed',
         rows: 5,
         minWidth: 70,

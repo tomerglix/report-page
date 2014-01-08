@@ -5,10 +5,10 @@ improvements needed:
 sending pics						c	v
 sending sms
 change to spanish
-change time picker to spanish
+change time picker to spanish		c	v
 splash screen
-timeout when there's no connection
-change alerts to fading messages
+timeout when there's no connection	c	
+change alerts to fading messages	c	v
 push notifications
 
 sliding photos fullscreen			c	v
@@ -44,11 +44,11 @@ consider comment sent message (not necessary) - check alert when comment sent	c	
 bug - after sending sos and trying to capture photo strange messages appear		c	v
 bug - scenario: adding contact, number field is empty, keyboard is open, pressing on the V - bars are mislocated	c		
 registration - attention icon on text when text is long	- leave it for now
-change to ajax
-delete iframes
-delete sendurl function
-delete getactionresult
-check if '?' is needed at the end of the action
+change to ajax											c	v
+delete iframes											c	v
+delete sendurl function									c	v
+delete getactionresult									c	v
+check if '?' is needed at the end of the action			c	v
 sos page is on hold without spinner when get location fails
 
 bonus: slide page effect
