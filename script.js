@@ -116,6 +116,9 @@
 		    error: function (jqXHR, textStatus, errorThrown) 
 		    {
 		    	CreateAlert('Error de red. Inténte nuevamente más tarde.');
+		    	transitionSpinner.stop();
+		    	document.body.style.pointerEvents = "auto";
+		    	reportForm.style.opacity='1';
 		    },
 	        success: function(result)
 	        {
@@ -123,7 +126,7 @@
 				var res=CheckActionResult(result,6,picSendFailStr,reportSuccessStr);
 	
 				transitionSpinner.stop();
-				document.getElementById("reportPage").style.pointerEvents = "auto";
+				document.body.style.pointerEvents = "auto";
 				reportForm.style.opacity='1';
 				
 				if (res==true)
@@ -143,10 +146,23 @@
 		    type : 'POST',
 		    url :currnetHost + action,
 		    data : postData,
-		    timeout: 60*1000,
+		    timeout: 5000,
 		    error: function (jqXHR, textStatus, errorThrown) 
 		    {
+		    	alert(textStatus);
 		    	CreateAlert('Error de red. Inténte nuevamente más tarde.');
+		    	var spin;
+		    	if (form.id=='messagesForm' || form.id=='commentForm')
+		    	{
+		    		spin=commentRefreshSpinner;
+		    	}
+		    	else
+		    	{
+		    		spin=transitionSpinner;
+		    	}
+		    	spin.stop();
+				document.body.style.pointerEvents = "auto";
+				form.style.opacity='1';
 		    },
 	        success: function(actionResult)
 	        {
@@ -154,7 +170,7 @@
 				{
 					CheckActionResult(actionResult,5,SOSFailStr,SOSSuccessStr);
 					transitionSpinner.stop();
-					document.getElementById("SOSPage").style.pointerEvents = "auto";
+					document.body.style.pointerEvents = "auto";
 					form.style.opacity='1';
 				}
 				else if (form.id=='reportForm')
@@ -170,7 +186,7 @@
 						else
 						{
 							transitionSpinner.stop();
-							document.getElementById("reportPage").style.pointerEvents = "auto";
+							document.body.pointerEvents = "auto";
 							form.style.opacity='1';
 							CreateAlert(reportSuccessStr);
 							RefreshReportPage();
@@ -179,7 +195,7 @@
 					}
 					else
 					{	transitionSpinner.stop();
-						document.getElementById("reportPage").style.pointerEvents = "auto";
+						document.body.style.pointerEvents = "auto";
 						form.style.opacity='1';
 						CreateAlert(reportFailStr);
 						
@@ -202,7 +218,7 @@
 					}
 		
 					transitionSpinner.stop();
-					document.getElementById("activationWaitPage").style.pointerEvents = "auto";
+					document.body.style.pointerEvents = "auto";
 					form.style.opacity='1';
 				} 
 				else if (form.id=='regPageForm')
@@ -221,7 +237,7 @@
 						window.location.replace('WaitForActivation.html');
 					}
 					transitionSpinner.stop();
-					document.getElementById("registrationPage").style.pointerEvents = "auto";
+					document.body.style.pointerEvents = "auto";
 					form.style.opacity='1';						
 				}
 				else if (form.id=='messagesForm')
@@ -235,7 +251,7 @@
 						ParseMessages(actionResult);
 					}
 					commentRefreshSpinner.stop();
-					document.getElementById("messagesPage").style.pointerEvents = "auto";
+					document.body.style.pointerEvents = "auto";
 					form.style.opacity='1';
 				}
 				else if (form.id=='commentForm')
@@ -621,7 +637,7 @@
 	
 	function SOSLongPress()
 	{
-		document.getElementById("SOSPage").style.pointerEvents = "none";
+		document.body.style.pointerEvents = "none";
 		GetLocation(SendLocationToPolice, onError);
 	
 		ChangeButtonToNormal();
@@ -994,8 +1010,8 @@
                                    	{
                                    		addressBarSpinner.stop();
                                    	}	
-									document.getElementById("SOSPage").style.pointerEvents = "auto";
-									form.style.opacity='1';
+									//document.body.style.pointerEvents = "auto";
+									//SOSForm.style.opacity='1';
                             
                               });                                  				          
 	}
@@ -1249,7 +1265,7 @@
 	
 	function Register()
 	{
-		document.getElementById("registrationPage").style.pointerEvents = "none";
+		document.body.style.pointerEvents = "none";
 		var check=true;
 		if (ValidatePhone()==false)
 		{		
@@ -1301,7 +1317,7 @@
 		else
 		{
 			ShowMessage('Please fill all the fields with a valid data','red');
-			document.getElementById("registrationPage").style.pointerEvents = "auto";
+			document.body.style.pointerEvents = "auto";
 		}
 		
 	}
@@ -1339,7 +1355,7 @@
 	function SubmitCrime()
 	{
 		
-		document.getElementById("reportPage").style.pointerEvents = "none";
+		document.body.style.pointerEvents = "none";
 		GenerateReportUrl();
 		reportSuccessStr=reportStr+mifgaNum;
 		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
@@ -1356,7 +1372,7 @@
 	
 	function CheckActivation()
 	{
-		document.getElementById("activationWaitPage").style.pointerEvents = "none";
+		document.body.style.pointerEvents = "none";
 		transitionSpinner= new Spinner(transitionSpinnerOpts).spin(document.body);
 		PostAjax(activationWaitForm,"/checkAgentActivation.do",url);
 							
@@ -1544,7 +1560,7 @@
 	
 	function SendComment(msgNum,textAreaId)
 	{
-		document.getElementById("messagesPage").style.pointerEvents = "none";
+		document.body.style.pointerEvents = "none";
 		var message=document.getElementById(textAreaId).value;
 		if (message!='')	//if message is not empty
 		{
@@ -1630,14 +1646,14 @@
     }
     
 	function GetMessages()
-	{	document.getElementById("messagesPage").style.pointerEvents = "none";
+	{	document.body.style.pointerEvents = "none";
 		messagesSection.innerHTML="";
 		url=messageUrl;
 		if (messageFromString==true)
 		{
 			var strhard='<document><message><id>20</id><time>1386597393887</time><body>Monday Dec-09, Testing SOS v2 ENA</body><comment><user>tomer@lola-tech.com</user><time>1387884445639</time><body>tomer test</body></comment><comment><user>enunez@pelesystem.com</user><time>1386597544996</time><body>Ok you`re stiil testing SOS App</body></comment></message><message><id>19</id><time>1386461581278</time><body>I`m still testing the application app</body><comment><user>tomer@lola-tech.com</user><time>1387886718639</time><body>Test 2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386519129387</time><body>2</body></comment><comment><user>lolatech.com@gmail.com</user><time>1386515564559</time><body>test</body></comment></message><message><id>18</id><time>1386460441559</time><body>In Oune hour I am completed the QA testing fron tghe APP</body><comment><user>enunez@pelesystem.com</user><time>1386460564012</time><body>Ok I am waiting for the app</body></comment></message><message><id>17</id><time>1386459478403</time><body>Test Message number 3 from Eduardo</body><comment><user>enunez@pelesystem.com</user><time>1386460359496</time><body>Ok the "NAVIDAD SEGURA" from La Molina its almost ready</body></comment><comment><user>enunez@pelesystem.com</user><time>1386460107543</time><body>Ok it is a back message fro ok</body></comment></message><message><id>16</id><time>1386458491262</time><body>Second Test Message from Eduardo 6:20pm Saturday Dic-06</body></message></document>';
 			ParseMessages(strhard);
-			document.getElementById("messagesPage").style.pointerEvents = "auto";
+			document.body.style.pointerEvents = "auto";
 			form.style.opacity='1';
 		}
 		else
