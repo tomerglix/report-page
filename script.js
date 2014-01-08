@@ -903,7 +903,7 @@
             ToggleDisplay('reportPage','block');                        
             ToggleDisplay('topMenu','inline');
             document.getElementById('mapHelp').style.opacity='1';
-            
+             document.getElementById('mapHelp').style.display='block';
             lastCenter=map.getCenter(); 
             google.maps.event.trigger(map, 'resize');
             map.setCenter(lastCenter);
