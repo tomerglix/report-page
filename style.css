@@ -18,7 +18,7 @@
 	}
 	body
 	{
-		-webkit-user-select: none;
+		
 		-webkit-tap-highlight-color: rgba(255, 255, 255, 0); /*disabling orange square*/
 		margin:0px;
 		padding:0px;
@@ -49,12 +49,13 @@
 		/*border-bottom-color:#00CCFF;*/
 		color:#33b5e5;
 		font-family: 'roboto',helvetica,arial,sans;
-		font-size:130%;
+		font-size:120%;
 		border-bottom-style:solid;
 		border-bottom-width:2px;
 		border-bottom-color:#33b5e5;
 		margin: 15px 0px;
 		white-space: nowrap;
+		
 	}
 
 	
@@ -99,6 +100,7 @@
 
 	#SOSButton
 	{
+		-webkit-user-select: none;
 		-webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
 		/*background:url(./images/btn_sos_normal.png) no-repeat;*/
 		max-width:80%; /*same as the height*/

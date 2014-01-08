@@ -6,7 +6,7 @@
         <!--google maps api--> 
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>                 
                 
-        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta charset="utf-8">
 
         <!--roboto font-->
@@ -77,9 +77,9 @@
 			</p>
 			<P id='generalAlert'>
 			</P>
-        	<div id='mapHelp' class="center softAlert" style="bottom: 0; top:inherit; margin-bottom: 5px;" >
+        	<!--<div id='mapHelp' class="center softAlert" style="bottom: 0; top:inherit; margin-bottom: 5px;" >
 	        		<span id='mapHelpContent' class="softAlertContent" >Drag marker to change crime location</span>
-        	</div>   			
+        	</div>   			-->
             <div id="mapDisplay" style="display: none; margin-top: 45px;">
                                 
             </div>
@@ -104,7 +104,7 @@
 <!---------------------------------  sos section ---------------------------------->
 			<div id="SOSPage"  class="pageWrap" >
 				<div id="SOSWrap" class="sectionWrap">
-					<h1 class="headerDecoration" style="font-size: 200%; border-bottom: none; margin-bottom: 0px" >MENSAJE SOS</h1>
+					<h1 class="headerDecoration" style="font-size: 150%; border-bottom: none; margin-bottom: 0px" >MENSAJE SOS</h1>
 					<form id="SOSForm" > 	
 							<div id="buttonSection" class="center" style="height: 60%; width:100%; margin-top: 10px">
 								<img id="SOSButton" src='./images/btn_sos_normal.png' />
@@ -159,7 +159,7 @@
 
                             <div id="reportData">                        		  
                         		  <!--main page header-->
-                       			  <h1 class="headerDecoration" style="font-size: 200%; border-bottom: none">REPORTAR CRIMEN</h1>                                                              
+                       			  <h1 class="headerDecoration" style="font-size: 150%; border-bottom: none">REPORTAR CRIMEN</h1>                                                              
                                    
                                    
                                    <!--crime type section-->      
@@ -245,7 +245,7 @@
 						</div>
 						
                         <div id="submitReportButton" style="display: block; max-width:100%; margin:10px" >
-                            <input   style="width:100%" type="Enviar" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime(); return false;" value="Submit Crime" /> 
+                            <input   style="width:100%" type="submit" id="submitCrimeButton" class="submitButtonStyle" onclick="SubmitCrime(); return false;" value="Enviar" /> 
                     	</div>					    
                     </form>
 					<form id="picForm">
