@@ -342,7 +342,7 @@
 	input.regInputBox 
 	{
 		font-family: 'roboto',helvetica,arial,sans;
-		font-size: 120%;
+		font-size: 100%;
 		width:90%;
 		color: #000000;
 		border: none;

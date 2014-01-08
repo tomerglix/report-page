@@ -137,6 +137,131 @@
 
 		});
 	}
+	function PostAjaxError(form)
+	{
+    	CreateAlert('Error de red. Inténte nuevamente más tarde.');
+    	var spin;
+    	if (form.id=='messagesForm' || form.id=='commentForm')
+    	{
+    		spin=commentRefreshSpinner;
+    	}
+    	else
+    	{
+    		spin=transitionSpinner;
+    	}
+    	spin.stop();
+		document.body.style.pointerEvents = "auto";
+		form.style.opacity='1';	
+	}
+	function PostAjaxSuccess(form,actionResult)
+	{
+		if (form.id=='SOSForm')
+		{
+			CheckActionResult(actionResult,5,SOSFailStr,SOSSuccessStr);
+			transitionSpinner.stop();
+			document.body.style.pointerEvents = "auto";
+			form.style.opacity='1';
+		}
+		else if (form.id=='reportForm')
+		{
+			var res=CheckActionResult(actionResult,5);
+			
+			if (res==true)
+			{
+				if (photoCounter>0)
+				{
+					SendPic();
+				}
+				else
+				{
+					transitionSpinner.stop();
+					document.body.pointerEvents = "auto";
+					form.style.opacity='1';
+					CreateAlert(reportSuccessStr);
+					RefreshReportPage();
+				}
+				
+			}
+			else
+			{	transitionSpinner.stop();
+				document.body.style.pointerEvents = "auto";
+				form.style.opacity='1';
+				CreateAlert(reportFailStr);
+				
+			}
+		}
+		else if (form.id=='activationWaitForm')
+		{
+			var res=CheckActionResult(actionResult,1);
+			if (res==true)
+			{	
+				localStorage.setItem('userStatus',3);
+				window.location.replace('MainPage.html');
+			}
+			else
+			{
+				ShowMessage(checkActivationFailStr,'red');
+			}
+
+			transitionSpinner.stop();
+			document.body.style.pointerEvents = "auto";
+			form.style.opacity='1';
+		} 
+		else if (form.id=='regPageForm')
+		{
+			var res=CheckActionResult(actionResult,1,registerFailStr);
+			if (res==true)
+			{
+				var n=actionResult.indexOf(':');
+				var userIdStr=actionResult.substring(n+1,actionResult.length);
+				userId=parseInt(userIdStr);
+				localStorage.setItem('contactsCounter',0);
+				localStorage.setItem('userId',userId);
+				localStorage.setItem('userStatus',2);
+				localStorage.setItem('phoneNum',phoneNumber);
+				localStorage.setItem('email',email);
+				window.location.replace('WaitForActivation.html');
+			}
+			transitionSpinner.stop();
+			document.body.style.pointerEvents = "auto";
+			form.style.opacity='1';						
+		}
+		else if (form.id=='messagesForm')
+		{
+			if (actionResult=='')
+			{
+				CreateAlert(gettingMessagesFailStr);
+			}
+			else
+			{
+				ParseMessages(actionResult);
+			}
+			commentRefreshSpinner.stop();
+			document.body.style.pointerEvents = "auto";
+			form.style.opacity='1';
+		}
+		else if (form.id=='commentForm')
+		{
+			var res=CheckActionResult(actionResult,1,sendCommentFailStr);
+			if (res==true)
+			{	
+				ShowMessage(sendCommentSuccessStr,'black');
+				commentRefreshSpinner.stop();
+				GetMessages();
+			}
+			else
+			{
+				commentRefreshSpinner.stop();
+				
+			}
+			form.style.opacity='1';	
+									
+		}					
+		else
+		{
+			CreateAlert('Unknown error');
+		}
+	}
 	
 	function PostAjax(form,action,postData)
 	{
@@ -149,134 +274,12 @@
 		    timeout: 5000,
 		    error: function (jqXHR, textStatus, errorThrown) 
 		    {
-		    	alert(textStatus);
-		    	CreateAlert('Error de red. Inténte nuevamente más tarde.');
-		    	var spin;
-		    	if (form.id=='messagesForm' || form.id=='commentForm')
-		    	{
-		    		spin=commentRefreshSpinner;
-		    	}
-		    	else
-		    	{
-		    		spin=transitionSpinner;
-		    	}
-		    	spin.stop();
-				document.body.style.pointerEvents = "auto";
-				form.style.opacity='1';
+				PostAjaxError(form);
 		    },
 	        success: function(actionResult)
 	        {
-				if (form.id=='SOSForm')
-				{
-					CheckActionResult(actionResult,5,SOSFailStr,SOSSuccessStr);
-					transitionSpinner.stop();
-					document.body.style.pointerEvents = "auto";
-					form.style.opacity='1';
-				}
-				else if (form.id=='reportForm')
-				{
-					var res=CheckActionResult(actionResult,5);
-					
-					if (res==true)
-					{
-						if (photoCounter>0)
-						{
-							SendPic();
-						}
-						else
-						{
-							transitionSpinner.stop();
-							document.body.pointerEvents = "auto";
-							form.style.opacity='1';
-							CreateAlert(reportSuccessStr);
-							RefreshReportPage();
-						}
-						
-					}
-					else
-					{	transitionSpinner.stop();
-						document.body.style.pointerEvents = "auto";
-						form.style.opacity='1';
-						CreateAlert(reportFailStr);
-						
-					}
-					//form.style.opacity='1';
-					
-			
-				}
-				else if (form.id=='activationWaitForm')
-				{
-					var res=CheckActionResult(actionResult,1);
-					if (res==true)
-					{	
-						localStorage.setItem('userStatus',3);
-						window.location.replace('MainPage.html');
-					}
-					else
-					{
-						ShowMessage(checkActivationFailStr,'red');
-					}
-		
-					transitionSpinner.stop();
-					document.body.style.pointerEvents = "auto";
-					form.style.opacity='1';
-				} 
-				else if (form.id=='regPageForm')
-				{
-					var res=CheckActionResult(actionResult,1,registerFailStr);
-					if (res==true)
-					{
-						var n=actionResult.indexOf(':');
-						var userIdStr=actionResult.substring(n+1,actionResult.length);
-						userId=parseInt(userIdStr);
-						localStorage.setItem('contactsCounter',0);
-						localStorage.setItem('userId',userId);
-						localStorage.setItem('userStatus',2);
-						localStorage.setItem('phoneNum',phoneNumber);
-						localStorage.setItem('email',email);
-						window.location.replace('WaitForActivation.html');
-					}
-					transitionSpinner.stop();
-					document.body.style.pointerEvents = "auto";
-					form.style.opacity='1';						
-				}
-				else if (form.id=='messagesForm')
-				{
-					if (actionResult=='')
-					{
-						CreateAlert(gettingMessagesFailStr);
-					}
-					else
-					{
-						ParseMessages(actionResult);
-					}
-					commentRefreshSpinner.stop();
-					document.body.style.pointerEvents = "auto";
-					form.style.opacity='1';
-				}
-				else if (form.id=='commentForm')
-				{
-					var res=CheckActionResult(actionResult,1,sendCommentFailStr);
-					if (res==true)
-					{	
-						ShowMessage(sendCommentSuccessStr,'black');
-						commentRefreshSpinner.stop();
-						GetMessages();
-					}
-					else
-					{
-						commentRefreshSpinner.stop();
-						
-					}
-					form.style.opacity='1';	
-											
-				}					
-				else
-				{
-					CreateAlert('Unknown error');
-				}
-	        }
-
+	        	PostAjaxSuccess(form,actionResult);
+			}
 		});		
 	}
 
