@@ -112,7 +112,7 @@
 		    url : currnetHost +"/storeMifgaPicPhoneGap.do",
 		    data : 
 		        $('#picForm').serialize(),
-	   		timeout: 5000,
+	   		timeout: 60000,
 		    error: function (jqXHR, textStatus, errorThrown) 
 		    {
 		    	CreateAlert('Error de red. Inténte nuevamente más tarde.');
@@ -271,7 +271,7 @@
 		    type : 'POST',
 		    url :currnetHost + action,
 		    data : postData,
-		    timeout: 5000,
+		    timeout: 60000,
 		    error: function (jqXHR, textStatus, errorThrown) 
 		    {
 				PostAjaxError(form);
@@ -1498,7 +1498,7 @@
 			ulId='comUl'+ messageCounter;
 			userCommentBox.innerHTML+="<div class='msgCommentDiv'><textarea id=" + tempId +  " class='autoResizeTextBox' placeholder='Write a comment...' style='display:block; margin-top:5px;' onblur='DeHighLightUL("+'"' + ulId + '"' +");' onfocus='HighLightUL("+'"' + ulId + '"' +");'></textarea>"
 			 + "<div id=" + ulId + " class='textEditUnderLine' > </div></div>";
-			userCommentBox.innerHTML+="<button class='sendCommentButton' onclick='SendComment(" + msgId + "," + '"' +tempId +'"' + ")'>Send</button>";
+			userCommentBox.innerHTML+="<button class='sendCommentButton' onclick='SendComment(" + msgId + "," + '"' +tempId +'"' + "); return false'>Send</button>";
 			
 			//adding my comment box to the comment section
 			commentsSection.appendChild(userCommentBox);
