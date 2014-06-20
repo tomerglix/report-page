@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script type="application/javascript" src="./js/fastclick.js"></script>		    
+        <script type="text/javascript" charset="UTF-8" src="./js/script.js" ></script>
+        <!-- <script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.js"></script> -->
+        <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.css"> -->
+    	<!-- <link rel="stylesheet"  href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.icons-1.4.0.css" /> -->
+		<!-- <link rel="stylesheet"  href="./css/jqm-icon-pack-fa.css" /> -->
+		<link rel="stylesheet" type="text/css" href="./css/style.css">
+	    <script src="js/mobiscroll.core.js"></script>
+	    <script src="js/mobiscroll.scroller.js" type="text/javascript"></script>	
+	    <script src="js/mobiscroll.datetime.js" type="text/javascript"></script>
+	    <script src="js/mobiscroll.select.js" type="text/javascript"></script>	
+	 	<script src="js/i18n/mobiscroll.i18n.es.js" type="text/javascript"></script>
+		<script src="js/mobiscroll.scroller.android-ics.js" type="text/javascript"></script>
+		<link href="css/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
+	    <link href="css/mobiscroll.scroller.android-ics.css" rel="stylesheet" type="text/css" />
+	    <link href="css/mobiscroll.animation.css" rel="stylesheet" type="text/css" /> 
+		<style>
+			#addEmployeeDiv
+			{
+				display: none;
+			}
+			#clearAllEmployeesButton
+			{
+				float:right;
+			}
+			#employeesListDiv
+			{
+				margin: 20px 0px;
+			}
+			#calculateButton
+			{
+				width: 100%;
+				font-size: xx-large;
+				border-radius: 10px;
+			}
+			#totalTipInputDiv
+			{
+				width: 100%;
+				text-align: center;
+			}
+			#totalTipInput
+			{
+				text-align: center;
+				width: 50%;
+				font-size: x-large;
+				border-radius: 10px;
+			}
+			input
+			{
+				border-radius: 4px;
+				text-align: center;
+			}
+			.xButtonEmployee
+			{
+				border-radius: 20px;
+				font-size: 80%;
+			}
+			#employeeNameInput
+			{
+				text-align: right;
+			}
+			.singleEmployeeRow
+			{
+				margin: 5px 0px;
+			}
+			#addEmployeeMenuDiv
+			{
+				margin-bottom: 5px;
+			}
+		</style>
+	</head>
+	
+	
+	<body onload="firstLoad()">
+		<div id="mainPageWrapper">
+			<div id="addEmployeeMenuDiv">
+				<button id="addEmployeeButton" class="normalButton" onclick="displayEmployeesList();">Add Employee</button>
+				<button id="clearAllEmployeesButton" class="normalButton" onclick="clearList();">Clear List</button>
+			</div>
+			<div id="addEmployeeDiv">
+				<button id="xButton" onclick="toggleDisplay('addEmployeeDiv');" class="normalButton xButtonEmployee" style="display: inline-block;">X</button>
+				<input id="employeeNameInput" type="text" style="display: inline-block; width: 65%"/>
+				<button id="addButton" style="display: inline-block; width:20%; float: right" class="normalButton" onclick="addEmployee();">Add</button>
+			</div>
+			<div id="employeesListDiv">
+				
+			</div>
+			<div id="totalTipInputDiv">
+				<input id="totalTipInput" placeholder="Enter Total Tip" />
+			</div>
+			<button id="calculateButton" class="normalButton" onclick="calculateTip();">Calculate</button>
+		</div>
+	</body>
+
+</html>
