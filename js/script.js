@@ -148,7 +148,7 @@
 		var employeeDiv = document.createElement("div");
 		employeeDiv.className="singleEmployeeRow";
 		employeeDiv.appendChild(xButton);
-		var employeeSpan = document.createElement("span");
+		var employeeSpan = document.createElement("div");
 		employeeSpan.innerHTML = " " +localStorage.getItem("employee"+i);
 		employeeSpan.className = "employeeSpan";
 		employeeDiv.appendChild(employeeSpan);

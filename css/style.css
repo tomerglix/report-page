@@ -24,4 +24,7 @@
 			{
 				font-size: x-large;
 				font-family:"Arial Black";
+				display: inline-block;
+				width: 45%;
+				overflow: scroll;
 			}
