@@ -4,21 +4,22 @@
 	<months_short_names>ינואר,פברואר,מרץ,אפריל,מאי,יוני,יולי,אוגוסט,ספטמבר,אוקטובר,נובמבר,דצמבר</months_short_names>
 	<set_text>אישור</set_text>
 	<cancel_text>ביטול</cancel_text>
-	<labelAddEmployeeButton>הוסף עובד</labelAddEmployeeButton>
+	<labelAddEmployeeButton>הוסף משתתף</labelAddEmployeeButton>
 	<labelAddButton>הוסף</labelAddButton>
 	<labelClearAllEmployeesButton>נקה רשימה</labelClearAllEmployeesButton>
-	<labelAreYouSure>האם אתה בטוח שברצונך לנקות את רשימת העובדים?</labelAreYouSure>
+	<labelAreYouSure>האם אתה בטוח שברצונך לנקות את רשימת המשתתפים?</labelAreYouSure>
 	<labelCalculateButton>חשב</labelCalculateButton>
-	<labelPleaseEnterEmployeeName>יש להזין שם עובד</labelPleaseEnterEmployeeName>
-	<labelEnterHours>שעות</labelEnterHours>
-	<labelEnterTotalTip>הכנס טיפ כולל</labelEnterTotalTip>
+	<labelPleaseEnterEmployeeName>יש להזין שם משתתף</labelPleaseEnterEmployeeName>
+	<labelEnterHours>שילם</labelEnterHours>
+	<labelEnterTotalTip>סה"כ קניות</labelEnterTotalTip>
 	<labelPleaseEnterTotalTip>יש להזין סכום כולל</labelPleaseEnterTotalTip>
 	<labelEnterValidTotalTip>יש להזין סכום כולל תקין</labelEnterValidTotalTip>
 	<labelPleaseEnterValidTip>נא להכניס ערך תקין עבור</labelPleaseEnterValidTip>
 	<labelAreYouSureYouWantToRemoveEmployee>האם אתה בטוח שברצונך להסיר את</labelAreYouSureYouWantToRemoveEmployee>
-	<labelTip>טיפ</labelTip>
-	<labelPleaseEnterEmployeeHour>נא להכניס שעות</labelPleaseEnterEmployeeHour>
-	<labelEmployeeNameInput>הכנס שם עובד</labelEmployeeNameInput>
+	<labelTip>חוב</labelTip>
+	<labelPleaseEnterEmployeeHour>נא להכניס סכום</labelPleaseEnterEmployeeHour>
+	<labelEmployeeNameInput>הכנס שם משתתף</labelEmployeeNameInput>
+	<labelClearFieldsButton>נקה נתונים</labelClearFieldsButton>
 </HebrewLabels>
 
 

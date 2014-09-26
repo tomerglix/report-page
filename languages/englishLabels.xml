@@ -19,6 +19,7 @@
 	<labelTip>Tip</labelTip>
 	<labelPleaseEnterEmployeeHour>Please enter hours</labelPleaseEnterEmployeeHour>
 	<labelEmployeeNameInput>Enter Employee Name</labelEmployeeNameInput>
+	<labelClearFieldsButton>Clear Fields</labelClearFieldsButton>
 </EnglishLabels>
 
 

@@ -82,6 +82,7 @@
     	document.getElementById("calculateButton").innerHTML=getTag("labelCalculateButton");
     	document.getElementById("totalTipInput").placeholder=getTag("labelEnterTotalTip");
     	document.getElementById("employeeNameInput").placeholder=getTag("labelEmployeeNameInput");
+    	//document.getElementById("clearFieldsButton").innerHTML=getTag("labelClearFieldsButton");
     	
     	
     }
@@ -134,6 +135,7 @@
 			document.getElementById("employeeNameInput").value = "";
 			++employeesCounter;
 			localStorage.setItem("employeesCounter",employeesCounter);
+			// $('.hourInputClass').blur(function(){onBlurHours($(this).attr('id'));});
 		}
 	}
 	
@@ -152,10 +154,11 @@
 		employeeSpan.innerHTML = " " +localStorage.getItem("employee"+i);
 		employeeSpan.className = "employeeSpan";
 		employeeDiv.appendChild(employeeSpan);
-		employeeDiv.innerHTML += "<input id='tipInput" + i + "' size='4' maxlength='4' style='float:right;width:15%' disabled/>";
-		employeeDiv.innerHTML += " <input id='hourInput" + i + "' placeholder='Enter Hour' type='number' size='2' maxlength='2' style='float:right; width:25%; margin-right:10px'/>";
+		employeeDiv.innerHTML += "<input id='tipInput" + i + "' size='6' maxlength='6' style='float:right;width:20%' disabled/>";
+		employeeDiv.innerHTML += " <input class='hourInputClass' id='hourInput" + i + "' placeholder='Enter Hour' type='number' size='2' maxlength='2' style='float:right; width:25%; margin-right:10px'/>";
 		employeesList.appendChild(employeeDiv);
 		document.getElementById("hourInput"+i).placeholder = getTag('labelEnterHours');
+		//document.getElementById("hourInput"+i).onblur = function(){onBlurHours(this.id);};
 		document.getElementById("tipInput"+i).placeholder = getTag('labelTip');
 		document.getElementById("xbutton" + i).onclick = function(e){removeEmployee(this);};
 		// $( ".xButtonEmployee" ).click(function(e){removeEmployee(this); e.stopPropagation();});
@@ -169,8 +172,23 @@
 		{
 			displaySingleEmployee(i);
 		}
+		// $('.hourInputClass').blur(function(){onBlurHours($(this).attr('id'));});
 	}
 	
+	function onBlurHours(elementId) {
+		var val = document.getElementById(elementId).value;
+
+		if (val == "") {
+			val = 0;
+		}
+		var currentSum = document.getElementById("totalTipInput").value;
+		if (currentSum == "") {
+			currentSum = 0;
+		}
+		currentSum = parseInt(currentSum) + parseInt(val);
+		document.getElementById("totalTipInput").value = currentSum;
+		alert(currentSum);
+	}
 	function removeEmployee(xButton) 
 	{
 		
@@ -192,31 +210,31 @@
 	
 	function calculateTip()
 	{
-		var totalTip = document.getElementById("totalTipInput").value;
-		if (totalTip.value == "")
-		{
-			alert(getTag("labelPleaseEnterTotalTip"));
-			return;
-		}
-		if (isNaN(totalTip))
-		{
-			alert(getTag("labelEnterValidTotalTip"));
-			return;
-		}
-		totalTip = parseInt(totalTip);
-		if (totalTip <= 0)
-		{
-			alert(getTag("labelEnterValidTotalTip"));
-			return;
-		}
+		//var totalTip = document.getElementById("totalTipInput").value;
+		// if (totalTip.value == "")
+		// {
+			// alert(getTag("labelPleaseEnterTotalTip"));
+			// return;
+		// }
+		// if (isNaN(totalTip))
+		// {
+			// alert(getTag("labelEnterValidTotalTip"));
+			// return;
+		// }
+		// totalTip = parseInt(totalTip);
+		// if (totalTip <= 0)
+		// {
+			// alert(getTag("labelEnterValidTotalTip"));
+			// return;
+		// }
 		var hourSum = parseInt(0);
-
 		for (var i=0; i<employeesCounter; ++i) 
 		{
 			var employeeHour = Number(document.getElementById("hourInput"+i).value);
 			if (employeeHour == "")
 			{
 				employeeHour = 0;
+				document.getElementById("hourInput"+i).value = 0;
 			}
 			if (isNaN(employeeHour) || employeeHour<0) 
 			{
@@ -228,14 +246,17 @@
 		
 		if (hourSum == 0)
 		{
-			alert(getTag("labelPleaseEnterEmployeeHour"));
-			return;
+			 alert(getTag("labelPleaseEnterEmployeeHour"));
+			 return;
 		}
-		
+		document.getElementById("totalTipInput").value = hourSum;
+		var forEachToPay = hourSum/employeesCounter;
 		for (var i=0; i<employeesCounter; ++i) 
 		{
 			var employeeHour = document.getElementById("hourInput"+i).value;
-			var employeeTip = (employeeHour/hourSum)*totalTip;
-			document.getElementById("tipInput"+i).value = employeeTip.toFixed(2);
+			var employeeTip = forEachToPay-employeeHour;
+			document.getElementById("tipInput"+i).value = employeeTip.toFixed(1);
 		}
 	}
+	
+	

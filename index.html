@@ -86,6 +86,7 @@
 			<div id="addEmployeeMenuDiv">
 				<button id="addEmployeeButton" class="normalButton" onclick="displayEmployeesList();">Add Employee</button>
 				<button id="clearAllEmployeesButton" class="normalButton" onclick="clearList();">Clear List</button>
+			<!--	<button id="clearFieldsButton" class="normalButton" onclick="clearFields();" style="display:inline-block; float: right">Clear Fields</button> -->
 			</div>
 			<div id="addEmployeeDiv">
 				<button id="xButton" onclick="toggleDisplay('addEmployeeDiv');" class="normalButton" style="display: inline-block;">X</button>
@@ -96,7 +97,7 @@
 				
 			</div>
 			<div id="totalTipInputDiv">
-				<input id="totalTipInput" placeholder="Enter Total Tip" />
+				<input id="totalTipInput" placeholder="Enter Total Tip" disabled/>
 			</div>
 			<button id="calculateButton" class="normalButton" onclick="calculateTip();">Calculate</button>
 		</div>
