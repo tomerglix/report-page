@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="format-detection" content="telephone=no,date=no">
+		<meta name="viewport" content="initial-scale=1.0,user-scalable=no">
+        <!--<script type="text/javascript" src="./js/jquery.min.js" ></script>-->
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script type="application/javascript" src="./js/fastclick.js"></script>
+	    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" charset="UTF-8" src="./js/script.js" ></script>
+        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.css">
+    	<link rel="stylesheet"  href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.icons-1.4.0.css" />
+		<link rel="stylesheet"  href="./css/jqm-icon-pack-fa.css" />
+		<link rel="stylesheet" type="text/css" href="./css/style.css">
+	    <script src="js/mobiscroll.core.js"></script>
+	    <script src="js/mobiscroll.scroller.js" type="text/javascript"></script>	
+	    <script src="js/mobiscroll.datetime.js" type="text/javascript"></script>
+	    <script src="js/mobiscroll.select.js" type="text/javascript"></script>	
+	 	<script src="js/i18n/mobiscroll.i18n.es.js" type="text/javascript"></script>
+		<script src="js/mobiscroll.scroller.android-ics.js" type="text/javascript"></script>
+		<link href="css/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
+	    <link href="css/mobiscroll.scroller.android-ics.css" rel="stylesheet" type="text/css" />
+	    <link href="css/mobiscroll.animation.css" rel="stylesheet" type="text/css" /> 
+	      <!-- Fotorama -->
+		  <link href="fotorama/fotorama.css" rel="stylesheet">
+		  <script src="fotorama/fotorama.js"></script>
+		
+		<style>
+
+		</style>
+	</head>
+	
+	
+	<body onload="firstLoad()">
+		
+    	<div id='actionBar'>
+    		<a id="loginActionBar" href="#loginPage" data-transition="slide" onclick="changeToLoginPage()">
+    			<div id='loginLabel'>התחברות</div>
+    			<img id='settingsIcon' src='./images/ic_settings.png'>
+    		</a>
+    		<a href="#mainPage" data-transition="slide" data-direction="reverse">	
+    			<img id='backToMainPageIcon' src='./images/back.png' class="actionBarIcon"  onclick="changeToMainPage()" >
+    		</a>
+    		
+    		<a href="#reportPage" data-transition="slide" data-direction="reverse">	
+    			<img id='backToInspectorsListIcon' src='./images/back.png' class="actionBarIcon"  onclick="changeToInspectorsList()" >
+    		</a>	
+    			
+     		<a href="#reportsListPage" data-transition="slide" data-direction="reverse">	
+    			<img id='backToReportsListIcon' src='./images/back.png' class="actionBarIcon"  onclick="" >
+    		</a>	   		
+    		<img id='logoActionBar' src='./images/logo_app.png' >
+    		<div id="actionBarHeader">
+    			
+    		</div>
+    		<table id="searchTableActionBar" style="display:none;">
+    			<tr>
+    				<td style="width: 100%; padding: 0 20px 5px 0px;"><input id="searchInspectorInput" onkeyup="filterInspectorsOnType()" style="width: 100%; border-radius:6px;" /></td>
+					<td><img id="backInspectorSearchIcon" src="images/manager_back.png" class="searchIcons" onclick="closeInspectorSearchBox(); showInspectorsList(getCurrentList());"></td>
+    			</tr>
+    		</table>
+    	</div>
+    	
+<!---------------------------- main page ----------------------------->    	
+    	<div data-role="page" id="mainPage">
+	    	<div class="page" style="position: absolute;">
+	    		<!----------------- reports icon ------------------>
+	    		<div class="quarter">
+		    		<a href="#reportsMenu" data-rel="popup" data-position-to="window" onclick="prepareReports()" class="mainPageA" id="reportsIconA">
+                        <img id='reportsIcon' src='./images/btn_reports_default.png' class="menuIcon">
+                        <div class='menuLabel' id='reportsLabel'>דוחות</div>
+                    </a>
+				</div>
+				<!----------------- empty quarter ------------------>
+				<div class="quarter">
+				</div>		
+				<!----------------- statistics icon ------------------>
+				<div class="quarter">
+					<a href="#StatisticsPage" onclick="openStatisticsPage()" class="mainPageA" data-transition="slide">
+						<img id='statisticsIcon' src='./images/btn_statistics_default.png' class="menuIcon">
+						<div class='menuLabel' id='statisticsLabel'>סטטיסטיקה</div>
+					</a>
+				</div>
+				<!----------------- positions icon ------------------>
+				<div class="quarter">
+					<a href="#" onclick="stopSpinner()" class="mainPageA">
+						<img id='positionsIcon' src='./images/btn_maps_default.png' class="menuIcon">
+						<div class='menuLabel' id='positionsLabel'>מיקומים</div>
+					</a>
+				</div>	
+	    	</div>
+	    	<!---------------------------- reports menu ----------------------------->    	
+	    	<div data-role="popup" id="reportsMenu" data-overlay-theme="b">
+		      	<div data-role="main" class="ui-content">
+					<a id="reportMenuA1" href="#reportPage" data-transition="slide" onclick="openReportPage(true,false,false);" class="reportsMenuDiv" ><img id="parkingIcon" src="images/ic_menu_parking.png" class="reportsMenuIcon" style="float: left"><label id="reportsMenuParkingLabel" class="reportsMenuLabel" for="parkingIcon" >חניה</label></a>
+					<a id="reportMenuA2" href="#reportPage" data-transition="slide" onclick="openReportPage(false,true,false);" class="reportsMenuDiv"><img id="municipalIcon" src="images/ic_menu_municipal.png" class="reportsMenuIcon" style="float: left"><label id="reportsMenuMunicipalLabel" class="reportsMenuLabel" for="municipalIcon">פיקוח עירוני</label></a>
+		      		<a id="reportMenuA3" href="#reportPage" data-transition="slide" onclick="openReportPage(false,false,true);" class="reportsMenuDiv"><img id="fieldReportsIcon" src="images/ic_menu_field.png" class="reportsMenuIcon" style="float: left"><label id="reportsMenuFieldReportsLabel" class="reportsMenuLabel" for="fieldReportsIcon">דיווחים מהשטח</label></a>
+		      	</div>
+    		</div> 
+    	</div>
+<!---------------------------- reports page ----------------------------->       	
+    	<div data-role="page" id="reportPage" > 
+	    	<div  class="page">
+	    		<div data-role="main" class="ui-content">
+	    			<a href="#reportsListPage" data-transition="slide">
+		    			<table id="inspectorsList" class="list">
+		    				
+		    			</table>
+		    		</a>
+	    		</div>
+				<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+				    <div data-role="navbar" data-tap-toggle="false" >
+				      <ul>
+				        <li><a href="#reportsMenuReportsPage" data-rel="popup" data-position-to="window" onclick="openReportMenuFromReportPage()" data-icon="group"></a></li>
+				        <li><a href="#" data-icon="search" onclick="openInspectorSearchBox()"></a></li>
+				        <li><a href="#" id="sortInspectionsIcon" data-icon="sort-amount-desc" onclick="sortInspectorList()"></a></li>
+				        <li><a href="#" id="datePicker" data-icon="calendar"></a></li>
+				        <li><a href="#" data-icon="recycle" onclick="refreshList()"></a></li>
+				      </ul>
+				    </div>
+				</div>
+		    	<!---------------------------- reports menu of report page----------------------------->    	
+		    	<div data-role="popup" id="reportsMenuReportsPage" data-overlay-theme="b">
+			      	<div data-role="main" class="ui-content">
+						<a id="reportMenuReportPageA1" href="#reportPage" data-transition="slide" onclick="openReportPage(true,false,false);" class="reportsMenuDiv" ><img id="parkingIconReportPage" src="images/ic_menu_parking.png" class="reportsMenuIcon" style="float: left"><label id="reportsMenuReportPageParkingLabel" class="reportsMenuLabel" for="parkingIcon" >חניה</label></a>
+						<br/>
+						<a id="reportMenuReportPageA2" href="#reportPage" data-transition="slide" onclick="openReportPage(false,true,false);" class="reportsMenuDiv"><img id="municipalIconReportPage" src="images/ic_menu_municipal.png" class="reportsMenuIcon" style="float: left"><label id="reportsMenuReportPageMunicipalLabel" class="reportsMenuLabel" for="municipalIcon">פיקוח עירוני</label></a>
+			      		<br/>
+			      		<a id="reportMenuReportPageA3" href="#reportPage" data-transition="slide" onclick="openReportPage(false,false,true);" class="reportsMenuDiv"><img id="fieldReportsIconReportPage" src="images/ic_menu_field.png" class="reportsMenuIcon" style="float: left"><label id="reportsMenuReportPageFieldReportsLabel" class="reportsMenuLabel" for="fieldReportsIcon">דיווחים מהשטח</label></a>
+			      	</div>
+	    		</div> 
+	    	</div>
+    	</div>
+ <!---------------------------- reports list ----------------------------->       	
+    	<div data-role="page" id="reportsListPage" > 
+	    	<div  class="page">
+	    		<div data-role="main" class="ui-content">
+	    			<a href="#reportDetailsPage" data-transition="slide">
+		    			<table id="reportsList" class="list">
+		    				
+		    			</table>
+	    			</a>
+	    		</div>
+
+	    	</div>
+    	</div>
+  <!---------------------------- report details ----------------------------->       	
+    	<div data-role="page" id="reportDetailsPage" > 
+	    	<div  class="page">
+	    		
+	    		<div data-role="main" class="ui-content" id="reportDetailsDiv">
+	    			<table id="reportDetails" class="detailsList">
+	    				
+                        <tr id="imagesSectionTr">
+
+                        </tr>
+	    			</table>
+	    		</div>
+	    	</div>
+            <!---------------------------- pictures div ----------------------------->
+	    	<div data-role="popup" id="picturesPopup" data-overlay-theme="b">
+                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+		      	<div data-role="main" class="ui-content" id="picturesPopupMain">
+                    <div id="imagesSection" >
+                    </div>
+		      	</div>
+    		</div>
+    	</div>
+        
+<!---------------------------- statistics page ----------------------------->
+    	<div data-role="page" id="StatisticsPage" >
+	    	<div  class="page">
+	    		
+	    		<div data-role="main" class="ui-content" id="reportDetailsDiv">
+                    <div class="fotorama" id="chartsPages" data-width="100%" data-arrows="false" data-click="false" data-loop="true" data-height="60%">
+                        <div id="reportsPieChartDiv" style="width:100%">
+                            <h3 id="pieChartHeader"></h3>
+                            <div id="reportsPieChart">
+                            </div>
+                        </div>
+                        <div id="leadingInspectorsDiv">
+                            <h3 id="leadingInspectorsChartHeader"></h3>
+                            <div id="leadingInspectorsChart">
+                               
+                            </div>
+                        </div>
+                        
+                        <div id="trailingInspectorsDiv">
+                            <h3 id="trailingInspectorsChartHeader"></h3>
+                            <div id="trailingInspectorsChart">
+                                
+                            </div>
+                        </div>
+                       <!-- <div id="doubleChecksDiv">
+                            <h3 id="doubleChecksHeader"></h3>
+                            <div id="doubleChecksChart">
+                            </div>
+                        </div>
+                        <div id="inspectorsWithoutReportDiv">
+                            <h3 id="inspectorsWithoutReportHeader"></h3>
+                        </div>-->
+                    </div>
+	    		</div>
+                <!---------------------------- footer ----------------------------->
+                <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+				    <div data-role="navbar" data-tap-toggle="false" >
+                        <ul>
+                            <!--<li><a href="#reportsMenuStatisticsPage" data-rel="popup" data-position-to="window" onclick="openReportMenuFromStatisticsPage()" data-icon="group"></a></li>-->
+                            <li><a href="#" data-icon="group"></a></li>
+                            <li><a href="#" data-icon="recycle" onclick="reloadStatisticsPage(parkingIsChosen,municipalIsChosen,fieldReportsIsChosen)"></a></li>
+                            <li><a href="#" id="datePickerStatistics" data-icon="calendar"></a></li>
+                        </ul>
+				    </div>
+				</div>
+                <!---------------------------- reports menu of statistics page----------------------------->
+		    	<div data-role="popup" id="reportsMenuStatisticsPage" data-overlay-theme="b">
+			      	<div data-role="main" class="ui-content">
+						<a id="reportMenuStatisticsPageA1" href="#" onclick="reloadStatisticsPage(true,false,false)" class="reportsMenuDiv" ><img id="parkingIconStatisticsPage" src="images/ic_menu_parking.png" class="reportsMenuIcon" style="float: left"><label id="reportsMenuStatisticsPageParkingLabel" class="reportsMenuLabel" for="parkingIcon" >חניה</label></a>
+						<br/>
+						<a id="reportMenuStatisticsPageA2" href="#" onclick="reloadStatisticsPage(false,true,false)" class="reportsMenuDiv"><img id="municipalIconStatisticsPage" src="images/ic_menu_municipal.png" class="reportsMenuIcon" style="float: left"><label id="reportsMenuStatisticsPageMunicipalLabel" class="reportsMenuLabel" for="municipalIcon">פיקוח עירוני</label></a>
+			      		<br/>
+			      		<a id="reportMenuStatisticsPageA3" href="#" onclick="reloadStatisticsPage(false,false,true)" class="reportsMenuDiv"><img id="fieldReportsIconStatisticsPage" src="images/ic_menu_field.png" class="reportsMenuIcon" style="float: left"><label id="reportsMenuStatisticsPageFieldReportsLabel" class="reportsMenuLabel" for="fieldReportsIcon">דיווחים מהשטח</label></a>
+			      	</div>
+	    		</div>
+	    	</div>
+        </div>
+<!---------------------------- positions page ----------------------------->
+    	<div data-role="page" id="positionsPage" >
+	    	<div  class="page">
+	    		<div data-role="main" class="ui-content" id="mapCanvas">
+	    		</div>
+	    	</div>
+    	</div>
+ <!---------------------------- login page ----------------------------->
+    	<div data-role="page" id="loginPage">
+	    	<div  class="page">
+			    <ul data-role="listview">
+			    	<li data-role="list-divider">License key information</li>
+			      	<li>
+			      		<a href="#licenseKeyInputBox"  data-rel="popup" data-position-to="window" style="min-height: inherit; padding-left: inherit; font-size:90%;">
+			      			<img src="images/ic_licensekey.png" class="loginPageIcom" style="position: inherit; margin-bottom: -4px">License key
+		      			</a>
+	      			</li>
+			    </ul>
+			    <ul data-role="listview">
+			    	<li data-role="list-divider">Server information</li>
+			      	<li>
+			      		<a href="#parkingServerInputBox"  data-rel="popup" data-position-to="window" style="min-height: inherit; padding-left: inherit;">
+			      			<img src="images/ic_server.png" class="loginPageIcom" style="position: inherit"><div class="insideListDiv" style="font-size:90%">Parking Server<br/><span class="insideListSpan">Parking server address</span></div>
+		      			</a>
+	      			</li>
+			      	<li>
+			      		<a href="#municipalServerInputBox"  data-rel="popup" data-position-to="window" style="min-height: inherit; padding-left: inherit;">
+			      			<img src="images/ic_server.png" class="loginPageIcom" style="position: inherit"><div class="insideListDiv"  style="font-size:90%">Municipal Server<br/><span class="insideListSpan">Municipal server address</span></div>
+			      		</a>
+		      		</li>
+			      	<li>
+			      		<a href="#fieldReportServerInputBox" data-rel="popup" data-position-to="window" style="min-height: inherit; padding-left: inherit;">
+			      			<img src="images/ic_server.png" class="loginPageIcom" style="position: inherit"><div class="insideListDiv"  style="font-size:90%">Field Report Server<br/><span class="insideListSpan">Field server address</span></div>
+		      			</a>
+	      			</li>
+			    </ul>
+	    	</div>
+			<!---------------------------- license key div ----------------------------->  	    	
+	    	<div data-role="popup" id="licenseKeyInputBox" data-overlay-theme="b">
+		      	<div data-role="header">
+		        	<h1 style="margin:0px;">License key</h1>
+		      	</div>
+		
+		      	<div data-role="main" class="ui-content">
+		        	<input id="licenseKey" type="url" />
+		      	</div>
+		
+		      	<div data-role="footer" style="background-color:transparent; border:none">
+	        	    <div data-role="controlgroup" data-type="horizontal" style="margin:0px; width:100%">
+				      	<a href="#" data-rel="back" class="ui-btn dialogButton" style="border-top-left-radius: 0px" onclick="saveLicenseKey()">OK</a>
+				      	<a href="#" data-rel="back" class="ui-btn dialogButton" style="border-top-right-radius: 0px" >Cancel</a>
+				    </div>
+		      	</div>
+    		</div>
+    		<!---------------------------- parking server div ----------------------------->
+	    	<div data-role="popup" id="parkingServerInputBox" data-overlay-theme="b">
+		      	<div data-role="header">
+		        	<h1 style="margin:0px;">Parking Server</h1>
+		      	</div>
+	        	<label for="parkingServerLolatechIsrael" id="parkingServerLolatechIsraelLabel">Lolatech Israel</label> <input id="parkingServerLolatechIsrael" name="parkingServerRadioButton" type="radio" checked/>
+	        	<label for="parkingServerLolatechPanama" id="parkingServerLolatechPanamaLabel">Lolatech Panama</label> <input id="parkingServerLolatechPanama" name="parkingServerRadioButton" type="radio" />
+	      		<label for="parkingServerTelAviv" id="parkingServerTelAvivLabel">Tel Aviv</label> <input id="parkingServerTelAviv" name="parkingServerRadioButton" type="radio" />
+	      		<label for="parkingServerItaly" id="parkingServerItalyLabel">Italy (Chiusi)</label> <input id="parkingServerItaly" name="parkingServerRadioButton" type="radio" />
+		      	<div data-role="footer" style="background-color:transparent; border:none">
+	        	    <div data-role="controlgroup" data-type="horizontal" style="margin:0px; width:100%">
+				      	<a href="#" data-rel="back" class="ui-btn dialogButton singleButton" style="border-top-left-radius: 0px; border-top-right-radius: 0px" onclick="saveServerInLocalStorage('parkingServerRadioButton')">Done</a>
+				    </div>
+		      	</div>
+    		</div>
+    		<!---------------------------- municipal server div ----------------------------->
+	    	<div data-role="popup" id="municipalServerInputBox" data-overlay-theme="b">
+		      	<div data-role="header">
+		        	<h1 style="margin:0px;">Municipal Server</h1>
+		      	</div>
+	        	<label for="municipalServerLolatechIsrael" id="municipalServerLolatechIsraelLabel">Lolatech Israel</label> <input id="municipalServerLolatechIsrael" name="municipalServerRadioButton" type="radio" checked/>
+	        	<label for="municipalServerAshkelon" id="municipalServerAshkelonLabel">Ashkelon</label> <input id="municipalServerAshkelon" name="municipalServerRadioButton" type="radio" />
+	      		<label for="municipalServerJerusalem" id="municipalServerJerusalemLabel">Jerusalem</label> <input id="municipalServerJerusalem" name="municipalServerRadioButton" type="radio" />
+	      		<label for="municipalServerRaanana" id="municipalServerRaananaLabel">Raanana</label> <input id="municipalServerRaanana" name="municipalServerRadioButton" type="radio" />
+	      		<label for="municipalServerRamatGan" id="municipalServerRamatGanLabel">Ramat-Gan</label> <input id="municipalServerRamatGan" name="municipalServerRadioButton" type="radio" />
+		      	<div data-role="footer" style="background-color:transparent; border:none">
+	        	    <div data-role="controlgroup" data-type="horizontal" style="margin:0px; width:100%">
+				      	<a href="#" data-rel="back" class="ui-btn dialogButton singleButton" style="border-top-left-radius: 0px; border-top-right-radius: 0px" onclick="saveServerInLocalStorage('municipalServerRadioButton')">Done</a>
+                    </div>
+		      	</div>
+    		</div>
+    		<!---------------------------- field reports div ----------------------------->
+	    	<div data-role="popup" id="fieldReportServerInputBox" data-overlay-theme="b">
+		      	<div data-role="header">
+		        	<h1 style="margin:0px;">Field Reports Server</h1>
+		      	</div>
+	        	<label for="fieldReportServerLolatechIsrael" id="fieldReportServerLolatechIsraelLabel">Lolatech Israel</label> <input id="fieldReportServerLolatechIsrael" name="fieldReportServerRadioButton" type="radio" checked/>
+	        	<label for="fieldReportServerLolatechPanama" id="fieldReportServerLolatechPanamaLabel">Lolatech Panama</label> <input id="fieldReportServerLolatechPanama" name="fieldReportServerRadioButton" type="radio" />
+	      		<label for="fieldReportServerPelemarin" id="fieldReportServerPelemarinLabel">Tel Aviv</label> <input id="fieldReportServerPelemarin" name="fieldReportServerRadioButton" type="radio" />
+	      		<label for="fieldReportServerBituachLeumi" id="fieldReportServerBituachLeumiLabel">Bituach Leumi</label> <input id="fieldReportServerBituachLeumi" name="fieldReportServerRadioButton" type="radio" />
+	      		<label for="fieldReportServerAshkelon" id="fieldReportServerAshkelonLabel">Ashkelon</label> <input id="fieldReportServerAshkelon" name="fieldReportServerRadioButton" type="radio" />
+	      		<div data-role="footer" style="background-color:transparent; border:none">
+	        	    <div data-role="controlgroup" data-type="horizontal" style="margin:0px; width:100%">
+				      	<a href="#" data-rel="back" class="ui-btn dialogButton singleButton" style="border-top-left-radius: 0px; border-top-right-radius: 0px" onclick="saveServerInLocalStorage('fieldReportServerRadioButton')">Done</a>
+				    </div>
+		      	</div>
+    		</div>  
+		
+    	</div>
+    	
+	</body>
+
+</html>
