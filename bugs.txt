@@ -1,6 +1,0 @@
-bugs
-
-*	" turns into /" on the json creation
-*	searchbox is out of its location when checking on device
-*	fixed headers and footers are mislocated when keyboard opens
-*	calendar is inverse in hebrew
