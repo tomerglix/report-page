@@ -1,0 +1,30 @@
+			#mainPageWrapper
+			{
+				padding: 0 8px;
+			}
+			button
+			{
+				width:auto;
+			}
+			.normalButton
+			{
+				background:white;
+				border: solid 1px #0099CC;
+				color: #0099CC;
+				font-size: x-large;
+				border-radius: 7px;
+				-webkit-box-shadow:none;
+			}
+			.normalButton:active
+			{
+				background:#0099CC;
+				color:white;
+			}
+			.employeeSpan
+			{
+				font-size: x-large;
+				font-family:"Arial Black";
+				display: inline-block;
+				width: 45%;
+				/*overflow: hidden;*/
+			}
