@@ -10,7 +10,7 @@
     <string-array name="list_values_parking">
         <item>http://62.0.66.6/</item>
         <item>http://62.0.66.4/</item>
-        <item>http://172.19.2.252/</item>
+        <item>http://172.19.2.253/</item>
         <item>http://159.213.235.24/</item>
     </string-array>
     <string-array name="list_options_municipal">
